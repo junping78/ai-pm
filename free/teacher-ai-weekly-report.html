@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教师免费AI工具周报 | 刘俊平</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f8f7f4;
+            color: #2c2c2a;
+            line-height: 1.8;
+        }
+        .header {
+            background: linear-gradient(135deg, #534AB7 0%, #7F77DD 100%);
+            color: white;
+            padding: 44px 20px 36px;
+            text-align: center;
+        }
+        .header h1 { font-size: 30px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 15px; opacity: 0.9; }
+        .header .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 14px;
+        }
+        .container { max-width: 1080px; margin: 0 auto; padding: 28px 18px 64px; }
+
+        .section { margin-bottom: 40px; }
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #3C3489;
+            margin-bottom: 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #CECBF6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title .icon { font-size: 24px; }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 18px;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            border: 1px solid #ececec;
+            transition: box-shadow 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .tool-card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .tool-card .tool-name {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .tool-card .tool-name a {
+            color: #3C3489;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .tool-card .tool-name a:hover {
+            color: #7F77DD;
+            text-decoration: underline;
+        }
+        .tool-card .tool-vendor { font-size: 12px; color: #888; margin-bottom: 10px; }
+        .tool-card .tool-desc { font-size: 13.5px; color: #555; line-height: 1.7; flex-grow: 1; }
+        .tool-card .tool-tags { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+        .tool-card .tool-link {
+            margin-top: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 13px;
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            background: #534AB7;
+            border-radius: 8px;
+            transition: background 0.2s;
+            align-self: flex-start;
+        }
+        .tool-card .tool-link:hover { background: #3C3489; }
+        .tag {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        .tag-free { background: #E1F5EE; color: #0F6E56; }
+        .tag-limited { background: #FAEEDA; color: #854F0B; }
+        .tag-official { background: #EEEDFE; color: #534AB7; }
+        .tag-vpn { background: #FAECE7; color: #993C1D; }
+        .tag-restricted { background: #FCEBEB; color: #A32D2D; }
+        .tag-direct { background: #EAF3DE; color: #3B6D11; }
+        .tag-ppt { background: #E6F1FB; color: #185FA5; }
+
+        .category-official { border-left: 4px solid #534AB7; }
+        .category-domestic { border-left: 4px solid #0F6E56; }
+        .category-teaching { border-left: 4px solid #185FA5; }
+        .category-foreign-free { border-left: 4px solid #3B6D11; }
+        .category-foreign-teacher { border-left: 4px solid #993C1D; }
+        .category-ppt { border-left: 4px solid #185FA5; }
+
+        .notice-box {
+            background: #FEF3C7;
+            border: 1px solid #FDE68A;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 24px;
+            font-size: 13.5px;
+            color: #78350F;
+        }
+        .notice-box strong { color: #92400E; }
+
+        .access-box {
+            background: #FCEBEB;
+            border: 1px solid #F09595;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 24px;
+            font-size: 13.5px;
+            color: #501313;
+        }
+        .access-box strong { color: #A32D2D; }
+        .access-box ul { margin-top: 10px; padding-left: 20px; }
+        .access-box li { margin-bottom: 8px; }
+
+        .recommend-box {
+            background: #E1F5EE;
+            border: 1px solid #9FE1CB;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-bottom: 24px;
+        }
+        .recommend-box h3 { font-size: 15px; color: #0F6E56; margin-bottom: 12px; }
+        .recommend-box ol { padding-left: 20px; }
+        .recommend-box li { font-size: 13.5px; margin-bottom: 8px; color: #333; }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            font-size: 13.5px;
+        }
+        .compare-table th {
+            background: #534AB7;
+            color: white;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 500;
+        }
+        .compare-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table tr:hover td { background: #f9f9fb; }
+        .compare-table a { color: #185FA5; text-decoration: none; }
+        .compare-table a:hover { text-decoration: underline; }
+        .restriction-cell { font-size: 13px; }
+        .restriction-cell .r-label { font-weight: 600; display: block; margin-bottom: 4px; }
+
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid #eee;
+            margin-top: 44px;
+        }
+
+        @media (max-width: 640px) {
+            .tool-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 24px; }
+            .compare-table { font-size: 12px; }
+            .compare-table th, .compare-table td { padding: 10px 12px; }
+        }
+
+        /* --- 返回网站导航条 --- */
+        .site-nav {
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 0 20px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+        }
+        .site-nav .site-nav-brand {
+            font-size: 15px;
+            font-weight: 700;
+            color: #3C3489;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .site-nav .site-nav-brand:hover { text-decoration: none; color: #534AB7; }
+        .site-nav .site-nav-links {
+            display: flex;
+            gap: 14px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .site-nav .site-nav-links a {
+            font-size: 13.5px;
+            color: #555;
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .site-nav .site-nav-links a:hover {
+            background: #EEEDFE;
+            color: #3C3489;
+            text-decoration: none;
+        }
+        @media (max-width: 640px) {
+            .site-nav { padding: 0 14px; height: 44px; }
+            .site-nav .site-nav-brand { font-size: 13px; }
+            .site-nav .site-nav-links { gap: 4px; }
+            .site-nav .site-nav-links a { font-size: 12px; padding: 4px 6px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 返回网站导航条 -->
+<nav class="site-nav">
+    <a href="../index.html" class="site-nav-brand">← 刘俊平 · AI赋能项目管理</a>
+    <ul class="site-nav-links">
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="../about.html">关于我</a></li>
+        <li><a href="../ai-project-management.html">AI赋能项目管理</a></li>
+        <li><a href="../teacher-ai-weekly.html">活动介绍</a></li>
+    </ul>
+</nav>
+
+<div class="header">
+    <h1>教师免费AI工具周报</h1>
+    <div class="subtitle">国内外教师可免费使用的AI工具汇总与最新政策更新</div>
+    <div class="date-badge" id="report-date">本期日期：--</div>
+</div>
+
+<div class="container">
+
+    <div class="notice-box">
+        <strong>重要提示：</strong>AI工具的免费/付费政策变化很快，本报告信息截至页面标注日期。部分工具的“免费”指基础功能免费，高级功能或高频使用可能受限。豆包已于2026年5月起推出付费版（68元/月起），基础功能仍免费，但同声传译、AI PPT、高清生图等高算力功能每日有次数限制。
+    </div>
+
+    <div class="access-box">
+        <strong>关于国外AI工具的实际门槛说明（非常重要）：</strong>
+        <ul>
+            <li><strong>仅需VPN即可使用（无其他身份限制）：</strong>twee（twee.com）、Inciteful（实际官网为 inciteful.xyz）—— 有VPN就能打开，无教师身份要求，任何人可注册或直接使用。</li>
+            <li><strong>需VPN + Google账号：</strong>NotebookLM —— 无教师身份要求，但中国大陆访问需VPN，且个人账号使用需Google账号。</li>
+            <li><strong>VPN + 美国K-12教师认证（中国教师通常无法通过）：</strong>ChatGPT for Teachers —— 需OpenAI教师身份验证，仅面向美国K-12教师，中国教师基本无法通过。</li>
+            <li><strong>VPN + Google Workspace教育版账号（学校需已注册）：</strong>Google Gemini for Education —— 个人无法自行注册，需学校已开通Google教育版。</li>
+            <li><strong>中国官方不可用 + 合作院校账号：</strong>Claude for Education —— 官方支持地区不包含中国大陆，教育版仅限Anthropic合作院校师生。</li>
+            <li><strong>学校Microsoft 365教育版账号（部分中国高校已有，无需VPN）：</strong>Microsoft Copilot 教育版 —— 门槛在于学校是否开通微软教育版，个人无法自行注册。</li>
+            <li><strong>中国有独立版本（无需VPN）：</strong>Canva可画教育版 —— 国内站 canva.cn，中国教师可直接用学校邮箱或教师资格证认证，认证后永久免费。</li>
+        </ul>
+    </div>
+
+    <div class="recommend-box">
+        <h3>给教师的快速推荐组合</h3>
+        <ol>
+            <li><strong>零门槛起步：</strong>国家智慧教育平台2.0 + DeepSeek + 豆包（基础功能）+ Kimi</li>
+            <li><strong>备课提效：</strong>希沃白板 / 101教育PPT 做课件 + 秘塔AI搜索查资料 + 即梦做教学插图</li>
+            <li><strong>英语教师专项：</strong>twee（需VPN）+ Canva可画教育版（国内直接可用）+ 微软翻译（面对面双向翻译）</li>
+            <li><strong>科研/论文型教师：</strong>智谱清言 + 腾讯IMA + Inciteful（需VPN）</li>
+            <li><strong>办公协作：</strong>腾讯文档 / 金山文档（WPS 365教育版）+ 讯飞听见（会议录音转文字）</li>
+        </ol>
+    </div>
+
+    <!-- 国内官方平台 -->
+    <div class="section">
+        <div class="section-title">
+            <span class="icon">🏛️</span>
+            国内官方平台（直接可用，完全免费）
+        </div>
+        <div class="tool-grid">
+            <div class="tool-card category-official">
+                <div class="tool-name"><a href="https://www.smartedu.cn/" target="_blank" rel="noopener">国家智慧教育平台 2.0 智能版</a></div>
+                <div class="tool-vendor">教育部官方出品</div>
+                <div class="tool-desc">覆盖全学段全学科，提供数学解题助手、英语点读、智能出题助手、"育小苗"智能体、心理健康大模型等AI功能。官方资源，完全免费。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-official">官方平台</span>
+                    <span class="tag tag-free">完全免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://www.smartedu.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-official">
+                <div class="tool-name"><a href="https://higher.smartedu.cn/ai2026" target="_blank" rel="noopener">国家高等教育智慧教育平台 · AI2026</a></div>
+                <div class="tool-vendor">教育部 / 高等教育出版社</div>
+                <div class="tool-desc">高等教育版块的AI专题入口，汇聚人工智能课程、教学资源与政策动态。适合高校教师查找AI教学资源和培训内容。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-official">官方平台</span>
+                    <span class="tag tag-free">完全免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://higher.smartedu.cn/ai2026" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-official">
+                <div class="tool-name"><a href="https://aiteach.qq.com/" target="_blank" rel="noopener">AI企鹅教师助手</a></div>
+                <div class="tool-vendor">腾讯 / 教育部门合作</div>
+                <div class="tool-desc">面向中小学教师，提供教材同步的AI备课、出题、资源推荐。需按活动/学校参与，适合K12教师。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-official">官方合作</span>
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://aiteach.qq.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 国内通用大模型 -->
+    <div class="section">
+        <div class="section-title">
+            <span class="icon">🤖</span>
+            国内通用大模型（基础功能免费，直接可用）
+        </div>
+        <div class="tool-grid">
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a></div>
+                <div class="tool-vendor">深度求索</div>
+                <div class="tool-desc">深度推理能力强，适合跨学科备课、复杂课题研究、教案设计、题目解析。基础功能完全免费。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://www.deepseek.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://www.doubao.com/" target="_blank" rel="noopener">豆包</a></div>
+                <div class="tool-vendor">字节跳动</div>
+                <div class="tool-desc">基础问答、作文批改、生图、语音对话免费。2026年5月起推出付费版（68元/月起），同声传译、AI PPT、高清生图等高算力功能免费版每日有限次数。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-limited">高算力功能受限</span>
+                </div>
+                <a href="https://www.doubao.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener">Kimi</a></div>
+                <div class="tool-vendor">月之暗面</div>
+                <div class="tool-desc">超长上下文，可上传教材PDF生成知识大纲、一键生成PPT。适合处理长文档和教学资料。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></div>
+                <div class="tool-vendor">智谱AI（清华系）</div>
+                <div class="tool-desc">古诗文/文言文理解精准，可生成赏析、阅读理解习题，学术写作辅助能力较强。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://chatglm.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://yiyan.baidu.com/" target="_blank" rel="noopener">文心一言</a></div>
+                <div class="tool-vendor">百度</div>
+                <div class="tool-desc">教案大纲生成、知识点拆解、学情数据分析，与百度搜索深度整合。基础功能免费。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://yiyan.baidu.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://tongyi.aliyun.com/" target="_blank" rel="noopener">通义千问</a></div>
+                <div class="tool-vendor">阿里巴巴</div>
+                <div class="tool-desc">推理能力强、编程教学辅助、文档解析能力突出。适合信息技术教师和STEM课程备课。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://tongyi.aliyun.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://xinghuo.xfyun.cn/" target="_blank" rel="noopener">讯飞星火</a></div>
+                <div class="tool-vendor">科大讯飞</div>
+                <div class="tool-desc">语音识别精准，课堂实时转写、双语教学、数学解题、数字分身。适合语言类和课堂互动。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://xinghuo.xfyun.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-domestic">
+                <div class="tool-name"><a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener">腾讯元宝</a></div>
+                <div class="tool-vendor">腾讯</div>
+                <div class="tool-desc">教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档，适合日常办公。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 国内教学/课件专用工具 -->
+    <div class="section">
+        <div class="section-title">
+            <span class="icon">📚</span>
+            国内教学 / 课件专用工具（直接可用）
+        </div>
+        <div class="tool-grid">
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://easinote.seewo.com/" target="_blank" rel="noopener">希沃白板</a></div>
+                <div class="tool-vendor">视源股份</div>
+                <div class="tool-desc">输入主题一键生成课件、思维导图、互动课堂活动。教师常用的AI课件制作工具，K12资源库丰富。</div>
+                <div class="tool-tags"><span class="tag tag-free">免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://easinote.seewo.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://ppt.101.com/" target="_blank" rel="noopener">101教育PPT</a></div>
+                <div class="tool-vendor">网龙华渔教育</div>
+                <div class="tool-desc">K12备授课一体化工具，覆盖全学段全学科，内置海量课件、教案、微课和学科工具，支持AI智能推荐。</div>
+                <div class="tool-tags"><span class="tag tag-free">免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://ppt.101.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://metaso.cn/" target="_blank" rel="noopener">秘塔AI搜索</a></div>
+                <div class="tool-vendor">秘塔科技</div>
+                <div class="tool-desc">无广告学术/资料检索，自动生成结构化答案、思维导图和参考文献。适合教师备课查资料。</div>
+                <div class="tool-tags"><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://metaso.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://jimeng.jianying.com/" target="_blank" rel="noopener">即梦</a></div>
+                <div class="tool-vendor">字节跳动</div>
+                <div class="tool-desc">AI生图、教学插图、历史场景还原、短视频素材。每日免费额度较大。</div>
+                <div class="tool-tags"><span class="tag tag-free">每日免费额度</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://jimeng.jianying.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://zenvideo.qq.com/" target="_blank" rel="noopener">腾讯智影</a></div>
+                <div class="tool-vendor">腾讯</div>
+                <div class="tool-desc">AI数字人讲解、文字转视频微课制作。适合快速制作教学视频和微课。</div>
+                <div class="tool-tags"><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://zenvideo.qq.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://www.iflyrec.com/" target="_blank" rel="noopener">讯飞听见</a></div>
+                <div class="tool-vendor">科大讯飞</div>
+                <div class="tool-desc">语音转文字，教研会议录音转文字、口语作业评分。免费版支持实时转写。</div>
+                <div class="tool-tags"><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://www.iflyrec.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://www.haimian.com/" target="_blank" rel="noopener">海绵音乐</a></div>
+                <div class="tool-vendor">字节跳动</div>
+                <div class="tool-desc">AI音乐生成，可用于课件背景音乐、班级活动BGM。目前完全免费。</div>
+                <div class="tool-tags"><span class="tag tag-free">完全免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://www.haimian.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://www.coze.cn/" target="_blank" rel="noopener">扣子 Coze</a></div>
+                <div class="tool-vendor">字节跳动</div>
+                <div class="tool-desc">零代码搭建教案智能体、学科专用AI助手、班级管理机器人。适合有想法但不想编程的教师。</div>
+                <div class="tool-tags"><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://www.coze.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://ima.qq.com/" target="_blank" rel="noopener">腾讯IMA</a></div>
+                <div class="tool-vendor">腾讯</div>
+                <div class="tool-desc">跨平台检索论文、知识库管理、个人资料库问答。免费赠送1GB云存储。</div>
+                <div class="tool-tags"><span class="tag tag-free">免费1GB</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://ima.qq.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://www.microsoft.com/zh-cn/translator/" target="_blank" rel="noopener">微软翻译</a></div>
+                <div class="tool-vendor">微软</div>
+                <div class="tool-desc">面对面双向实时翻译，支持100人对话模式。完全免费，中国直接可用，支持离线。教师跨语言交流首选。</div>
+                <div class="tool-tags"><span class="tag tag-free">完全免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://www.microsoft.com/zh-cn/translator/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://www.canva.cn/education/" target="_blank" rel="noopener">Canva可画教育版</a></div>
+                <div class="tool-vendor">Canva（中国版）</div>
+                <div class="tool-desc">国内站 canva.cn，中国教师可用学校邮箱或上传教师资格证认证，认证后永久免费使用教育版功能。</div>
+                <div class="tool-tags"><span class="tag tag-free">教师永久免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://www.canva.cn/education/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://docs.qq.com/" target="_blank" rel="noopener">腾讯文档</a></div>
+                <div class="tool-vendor">腾讯</div>
+                <div class="tool-desc">多人协作在线文档，支持AI一键总结、思维导图生成、智能表格。适合教研组共享资料和教案。</div>
+                <div class="tool-tags"><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://docs.qq.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://www.kdocs.cn/" target="_blank" rel="noopener">金山文档</a></div>
+                <div class="tool-vendor">金山办公</div>
+                <div class="tool-desc">在线协作文档、表格、PPT，兼容WPS格式，支持AI模板和多人实时编辑。学校可申请WPS 365教育版。</div>
+                <div class="tool-tags"><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://www.kdocs.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 免费PPT制作工具 -->
+    <div class="section">
+        <div class="section-title">
+            <span class="icon">📊</span>
+            免费PPT / 课件制作工具
+        </div>
+        <div class="tool-grid">
+            <div class="tool-card category-ppt">
+                <div class="tool-name"><a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener">Kimi PPT</a></div>
+                <div class="tool-vendor">月之暗面</div>
+                <div class="tool-desc">Kimi内置PPT生成功能，输入主题自动生成大纲、内容和排版，可在线编辑导出。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-ppt">
+                <div class="tool-name"><a href="https://chat-ppt.com/" target="_blank" rel="noopener">ChatPPT</a></div>
+                <div class="tool-vendor">必优科技</div>
+                <div class="tool-desc">对话式生成PPT，自然语言控制内容、样式和动画。基础功能免费。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://chat-ppt.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-ppt">
+                <div class="tool-name"><a href="https://www.madown.com/" target="_blank" rel="noopener">麦当秀AIPPT</a></div>
+                <div class="tool-vendor">麦当秀</div>
+                <div class="tool-desc">输入主题一键生成教学PPT，支持模板替换和在线编辑。基础功能免费。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://www.madown.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-ppt">
+                <div class="tool-name"><a href="https://liveppt.cn/" target="_blank" rel="noopener">LivePPT</a></div>
+                <div class="tool-vendor">美图</div>
+                <div class="tool-desc">美图出品，AI生成PPT，操作简单，模板丰富。基础功能免费。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://liveppt.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-ppt">
+                <div class="tool-name"><a href="https://zhiwen.xfyun.cn/" target="_blank" rel="noopener">讯飞智文</a></div>
+                <div class="tool-vendor">科大讯飞</div>
+                <div class="tool-desc">AI生成PPT、Word文档，语音输入生成课件。教育场景适配好。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">基础免费</span><span class="tag tag-direct">直接可用</span></div>
+                <a href="https://zhiwen.xfyun.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-ppt">
+                <div class="tool-name"><a href="https://gamma.app/" target="_blank" rel="noopener">Gamma</a></div>
+                <div class="tool-vendor">Gamma</div>
+                <div class="tool-desc">国外AI演示工具，输入文字即可生成精美PPT/网页，设计感强。免费版有额度限制，需VPN。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">免费额度</span><span class="tag tag-vpn">需VPN</span></div>
+                <a href="https://gamma.app/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-ppt">
+                <div class="tool-name"><a href="https://www.beautiful.ai/" target="_blank" rel="noopener">Beautiful.ai</a></div>
+                <div class="tool-vendor">Beautiful.ai</div>
+                <div class="tool-desc">智能排版PPT工具，自动调整版式和图表。免费版功能有限，高级模板需付费，需VPN。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">基础免费</span><span class="tag tag-vpn">需VPN</span></div>
+                <a href="https://www.beautiful.ai/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 国外仅需VPN -->
+    <div class="section">
+        <div class="section-title">
+            <span class="icon">🌐</span>
+            国外工具 · 仅需VPN即可使用（无身份限制）
+        </div>
+        <div class="tool-grid">
+            <div class="tool-card category-foreign-free">
+                <div class="tool-name"><a href="https://twee.com/" target="_blank" rel="noopener">twee</a></div>
+                <div class="tool-vendor">twee.com</div>
+                <div class="tool-desc">英语教师专属工具，生成词汇、阅读、写作、口语、语法等教学素材。注册即用，无教师身份认证要求。有免费额度。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">有免费额度</span>
+                    <span class="tag tag-vpn">需VPN</span>
+                </div>
+                <a href="https://twee.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-foreign-free">
+                <div class="tool-name"><a href="https://inciteful.xyz/" target="_blank" rel="noopener">Inciteful</a></div>
+                <div class="tool-vendor">inciteful.xyz</div>
+                <div class="tool-desc">基于引用网络的文献发现工具，可视化论文关系、快速定位相关文献。适合教研论文写作。无需注册即可使用。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">完全免费</span>
+                    <span class="tag tag-vpn">需VPN</span>
+                </div>
+                <a href="https://inciteful.xyz/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+            <div class="tool-card category-foreign-free">
+                <div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank" rel="noopener">NotebookLM</a></div>
+                <div class="tool-vendor">Google</div>
+                <div class="tool-desc">上传教学资料生成学习指南、FAQ、音频概要（AI播客）。需VPN + Google账号，无教师身份要求。2026年6月起与Google Classroom深度整合。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-vpn">需VPN + Google账号</span>
+                </div>
+                <a href="https://notebooklm.google.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 国外教师专属（有额外限制） -->
+    <div class="section">
+        <div class="section-title">
+            <span class="icon">🌍</span>
+            国外工具 · 教师专属计划（有身份/账号限制，VPN不够）
+        </div>
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th style="width:18%">工具</th>
+                    <th style="width:30%">免费内容</th>
+                    <th style="width:52%">实际限制（VPN不是唯一门槛）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong><a href="https://openai.com/chatgpt/education/" target="_blank" rel="noopener">ChatGPT for Teachers</a></strong></td>
+                    <td>GPT-5.1无限对话、联网搜索、文件上传、语音模式、图片生成、数据分析，免费至2027年6月</td>
+                    <td class="restriction-cell">
+                        <span class="r-label" style="color:#A32D2D">VPN + 美国K-12教师认证（双重限制）</span>
+                        需通过OpenAI的教师身份验证（学校邮箱或教师证件）。仅面向美国K-12（幼儿园至高三）教师，中国教师通常无法通过认证。使用虚假材料有封号风险，不推荐。
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong><a href="https://edu.google.com/intl/ALL_us/get-started/gemini/" target="_blank" rel="noopener">Google Gemini for Education</a></strong></td>
+                    <td>深度集成Google Classroom、自动生成测验、播客式音频课程、学习材料生成</td>
+                    <td class="restriction-cell">
+                        <span class="r-label" style="color:#A32D2D">VPN + Google Workspace教育版账号（学校需已注册）</span>
+                        需要学校已开通Google Workspace for Education，个人无法自行注册。中国大陆学校极少使用Google教育版，大多数中国教师无法使用。2026年6月起Gemini接入Google Classroom。
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong><a href="https://claude.com/education" target="_blank" rel="noopener">Claude for Education</a></strong></td>
+                    <td>苏格拉底式学习模式、超长上下文、交互式课件生成、学术写作辅助</td>
+                    <td class="restriction-cell">
+                        <span class="r-label" style="color:#A32D2D">中国官方不可用 + 合作院校账号</span>
+                        Claude官方支持地区不包含中国大陆。教育版仅限Anthropic合作院校（如部分欧美高校）的师生。中国教师即使有VPN，也难以合规注册使用。建议使用国内替代品。
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong><a href="https://www.microsoft.com/zh-cn/education/products/copilot-in-education" target="_blank" rel="noopener">Microsoft Copilot 教育版</a></strong></td>
+                    <td>集成Microsoft 365、Word/PPT/Excel AI辅助、课堂管理工具，2026年6月新增学习智能体</td>
+                    <td class="restriction-cell">
+                        <span class="r-label" style="color:#854F0B">学校Microsoft 365教育版账号（部分中国高校已有，无需VPN）</span>
+                        需要学校已开通Microsoft 365教育版。部分中国高校已有该账号，教师可直接使用，VPN通常不需要。门槛在于学校是否开通，个人无法自行注册。
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 豆包收费对比 -->
+    <div class="section">
+        <div class="section-title">
+            <span class="icon">💰</span>
+            豆包免费版 VS 付费版对比（2026年5月起）
+        </div>
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th>版本</th>
+                    <th>价格</th>
+                    <th>适合人群</th>
+                    <th>核心区别</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>免费版</strong></td>
+                    <td>0元</td>
+                    <td>日常问答、聊天、简单翻译、文档总结</td>
+                    <td>基础功能永久免费。高算力功能（同声传译、AI PPT、高清生图、复杂数据分析等）每日有限次数，次日重置。</td>
+                </tr>
+                <tr>
+                    <td><strong>标准版</strong></td>
+                    <td>68元/月</td>
+                    <td>轻度生产力用户</td>
+                    <td>长文本处理、PPT大纲、高峰期优先响应、更大使用额度。</td>
+                </tr>
+                <tr>
+                    <td><strong>加强版</strong></td>
+                    <td>200元/月</td>
+                    <td>专业创作者</td>
+                    <td>高清生图、复杂数据建模、API调用、额度约为标准版4倍。</td>
+                </tr>
+                <tr>
+                    <td><strong>专业版</strong></td>
+                    <td>500元/月（年付5088元）</td>
+                    <td>企业/重度用户</td>
+                    <td>全量API、企业级服务、私有化部署、额度约为标准版10倍。</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p>本报告由AI自动生成 · 信息截至报告标注日期 · 仅供教师参考</p>
+        <p>使用前请确认各工具最新政策 · 给人欢喜，不给人恐惧</p>
+    </div>
+</div>
+
+<script>
+    const now = new Date();
+    const weekdays = ['日','一','二','三','四','五','六'];
+    const dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 星期' + weekdays[now.getDay()];
+    document.getElementById('report-date').textContent = '本期日期：' + dateStr;
+</script>
+
+</body>
+</html>

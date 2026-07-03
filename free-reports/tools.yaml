@@ -1,0 +1,304 @@
+# 教师AI工具周报 - 工具数据
+# 格式说明：每个工具包含 name, vendor, url, category, desc, tags 字段
+# category 可选值: official / domestic / teaching / ppt / foreign_free / foreign_teacher
+# tags 可选值: 完全免费 / 基础免费 / 免费 / 有免费额度 / 每日免费额度 / 高算力功能受限
+#             直接可用 / 需VPN / 需VPN + Google账号 / 官方平台 / 官方合作 / PPT
+
+report:
+  date: "2026-07-02"
+  issue: 1
+  type: free
+  title: "教师免费AI工具周报"
+  subtitle: "国内外教师可免费使用的AI工具汇总与最新政策更新"
+
+notices:
+  important: >
+    AI工具的免费/付费政策变化很快，本报告信息截至页面标注日期。
+    部分工具的"免费"指基础功能免费，高级功能或高频使用可能受限。
+    豆包已于2026年5月起推出付费版（68元/月起），基础功能仍免费，
+    但同声传译、AI PPT、高清生图等高算力功能每日有次数限制。
+
+recommendations:
+  - name: "零门槛起步"
+    tools: ["国家智慧教育平台2.0", "DeepSeek", "豆包（基础功能）", "Kimi"]
+  - name: "备课提效"
+    tools: ["希沃白板 / 101教育PPT", "秘塔AI搜索", "即梦"]
+  - name: "英语教师专项"
+    tools: ["twee（需VPN）", "Canva可画教育版", "微软翻译"]
+  - name: "科研/论文型教师"
+    tools: ["智谱清言", "腾讯IMA", "Inciteful（需VPN）"]
+  - name: "办公协作"
+    tools: ["腾讯文档 / 金山文档", "讯飞听见"]
+
+tools:
+  # --- 国内官方平台 ---
+  - name: "国家智慧教育平台 2.0 智能版"
+    vendor: "教育部官方出品"
+    url: "https://www.smartedu.cn/"
+    category: official
+    desc: "覆盖全学段全学科，提供数学解题助手、英语点读、智能出题助手、'育小苗'智能体、心理健康大模型等AI功能。官方资源，完全免费。"
+    tags: ["官方平台", "完全免费", "直接可用"]
+
+  - name: "国家高等教育智慧教育平台 · AI2026"
+    vendor: "教育部 / 高等教育出版社"
+    url: "https://higher.smartedu.cn/ai2026"
+    category: official
+    desc: "高等教育版块的AI专题入口，汇聚人工智能课程、教学资源与政策动态。适合高校教师查找AI教学资源和培训内容。"
+    tags: ["官方平台", "完全免费", "直接可用"]
+
+  - name: "AI企鹅教师助手"
+    vendor: "腾讯 / 教育部门合作"
+    url: "https://aiteach.qq.com/"
+    category: official
+    desc: "面向中小学教师，提供教材同步的AI备课、出题、资源推荐。需按活动/学校参与，适合K12教师。"
+    tags: ["官方合作", "免费", "直接可用"]
+
+  # --- 国内通用大模型 ---
+  - name: "DeepSeek"
+    vendor: "深度求索"
+    url: "https://www.deepseek.com/"
+    category: domestic
+    desc: "深度推理能力强，适合跨学科备课、复杂课题研究、教案设计、题目解析。基础功能完全免费。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "豆包"
+    vendor: "字节跳动"
+    url: "https://www.doubao.com/"
+    category: domestic
+    desc: "基础问答、作文批改、生图、语音对话免费。2026年5月起推出付费版（68元/月起），同声传译、AI PPT、高清生图等高算力功能免费版每日有限次数。"
+    tags: ["基础免费", "高算力功能受限"]
+
+  - name: "Kimi"
+    vendor: "月之暗面"
+    url: "https://kimi.moonshot.cn/"
+    category: domestic
+    desc: "超长上下文，可上传教材PDF生成知识大纲、一键生成PPT。适合处理长文档和教学资料。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "智谱清言"
+    vendor: "智谱AI（清华系）"
+    url: "https://chatglm.cn/"
+    category: domestic
+    desc: "古诗文/文言文理解精准，可生成赏析、阅读理解习题，学术写作辅助能力较强。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "文心一言"
+    vendor: "百度"
+    url: "https://yiyan.baidu.com/"
+    category: domestic
+    desc: "教案大纲生成、知识点拆解、学情数据分析，与百度搜索深度整合。基础功能免费。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "通义千问"
+    vendor: "阿里巴巴"
+    url: "https://tongyi.aliyun.com/"
+    category: domestic
+    desc: "推理能力强、编程教学辅助、文档解析能力突出。适合信息技术教师和STEM课程备课。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "讯飞星火"
+    vendor: "科大讯飞"
+    url: "https://xinghuo.xfyun.cn/"
+    category: domestic
+    desc: "语音识别精准，课堂实时转写、双语教学、数学解题、数字分身。适合语言类和课堂互动。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "腾讯元宝"
+    vendor: "腾讯"
+    url: "https://yuanbao.tencent.com/"
+    category: domestic
+    desc: "教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档，适合日常办公。"
+    tags: ["基础免费", "直接可用"]
+
+  # --- 国内教学/课件专用工具 ---
+  - name: "希沃白板"
+    vendor: "视源股份"
+    url: "https://easinote.seewo.com/"
+    category: teaching
+    desc: "输入主题一键生成课件、思维导图、互动课堂活动。教师常用的AI课件制作工具，K12资源库丰富。"
+    tags: ["免费", "直接可用"]
+
+  - name: "101教育PPT"
+    vendor: "网龙华渔教育"
+    url: "https://ppt.101.com/"
+    category: teaching
+    desc: "K12备授课一体化工具，覆盖全学段全学科，内置海量课件、教案、微课和学科工具，支持AI智能推荐。"
+    tags: ["免费", "直接可用"]
+
+  - name: "秘塔AI搜索"
+    vendor: "秘塔科技"
+    url: "https://metaso.cn/"
+    category: teaching
+    desc: "无广告学术/资料检索，自动生成结构化答案、思维导图和参考文献。适合教师备课查资料。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "即梦"
+    vendor: "字节跳动"
+    url: "https://jimeng.jianying.com/"
+    category: teaching
+    desc: "AI生图、教学插图、历史场景还原、短视频素材。每日免费额度较大。"
+    tags: ["每日免费额度", "直接可用"]
+
+  - name: "腾讯智影"
+    vendor: "腾讯"
+    url: "https://zenvideo.qq.com/"
+    category: teaching
+    desc: "AI数字人讲解、文字转视频微课制作。适合快速制作教学视频和微课。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "讯飞听见"
+    vendor: "科大讯飞"
+    url: "https://www.iflyrec.com/"
+    category: teaching
+    desc: "语音转文字，教研会议录音转文字、口语作业评分。免费版支持实时转写。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "海绵音乐"
+    vendor: "字节跳动"
+    url: "https://www.haimian.com/"
+    category: teaching
+    desc: "AI音乐生成，可用于课件背景音乐、班级活动BGM。目前完全免费。"
+    tags: ["完全免费", "直接可用"]
+
+  - name: "扣子 Coze"
+    vendor: "字节跳动"
+    url: "https://www.coze.cn/"
+    category: teaching
+    desc: "零代码搭建教案智能体、学科专用AI助手、班级管理机器人。适合有想法但不想编程的教师。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "腾讯IMA"
+    vendor: "腾讯"
+    url: "https://ima.qq.com/"
+    category: teaching
+    desc: "跨平台检索论文、知识库管理、个人资料库问答。免费赠送1GB云存储。"
+    tags: ["免费1GB", "直接可用"]
+
+  - name: "微软翻译"
+    vendor: "微软"
+    url: "https://www.microsoft.com/zh-cn/translator/"
+    category: teaching
+    desc: "面对面双向实时翻译，支持100人对话模式。完全免费，中国直接可用，支持离线。教师跨语言交流首选。"
+    tags: ["完全免费", "直接可用"]
+
+  - name: "Canva可画教育版"
+    vendor: "Canva（中国版）"
+    url: "https://www.canva.cn/education/"
+    category: teaching
+    desc: "国内站 canva.cn，中国教师可用学校邮箱或上传教师资格证认证，认证后永久免费使用教育版功能。"
+    tags: ["教师永久免费", "直接可用"]
+
+  - name: "腾讯文档"
+    vendor: "腾讯"
+    url: "https://docs.qq.com/"
+    category: teaching
+    desc: "多人协作在线文档，支持AI一键总结、思维导图生成、智能表格。适合教研组共享资料和教案。"
+    tags: ["基础免费", "直接可用"]
+
+  - name: "金山文档"
+    vendor: "金山办公"
+    url: "https://www.kdocs.cn/"
+    category: teaching
+    desc: "在线协作文档、表格、PPT，兼容WPS格式，支持AI模板和多人实时编辑。学校可申请WPS 365教育版。"
+    tags: ["基础免费", "直接可用"]
+
+  # --- 免费PPT制作工具 ---
+  - name: "Kimi PPT"
+    vendor: "月之暗面"
+    url: "https://kimi.moonshot.cn/"
+    category: ppt
+    desc: "Kimi内置PPT生成功能，输入主题自动生成大纲、内容和排版，可在线编辑导出。"
+    tags: ["PPT", "免费", "直接可用"]
+
+  - name: "ChatPPT"
+    vendor: "必优科技"
+    url: "https://chat-ppt.com/"
+    category: ppt
+    desc: "对话式生成PPT，自然语言控制内容、样式和动画。基础功能免费。"
+    tags: ["PPT", "基础免费", "直接可用"]
+
+  - name: "麦当秀AIPPT"
+    vendor: "麦当秀"
+    url: "https://www.madown.com/"
+    category: ppt
+    desc: "输入主题一键生成教学PPT，支持模板替换和在线编辑。基础功能免费。"
+    tags: ["PPT", "基础免费", "直接可用"]
+
+  - name: "LivePPT"
+    vendor: "美图"
+    url: "https://liveppt.cn/"
+    category: ppt
+    desc: "美图出品，AI生成PPT，操作简单，模板丰富。基础功能免费。"
+    tags: ["PPT", "基础免费", "直接可用"]
+
+  - name: "讯飞智文"
+    vendor: "科大讯飞"
+    url: "https://zhiwen.xfyun.cn/"
+    category: ppt
+    desc: "AI生成PPT、Word文档，语音输入生成课件。教育场景适配好。"
+    tags: ["PPT", "基础免费", "直接可用"]
+
+  - name: "Gamma"
+    vendor: "Gamma"
+    url: "https://gamma.app/"
+    category: ppt
+    desc: "国外AI演示工具，输入文字即可生成精美PPT/网页，设计感强。免费版有额度限制，需VPN。"
+    tags: ["PPT", "免费额度", "需VPN"]
+
+  - name: "Beautiful.ai"
+    vendor: "Beautiful.ai"
+    url: "https://www.beautiful.ai/"
+    category: ppt
+    desc: "智能排版PPT工具，自动调整版式和图表。免费版功能有限，高级模板需付费，需VPN。"
+    tags: ["PPT", "基础免费", "需VPN"]
+
+  # --- 国外仅需VPN ---
+  - name: "twee"
+    vendor: "twee.com"
+    url: "https://twee.com/"
+    category: foreign_free
+    desc: "英语教师专属工具，生成词汇、阅读、写作、口语、语法等教学素材。注册即用，无教师身份认证要求。有免费额度。"
+    tags: ["有免费额度", "需VPN"]
+
+  - name: "Inciteful"
+    vendor: "inciteful.xyz"
+    url: "https://inciteful.xyz/"
+    category: foreign_free
+    desc: "基于引用网络的文献发现工具，可视化论文关系、快速定位相关文献。适合教研论文写作。无需注册即可使用。"
+    tags: ["完全免费", "需VPN"]
+
+  - name: "NotebookLM"
+    vendor: "Google"
+    url: "https://notebooklm.google.com/"
+    category: foreign_free
+    desc: "上传教学资料生成学习指南、FAQ、音频概要（AI播客）。需VPN + Google账号，无教师身份要求。2026年6月起与Google Classroom深度整合。"
+    tags: ["免费", "需VPN + Google账号"]
+
+  # --- 国外教师专属（有额外限制） ---
+  - name: "ChatGPT for Teachers"
+    vendor: "OpenAI"
+    url: "https://openai.com/chatgpt/education/"
+    category: foreign_teacher
+    desc: "GPT-5.1无限对话、联网搜索、文件上传、语音模式、图片生成、数据分析，免费至2027年6月"
+    restriction: "VPN + 美国K-12教师认证（双重限制）。需通过OpenAI的教师身份验证。仅面向美国K-12教师，中国教师通常无法通过认证。"
+
+  - name: "Google Gemini for Education"
+    vendor: "Google"
+    url: "https://edu.google.com/intl/ALL_us/get-started/gemini/"
+    category: foreign_teacher
+    desc: "深度集成Google Classroom、自动生成测验、播客式音频课程、学习材料生成"
+    restriction: "VPN + Google Workspace教育版账号（学校需已注册）。个人无法自行注册。中国大陆学校极少使用Google教育版。"
+
+  - name: "Claude for Education"
+    vendor: "Anthropic"
+    url: "https://claude.com/education"
+    category: foreign_teacher
+    desc: "苏格拉底式学习模式、超长上下文、交互式课件生成、学术写作辅助"
+    restriction: "中国官方不可用 + 合作院校账号。Claude官方支持地区不包含中国大陆。教育版仅限Anthropic合作院校师生。"
+
+  - name: "Microsoft Copilot 教育版"
+    vendor: "微软"
+    url: "https://www.microsoft.com/zh-cn/education/products/copilot-in-education"
+    category: foreign_teacher
+    desc: "集成Microsoft 365、Word/PPT/Excel AI辅助、课堂管理工具，2026年6月新增学习智能体"
+    restriction: "学校Microsoft 365教育版账号（部分中国高校已有，无需VPN）。门槛在于学校是否开通，个人无法自行注册。"

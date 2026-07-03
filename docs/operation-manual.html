@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>个人知识产品网站操作手册</title>
+<style>
+body{margin:0;background:#eef2f5;color:#202124;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',Arial,sans-serif;line-height:1.75}main{width:min(980px,calc(100% - 32px));margin:32px auto;background:#fff;border:1px solid #d9dee3;border-radius:8px;padding:48px;box-shadow:0 18px 42px rgba(20,30,40,.08)}header{border-bottom:2px solid #202124;padding-bottom:24px;margin-bottom:32px}h1{margin:0 0 12px;font-size:34px;line-height:1.25}h2{margin:34px 0 14px;padding-top:10px;font-size:23px;border-top:1px solid #d9dee3}h3{margin:24px 0 10px;font-size:18px}.subtitle{color:#5f6368;font-size:17px}pre{overflow-x:auto;background:#f6f8fa;border:1px solid #d9dee3;border-radius:6px;padding:14px 16px;line-height:1.55;white-space:pre}code{font-family:Consolas,'Courier New',monospace}.callout{margin:18px 0;padding:14px 16px;border-left:4px solid #1f6feb;background:#e8f1ff;border-radius:0 6px 6px 0}.note{color:#8a5a00;font-weight:700}@media print{body{background:#fff}main{width:100%;margin:0;border:0;box-shadow:none;padding:24px}}@media(max-width:640px){main{width:100%;margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:28px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>个人知识产品网站操作手册</h1>
+<p class="subtitle">面向个人品牌、项目管理课程、AI工具资源库、会员内容与长期知识资产运营的建站说明。</p>
+</header>
+<h2>1. 项目定位</h2>
+<p>这个网站不要定位成“个人主页”，而应定位成：</p>
+<pre><code>个人知识产品平台</code></pre>
+<p>更具体一点，是：</p>
+<pre><code>个人品牌官网
++ 项目管理课程平台
++ AI工具资源库
++ 课程资料下载中心
++ 会员知识服务系统</code></pre>
+<p>你的核心资产不是网站本身，而是 <code>D:\Sy课程开发</code> 里面长期积累的课程、PPT、文章、模板、案例、AI工具周报、教学资源和培训资料。</p>
+<div class="callout">网站只是这些内容资产的展示入口、检索入口和商业化入口。</div>
+<h2>2. 总体建设原则</h2>
+<h3>原则一：内容资产优先，页面设计其次</h3>
+<p>不要先想“我要几个栏目”，而要先想：</p>
+<pre><code>我有哪些资源？
+每个资源属于什么主题？
+适合谁看？
+免费用户看到什么？
+会员用户获得什么额外价值？
+以后能不能搜索、复用、自动生成页面？</code></pre>
+<h3>原则二：免费告诉用户是什么，会员告诉用户怎么做</h3>
+<pre><code>免费：知道有什么
+会员：知道怎么用、怎么做、怎么落地</code></pre>
+<p>例如 AI 工具，免费用户看到工具名称、官网、一句话介绍和适用方向；会员用户看到最佳入口、国内可用情况、注册方法、使用技巧、Prompt、教学案例、企业应用建议、替代工具、注意事项和视频教程。</p>
+<p>这样用户不会觉得你在“故意藏东西”，而会觉得会员买的是经验、效率和整理能力。</p>
+<h2>3. 推荐网站结构</h2>
+<pre><code>首页
+├── 关于我
+├── 课程中心
+│   ├── 项目管理课程
+│   ├── AI赋能项目管理
+│   ├── PMP / IPMP
+│   ├── PMO
+│   └── 企业内训
+├── AI资源中心
+│   ├── AI工具周报
+│   ├── AI工具导航
+│   ├── Prompt库
+│   ├── Agent资源
+│   └── 国产AI工具
+├── 知识库
+│   ├── 项目管理
+│   ├── AI应用
+│   ├── 九型人格
+│   ├── 数字化教学
+│   └── 企业案例
+├── 下载中心
+│   ├── PPT
+│   ├── Excel模板
+│   ├── Word模板
+│   ├── PDF资料
+│   └── Mermaid模板
+├── 企业解决方案
+│   ├── 制造业
+│   ├── 高校
+│   ├── 政府
+│   ├── 央企
+│   ├── 航空
+│   └── 运营商
+├── 会员中心
+└── 联系合作</code></pre>
+<p>其中最值得重点打造的是：AI工具导航、课程中心、下载中心、企业解决方案。</p>
+<h2>4. 从栏目思维升级为内容资产思维</h2>
+<p>不要让一个文件只属于一个栏目。比如 <code>AI赋能项目管理课程PPT</code> 可以同时属于：</p>
+<pre><code>PPT
+课程资料
+项目管理
+AI
+企业培训
+会员资源</code></pre>
+<p><code>Claude工具介绍</code> 可以同时属于：</p>
+<pre><code>AI工具
+教师AI
+项目管理AI
+AI周报
+推荐工具
+2026年资源
+会员技巧</code></pre>
+<p>这样以后网站可以自动生成 AI工具页、教师AI专题页、项目管理AI专题页、AI周报页、推荐工具页和会员资源页。你只维护一个资源，网站可以多处展示。</p>
+<h2>5. 资料整理方法</h2>
+<p>建议先不要立刻大规模移动原始文件，而是先做一张“内容资产登记表”。每个文件记录：</p>
+<pre><code>文件名
+文件路径
+内容类型
+知识主题
+适合对象
+是否公开
+是否会员
+推荐等级
+更新时间
+可否下载
+可否转成网页
+备注</code></pre>
+<p>内容类型建议分为：</p>
+<pre><code>课程
+文章
+PPT
+Excel
+Word
+PDF
+HTML
+视频
+图片
+模板
+案例
+Prompt
+AI工具</code></pre>
+<p>知识主题建议分为：</p>
+<pre><code>AI
+项目管理
+教师培训
+九型人格
+数字化转型
+企业案例
+课程开发
+工具导航
+教学设计</code></pre>
+<p>权限级别建议分为：公开、注册可见、会员可见、内部资料、暂不发布。</p>
+<div class="callout">这是整个项目最关键的一步。</div>
+<h2>6. 推荐本地目录结构</h2>
+<pre><code>课程开发
+├── 00_内容资产登记表
+├── 01_个人品牌
+├── 02_课程中心
+│   ├── 项目管理
+│   ├── AI赋能项目管理
+│   ├── PMP-IPMP
+│   └── 企业内训
+├── 03_AI资源中心
+│   ├── AI工具周报
+│   ├── AI工具导航
+│   ├── Prompt
+│   └── Agent
+├── 04_知识库
+│   ├── 项目管理
+│   ├── AI应用
+│   ├── 九型人格
+│   └── 数字化教学
+├── 05_下载中心
+│   ├── PPT
+│   ├── Excel
+│   ├── Word
+│   ├── PDF
+│   └── Mermaid
+├── 06_企业案例
+├── 07_图片视频
+└── 99_待整理</code></pre>
+<p><span class="note">注意：</span>这一步不要急。先登记，再迁移。</p>
+<h2>7. 内容格式建议</h2>
+<p>长期来看，不建议直接维护大量 HTML 文件。例如 <code>teacher-ai-weekly-report.html</code> 可以先作为素材保留，但后续建议转成 Markdown、JSON，或“YAML元数据 + Markdown正文”。</p>
+<pre><code>2026-07-02-ai-weekly.md</code></pre>
+<p>内容结构可以是：标题、日期、分类、标签、摘要、正文、工具卡片、会员内容、相关资源。这样以后网站可以自动生成页面，维护成本低很多。</p>
+<h2>8. AI工具卡片标准</h2>
+<p>AI工具导航建议做成网站的核心栏目。每个工具可以使用统一结构：</p>
+<pre><code>工具名称
+一句话介绍
+官网链接
+适用人群
+适用场景
+推荐指数
+是否免费
+是否国内可用
+是否需要特殊网络
+同类替代工具
+更新时间</code></pre>
+<p>免费版展示：工具名称、官网、一句话介绍、适用场景、推荐指数。</p>
+<p>会员版展示：最佳使用入口、注册方法、使用技巧、Prompt、教学案例、企业应用建议、国内替代方案、注意事项、视频教程。</p>
+<p><span class="note">特别注意：</span>官网链接不建议只给会员。免费用户也应该能看到官网。会员价值应放在方法、经验、案例和效率上。</p>
+<h2>9. AI工具周报结构</h2>
+<pre><code>AI工具周报
+├── 2026
+│   ├── 第01期
+│   ├── 第02期
+│   └── 第03期
+├── 2025
+└── 专题合集
+    ├── 教师AI
+    ├── 项目管理AI
+    ├── 国产AI
+    ├── PPT工具
+    ├── 视频工具
+    └── Agent工具</code></pre>
+<p>每期周报建议包含：本周新增工具、重要更新、值得关注、教育推荐、项目管理推荐、国产AI推荐、会员深度解读。</p>
+<h2>10. 课程页面结构</h2>
+<pre><code>课程名称
+一句话定位
+适合对象
+课程收益
+课程大纲
+授课形式
+课程时长
+典型案例
+讲师介绍
+可交付资料
+合作咨询入口</code></pre>
+<p>免费用户看到课程简介、适合对象、课程大纲、部分案例、合作方式。会员或客户看到完整课件、练习材料、案例文件、模板、Prompt、课堂资料、课后作业、学习路径。</p>
+<h2>11. 企业解决方案结构</h2>
+<p>这个栏目非常建议增加，因为企业客户往往不是按“课程名”找你，而是按“问题”找你。</p>
+<pre><code>制造业
+高校
+政府
+央企
+航空
+运营商
+金融
+互联网</code></pre>
+<p>每个行业页面结构：行业痛点、典型培训需求、推荐课程组合、可交付成果、相关案例、适合岗位、合作方式。</p>
+<h2>12. 搜索系统是核心功能</h2>
+<p>对于你这种资料量可能很大的项目，搜索比栏目更重要。理想体验是：</p>
+<pre><code>搜索：风险登记册
+
+结果出现：
+相关文章
+PPT课件
+Excel模板
+课程章节
+企业案例
+AI工具
+会员下载</code></pre>
+<p>第一阶段可以先做简单搜索。第二阶段再做高级搜索：按类型筛选、按主题筛选、按权限筛选、按更新时间筛选、按推荐等级筛选。</p>
+<h2>13. 会员系统建议</h2>
+<p>第一阶段不急着做完整会员系统。建议分三步：</p>
+<pre><code>第一步：公开静态网站、免费资源、课程介绍、资源目录
+第二步：注册登录、会员页面、资源下载、搜索、收藏
+第三步：支付、权限管理、学习记录、AI助教、知识库问答</code></pre>
+<p>技术上可以考虑 Cloudflare Pages、Supabase Auth、Supabase Database、Cloudflare R2 / Supabase Storage。</p>
+<p>公开内容可以放在 GitHub。会员资源不要直接放 GitHub 公开仓库。会员资源建议放 Cloudflare R2、Supabase Storage 或其他对象存储。</p>
+<h2>14. 技术路线建议</h2>
+<pre><code>第一阶段：
+Astro
+Markdown
+GitHub仓库
+GitHub Pages 或 Cloudflare Pages</code></pre>
+<p>原因：适合内容网站、支持 Markdown、SEO 好、速度快、后续可扩展。</p>
+<p>部署优先 Cloudflare Pages；备选 GitHub Pages、Vercel、Netlify。如果只是公开静态网站，GitHub Pages 足够。如果以后要会员、权限、表单、边缘函数，Cloudflare Pages 更适合长期发展。</p>
+<h2>15. 三阶段建设路线</h2>
+<h3>第一阶段：内容整理与静态网站</h3>
+<p>周期：1到2周。</p>
+<pre><code>完成资料盘点
+建立内容资产登记表
+搭建首页
+搭建课程中心
+搭建AI资源中心
+搭建下载中心
+上线公开版网站</code></pre>
+<p>产出：内容分类体系、网站栏目结构、第一版静态网站、10到30个精选公开资源页面。</p>
+<h3>第二阶段：搜索与会员雏形</h3>
+<p>周期：2到4周。</p>
+<pre><code>增加站内搜索
+增加标签系统
+增加资源卡片
+增加会员可见内容
+增加下载中心
+增加注册登录</code></pre>
+<p>产出：AI工具导航、AI工具周报系统、课程资料库、会员内容页面。</p>
+<h3>第三阶段：AI知识库与自动化</h3>
+<p>后续持续建设，目标包括接入AI问答、基于课程资料构建知识库、自动推荐课程、自动生成资源专题、AI助教、学习路径推荐。</p>
+<h2>16. 第一件应该做的事</h2>
+<p>在真正搭网站前，最该做的是：</p>
+<pre><code>盘点 D:\Sy课程开发 的全部目录和文件
+建立内容资产登记表</code></pre>
+<p>建议登记表字段如下：</p>
+<pre><code>编号
+文件名
+原始路径
+文件类型
+内容主题
+内容类型
+适合栏目
+标签
+公开级别
+是否可下载
+是否可转网页
+是否适合会员
+更新时间
+推荐优先级
+处理状态
+备注</code></pre>
+<p>处理状态可以是：未处理、已归类、待改写、可发布、需脱敏、会员内容、暂不发布。</p>
+<h2>17. 当前最推荐的执行顺序</h2>
+<pre><code>1. 先不急着做会员系统
+2. 先整理 D:\Sy课程开发 的内容资产
+3. 选出第一批最适合公开展示的内容
+4. 用 Astro 做静态网站
+5. 首页突出个人品牌和课程方向
+6. AI工具导航作为重点栏目
+7. 下载中心先展示目录，部分开放下载
+8. 课程中心用于转化企业客户
+9. 后续再加搜索、登录、会员、支付
+10. 最后升级为AI知识库</code></pre>
+<h2>18. 一句话总结</h2>
+<div class="callout">你的目标不是“做一个网站”，而是把多年积累的课程、工具、案例、模板和经验，整理成一个可以持续更新、可以搜索、可以转化客户、可以卖会员、未来还能接入 AI 助教的个人知识产品平台。</div>
+</main>
+</body>
+</html>
