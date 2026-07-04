@@ -5,6 +5,22 @@
 
 ---
 
+## 2026-07-04 GitHub Pages 部署上线 + 常用命令速查
+
+### 改动
+- GitHub 仓库 `junping78/ai-pm` 创建完成，代码已推送
+- GitHub Pages 开启：Deploy from a branch → main → /(root)
+- 网站正式上线：`https://junping78.github.io/ai-pm/`
+- `docs/INDEX.md` 新增「常用命令速查」章节，包含 VS Code 图形界面操作和命令行两种推送方式
+- 决定：GitHub 用户名维持 `junping78` 不改名，等以后买自定义域名时一步到位
+
+### 原因
+- 网站需要公网可访问，GitHub Pages 免费且适合静态站点
+- 刘老师担心记不住 git 命令，推荐用 VS Code 源代码管理面板（图形界面，零记忆）
+- 同时在 INDEX.md 记录命令速查，双保险
+
+---
+
 ## 2026-07-04 管理文档整理
 
 ### 改动
