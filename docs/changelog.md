@@ -5,6 +5,29 @@
 
 ---
 
+## 2026-07-07 第二阶段功能增强：咨询表单 + SEO + 访问统计
+
+### 改动
+- **咨询表单**：在 about.html 联系区域下方新增在线咨询表单
+  - 使用 FormSubmit.co（免费无需注册），提交后自动发送到 liujp8@163.com
+  - 包含：称呼、联系方式、咨询内容三个字段
+  - style.css 新增 .consult-form 系列表单样式
+- **SEO基础**：
+  - 新建 `sitemap.xml` — 列出全站5个页面URL
+  - 新建 `robots.txt` — 允许爬虫 + 声明 sitemap 位置
+  - 新建 `favicon.svg` — 紫色圆角方块 + "LJ" 白字
+  - 所有5个HTML页面添加 Open Graph 标签（微信/朋友圈分享时显示标题和摘要）
+  - 所有5个HTML页面添加 favicon 链接
+  - 修复 index.html meta description 和服务卡片中的多余感叹号
+- **访问统计**：
+  - 所有5个HTML页面添加 Google Analytics GA4 代码（占位 ID `G-ZWYYBYRN3S`）
+
+### 待办
+- 刘老师需到 analytics.google.com 创建 GA4 账号，获取 Measurement ID 替换 `G-ZWYYBYRN3S`
+- FormSubmit 首次提交时会发确认邮件到 liujp8@163.com，需点击确认激活
+
+---
+
 ## 2026-07-04 GitHub Pages 部署上线 + 常用命令速查
 
 ### 改动
