@@ -21,6 +21,31 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://junping78.github.io/ai-pm/weekly-list.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/ai-tools.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/resources.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/tags.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/search.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://junping78.github.io/ai-pm/free/teacher-ai-weekly-report.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资源中心 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="刘俊平老师资源中心：项目管理工具包、AI工具导航、禅修入门资料、招标投标资源、企业内训案例。按主题分类，免费与会员资源清晰标注。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="资源中心 | 刘俊平 · AI赋能项目管理">
+<meta property="og:description" content="项目管理工具包、AI工具导航、禅修入门资料、招标投标资源、企业内训案例。按主题分类，免费与会员资源清晰标注。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/resources.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 资源中心专用样式 */
+  .res-intro {
+    background: #fff;
+    border-bottom: 1px solid var(--c-border);
+    padding: 28px 0;
+  }
+  .res-intro .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .res-intro .res-stats {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .res-intro .res-stat {
+    text-align: center;
+  }
+  .res-intro .res-stat .num {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--c-primary);
+  }
+  .res-intro .res-stat .label {
+    font-size: 13px;
+    color: var(--c-text-light);
+  }
+
+  /* 筛选栏 */
+  .res-filter {
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 50;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--c-border);
+    padding: 12px 0;
+  }
+  .res-filter .container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .res-filter .filter-label {
+    font-size: 14px;
+    color: var(--c-text-light);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .res-filter .filter-btn {
+    padding: 6px 16px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13.5px;
+    color: var(--c-text);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .res-filter .filter-btn:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+  }
+  .res-filter .filter-btn.active {
+    background: var(--c-primary);
+    color: #fff;
+    border-color: var(--c-primary);
+  }
+
+  /* 资源分类区块 */
+  .res-section {
+    padding: 40px 0;
+  }
+  .res-section:nth-child(even) {
+    background: #fff;
+  }
+  .res-cat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .res-cat-header .cat-icon {
+    font-size: 28px;
+  }
+  .res-cat-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+  .res-cat-desc {
+    font-size: 14.5px;
+    color: var(--c-text-light);
+    margin-bottom: 24px;
+  }
+
+  /* 资源卡片网格 */
+  .res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .res-card {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .res-section:nth-child(even) .res-card {
+    background: var(--c-bg);
+  }
+  .res-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--c-primary-border);
+  }
+  .res-card .res-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .res-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .res-card .res-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .res-card .res-desc {
+    font-size: 13.5px;
+    color: var(--c-text-light);
+    line-height: 1.7;
+    flex-grow: 1;
+    margin-bottom: 14px;
+  }
+  .res-card .res-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--c-text-muted);
+    padding-top: 12px;
+    border-top: 1px solid var(--c-border-light);
+  }
+  .res-card .res-meta .res-count {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .res-card .res-action {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--c-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .res-card .res-action:hover {
+    color: var(--c-primary-light);
+    text-decoration: none;
+  }
+
+  /* 标签样式 */
+  .tag-free { background: var(--c-accent-bg); color: var(--c-accent); }
+  .tag-member { background: var(--c-warm-bg); color: var(--c-warm); }
+  .tag-internal { background: #f0f0f0; color: #666; }
+
+  /* 搜索框 */
+  .res-search {
+    flex-grow: 1;
+    min-width: 200px;
+    max-width: 300px;
+  }
+  .res-search input {
+    width: 100%;
+    padding: 6px 14px;
+    font-size: 13.5px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 20px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .res-search input:focus {
+    border-color: var(--c-primary);
+  }
+
+  /* 资源不可见提示 */
+  .res-note {
+    background: var(--c-primary-bg);
+    border-left: 4px solid var(--c-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 16px 20px;
+    margin: 24px 0 0;
+    font-size: 14px;
+    color: var(--c-primary-dark);
+    line-height: 1.8;
+  }
+
+  /* 打印优化 */
+  @media print {
+    .res-filter, .res-search { display: none; }
+    .res-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    .res-section { padding: 16px 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI赋能项目管理</a></li>
+            <li><a href="teacher-ai-weekly.html">教师AI工具周报</a></li>
+            <li><a href="weekly-list.html">周报列表</a></li>
+            <li><a href="ai-tools.html">AI工具导航</a></li>
+            <li><a href="resources.html" class="active">资源中心</a></li>
+            <li><a href="tags.html">标签</a></li>
+            <li><a href="search.html">搜索</a></li>
+            <li><a href="about.html#contact">联系合作</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 页面标题 -->
+<header class="page-header">
+    <h1>资源中心</h1>
+    <p class="page-subtitle">按主题分类，免费与会员资源清晰标注。持续更新中。</p>
+</header>
+
+<!-- 统计概览 -->
+<div class="res-intro">
+    <div class="container">
+        <p style="font-size:15px;color:var(--c-text-light);margin:0;">
+            以下资源基于内容资产登记表整理，涵盖项目管理、AI工具、禅修、招标投标等领域。
+        </p>
+        <div class="res-stats">
+            <div class="res-stat">
+                <div class="num">6</div>
+                <div class="label">资源分类</div>
+            </div>
+            <div class="res-stat">
+                <div class="num">32,000+</div>
+                <div class="label">内容文件</div>
+            </div>
+            <div class="res-stat">
+                <div class="num">20</div>
+                <div class="label">主题标签</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 筛选栏 -->
+<div class="res-filter">
+    <div class="container">
+        <span class="filter-label">筛选：</span>
+        <button class="filter-btn active" onclick="setFilter('all', this)">全部</button>
+        <button class="filter-btn" onclick="setFilter('free', this)">免费资源</button>
+        <button class="filter-btn" onclick="setFilter('member', this)">会员资源</button>
+        <button class="filter-btn" onclick="setFilter('pm', this)">项目管理</button>
+        <button class="filter-btn" onclick="setFilter('ai', this)">AI工具</button>
+        <button class="filter-btn" onclick="setFilter('zen', this)">禅修</button>
+        <button class="filter-btn" onclick="setFilter('bid', this)">招标投标</button>
+        <div class="res-search">
+            <input type="text" id="resSearch" placeholder="搜索资源..." oninput="filterResources()">
+        </div>
+    </div>
+</div>
+
+<!-- 1. 项目管理工具包 -->
+<section class="res-section" data-category="pm">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">🎯</span>
+            <h2>项目管理工具包</h2>
+        </div>
+        <p class="res-cat-desc">20年项目管理实战积累，涵盖方法工具包、表格模板、案例库、PPT课件、甘特图模板。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="member" data-keywords="方法 工具包 方法论 流程">
+                <div class="res-card-header">
+                    <h3>21套项目管理方法工具包</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">工具包</span>
+                </div>
+                <p class="res-desc">涵盖项目管理核心方法论，从项目启动到收尾的全流程工具，包含模板、检查清单和操作指南。</p>
+                <div class="res-meta">
+                    <span class="res-count">21套</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="表格 模板 excel 检查清单">
+                <div class="res-card-header">
+                    <h3>255套项目管理表格工具包</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">表格</span>
+                </div>
+                <p class="res-desc">按CMMI过程域分类：生命周期模型、项目策划、配置管理、风险管理、质量保证、需求工程、测试等16大类。</p>
+                <div class="res-meta">
+                    <span class="res-count">255套</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="案例 案例 实战">
+                <div class="res-card-header">
+                    <h3>33套项目管理案例</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">案例</span>
+                </div>
+                <p class="res-desc">真实项目管理案例，覆盖不同行业和场景，适合培训教学和团队学习参考。</p>
+                <div class="res-meta">
+                    <span class="res-count">33套</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="PPT 课件 培训 教学">
+                <div class="res-card-header">
+                    <h3>39套项目管理PPT培训课件</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">PPT</span>
+                </div>
+                <p class="res-desc">包含风险管理（63页）、PMO经验分享（112页）等专题课件，适合企业内训直接使用或参考改编。</p>
+                <div class="res-meta">
+                    <span class="res-count">39套</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="free" data-keywords="甘特图 模板 excel 进度">
+                <div class="res-card-header">
+                    <h3>甘特图模板合集</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">模板</span>
+                </div>
+                <p class="res-desc">全自动甘特图Excel模板、项目计划进度表、工作进度表、HR实施计划等多种场景模板。</p>
+                <div class="res-meta">
+                    <span class="res-count">10+套</span>
+                    <a href="about.html#contact" class="res-action">免费获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="华为 项目管理 金种子">
+                <div class="res-card-header">
+                    <h3>华为项目管理培训教材</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">教材</span>
+                </div>
+                <p class="res-desc">华为项目管理金种子中级培训教材，大型企业项目管理实战经验的系统总结。</p>
+                <div class="res-meta">
+                    <span class="res-count">1套</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2. AI工具与教程 -->
+<section class="res-section" data-category="ai">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">🤖</span>
+            <h2>AI工具与教程</h2>
+        </div>
+        <p class="res-cat-desc">精选国内外AI工具，按使用场景分类，标注使用门槛和推荐组合。持续更新。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="free" data-keywords="AI工具 导航 免费 教师">
+                <div class="res-card-header">
+                    <h3>AI工具导航页</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">导航</span>
+                </div>
+                <p class="res-desc">40+精选AI工具，6大分类：国内官方平台、通用大模型、教学课件工具、PPT制作、国外免费工具、教师专属。支持实时搜索和分类筛选。</p>
+                <div class="res-meta">
+                    <span class="res-count">40+工具</span>
+                    <a href="ai-tools.html" class="res-action">立即查看 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="free" data-keywords="周报 教师 AI工具 每周">
+                <div class="res-card-header">
+                    <h3>教师免费AI工具周报</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">周报</span>
+                </div>
+                <p class="res-desc">汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛、给出推荐组合。每周更新。</p>
+                <div class="res-meta">
+                    <span class="res-count">持续更新</span>
+                    <a href="free/teacher-ai-weekly-report.html" class="res-action">查看周报 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="free" data-keywords="工具 数据 yaml 结构化">
+                <div class="res-card-header">
+                    <h3>AI工具结构化数据库</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">数据</span>
+                </div>
+                <p class="res-desc">tools.yaml格式存储40+AI工具的结构化数据，包含名称、分类、免费/付费、使用门槛、推荐组合等字段，方便程序化处理。</p>
+                <div class="res-meta">
+                    <span class="res-count">1个YAML</span>
+                    <a href="free-reports/tools.yaml" class="res-action">查看数据 &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. 情绪陪伴·禅修 -->
+<section class="res-section" data-category="zen">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">🧘</span>
+            <h2>情绪陪伴 · 禅修资料</h2>
+        </div>
+        <p class="res-cat-desc">基于十四年佛学修行和九型人格，整理禅修入门、情绪管理、修行笔记等资料。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="free" data-keywords="禅修 入门 基础 冥想">
+                <div class="res-card-header">
+                    <h3>禅修入门指南</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">入门</span>
+                </div>
+                <p class="res-desc">面向初学者的禅修入门资料，包含基础概念、坐姿指导、呼吸方法、常见问题解答。适合零基础起步。</p>
+                <div class="res-meta">
+                    <span class="res-count">整理中</span>
+                    <a href="about.html#peitong" class="res-action">了解服务 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="free" data-keywords="九型人格 性格 类型 测试">
+                <div class="res-card-header">
+                    <h3>九型人格入门</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">九型</span>
+                </div>
+                <p class="res-desc">九型人格基础介绍，九种性格类型的特点、优势、成长方向。从修行视角解读，不局限于性格测试工具。</p>
+                <div class="res-meta">
+                    <span class="res-count">整理中</span>
+                    <a href="about.html#peitong" class="res-action">了解服务 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="慧灯 广论 佛学 经论">
+                <div class="res-card-header">
+                    <h3>佛学经论学习笔记</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">笔记</span>
+                </div>
+                <p class="res-desc">慧灯之光、广论等经论的学习笔记和读书心得，包含为知笔记和BookxNote中的标注与摘录。</p>
+                <div class="res-meta">
+                    <span class="res-count">6,700+文件</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="情绪 陪伴 心理 压力">
+                <div class="res-card-header">
+                    <h3>情绪管理与陪伴笔记</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">情绪</span>
+                </div>
+                <p class="res-desc">情绪陪伴过程中的案例总结和方法论，结合九型人格和禅修视角，帮助看见情绪模式。</p>
+                <div class="res-meta">
+                    <span class="res-count">整理中</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. 招标投标资源 -->
+<section class="res-section" data-category="bid">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">📋</span>
+            <h2>招标投标资源</h2>
+        </div>
+        <p class="res-cat-desc">政府采购标书审查、投标文件编制、评标流程等资源，含900+文件积累。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="member" data-keywords="标书 审查 合规 检查">
+                <div class="res-card-header">
+                    <h3>标书审查清单与模板</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">审查</span>
+                </div>
+                <p class="res-desc">政府采购标书合规审查清单，包含致命问题检查、得分项检查、优化建议三级审查体系。</p>
+                <div class="res-meta">
+                    <span class="res-count">900+文件</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="投标 响应 编制 模板">
+                <div class="res-card-header">
+                    <h3>投标文件编制指南</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">投标</span>
+                </div>
+                <p class="res-desc">投标响应文件编制模板和注意事项，涵盖技术方案、商务方案、资质文件等模块。</p>
+                <div class="res-meta">
+                    <span class="res-count">整理中</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. 企业内训案例 -->
+<section class="res-section" data-category="pm">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">🎓</span>
+            <h2>企业内训案例</h2>
+        </div>
+        <p class="res-cat-desc">20年企业内训实战积累，覆盖国央企、银行、制造业、IT行业，含1,600+文件。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="member" data-keywords="富士康 内训 项目管理">
+                <div class="res-card-header">
+                    <h3>富士康系列培训案例</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">制造业</span>
+                </div>
+                <p class="res-desc">威海富士康创新与问题、郑州富士康技术培训、上海富士康过激行为管理、成都富士康思维导图等多期培训案例。</p>
+                <div class="res-meta">
+                    <span class="res-count">4+期</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="一汽 长春 项目管理">
+                <div class="res-card-header">
+                    <h3>一汽集团培训案例</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">制造业</span>
+                </div>
+                <p class="res-desc">长春一汽项目管理培训案例，含课程设计、培训实施、效果评估全流程。</p>
+                <div class="res-meta">
+                    <span class="res-count">1期</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="武大 大学 继教 沙盘">
+                <div class="res-card-header">
+                    <h3>武大系列培训案例</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">高校</span>
+                </div>
+                <p class="res-desc">武大继教院沙盘培训、武大图书馆大数据和AI培训、武大团委培训等多期案例。</p>
+                <div class="res-meta">
+                    <span class="res-count">3+期</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="灵泉寺 短期出家 禅修">
+                <div class="res-card-header">
+                    <h3>灵泉寺禅修培训案例</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">禅修</span>
+                </div>
+                <p class="res-desc">灵泉寺短期出家班培训案例，将项目管理方法与禅修修行结合的实践探索。</p>
+                <div class="res-meta">
+                    <span class="res-count">2期</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. 读书笔记与参考资料 -->
+<section class="res-section" data-category="pm">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">📖</span>
+            <h2>读书笔记与参考资料</h2>
+        </div>
+        <p class="res-cat-desc">为知笔记和BookxNote中的读书笔记、标注摘录、学习心得，涵盖项目管理、佛学、AI等领域。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="member" data-keywords="读书 笔记 为知 wiznote">
+                <div class="res-card-header">
+                    <h3>为知笔记知识库</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">笔记</span>
+                </div>
+                <p class="res-desc">多年积累的为知笔记数据，包含读书笔记、网页剪藏、学习心得，涵盖项目管理、佛学、AI等多个领域。</p>
+                <div class="res-meta">
+                    <span class="res-count">10,000+条</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="member" data-keywords="bookxnote 读书 标注 电子书">
+                <div class="res-card-header">
+                    <h3>BookxNote读书笔记</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-member">会员</span>
+                    <span class="tag tag-primary">标注</span>
+                </div>
+                <p class="res-desc">电子书标注与笔记，包含书签、高亮、批注等阅读记录，支持按书籍和主题浏览。</p>
+                <div class="res-meta">
+                    <span class="res-count">710+文件</span>
+                    <a href="about.html#contact" class="res-action">联系获取 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="free" data-keywords="软考 信息系统 项目管理 认证">
+                <div class="res-card-header">
+                    <h3>国家软考备考资料</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">软考</span>
+                </div>
+                <p class="res-desc">信息系统项目管理师等软考备考资料索引，含真题、模拟题、知识点总结。3,600+文件积累。</p>
+                <div class="res-meta">
+                    <span class="res-count">整理中</span>
+                    <a href="about.html#contact" class="res-action">免费获取 &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="res-note">
+            <strong>说明：</strong>大部分资源文件（PPT、PDF、视频等）因体积较大，不存放在网站服务器上。
+            标注「免费」的资源可通过微信（JPAILab）或邮箱（Liujp8@163.com）免费索取；
+            标注「会员」的资源需成为会员后获取。
+        </div>
+    </div>
+</section>
+
+<!-- 底部CTA -->
+<section class="section">
+    <div class="container">
+        <div class="contact-section">
+            <h3>需要某个资源？聊聊看。</h3>
+            <p>免费资源直接索取，会员资源了解详情。微信最快。</p>
+            <div class="contact-items">
+                <div class="contact-item">
+                    <div class="ci-label">微信</div>
+                    <div class="ci-value">JPAILab</div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-label">邮箱</div>
+                    <div class="ci-value">Liujp8@163.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-label">电话</div>
+                    <div class="ci-value">13277049868</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 相关推荐 -->
+<section class="related-section">
+    <div class="container">
+        <div class="related-title">📌 你可能还感兴趣</div>
+        <div class="related-grid">
+            <a href="ai-tools.html" class="related-card">
+                <div class="related-card-icon">🤖</div>
+                <div class="related-card-title">AI工具导航</div>
+                <div class="related-card-desc">40+免费AI工具精选，支持搜索筛选</div>
+            </a>
+            <a href="tags.html" class="related-card">
+                <div class="related-card-icon">🏷️</div>
+                <div class="related-card-title">标签浏览</div>
+                <div class="related-card-desc">按主题标签快速找到相关资源</div>
+            </a>
+            <a href="search.html" class="related-card">
+                <div class="related-card-icon">🔍</div>
+                <div class="related-card-title">站内搜索</div>
+                <div class="related-card-desc">搜索全站页面、工具和资源</div>
+            </a>
+            <a href="about.html" class="related-card">
+                <div class="related-card-icon">👤</div>
+                <div class="related-card-title">关于我</div>
+                <div class="related-card-desc">20年培训经历，联系方式</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            电话：13277049868<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+<script>
+let currentFilter = 'all';
+
+function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterResources();
+}
+
+function filterResources() {
+    const searchTerm = (document.getElementById('resSearch').value || '').toLowerCase();
+    const sections = document.querySelectorAll('.res-section');
+
+    sections.forEach(section => {
+        const sectionCategory = section.getAttribute('data-category') || '';
+        const cards = section.querySelectorAll('.res-card');
+        let hasVisible = false;
+
+        cards.forEach(card => {
+            const access = card.getAttribute('data-access') || '';
+            const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+            const cardText = card.textContent.toLowerCase();
+
+            // 搜索匹配
+            const matchSearch = !searchTerm || keywords.includes(searchTerm) || cardText.includes(searchTerm);
+
+            // 筛选匹配
+            let matchFilter = true;
+            switch(currentFilter) {
+                case 'free': matchFilter = access === 'free'; break;
+                case 'member': matchFilter = access === 'member'; break;
+                case 'pm': matchFilter = sectionCategory === 'pm'; break;
+                case 'ai': matchFilter = sectionCategory === 'ai'; break;
+                case 'zen': matchFilter = sectionCategory === 'zen'; break;
+                case 'bid': matchFilter = sectionCategory === 'bid'; break;
+            }
+
+            if (matchSearch && matchFilter) {
+                card.style.display = '';
+                hasVisible = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // 隐藏没有可见卡片的section
+        section.style.display = hasVisible ? '' : 'none';
+    });
+}
+</script>
+
+</body>
+</html>

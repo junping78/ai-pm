@@ -39,3 +39,10 @@
 *.iso
 *.dmg
 *.exe
+
+# === 内部文档：含本地路径/客户信息/邮箱，禁止公开 ===
+# 这些文件仅供本地查看，不推送到 GitHub
+docs/content-asset-registry.html
+docs/content-asset-registry-v2.html
+generate_asset_registry.py
+generate_asset_registry_v2.py

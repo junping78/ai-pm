@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>站内搜索 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="搜索刘俊平老师网站全部内容：页面、AI工具、资源中心。输入关键词快速找到你需要的内容。">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  .search-hero {
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 100%);
+    color: #fff;
+    padding: 48px 20px 40px;
+    text-align: center;
+  }
+  .search-hero h1 { font-size: 30px; font-weight: 700; margin-bottom: 8px; }
+  .search-hero .search-subtitle { font-size: 15px; opacity: 0.88; margin-bottom: 24px; }
+
+  .search-box-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .search-box {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    font-size: 16px;
+    border: none;
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    outline: none;
+    font-family: inherit;
+  }
+  .search-box:focus {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--c-text-muted);
+    pointer-events: none;
+  }
+  .search-clear {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--c-text-muted);
+    cursor: pointer;
+    display: none;
+    padding: 4px 8px;
+    line-height: 1;
+  }
+  .search-clear:hover { color: var(--c-text); }
+
+  .search-stats {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 13.5px;
+    opacity: 0.85;
+  }
+
+  .filter-bar {
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 50;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--c-border);
+    padding: 12px 20px;
+  }
+  .filter-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-tab {
+    padding: 6px 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    border-radius: 20px;
+    border: 1.5px solid var(--c-border);
+    background: #fff;
+    color: var(--c-text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .filter-tab:hover { border-color: var(--c-primary-border); color: var(--c-primary); }
+  .filter-tab.active {
+    background: var(--c-primary);
+    color: #fff;
+    border-color: var(--c-primary);
+  }
+  .filter-count {
+    font-size: 12px;
+    margin-left: 4px;
+    opacity: 0.7;
+  }
+
+  .results-section { padding: 32px 0 64px; }
+  .result-group {
+    margin-bottom: 36px;
+  }
+  .result-group-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--c-primary-bg);
+  }
+  .result-group-header .group-icon { font-size: 22px; }
+  .result-group-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    margin: 0;
+  }
+  .result-group-header .group-count {
+    font-size: 13px;
+    color: var(--c-text-muted);
+    margin-left: auto;
+  }
+
+  .result-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px;
+  }
+  .result-card {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .result-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--c-primary-border);
+  }
+  .result-card .rc-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-text);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .result-card .rc-title a { color: inherit; }
+  .result-card .rc-title a:hover { color: var(--c-primary); text-decoration: none; }
+  .result-card .rc-desc {
+    font-size: 13.5px;
+    color: var(--c-text-light);
+    line-height: 1.7;
+    flex-grow: 1;
+    margin-bottom: 10px;
+  }
+  .result-card .rc-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .result-card .rc-tag {
+    font-size: 11.5px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .tag-type-page { background: var(--c-primary-bg); color: var(--c-primary); }
+  .tag-type-tool { background: var(--c-accent-bg); color: var(--c-accent); }
+  .tag-type-resource { background: var(--c-warm-bg); color: var(--c-warm); }
+  .tag-access-free { background: var(--c-accent-bg); color: var(--c-accent); }
+  .tag-access-member { background: var(--c-warm-bg); color: var(--c-warm); }
+
+  .highlight {
+    background: rgba(83,74,183,0.15);
+    color: var(--c-primary-dark);
+    font-weight: 600;
+    padding: 0 2px;
+    border-radius: 2px;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 64px 20px;
+    color: var(--c-text-muted);
+  }
+  .no-results .nr-icon { font-size: 48px; margin-bottom: 16px; }
+  .no-results p { font-size: 16px; margin-bottom: 8px; }
+  .no-results .nr-suggestions {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--c-text-light);
+  }
+  .no-results .nr-suggestions a {
+    display: inline-block;
+    margin: 4px 6px;
+    padding: 4px 12px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 16px;
+    color: var(--c-primary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .no-results .nr-suggestions a:hover {
+    border-color: var(--c-primary);
+    background: var(--c-primary-bg);
+  }
+
+  .welcome-state {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  .welcome-state h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    margin-bottom: 20px;
+  }
+  .quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .quick-link {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--c-text);
+  }
+  .quick-link:hover {
+    border-color: var(--c-primary-border);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+  .quick-link .ql-icon { font-size: 24px; margin-bottom: 8px; }
+  .quick-link .ql-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .quick-link .ql-desc { font-size: 13px; color: var(--c-text-light); line-height: 1.5; }
+
+  .hot-searches {
+    margin-top: 32px;
+  }
+  .hot-searches h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--c-text-light);
+    margin-bottom: 12px;
+  }
+  .hot-searches .hs-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hot-searches .hs-tag {
+    padding: 6px 14px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--c-text);
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .hot-searches .hs-tag:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+    background: var(--c-primary-bg);
+  }
+
+  @media (max-width: 768px) {
+    .search-hero h1 { font-size: 24px; }
+    .result-list { grid-template-columns: 1fr; }
+    .quick-links { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .filter-bar, .search-hero { display: none; }
+    .result-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI赋能项目管理</a></li>
+            <li><a href="teacher-ai-weekly.html">教师AI工具周报</a></li>
+            <li><a href="weekly-list.html">周报列表</a></li>
+            <li><a href="ai-tools.html">AI工具导航</a></li>
+            <li><a href="resources.html">资源中心</a></li>
+            <li><a href="tags.html">标签</a></li>
+            <li><a href="search.html" class="active">搜索</a></li>
+            <li><a href="about.html#contact">联系合作</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 搜索区 -->
+<section class="search-hero">
+    <h1>站内搜索</h1>
+    <p class="search-subtitle">搜索页面、AI工具、资源 —— 输入关键词立即找到你需要的内容</p>
+    <div class="search-box-wrapper">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" class="search-box" id="searchBox" placeholder="试试搜：DeepSeek、项目管理、禅修、PPT工具..." autofocus>
+        <button class="search-clear" id="searchClear" onclick="clearSearch()">&times;</button>
+    </div>
+    <div class="search-stats" id="searchStats"></div>
+</section>
+
+<!-- 筛选栏 -->
+<div class="filter-bar" id="filterBar" style="display:none;">
+    <div class="filter-inner">
+        <button class="filter-tab active" onclick="setFilter('all', this)">全部<span class="filter-count" id="count-all">0</span></button>
+        <button class="filter-tab" onclick="setFilter('page', this)">页面<span class="filter-count" id="count-page">0</span></button>
+        <button class="filter-tab" onclick="setFilter('tool', this)">AI工具<span class="filter-count" id="count-tool">0</span></button>
+        <button class="filter-tab" onclick="setFilter('resource', this)">资源<span class="filter-count" id="count-resource">0</span></button>
+    </div>
+</div>
+
+<!-- 欢迎状态（未搜索时显示） -->
+<div class="welcome-state" id="welcomeState">
+    <h2>热门搜索</h2>
+    <div class="hot-searches">
+        <div class="hs-tags">
+            <span class="hs-tag" onclick="quickSearch('DeepSeek')">DeepSeek</span>
+            <span class="hs-tag" onclick="quickSearch('项目管理')">项目管理</span>
+            <span class="hs-tag" onclick="quickSearch('PPT')">PPT</span>
+            <span class="hs-tag" onclick="quickSearch('禅修')">禅修</span>
+            <span class="hs-tag" onclick="quickSearch('教师')">教师</span>
+            <span class="hs-tag" onclick="quickSearch('免费')">免费</span>
+            <span class="hs-tag" onclick="quickSearch('九型人格')">九型人格</span>
+            <span class="hs-tag" onclick="quickSearch('甘特图')">甘特图</span>
+            <span class="hs-tag" onclick="quickSearch('VPN')">VPN</span>
+            <span class="hs-tag" onclick="quickSearch('课程')">课程</span>
+        </div>
+    </div>
+
+    <h2 style="margin-top:36px;">快速访问</h2>
+    <div class="quick-links">
+        <a href="index.html" class="quick-link">
+            <div class="ql-icon">&#127968;</div>
+            <div class="ql-title">首页</div>
+            <div class="ql-desc">了解刘俊平老师的三 大服务方向</div>
+        </a>
+        <a href="ai-project-management.html" class="quick-link">
+            <div class="ql-icon">&#127919;</div>
+            <div class="ql-title">AI赋能项目管理</div>
+            <div class="ql-desc">企业内训课程介绍</div>
+        </a>
+        <a href="ai-tools.html" class="quick-link">
+            <div class="ql-icon">&#129302;</div>
+            <div class="ql-title">AI工具导航</div>
+            <div class="ql-desc">40+免费AI工具精选</div>
+        </a>
+        <a href="resources.html" class="quick-link">
+            <div class="ql-icon">&#128218;</div>
+            <div class="ql-title">资源中心</div>
+            <div class="ql-desc">按主题分类的资源库</div>
+        </a>
+        <a href="about.html#peitong" class="quick-link">
+            <div class="ql-icon">&#129496;</div>
+            <div class="ql-title">情绪陪伴</div>
+            <div class="ql-desc">禅修分享与陪伴倾听</div>
+        </a>
+        <a href="teacher-ai-weekly.html" class="quick-link">
+            <div class="ql-icon">&#128240;</div>
+            <div class="ql-title">教师周报</div>
+            <div class="ql-desc">每周免费AI工具推荐</div>
+        </a>
+    </div>
+</div>
+
+<!-- 搜索结果 -->
+<section class="results-section" id="resultsSection" style="display:none;">
+    <div class="container">
+        <div id="resultsContainer"></div>
+    </div>
+</section>
+
+<!-- 无结果 -->
+<div class="no-results" id="noResults" style="display:none;">
+    <div class="nr-icon">&#128533;</div>
+    <p>没有找到匹配的内容</p>
+    <p style="font-size:14px;color:var(--c-text-muted);">试试换个关键词？</p>
+    <div class="nr-suggestions">
+        <a href="javascript:void(0)" onclick="quickSearch('项目管理')">项目管理</a>
+        <a href="javascript:void(0)" onclick="quickSearch('AI工具')">AI工具</a>
+        <a href="javascript:void(0)" onclick="quickSearch('禅修')">禅修</a>
+        <a href="javascript:void(0)" onclick="quickSearch('免费')">免费</a>
+    </div>
+</div>
+
+<!-- 相关推荐 -->
+<section class="related-section">
+    <div class="container">
+        <div class="related-title">📌 你可能还感兴趣</div>
+        <div class="related-grid">
+            <a href="tags.html" class="related-card">
+                <div class="related-card-icon">🏷️</div>
+                <div class="related-card-title">标签浏览</div>
+                <div class="related-card-desc">按主题标签浏览全站内容</div>
+            </a>
+            <a href="ai-tools.html" class="related-card">
+                <div class="related-card-icon">🤖</div>
+                <div class="related-card-title">AI工具导航</div>
+                <div class="related-card-desc">40+免费AI工具精选</div>
+            </a>
+            <a href="resources.html" class="related-card">
+                <div class="related-card-icon">📦</div>
+                <div class="related-card-title">资源中心</div>
+                <div class="related-card-desc">按主题分类的资源列表</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            电话：13277049868<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+<script>
+var searchData = [];
+var currentFilter = 'all';
+
+// 加载搜索索引
+function loadSearchIndex() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'search-index.json', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    searchData = JSON.parse(xhr.responseText);
+                } catch(e) {
+                    // 如果JSON加载失败，使用内联数据
+                    searchData = getInlineData();
+                }
+            } else {
+                searchData = getInlineData();
+            }
+        }
+    };
+    xhr.send();
+}
+
+// 搜索函数
+function performSearch(query) {
+    query = query.trim().toLowerCase();
+    if (!query) {
+        document.getElementById('welcomeState').style.display = '';
+        document.getElementById('resultsSection').style.display = 'none';
+        document.getElementById('noResults').style.display = 'none';
+        document.getElementById('filterBar').style.display = 'none';
+        document.getElementById('searchStats').textContent = '';
+        document.getElementById('searchClear').style.display = 'none';
+        return;
+    }
+
+    document.getElementById('searchClear').style.display = '';
+    document.getElementById('welcomeState').style.display = 'none';
+
+    var results = [];
+    for (var i = 0; i < searchData.length; i++) {
+        var item = searchData[i];
+        var title = (item.title || '').toLowerCase();
+        var desc = (item.desc || '').toLowerCase();
+        var keywords = (item.keywords || '').toLowerCase();
+        var category = (item.category || '').toLowerCase();
+
+        if (title.includes(query) || desc.includes(query) || keywords.includes(query) || category.includes(query)) {
+            // 计算相关度分数
+            var score = 0;
+            if (title.includes(query)) score += 10;
+            if (keywords.includes(query)) score += 5;
+            if (desc.includes(query)) score += 3;
+            if (category.includes(query)) score += 2;
+            item._score = score;
+            results.push(item);
+        }
+    }
+
+    // 按分数排序
+    results.sort(function(a, b) { return b._score - a._score; });
+
+    // 更新筛选栏计数
+    updateFilterCounts(results);
+
+    // 按当前筛选器显示
+    displayResults(results, query);
+}
+
+function updateFilterCounts(results) {
+    var counts = { all: results.length, page: 0, tool: 0, resource: 0 };
+    for (var i = 0; i < results.length; i++) {
+        var t = results[i].type;
+        if (counts[t] !== undefined) counts[t]++;
+    }
+    document.getElementById('count-all').textContent = counts.all;
+    document.getElementById('count-page').textContent = counts.page;
+    document.getElementById('count-tool').textContent = counts.tool;
+    document.getElementById('count-resource').textContent = counts.resource;
+    document.getElementById('filterBar').style.display = '';
+}
+
+function displayResults(results, query) {
+    var filtered = currentFilter === 'all' ? results : results.filter(function(r) { return r.type === currentFilter; });
+
+    document.getElementById('searchStats').textContent =
+        '找到 ' + filtered.length + ' 条结果';
+
+    if (filtered.length === 0) {
+        document.getElementById('resultsSection').style.display = 'none';
+        document.getElementById('noResults').style.display = '';
+        return;
+    }
+
+    document.getElementById('noResults').style.display = 'none';
+    document.getElementById('resultsSection').style.display = '';
+
+    // 按类型分组
+    var groups = { page: [], tool: [], resource: [] };
+    for (var i = 0; i < filtered.length; i++) {
+        var t = filtered[i].type;
+        if (groups[t]) groups[t].push(filtered[i]);
+    }
+
+    var html = '';
+    var groupConfig = {
+        page: { icon: '&#128279;', label: '页面' },
+        tool: { icon: '&#129302;', label: 'AI工具' },
+        resource: { icon: '&#128218;', label: '资源' }
+    };
+
+    var typeOrder = ['page', 'tool', 'resource'];
+    for (var gi = 0; gi < typeOrder.length; gi++) {
+        var type = typeOrder[gi];
+        var items = groups[type];
+        if (!items || items.length === 0) continue;
+
+        var config = groupConfig[type];
+        html += '<div class="result-group">';
+        html += '<div class="result-group-header">';
+        html += '<span class="group-icon">' + config.icon + '</span>';
+        html += '<h2>' + config.label + '</h2>';
+        html += '<span class="group-count">' + items.length + ' 条</span>';
+        html += '</div>';
+        html += '<div class="result-list">';
+
+        for (var j = 0; j < items.length; j++) {
+            html += buildResultCard(items[j], query);
+        }
+
+        html += '</div></div>';
+    }
+
+    document.getElementById('resultsContainer').innerHTML = html;
+}
+
+function buildResultCard(item, query) {
+    var title = highlightText(item.title, query);
+    var desc = highlightText(item.desc, query);
+    var external = item.url.startsWith('http');
+    var target = external ? ' target="_blank" rel="noopener"' : '';
+
+    var tags = '<span class="rc-tag tag-type-' + item.type + '">' + getTypeLabel(item.type) + '</span>';
+    if (item.category) tags += '<span class="rc-tag" style="background:#f0f0f0;color:#666;">' + item.category + '</span>';
+    if (item.access) tags += '<span class="rc-tag tag-access-' + item.access + '">' + (item.access === 'free' ? '免费' : '会员') + '</span>';
+
+    return '<div class="result-card">' +
+        '<div class="rc-title"><a href="' + item.url + '"' + target + '>' + title + '</a></div>' +
+        '<div class="rc-desc">' + desc + '</div>' +
+        '<div class="rc-tags">' + tags + '</div>' +
+        '</div>';
+}
+
+function highlightText(text, query) {
+    if (!query) return text;
+    var regex = new RegExp('(' + escapeRegex(query) + ')', 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
+}
+
+function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function getTypeLabel(type) {
+    return { page: '页面', tool: 'AI工具', resource: '资源' }[type] || type;
+}
+
+function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
+    btn.classList.add('active');
+    var query = document.getElementById('searchBox').value;
+    if (query.trim()) performSearch(query);
+}
+
+function quickSearch(term) {
+    document.getElementById('searchBox').value = term;
+    performSearch(term);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function clearSearch() {
+    document.getElementById('searchBox').value = '';
+    performSearch('');
+    document.getElementById('searchBox').focus();
+}
+
+// 事件绑定
+document.getElementById('searchBox').addEventListener('input', function() {
+    performSearch(this.value);
+});
+
+// 支持URL参数搜索
+window.addEventListener('load', function() {
+    loadSearchIndex();
+    var params = new URLSearchParams(window.location.search);
+    var q = params.get('q');
+    if (q) {
+        document.getElementById('searchBox').value = q;
+        setTimeout(function() { performSearch(q); }, 200);
+    }
+});
+</script>
+
+</body>
+</html>

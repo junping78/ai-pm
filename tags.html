@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>标签浏览 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="按标签浏览全站内容：项目管理、AI工具、禅修、招标投标、教师AI、企业内训等主题标签，快速找到相关页面、工具和资源。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="标签浏览 | 刘俊平 · AI赋能项目管理">
+<meta property="og:description" content="按标签浏览全站内容，快速找到相关页面、工具和资源。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/tags.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 标签页专用样式 */
+  .tags-intro {
+    background: #fff;
+    border-bottom: 1px solid var(--c-border);
+    padding: 28px 0;
+  }
+  .tags-intro .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .tags-intro .tags-stats {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .tags-intro .tags-stat {
+    text-align: center;
+  }
+  .tags-intro .tags-stat .num {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--c-primary);
+  }
+  .tags-intro .tags-stat .label {
+    font-size: 13px;
+    color: var(--c-text-light);
+  }
+
+  /* 标签云 */
+  .tag-cloud-section {
+    padding: 40px 0 24px;
+  }
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .tag-cloud-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 24px;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--c-border);
+    background: #fff;
+    color: var(--c-text);
+    transition: all 0.2s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .tag-cloud-item .tag-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    background: var(--c-bg);
+    padding: 1px 7px;
+    border-radius: 10px;
+  }
+  .tag-cloud-item:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  .tag-cloud-item.active {
+    background: var(--c-primary);
+    color: #fff;
+    border-color: var(--c-primary);
+  }
+  .tag-cloud-item.active .tag-count {
+    background: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* 标签分类 */
+  .tag-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .tag-group {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .tag-group h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tag-group .tag-group-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag-group .tag-cloud-item {
+    padding: 5px 13px;
+    font-size: 13px;
+    border-radius: 18px;
+  }
+
+  /* 结果区域 */
+  .tag-results {
+    padding: 32px 0 64px;
+    min-height: 300px;
+  }
+  .tag-results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .tag-results-header .current-tag {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+  }
+  .tag-results-header .current-tag .tag-badge {
+    display: inline-block;
+    background: var(--c-primary);
+    color: #fff;
+    padding: 3px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-left: 6px;
+  }
+  .tag-results-header .result-count {
+    font-size: 14px;
+    color: var(--c-text-light);
+  }
+
+  /* 类型筛选 */
+  .type-filter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .type-filter .type-btn {
+    padding: 6px 16px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13.5px;
+    color: var(--c-text);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .type-filter .type-btn:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+  }
+  .type-filter .type-btn.active {
+    background: var(--c-primary);
+    color: #fff;
+    border-color: var(--c-primary);
+  }
+
+  /* 结果卡片 */
+  .result-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .result-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .result-card:hover {
+    border-color: var(--c-primary-border);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  .result-card .result-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: var(--c-primary-bg);
+  }
+  .result-card .result-body {
+    flex-grow: 1;
+    min-width: 0;
+  }
+  .result-card .result-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-text);
+    margin-bottom: 4px;
+  }
+  .result-card .result-desc {
+    font-size: 14px;
+    color: var(--c-text-light);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .result-card .result-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .result-card .result-type-badge {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .badge-page { background: var(--c-primary-bg); color: var(--c-primary); }
+  .badge-tool { background: var(--c-accent-bg); color: var(--c-accent); }
+  .badge-resource { background: var(--c-warm-bg); color: var(--c-warm); }
+  .badge-free { background: var(--c-accent-bg); color: var(--c-accent); }
+  .badge-member { background: var(--c-warm-bg); color: var(--c-warm); }
+
+  /* 空状态 */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--c-text-muted);
+  }
+  .empty-state .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  .empty-state p {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  /* 初始引导 */
+  .tag-guide {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--c-text-light);
+  }
+  .tag-guide .guide-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  .tag-guide p {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .tag-guide .guide-hint {
+    font-size: 14px;
+    color: var(--c-text-muted);
+  }
+
+  /* 打印优化 */
+  @media print {
+    .tag-cloud-section, .tag-results-header .type-filter { display: none; }
+    .result-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI赋能项目管理</a></li>
+            <li><a href="teacher-ai-weekly.html">教师AI工具周报</a></li>
+            <li><a href="weekly-list.html">周报列表</a></li>
+            <li><a href="ai-tools.html">AI工具导航</a></li>
+            <li><a href="resources.html">资源中心</a></li>
+            <li><a href="tags.html" class="active">标签</a></li>
+            <li><a href="search.html">搜索</a></li>
+            <li><a href="about.html#contact">联系合作</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 页面标题 -->
+<header class="page-header">
+    <h1>标签浏览</h1>
+    <p class="page-subtitle">按主题标签快速浏览全站内容，点击标签查看相关页面、工具和资源。</p>
+</header>
+
+<!-- 统计概览 -->
+<div class="tags-intro">
+    <div class="container">
+        <p style="font-size:15px;color:var(--c-text-light);margin:0;">
+            全站内容按主题标签分类组织，帮你快速定位感兴趣的内容。
+        </p>
+        <div class="tags-stats">
+            <div class="tags-stat">
+                <div class="num" id="statTags">--</div>
+                <div class="label">主题标签</div>
+            </div>
+            <div class="tags-stat">
+                <div class="num" id="statItems">--</div>
+                <div class="label">内容条目</div>
+            </div>
+            <div class="tags-stat">
+                <div class="num">7</div>
+                <div class="label">页面</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 标签云 -->
+<section class="tag-cloud-section section-alt">
+    <div class="container">
+        <div class="tag-cloud" id="tagCloud">
+            <!-- JS动态生成 -->
+        </div>
+
+        <!-- 标签分组 -->
+        <div class="tag-groups" id="tagGroups">
+            <!-- JS动态生成 -->
+        </div>
+    </div>
+</section>
+
+<!-- 结果区域 -->
+<section class="tag-results" id="tagResults">
+    <div class="container">
+        <!-- 初始引导 -->
+        <div class="tag-guide" id="tagGuide">
+            <div class="guide-icon">🏷️</div>
+            <p>点击上方任意标签，查看相关内容</p>
+            <p class="guide-hint">也可以在下方按类型筛选结果</p>
+        </div>
+
+        <!-- 结果内容（默认隐藏） -->
+        <div id="resultContent" style="display:none;">
+            <div class="tag-results-header">
+                <div class="current-tag">
+                    标签：<span class="tag-badge" id="currentTagName">--</span>
+                </div>
+                <div class="result-count" id="resultCount">--</div>
+            </div>
+            <div class="type-filter" id="typeFilter">
+                <button class="type-btn active" onclick="setTypeFilter('all', this)">全部</button>
+                <button class="type-btn" onclick="setTypeFilter('page', this)">📄 页面</button>
+                <button class="type-btn" onclick="setTypeFilter('tool', this)">🤖 AI工具</button>
+                <button class="type-btn" onclick="setTypeFilter('resource', this)">📦 资源</button>
+            </div>
+            <div class="result-list" id="resultList">
+                <!-- JS动态生成 -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 相关推荐 -->
+<section class="related-section">
+    <div class="container">
+        <div class="related-title">📌 你可能还感兴趣</div>
+        <div class="related-grid">
+            <a href="search.html" class="related-card">
+                <div class="related-card-icon">🔍</div>
+                <div class="related-card-title">站内搜索</div>
+                <div class="related-card-desc">输入关键词搜索全站内容</div>
+            </a>
+            <a href="resources.html" class="related-card">
+                <div class="related-card-icon">📦</div>
+                <div class="related-card-title">资源中心</div>
+                <div class="related-card-desc">按主题分类浏览资源</div>
+            </a>
+            <a href="ai-tools.html" class="related-card">
+                <div class="related-card-icon">🤖</div>
+                <div class="related-card-title">AI工具导航</div>
+                <div class="related-card-desc">40+免费AI工具精选</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            电话：13277049868<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+<script>
+// === 标签数据（内嵌，无需额外请求） ===
+const tagData = [
+  // 页面
+  {type:"page",title:"首页",url:"index.html",desc:"刘俊平，企业AI项目管理培训咨询师，20年培训经历。AI赋能项目管理、情绪陪伴禅修分享、教师免费AI工具周报。",tags:["项目管理","AI工具","情绪陪伴","禅修","教师AI","培训咨询","刘俊平"]},
+  {type:"page",title:"关于我",url:"about.html",desc:"刘俊平个人介绍：20年培训经历，项目管理×AI×九型人格三大方向融合。含联系方式和在线咨询表单。",tags:["刘俊平","项目管理","AI工具","九型人格","情绪陪伴","禅修","佛学","企业内训","联系方式"]},
+  {type:"page",title:"AI赋能项目管理课程",url:"ai-project-management.html",desc:"把AI工具嵌入项目管理全流程——需求分析、计划制定、风险管控、团队沟通、项目复盘。适合企业内训。",tags:["项目管理","AI工具","企业内训","课程","风险管控","需求分析","团队协作","九型人格"]},
+  {type:"page",title:"教师免费AI工具周报",url:"teacher-ai-weekly.html",desc:"汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛、给出推荐组合。每周更新。",tags:["教师AI","AI工具","免费","周报","教学工具","备课","课件"]},
+  {type:"page",title:"AI工具导航",url:"ai-tools.html",desc:"40+免费AI工具精选，6大分类：官方平台、通用大模型、教学课件、PPT制作、国外免费工具、教师专属。",tags:["AI工具","免费","教师AI","大模型","课件","PPT","导航","DeepSeek","豆包","Kimi"]},
+  {type:"page",title:"资源中心",url:"resources.html",desc:"项目管理工具包、AI工具导航、禅修入门资料、招标投标资源、企业内训案例。按主题分类，免费与会员清晰标注。",tags:["项目管理","AI工具","禅修","招标投标","企业内训","资源","免费","会员","工具包","表格"]},
+  {type:"page",title:"教师AI工具周报内容",url:"free/teacher-ai-weekly-report.html",desc:"最新一期教师免费AI工具周报内容，含工具推荐、使用技巧、场景组合。",tags:["教师AI","AI工具","免费","周报","工具推荐","使用技巧"]},
+
+  // AI工具
+  {type:"tool",title:"国家智慧教育平台 2.0",url:"https://www.smartedu.cn/",desc:"教育部官方出品，覆盖全学段全学科，提供数学解题、英语点读、智能出题、心理健康等AI功能。完全免费。",tags:["教师AI","AI工具","免费","官方平台","数学","英语","心理健康"]},
+  {type:"tool",title:"AI企鹅教师助手",url:"https://aiteach.qq.com/",desc:"腾讯出品，面向中小学教师，提供教材同步的AI备课、出题、资源推荐。",tags:["教师AI","AI工具","免费","备课","出题","腾讯","K12"]},
+  {type:"tool",title:"DeepSeek",url:"https://www.deepseek.com/",desc:"深度推理能力强，适合跨学科备课、复杂课题研究、教案设计、题目解析。基础功能完全免费。",tags:["AI工具","免费","大模型","备课","课题","教案","DeepSeek","推理"]},
+  {type:"tool",title:"豆包",url:"https://www.doubao.com/",desc:"字节跳动出品，基础问答、作文批改、生图、语音对话免费。",tags:["AI工具","免费","大模型","问答","作文批改","生图","豆包","字节跳动"]},
+  {type:"tool",title:"Kimi",url:"https://kimi.moonshot.cn/",desc:"月之暗面出品，超长上下文，可上传教材PDF生成知识大纲、一键生成PPT。",tags:["AI工具","免费","大模型","PDF","知识大纲","PPT","Kimi"]},
+  {type:"tool",title:"智谱清言",url:"https://chatglm.cn/",desc:"清华系智谱AI出品，古诗文/文言文理解精准，可生成赏析、阅读理解习题，学术写作辅助。",tags:["AI工具","免费","大模型","古诗文","学术写作","智谱","清华"]},
+  {type:"tool",title:"文心一言",url:"https://yiyan.baidu.com/",desc:"百度出品，教案大纲生成、知识点拆解、学情数据分析，与百度搜索深度整合。",tags:["AI工具","免费","大模型","教案","学情","百度","搜索"]},
+  {type:"tool",title:"通义千问",url:"https://tongyi.aliyun.com/",desc:"阿里巴巴出品，推理能力强、编程教学辅助、文档解析能力突出。适合信息技术和STEM课程。",tags:["AI工具","免费","大模型","编程","文档解析","STEM","阿里"]},
+  {type:"tool",title:"讯飞星火",url:"https://xinghuo.xfyun.cn/",desc:"科大讯飞出品，语音识别精准，课堂实时转写、双语教学、数学解题、数字分身。",tags:["AI工具","免费","大模型","语音识别","课堂转写","双语","讯飞"]},
+  {type:"tool",title:"腾讯元宝",url:"https://yuanbao.tencent.com/",desc:"腾讯出品，教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档。",tags:["AI工具","免费","大模型","教案","写作","腾讯","微信"]},
+  {type:"tool",title:"希沃白板",url:"https://easinote.seewo.com/",desc:"输入主题一键生成课件、思维导图、互动课堂活动。教师常用的AI课件制作工具。",tags:["教师AI","AI工具","免费","课件","思维导图","互动课堂","希沃"]},
+  {type:"tool",title:"101教育PPT",url:"https://ppt.101.com/",desc:"K12备授课一体化工具，覆盖全学段全学科，内置海量课件、教案、微课和学科工具。",tags:["教师AI","AI工具","免费","课件","教案","微课","K12"]},
+  {type:"tool",title:"秘塔AI搜索",url:"https://metaso.cn/",desc:"无广告学术/资料检索，自动生成结构化答案、思维导图和参考文献。适合教师备课查资料。",tags:["教师AI","AI工具","免费","学术检索","思维导图","备课","秘塔"]},
+  {type:"tool",title:"即梦",url:"https://jimeng.jianying.com/",desc:"字节跳动出品，AI生图、教学插图、历史场景还原、短视频素材。每日免费额度较大。",tags:["教师AI","AI工具","免费","AI生图","教学插图","短视频","即梦"]},
+  {type:"tool",title:"腾讯智影",url:"https://zenvideo.qq.com/",desc:"AI数字人讲解、文字转视频微课制作。适合快速制作教学视频和微课。",tags:["教师AI","AI工具","免费","数字人","微课","教学视频","腾讯"]},
+  {type:"tool",title:"讯飞听见",url:"https://www.iflyrec.com/",desc:"语音转文字，教研会议录音转文字、口语作业评分。免费版支持实时转写。",tags:["教师AI","AI工具","免费","语音转文字","教研","口语评分","讯飞"]},
+  {type:"tool",title:"海绵音乐",url:"https://www.haimian.com/",desc:"字节跳动出品，AI音乐生成，可用于课件背景音乐、班级活动BGM。完全免费。",tags:["教师AI","AI工具","免费","AI音乐","课件BGM","班级活动"]},
+  {type:"tool",title:"扣子 Coze",url:"https://www.coze.cn/",desc:"字节跳动出品，零代码搭建教案智能体、学科专用AI助手、班级管理机器人。",tags:["教师AI","AI工具","免费","零代码","智能体","班级管理","扣子"]},
+  {type:"tool",title:"腾讯IMA",url:"https://ima.qq.com/",desc:"跨平台检索论文、知识库管理、个人资料库问答。免费赠送1GB云存储。",tags:["教师AI","AI工具","免费","论文检索","知识库","资料库","腾讯"]},
+  {type:"tool",title:"微软翻译",url:"https://www.microsoft.com/zh-cn/translator/",desc:"面对面双向实时翻译，支持100人对话模式。完全免费，中国直接可用，支持离线。",tags:["教师AI","AI工具","免费","翻译","跨语言","离线","微软"]},
+  {type:"tool",title:"Canva可画教育版",url:"https://www.canva.cn/education/",desc:"教师可用学校邮箱或上传教师资格证认证，认证后永久免费使用教育版功能。",tags:["教师AI","AI工具","免费","设计","教育版","Canva"]},
+  {type:"tool",title:"腾讯文档",url:"https://docs.qq.com/",desc:"多人协作在线文档，支持AI一键总结、思维导图生成、智能表格。适合教研组共享资料。",tags:["教师AI","AI工具","免费","协作","文档","教研组","腾讯"]},
+  {type:"tool",title:"金山文档",url:"https://www.kdocs.cn/",desc:"在线协作文档、表格、PPT，兼容WPS格式，支持AI模板和多人实时编辑。",tags:["教师AI","AI工具","免费","协作","WPS","表格","PPT"]},
+  {type:"tool",title:"Kimi PPT",url:"https://kimi.moonshot.cn/",desc:"Kimi内置PPT生成功能，输入主题自动生成大纲、内容和排版，可在线编辑导出。",tags:["AI工具","免费","PPT","Kimi","大纲","排版"]},
+  {type:"tool",title:"ChatPPT",url:"https://chat-ppt.com/",desc:"必优科技出品，对话式生成PPT，自然语言控制内容、样式和动画。基础功能免费。",tags:["AI工具","免费","PPT","对话式","ChatPPT"]},
+  {type:"tool",title:"麦当秀AIPPT",url:"https://www.madown.com/",desc:"输入主题一键生成教学PPT，支持模板替换和在线编辑。基础功能免费。",tags:["教师AI","AI工具","免费","PPT","教学PPT","麦当秀"]},
+  {type:"tool",title:"LivePPT",url:"https://liveppt.cn/",desc:"美图出品，AI生成PPT，操作简单，模板丰富。基础功能免费。",tags:["AI工具","免费","PPT","美图","LivePPT"]},
+  {type:"tool",title:"讯飞智文",url:"https://zhiwen.xfyun.cn/",desc:"科大讯飞出品，AI生成PPT、Word文档，语音输入生成课件。教育场景适配好。",tags:["教师AI","AI工具","免费","PPT","Word","语音输入","课件","讯飞"]},
+  {type:"tool",title:"Gamma",url:"https://gamma.app/",desc:"国外AI演示工具，输入文字即可生成精美PPT/网页，设计感强。免费版有额度限制，需VPN。",tags:["AI工具","PPT","国外","需VPN","Gamma","设计"]},
+  {type:"tool",title:"Beautiful.ai",url:"https://www.beautiful.ai/",desc:"智能排版PPT工具，自动调整版式和图表。免费版功能有限，需VPN。",tags:["AI工具","PPT","国外","需VPN","智能排版"]},
+  {type:"tool",title:"twee",url:"https://twee.com/",desc:"英语教师专属工具，生成词汇、阅读、写作、口语、语法等教学素材。有免费额度，需VPN。",tags:["教师AI","AI工具","英语","词汇","阅读","写作","口语","国外","需VPN"]},
+  {type:"tool",title:"NotebookLM",url:"https://notebooklm.google.com/",desc:"Google出品，上传教学资料生成学习指南、FAQ、音频概要（AI播客）。需VPN+Google账号。",tags:["教师AI","AI工具","学习指南","AI播客","Google","国外","需VPN"]},
+  {type:"tool",title:"ChatGPT for Teachers",url:"https://openai.com/chatgpt/education/",desc:"OpenAI出品，GPT-5.1无限对话、联网搜索、文件上传、语音模式。需VPN+美国K-12教师认证。",tags:["教师AI","AI工具","ChatGPT","OpenAI","GPT","国外","需VPN"]},
+  {type:"tool",title:"Google Gemini for Education",url:"https://edu.google.com/intl/ALL_us/get-started/gemini/",desc:"Google出品，深度集成Google Classroom、自动生成测验、播客式音频课程。需VPN。",tags:["教师AI","AI工具","Google","Gemini","Classroom","测验","国外","需VPN"]},
+  {type:"tool",title:"Claude for Education",url:"https://claude.com/education",desc:"Anthropic出品，苏格拉底式学习模式、超长上下文、交互式课件生成、学术写作辅助。",tags:["教师AI","AI工具","Claude","Anthropic","苏格拉底","学术写作","国外"]},
+  {type:"tool",title:"Microsoft Copilot 教育版",url:"https://www.microsoft.com/zh-cn/education/products/copilot-in-education",desc:"微软出品，集成Microsoft 365、Word/PPT/Excel AI辅助、课堂管理工具。",tags:["教师AI","AI工具","微软","Copilot","365","Word","PPT","Excel"]},
+
+  // 资源
+  {type:"resource",title:"21套项目管理方法工具包",url:"about.html#contact",desc:"涵盖项目管理核心方法论，从项目启动到收尾的全流程工具。",tags:["项目管理","工具包","方法论","会员","模板","检查清单"],access:"member"},
+  {type:"resource",title:"255套项目管理表格工具包",url:"about.html#contact",desc:"按CMMI过程域分类：生命周期模型、项目策划、配置管理、风险管理等16大类。",tags:["项目管理","表格","模板","会员","CMMI","风险管理","配置管理"],access:"member"},
+  {type:"resource",title:"33套项目管理案例",url:"about.html#contact",desc:"真实项目管理案例，覆盖不同行业和场景，适合培训教学和团队学习参考。",tags:["项目管理","案例","实战","会员","培训","教学"],access:"member"},
+  {type:"resource",title:"39套项目管理PPT培训课件",url:"about.html#contact",desc:"包含风险管理（63页）、PMO经验分享（112页）等专题课件。",tags:["项目管理","PPT","课件","培训","会员","风险管理","PMO"],access:"member"},
+  {type:"resource",title:"甘特图模板合集",url:"about.html#contact",desc:"全自动甘特图Excel模板、项目计划进度表等多种场景模板。",tags:["项目管理","甘特图","模板","免费","Excel","进度表"],access:"free"},
+  {type:"resource",title:"华为项目管理培训教材",url:"about.html#contact",desc:"华为项目管理金种子中级培训教材，大型企业实战经验系统总结。",tags:["项目管理","华为","培训教材","会员","企业内训","实战经验"],access:"member"},
+  {type:"resource",title:"AI工具导航页",url:"ai-tools.html",desc:"40+精选AI工具，6大分类，支持实时搜索和分类筛选。",tags:["AI工具","免费","导航","教师AI","大模型","课件","PPT"],access:"free"},
+  {type:"resource",title:"教师免费AI工具周报",url:"free/teacher-ai-weekly-report.html",desc:"汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛。",tags:["教师AI","AI工具","免费","周报","场景","推荐组合"],access:"free"},
+  {type:"resource",title:"AI工具结构化数据库",url:"free-reports/tools.yaml",desc:"tools.yaml格式存储40+AI工具的结构化数据。",tags:["AI工具","免费","数据","yaml","结构化"],access:"free"},
+  {type:"resource",title:"禅修入门指南",url:"about.html#peitong",desc:"面向初学者的禅修入门资料，包含基础概念、坐姿指导、呼吸方法。",tags:["禅修","情绪陪伴","入门","免费","冥想","坐姿","呼吸"],access:"free"},
+  {type:"resource",title:"九型人格入门",url:"about.html#peitong",desc:"九型人格基础介绍，九种性格类型的特点、优势、成长方向。",tags:["九型人格","情绪陪伴","性格","免费","成长","修行"],access:"free"},
+  {type:"resource",title:"佛学经论学习笔记",url:"about.html#contact",desc:"慧灯之光、广论等经论的学习笔记和读书心得。",tags:["禅修","情绪陪伴","佛学","经论","会员","慧灯之光","广论","笔记"],access:"member"},
+  {type:"resource",title:"情绪管理与陪伴笔记",url:"about.html#contact",desc:"情绪陪伴案例总结和方法论，结合九型人格和禅修视角。",tags:["情绪陪伴","禅修","情绪管理","会员","九型人格","案例","方法论"],access:"member"},
+  {type:"resource",title:"标书审查清单与模板",url:"about.html#contact",desc:"政府采购标书合规审查清单，含致命问题检查、得分项检查、优化建议。",tags:["招标投标","标书","审查","会员","合规","政府采购","模板"],access:"member"},
+  {type:"resource",title:"投标文件编制指南",url:"about.html#contact",desc:"投标响应文件编制模板和注意事项。",tags:["招标投标","投标","编制","会员","技术方案","商务方案","资质"],access:"member"},
+  {type:"resource",title:"富士康系列培训案例",url:"about.html#contact",desc:"威海/郑州/上海/成都富士康多期培训案例。",tags:["企业内训","富士康","制造业","会员","培训","案例"],access:"member"},
+  {type:"resource",title:"一汽集团培训案例",url:"about.html#contact",desc:"长春一汽项目管理培训案例，含课程设计、培训实施、效果评估。",tags:["企业内训","一汽","制造业","会员","项目管理","培训","课程设计"],access:"member"},
+  {type:"resource",title:"武大系列培训案例",url:"about.html#contact",desc:"武大继教院沙盘、图书馆大数据AI、团委等多期培训案例。",tags:["企业内训","武大","高校","会员","沙盘","大数据","AI","培训"],access:"member"},
+  {type:"resource",title:"灵泉寺禅修培训案例",url:"about.html#contact",desc:"灵泉寺短期出家班培训案例，项目管理方法与禅修修行结合。",tags:["企业内训","禅修","灵泉寺","会员","短期出家","项目管理","修行"],access:"member"},
+  {type:"resource",title:"为知笔记知识库",url:"about.html#contact",desc:"多年积累的为知笔记数据，涵盖项目管理、佛学、AI等领域。",tags:["读书笔记","为知笔记","会员","知识库","项目管理","佛学","AI工具"],access:"member"},
+  {type:"resource",title:"BookxNote读书笔记",url:"about.html#contact",desc:"电子书标注与笔记，包含书签、高亮、批注等阅读记录。",tags:["读书笔记","BookxNote","会员","电子书","标注","高亮","批注"],access:"member"},
+  {type:"resource",title:"国家软考备考资料",url:"about.html#contact",desc:"信息系统项目管理师等软考备考资料索引，含真题、模拟题、知识点。",tags:["项目管理","软考","免费","备考","信息系统","真题","认证"],access:"free"}
+];
+
+// === 标签分组定义 ===
+const tagGroups = [
+  {name:"核心主题",icon:"🎯",tags:["项目管理","AI工具","教师AI","情绪陪伴","禅修","招标投标","企业内训","读书笔记"]},
+  {name:"AI工具类型",icon:"🤖",tags:["大模型","课件","PPT","备课","翻译","语音转文字","AI生图","AI音乐","数字人","智能体","协作"]},
+  {name:"服务方向",icon:"🧭",tags:["课程","培训咨询","企业内训","周报","工具包","案例","方法论","联系方式"]},
+  {name:"内容属性",icon:"📦",tags:["免费","会员","模板","表格","工具包","笔记","实战"]},
+  {name:"行业领域",icon:"🏭",tags:["制造业","高校","K12","国央企","CMMI"]},
+  {name:"修行相关",icon:"🧘",tags:["九型人格","佛学","经论","冥想","修行","慧灯之光","广论"]}
+];
+
+// === 状态 ===
+let currentTag = null;
+let currentTypeFilter = 'all';
+
+// === 初始化 ===
+function init() {
+  // 统计标签频率
+  const tagCounts = {};
+  tagData.forEach(item => {
+    (item.tags || []).forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  // 按频率排序
+  const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+
+  // 更新统计
+  document.getElementById('statTags').textContent = sortedTags.length;
+  document.getElementById('statItems').textContent = tagData.length;
+
+  // 生成标签云
+  const cloud = document.getElementById('tagCloud');
+  sortedTags.forEach(([tag, count]) => {
+    const el = document.createElement('a');
+    el.className = 'tag-cloud-item';
+    el.href = '#tagResults';
+    el.innerHTML = `${tag} <span class="tag-count">${count}</span>`;
+    el.onclick = (e) => {
+      e.preventDefault();
+      selectTag(tag);
+    };
+    cloud.appendChild(el);
+  });
+
+  // 生成标签分组
+  const groupsContainer = document.getElementById('tagGroups');
+  tagGroups.forEach(group => {
+    const groupEl = document.createElement('div');
+    groupEl.className = 'tag-group';
+    let itemsHTML = '';
+    group.tags.forEach(tag => {
+      const count = tagCounts[tag] || 0;
+      if (count > 0) {
+        itemsHTML += `<a href="#tagResults" class="tag-cloud-item" onclick="event.preventDefault();selectTag('${tag}')">${tag} <span class="tag-count">${count}</span></a>`;
+      }
+    });
+    groupEl.innerHTML = `<h3>${group.icon} ${group.name}</h3><div class="tag-group-items">${itemsHTML}</div>`;
+    groupsContainer.appendChild(groupEl);
+  });
+
+  // 检查URL参数
+  const params = new URLSearchParams(window.location.search);
+  const tagParam = params.get('tag');
+  if (tagParam) {
+    selectTag(tagParam);
+  }
+}
+
+function selectTag(tag) {
+  currentTag = tag;
+
+  // 更新标签云高亮
+  document.querySelectorAll('.tag-cloud-item').forEach(el => {
+    el.classList.remove('active');
+    if (el.textContent.startsWith(tag)) {
+      el.classList.add('active');
+    }
+  });
+
+  // 显示结果区域
+  document.getElementById('tagGuide').style.display = 'none';
+  document.getElementById('resultContent').style.display = '';
+
+  // 更新当前标签
+  document.getElementById('currentTagName').textContent = tag;
+
+  // 重置类型筛选
+  currentTypeFilter = 'all';
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.type-btn').classList.add('active');
+
+  renderResults();
+
+  // 滚动到结果
+  document.getElementById('tagResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function setTypeFilter(type, btn) {
+  currentTypeFilter = type;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderResults();
+}
+
+function renderResults() {
+  if (!currentTag) return;
+
+  const results = tagData.filter(item =>
+    (item.tags || []).includes(currentTag) &&
+    (currentTypeFilter === 'all' || item.type === currentTypeFilter)
+  );
+
+  document.getElementById('resultCount').textContent = `共 ${results.length} 条结果`;
+
+  const list = document.getElementById('resultList');
+  if (results.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <p>没有找到相关内容</p>
+        <p style="font-size:13px;">试试其他标签或类型筛选</p>
+      </div>
+    `;
+    return;
+  }
+
+  const typeIcons = { page: '📄', tool: '🤖', resource: '📦' };
+  const typeLabels = { page: '页面', tool: 'AI工具', resource: '资源' };
+  const typeBadgeClasses = { page: 'badge-page', tool: 'badge-tool', resource: 'badge-resource' };
+
+  list.innerHTML = results.map(item => {
+    const accessBadge = item.access
+      ? `<span class="result-type-badge ${item.access === 'free' ? 'badge-free' : 'badge-member'}">${item.access === 'free' ? '免费' : '会员'}</span>`
+      : '';
+    return `
+      <a href="${item.url}" class="result-card">
+        <div class="result-icon">${typeIcons[item.type] || '📄'}</div>
+        <div class="result-body">
+          <div class="result-title">${item.title}</div>
+          <div class="result-desc">${item.desc}</div>
+          <div class="result-meta">
+            <span class="result-type-badge ${typeBadgeClasses[item.type]}">${typeLabels[item.type]}</span>
+            ${accessBadge}
+            ${(item.tags || []).filter(t => t !== currentTag).slice(0, 4).map(t => `<span class="result-type-badge badge-page">${t}</span>`).join('')}
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+// 启动
+init();
+</script>
+
+</body>
+</html>
