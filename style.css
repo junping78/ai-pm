@@ -132,20 +132,22 @@ ol {
 
 .navbar .nav-links {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     list-style: none;
     padding: 0;
     margin: 0;
+    flex-wrap: nowrap;
 }
 
 .navbar .nav-links a {
     display: block;
-    padding: 8px 14px;
-    font-size: 14.5px;
+    padding: 8px 16px;
+    font-size: 15px;
     color: var(--c-text);
     border-radius: var(--radius-sm);
     transition: all 0.2s;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .navbar .nav-links a:hover,
@@ -564,6 +566,25 @@ ol {
 
 .footer .footer-contact a:hover {
     color: #fff;
+}
+
+.footer .footer-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.footer .footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13.5px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer .footer-links a:hover {
+    color: #fff;
+    text-decoration: none;
 }
 
 .footer .footer-bottom {
