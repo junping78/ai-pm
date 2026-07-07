@@ -13,6 +13,7 @@
 | **[operation-manual.html](operation-manual.html)** | 战略 | 网站长期怎么建？三阶段路线是什么？ | 做规划、做重大决策时 |
 | **[principles.md](principles.md)** | 原则 | 内容怎么分免费/会员？格式标准是什么？栏目怎么克制？ | 新增内容、做设计选择时 |
 | **[directory-guide.md](directory-guide.md)** | 结构 | 文件放哪里？free/ 和 member/ 怎么用？ | 新增文件、整理目录时 |
+| **[capacity-policy.md](capacity-policy.md)** | 容量 | 什么能放 GitHub？大文件放哪里？ | 新增文件、上传资料前必看 |
 | **[weekly-report-workflow.md](weekly-report-workflow.md)** | 流程 | 怎么发新一期周报？从写到发布几步？ | 每周发周报时 |
 | **[changelog.md](changelog.md)** | 记录 | 上次改了什么？为什么改？什么时候改的？ | 想知道"上次做到哪了"时 |
 
@@ -24,8 +25,9 @@
 → 打开 [operation-manual.html](operation-manual.html)，看三阶段建设路线
 
 ### 我要新增一个页面或内容
-→ 先看 [directory-guide.md](directory-guide.md) 决定放哪里
-→ 再看 [principles.md](principles.md) 确认格式标准
+→ 先看 [capacity-policy.md](capacity-policy.md) 确认文件能不能放 GitHub
+→ 再看 [directory-guide.md](directory-guide.md) 决定放哪里
+→ 最后看 [principles.md](principles.md) 确认格式标准
 
 ### 我要发新一期周报
 → 直接按 [weekly-report-workflow.md](weekly-report-workflow.md) 的步骤走
@@ -92,6 +94,7 @@ https://junping78.github.io/ai-pm/
 │   ├── operation-manual.html         操作手册（战略层）
 │   ├── principles.md                 运营原则（速查层）
 │   ├── directory-guide.md            目录结构约定
+│   ├── capacity-policy.md            容量策略（什么能放GitHub）
 │   ├── weekly-report-workflow.md     周报工作流
 │   └── changelog.md                  变更记录
 ├── free/                           免费公开内容

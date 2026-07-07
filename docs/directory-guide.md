@@ -112,6 +112,7 @@ member/     →  会员资源（预留，后续接入权限管理）
 
 **规则：**
 - 此目录不上传到 GitHub Pages 公开仓库
+- 大文件遵循 [capacity-policy.md](capacity-policy.md) 的三层存储架构
 - 后续接入 Cloudflare R2 / Supabase Storage
 - 权限管理用 Supabase Auth + RLS
 

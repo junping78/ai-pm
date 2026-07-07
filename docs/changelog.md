@@ -5,7 +5,27 @@
 
 ---
 
-## 2026-07-07 第二阶段功能增强：咨询表单 + SEO + 访问统计
+## 2026-07-08 容量保护策略：.gitignore 规则 + 容量策略文档
+
+### 改动
+- **.gitignore 更新**：新增大文件类型忽略规则，自动阻止 PPT/DOC/PDF/视频/压缩包/设计文件等上传到 GitHub
+  - 覆盖：*.pptx *.ppt *.docx *.doc *.xlsx *.xls *.pdf *.mp4 *.mov *.avi *.wav *.mp3 *.zip *.rar *.7z *.psd *.ai *.exe 等
+  - 即使执行 `git add .` 也会自动忽略，物理上不可能传上去
+- **新建 docs/capacity-policy.md**：容量策略文档
+  - 记录 GitHub Pages 硬限制（仓库 ≤ 1GB，单文件 ≤ 100MiB）
+  - 定义三层存储架构：GitHub（展示层）→ 本地（原始资料库）→ 对象存储（大文件）
+  - 明确哪些内容能放 GitHub、哪些不能
+  - 提供容量检查命令和安全线/警告线
+- **docs/INDEX.md 更新**：新增 capacity-policy.md 到文档清单和快速入口
+- **docs/directory-guide.md 更新**：member/ 目录规则引用 capacity-policy.md
+
+### 原因
+- 第三阶段即将开始，需要防止 PPT/PDF/视频等大文件意外上传撑爆仓库
+- 当前仓库仅 219K，但一个课件包就可能超过 1GB
+- 趁仓库还小，把规则立死，比以后清理容易
+
+### 待办
+- 无
 
 ### 改动
 - **咨询表单**：在 about.html 联系区域下方新增在线咨询表单

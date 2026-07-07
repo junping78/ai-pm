@@ -1,1 +1,41 @@
 .workbuddy/
+
+# === 容量保护：禁止大文件类型上传到 GitHub ===
+# GitHub Pages 限制：仓库建议 ≤ 1GB，单文件 > 50MiB 警告，> 100MiB 阻止
+# 大文件请放本地 / 网盘 / 对象存储，详见 docs/capacity-policy.md
+
+# Office 文档
+*.pptx
+*.ppt
+*.docx
+*.doc
+*.xlsx
+*.xls
+
+# PDF
+*.pdf
+
+# 视频和音频
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+*.mp3
+
+# 压缩包
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# 设计文件
+*.psd
+*.ai
+*.sketch
+
+# 其他大文件类型
+*.iso
+*.dmg
+*.exe
