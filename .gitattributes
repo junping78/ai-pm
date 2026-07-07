@@ -1,0 +1,31 @@
+# 强制文本文件使用 LF 换行符
+# 统一 Windows / macOS / Linux 下的换行格式，避免 Git 反复提示 CRLF/LF 转换
+
+# 网页文件
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+
+# 文档与数据文件
+*.md    text eol=lf
+*.txt   text eol=lf
+*.xml   text eol=lf
+*.svg   text eol=lf
+*.json  text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+
+# Git 自身配置
+*.gitattributes text eol=lf
+*.gitignore     text eol=lf
+
+# 二进制文件原样处理，不转换换行符
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.mp4  binary
+*.webm binary
+*.zip  binary

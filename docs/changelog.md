@@ -26,6 +26,13 @@
 - 刘老师需到 analytics.google.com 创建 GA4 账号，获取 Measurement ID 替换 `G-ZWYYBYRN3S`
 - FormSubmit 首次提交时会发确认邮件到 liujp8@163.com，需点击确认激活
 
+### 补充（同日追加）
+- **新增 `.gitattributes`**：统一文本文件使用 LF 换行符
+  - 覆盖 *.html, *.css, *.js, *.md, *.txt, *.xml, *.svg, *.json, *.yml, *.yaml
+  - 避免 Windows 环境下 Git 反复提示 "LF will be replaced by CRLF"
+  - 二进制文件（图片/视频/PDF）标记为 binary，禁止换行转换
+  - 不影响 GitHub Pages 部署效果
+
 ---
 
 ## 2026-07-04 GitHub Pages 部署上线 + 常用命令速查
