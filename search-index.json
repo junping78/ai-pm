@@ -1,72 +1,560 @@
 [
-  {"type":"page","title":"首页","url":"index.html","desc":"刘俊平，企业AI项目管理培训咨询师，20年培训经历。AI赋能项目管理、情绪陪伴禅修分享、教师免费AI工具周报。","keywords":"刘俊平 AI赋能 项目管理 培训 咨询 情绪陪伴 禅修 教师AI工具 周报 国央企 银行 制造业 IT 九型人格 武汉 纽黑文"},
-  {"type":"page","title":"关于我","url":"about.html","desc":"刘俊平个人介绍：20年培训经历，项目管理×AI×九型人格三大方向融合。含联系方式和在线咨询表单。","keywords":"刘俊平 关于我 简介 培训师 咨询师 项目管理 AI 九型人格 佛学 修行 情绪陪伴 禅修 围坐聊天 1对1倾听 联系方式 微信 JPAILab 邮箱 Liujp8 电话 13277049868 武汉 纽黑文 企业内训 课程开发 个人咨询"},
-  {"type":"page","title":"AI赋能项目管理课程","url":"ai-project-management.html","desc":"把AI工具嵌入项目管理全流程——需求分析、计划制定、风险管控、团队沟通、项目复盘。适合企业内训。","keywords":"AI赋能 项目管理 课程 培训 企业内训 PMO 项目经理 技术骨干 需求分析 计划制定 WBS 甘特图 风险管控 团队沟通 项目复盘 九型人格 团队协作 国央企 银行 制造业 IT行业 定制课程"},
-  {"type":"page","title":"教师免费AI工具周报","url":"teacher-ai-weekly.html","desc":"汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛、给出推荐组合。每周更新。","keywords":"教师 AI工具 周报 免费 每周 教学工具 备课 课件 PPT 国内外 推荐 组合 场景分类"},
-  {"type":"page","title":"周报列表","url":"weekly-list.html","desc":"教师免费AI工具周报全部历史期刊列表。每期40+款工具精选，按场景分类、标注门槛、给出推荐组合。","keywords":"周报列表 历史期刊 教师AI工具 免费 期刊 创刊号 第1期 归档"},
-  {"type":"page","title":"AI工具导航","url":"ai-tools.html","desc":"40+免费AI工具精选，6大分类：官方平台、通用大模型、教学课件、PPT制作、国外免费工具、教师专属。","keywords":"AI工具 导航 40+ 免费 教师 官方平台 大模型 课件 PPT 国外 VPN 推荐组合 DeepSeek 豆包 Kimi 智谱清言 文心一言 通义千问 讯飞星火 腾讯元宝 希沃白板 101教育PPT 秘塔搜索"},
-  {"type":"page","title":"资源中心","url":"resources.html","desc":"项目管理工具包、AI工具导航、禅修入门资料、招标投标资源、企业内训案例。按主题分类，免费与会员清晰标注。","keywords":"资源中心 工具包 表格 模板 案例 PPT课件 甘特图 华为 AI工具 禅修 九型人格 招标投标 标书 投标 企业内训 富士康 一汽 武大 灵泉寺 为知笔记 BookxNote 软考 免费 会员"},
-  {"type":"page","title":"教师AI工具周报内容","url":"free/teacher-ai-weekly-report.html","desc":"最新一期教师免费AI工具周报内容，含工具推荐、使用技巧、场景组合。","keywords":"周报内容 教师 AI工具 免费 工具推荐 使用技巧 场景 组合 DeepSeek 豆包 Kimi 希沃白板 101教育PPT"},
-
-  {"type":"tool","title":"国家智慧教育平台 2.0 智能版","url":"https://www.smartedu.cn/","desc":"教育部官方出品，覆盖全学段全学科，提供数学解题、英语点读、智能出题、心理健康大模型等AI功能。完全免费。","keywords":"国家智慧教育 smartedu 教育部 官方 数学解题 英语点读 智能出题 育小苗 心理健康 完全免费 直接可用","category":"国内官方平台"},
-  {"type":"tool","title":"国家高等教育智慧教育平台 · AI2026","url":"https://higher.smartedu.cn/ai2026","desc":"高等教育版AI专题入口，汇聚人工智能课程、教学资源与政策动态。适合高校教师。","keywords":"高等教育 智慧教育 AI2026 教育部 人工智能 课程 高校 教师 完全免费","category":"国内官方平台"},
-  {"type":"tool","title":"AI企鹅教师助手","url":"https://aiteach.qq.com/","desc":"腾讯出品，面向中小学教师，提供教材同步的AI备课、出题、资源推荐。","keywords":"AI企鹅 教师助手 腾讯 备课 出题 资源推荐 K12 中小学 免费","category":"国内官方平台"},
-  {"type":"tool","title":"DeepSeek","url":"https://www.deepseek.com/","desc":"深度推理能力强，适合跨学科备课、复杂课题研究、教案设计、题目解析。基础功能完全免费。","keywords":"DeepSeek 深度求索 推理 备课 课题 教案 题目解析 免费 直接可用","category":"国内通用大模型"},
-  {"type":"tool","title":"豆包","url":"https://www.doubao.com/","desc":"字节跳动出品，基础问答、作文批改、生图、语音对话免费。2026年5月起推出付费版。","keywords":"豆包 字节跳动 问答 作文批改 生图 语音 同声传译 PPT 基础免费","category":"国内通用大模型"},
-  {"type":"tool","title":"Kimi","url":"https://kimi.moonshot.cn/","desc":"月之暗面出品，超长上下文，可上传教材PDF生成知识大纲、一键生成PPT。","keywords":"Kimi 月之暗面 超长上下文 PDF 知识大纲 PPT moonshot 基础免费","category":"国内通用大模型"},
-  {"type":"tool","title":"智谱清言","url":"https://chatglm.cn/","desc":"清华系智谱AI出品，古诗文/文言文理解精准，可生成赏析、阅读理解习题，学术写作辅助。","keywords":"智谱清言 智谱AI 清华 chatglm 古诗文 文言文 赏析 阅读理解 学术写作 基础免费","category":"国内通用大模型"},
-  {"type":"tool","title":"文心一言","url":"https://yiyan.baidu.com/","desc":"百度出品，教案大纲生成、知识点拆解、学情数据分析，与百度搜索深度整合。","keywords":"文心一言 百度 yiyan 教案 知识点 学情 搜索 基础免费","category":"国内通用大模型"},
-  {"type":"tool","title":"通义千问","url":"https://tongyi.aliyun.com/","desc":"阿里巴巴出品，推理能力强、编程教学辅助、文档解析能力突出。适合信息技术和STEM课程。","keywords":"通义千问 阿里巴巴 tongyi 推理 编程 文档解析 信息技术 STEM 基础免费","category":"国内通用大模型"},
-  {"type":"tool","title":"讯飞星火","url":"https://xinghuo.xfyun.cn/","desc":"科大讯飞出品，语音识别精准，课堂实时转写、双语教学、数学解题、数字分身。","keywords":"讯飞星火 科大讯飞 xinghuo 语音识别 课堂转写 双语 数学 数字分身 基础免费","category":"国内通用大模型"},
-  {"type":"tool","title":"腾讯元宝","url":"https://yuanbao.tencent.com/","desc":"腾讯出品，教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档。","keywords":"腾讯元宝 腾讯 yuanbao 教案 写作 联网搜索 微信 腾讯文档 基础免费","category":"国内通用大模型"},
-  {"type":"tool","title":"希沃白板","url":"https://easinote.seewo.com/","desc":"输入主题一键生成课件、思维导图、互动课堂活动。教师常用的AI课件制作工具。","keywords":"希沃白板 视源股份 easinote 课件 思维导图 互动课堂 K12 免费 直接可用","category":"教学/课件专用"},
-  {"type":"tool","title":"101教育PPT","url":"https://ppt.101.com/","desc":"K12备授课一体化工具，覆盖全学段全学科，内置海量课件、教案、微课和学科工具。","keywords":"101教育PPT 网龙华渔 K12 备授课 课件 教案 微课 学科工具 免费","category":"教学/课件专用"},
-  {"type":"tool","title":"秘塔AI搜索","url":"https://metaso.cn/","desc":"无广告学术/资料检索，自动生成结构化答案、思维导图和参考文献。适合教师备课查资料。","keywords":"秘塔AI搜索 秘塔科技 metaso 学术检索 资料 结构化答案 思维导图 参考文献 基础免费","category":"教学/课件专用"},
-  {"type":"tool","title":"即梦","url":"https://jimeng.jianying.com/","desc":"字节跳动出品，AI生图、教学插图、历史场景还原、短视频素材。每日免费额度较大。","keywords":"即梦 字节跳动 jimeng AI生图 教学插图 历史场景 短视频 每日免费","category":"教学/课件专用"},
-  {"type":"tool","title":"腾讯智影","url":"https://zenvideo.qq.com/","desc":"AI数字人讲解、文字转视频微课制作。适合快速制作教学视频和微课。","keywords":"腾讯智影 腾讯 zenvideo AI数字人 文字转视频 微课 教学视频 基础免费","category":"教学/课件专用"},
-  {"type":"tool","title":"讯飞听见","url":"https://www.iflyrec.com/","desc":"语音转文字，教研会议录音转文字、口语作业评分。免费版支持实时转写。","keywords":"讯飞听见 科大讯飞 iflyrec 语音转文字 教研会议 口语作业 评分 实时转写 基础免费","category":"教学/课件专用"},
-  {"type":"tool","title":"海绵音乐","url":"https://www.haimian.com/","desc":"字节跳动出品，AI音乐生成，可用于课件背景音乐、班级活动BGM。完全免费。","keywords":"海绵音乐 字节跳动 haimian AI音乐 课件BGM 班级活动 完全免费","category":"教学/课件专用"},
-  {"type":"tool","title":"扣子 Coze","url":"https://www.coze.cn/","desc":"字节跳动出品，零代码搭建教案智能体、学科专用AI助手、班级管理机器人。","keywords":"扣子 Coze 字节跳动 零代码 教案智能体 学科AI助手 班级管理机器人 基础免费","category":"教学/课件专用"},
-  {"type":"tool","title":"腾讯IMA","url":"https://ima.qq.com/","desc":"跨平台检索论文、知识库管理、个人资料库问答。免费赠送1GB云存储。","keywords":"腾讯IMA 腾讯 ima 论文检索 知识库 个人资料库 1GB 免费","category":"教学/课件专用"},
-  {"type":"tool","title":"微软翻译","url":"https://www.microsoft.com/zh-cn/translator/","desc":"面对面双向实时翻译，支持100人对话模式。完全免费，中国直接可用，支持离线。","keywords":"微软翻译 microsoft translator 面对面翻译 100人对话 离线 跨语言 完全免费 直接可用","category":"教学/课件专用"},
-  {"type":"tool","title":"Canva可画教育版","url":"https://www.canva.cn/education/","desc":"国内站canva.cn，教师可用学校邮箱或上传教师资格证认证，认证后永久免费使用教育版功能。","keywords":"Canva可画 教育版 canva.cn 学校邮箱 教师资格证 认证 永久免费 设计","category":"教学/课件专用"},
-  {"type":"tool","title":"腾讯文档","url":"https://docs.qq.com/","desc":"多人协作在线文档，支持AI一键总结、思维导图生成、智能表格。适合教研组共享资料。","keywords":"腾讯文档 腾讯 docs.qq 多人协作 AI总结 思维导图 智能表格 教研组 基础免费","category":"教学/课件专用"},
-  {"type":"tool","title":"金山文档","url":"https://www.kdocs.cn/","desc":"在线协作文档、表格、PPT，兼容WPS格式，支持AI模板和多人实时编辑。学校可申请WPS 365教育版。","keywords":"金山文档 金山办公 kdocs 在线协作 表格 PPT WPS WPS365教育版 基础免费","category":"教学/课件专用"},
-  {"type":"tool","title":"Kimi PPT","url":"https://kimi.moonshot.cn/","desc":"Kimi内置PPT生成功能，输入主题自动生成大纲、内容和排版，可在线编辑导出。","keywords":"Kimi PPT 月之暗面 PPT生成 大纲 内容 排版 在线编辑 导出 免费","category":"PPT制作工具"},
-  {"type":"tool","title":"ChatPPT","url":"https://chat-ppt.com/","desc":"必优科技出品，对话式生成PPT，自然语言控制内容、样式和动画。基础功能免费。","keywords":"ChatPPT 必优科技 对话式 生成PPT 自然语言 样式 动画 基础免费","category":"PPT制作工具"},
-  {"type":"tool","title":"麦当秀AIPPT","url":"https://www.madown.com/","desc":"输入主题一键生成教学PPT，支持模板替换和在线编辑。基础功能免费。","keywords":"麦当秀 AIPPT madown 教学PPT 模板替换 在线编辑 基础免费","category":"PPT制作工具"},
-  {"type":"tool","title":"LivePPT","url":"https://liveppt.cn/","desc":"美图出品，AI生成PPT，操作简单，模板丰富。基础功能免费。","keywords":"LivePPT 美图 liveppt AI生成PPT 操作简单 模板 基础免费","category":"PPT制作工具"},
-  {"type":"tool","title":"讯飞智文","url":"https://zhiwen.xfyun.cn/","desc":"科大讯飞出品，AI生成PPT、Word文档，语音输入生成课件。教育场景适配好。","keywords":"讯飞智文 科大讯飞 zhiwen AI生成PPT Word 语音输入 课件 教育场景 基础免费","category":"PPT制作工具"},
-  {"type":"tool","title":"Gamma","url":"https://gamma.app/","desc":"国外AI演示工具，输入文字即可生成精美PPT/网页，设计感强。免费版有额度限制，需VPN。","keywords":"Gamma gamma.app 国外 AI演示 文字生成PPT 网页 设计感 免费额度 需VPN","category":"PPT制作工具"},
-  {"type":"tool","title":"Beautiful.ai","url":"https://www.beautiful.ai/","desc":"智能排版PPT工具，自动调整版式和图表。免费版功能有限，需VPN。","keywords":"Beautiful.ai 智能排版PPT 自动调整 版式 图表 基础免费 需VPN","category":"PPT制作工具"},
-  {"type":"tool","title":"twee","url":"https://twee.com/","desc":"英语教师专属工具，生成词汇、阅读、写作、口语、语法等教学素材。注册即用。有免费额度。需VPN。","keywords":"twee 英语教师 词汇 阅读 写作 口语 语法 教学素材 注册即用 免费额度 需VPN","category":"国外免费工具"},
-  {"type":"tool","title":"Inciteful","url":"https://inciteful.xyz/","desc":"基于引用网络的文献发现工具，可视化论文关系、快速定位相关文献。完全免费，需VPN。","keywords":"Inciteful inciteful.xyz 引用网络 文献发现 论文关系 相关文献 教研论文 完全免费 需VPN","category":"国外免费工具"},
-  {"type":"tool","title":"NotebookLM","url":"https://notebooklm.google.com/","desc":"Google出品，上传教学资料生成学习指南、FAQ、音频概要（AI播客）。需VPN+Google账号。","keywords":"NotebookLM Google 学习指南 FAQ 音频概要 AI播客 教学资料 免费 需VPN Google账号 Classroom","category":"国外免费工具"},
-  {"type":"tool","title":"ChatGPT for Teachers","url":"https://openai.com/chatgpt/education/","desc":"OpenAI出品，GPT-5.1无限对话、联网搜索、文件上传、语音模式、图片生成、数据分析。需VPN+美国K-12教师认证。","keywords":"ChatGPT Teachers OpenAI GPT-5.1 联网搜索 文件上传 语音 图片生成 数据分析 美国K-12 VPN 认证","category":"国外教师专属"},
-  {"type":"tool","title":"Google Gemini for Education","url":"https://edu.google.com/intl/ALL_us/get-started/gemini/","desc":"Google出品，深度集成Google Classroom、自动生成测验、播客式音频课程。需VPN+Google Workspace教育版账号。","keywords":"Google Gemini Education Classroom 测验 播客 音频课程 学习材料 Workspace VPN 学校账号","category":"国外教师专属"},
-  {"type":"tool","title":"Claude for Education","url":"https://claude.com/education","desc":"Anthropic出品，苏格拉底式学习模式、超长上下文、交互式课件生成、学术写作辅助。中国官方不可用。","keywords":"Claude Education Anthropic 苏格拉底 超长上下文 交互式课件 学术写作 中国不可用 合作院校","category":"国外教师专属"},
-  {"type":"tool","title":"Microsoft Copilot 教育版","url":"https://www.microsoft.com/zh-cn/education/products/copilot-in-education","desc":"微软出品，集成Microsoft 365、Word/PPT/Excel AI辅助、课堂管理工具。部分中国高校可用。","keywords":"Microsoft Copilot 教育版 微软 365 Word PPT Excel 课堂管理 学习智能体 学校账号 部分高校可用","category":"国外教师专属"},
-
-  {"type":"resource","title":"21套项目管理方法工具包","url":"about.html#contact","desc":"涵盖项目管理核心方法论，从项目启动到收尾的全流程工具，包含模板、检查清单和操作指南。","keywords":"项目管理 方法 工具包 方法论 流程 模板 检查清单 操作指南","access":"member","category":"项目管理工具包"},
-  {"type":"resource","title":"255套项目管理表格工具包","url":"about.html#contact","desc":"按CMMI过程域分类：生命周期模型、项目策划、配置管理、风险管理、质量保证、需求工程、测试等16大类。","keywords":"项目管理 表格 模板 excel CMMI 过程域 配置管理 风险管理 质量保证 需求工程 测试","access":"member","category":"项目管理工具包"},
-  {"type":"resource","title":"33套项目管理案例","url":"about.html#contact","desc":"真实项目管理案例，覆盖不同行业和场景，适合培训教学和团队学习参考。","keywords":"项目管理 案例 实战 培训 教学 行业 场景","access":"member","category":"项目管理工具包"},
-  {"type":"resource","title":"39套项目管理PPT培训课件","url":"about.html#contact","desc":"包含风险管理（63页）、PMO经验分享（112页）等专题课件，适合企业内训直接使用或参考改编。","keywords":"项目管理 PPT 课件 培训 风险管理 PMO 经验分享 企业内训","access":"member","category":"项目管理工具包"},
-  {"type":"resource","title":"甘特图模板合集","url":"about.html#contact","desc":"全自动甘特图Excel模板、项目计划进度表、工作进度表、HR实施计划等多种场景模板。","keywords":"甘特图 模板 excel 进度表 项目计划 工作进度 HR实施计划 免费","access":"free","category":"项目管理工具包"},
-  {"type":"resource","title":"华为项目管理培训教材","url":"about.html#contact","desc":"华为项目管理金种子中级培训教材，大型企业项目管理实战经验的系统总结。","keywords":"华为 项目管理 金种子 中级 培训教材 实战经验","access":"member","category":"项目管理工具包"},
-  {"type":"resource","title":"AI工具导航页","url":"ai-tools.html","desc":"40+精选AI工具，6大分类：国内官方平台、通用大模型、教学课件工具、PPT制作、国外免费工具、教师专属。","keywords":"AI工具 导航 40+ 免费 教师 官方平台 大模型 课件 PPT 国外","access":"free","category":"AI工具与教程"},
-  {"type":"resource","title":"教师免费AI工具周报","url":"free/teacher-ai-weekly-report.html","desc":"汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛、给出推荐组合。每周更新。","keywords":"教师 AI工具 周报 免费 每周 场景 门槛 推荐组合","access":"free","category":"AI工具与教程"},
-  {"type":"resource","title":"AI工具结构化数据库","url":"free-reports/tools.yaml","desc":"tools.yaml格式存储40+AI工具的结构化数据，包含名称、分类、免费/付费、使用门槛等字段。","keywords":"AI工具 数据 yaml 结构化 数据库 分类 付费 门槛","access":"free","category":"AI工具与教程"},
-  {"type":"resource","title":"禅修入门指南","url":"about.html#peitong","desc":"面向初学者的禅修入门资料，包含基础概念、坐姿指导、呼吸方法、常见问题解答。","keywords":"禅修 入门 基础 冥想 坐姿 呼吸 初学者 免费","access":"free","category":"情绪陪伴·禅修"},
-  {"type":"resource","title":"九型人格入门","url":"about.html#peitong","desc":"九型人格基础介绍，九种性格类型的特点、优势、成长方向。从修行视角解读。","keywords":"九型人格 性格 类型 特点 优势 成长 修行 免费","access":"free","category":"情绪陪伴·禅修"},
-  {"type":"resource","title":"佛学经论学习笔记","url":"about.html#contact","desc":"慧灯之光、广论等经论的学习笔记和读书心得，包含为知笔记和BookxNote中的标注与摘录。","keywords":"佛学 经论 慧灯之光 广论 学习笔记 读书心得 为知笔记 BookxNote","access":"member","category":"情绪陪伴·禅修"},
-  {"type":"resource","title":"情绪管理与陪伴笔记","url":"about.html#contact","desc":"情绪陪伴过程中的案例总结和方法论，结合九型人格和禅修视角，帮助看见情绪模式。","keywords":"情绪 管理 陪伴 案例 方法论 九型人格 禅修 情绪模式","access":"member","category":"情绪陪伴·禅修"},
-  {"type":"resource","title":"标书审查清单与模板","url":"about.html#contact","desc":"政府采购标书合规审查清单，包含致命问题检查、得分项检查、优化建议三级审查体系。","keywords":"标书 审查 清单 模板 政府采购 合规 致命问题 得分 优化建议","access":"member","category":"招标投标资源"},
-  {"type":"resource","title":"投标文件编制指南","url":"about.html#contact","desc":"投标响应文件编制模板和注意事项，涵盖技术方案、商务方案、资质文件等模块。","keywords":"投标 响应文件 编制 模板 技术方案 商务方案 资质文件","access":"member","category":"招标投标资源"},
-  {"type":"resource","title":"富士康系列培训案例","url":"about.html#contact","desc":"威海富士康创新与问题、郑州富士康技术培训、上海富士康过激行为管理、成都富士康思维导图等多期培训案例。","keywords":"富士康 威海 郑州 上海 成都 培训 案例 创新问题 技术培训 过激行为 思维导图","access":"member","category":"企业内训案例"},
-  {"type":"resource","title":"一汽集团培训案例","url":"about.html#contact","desc":"长春一汽项目管理培训案例，含课程设计、培训实施、效果评估全流程。","keywords":"一汽 长春 项目管理 培训 案例 课程设计 培训实施 效果评估","access":"member","category":"企业内训案例"},
-  {"type":"resource","title":"武大系列培训案例","url":"about.html#contact","desc":"武大继教院沙盘培训、武大图书馆大数据和AI培训、武大团委培训等多期案例。","keywords":"武大 武汉大学 继教院 沙盘 图书馆 大数据 AI 团委 培训 案例","access":"member","category":"企业内训案例"},
-  {"type":"resource","title":"灵泉寺禅修培训案例","url":"about.html#contact","desc":"灵泉寺短期出家班培训案例，将项目管理方法与禅修修行结合的实践探索。","keywords":"灵泉寺 短期出家 禅修 培训 项目管理 修行 实践","access":"member","category":"企业内训案例"},
-  {"type":"resource","title":"为知笔记知识库","url":"about.html#contact","desc":"多年积累的为知笔记数据，包含读书笔记、网页剪藏、学习心得，涵盖项目管理、佛学、AI等多个领域。","keywords":"为知笔记 知识库 读书笔记 网页剪藏 学习心得 项目管理 佛学 AI","access":"member","category":"读书笔记与参考"},
-  {"type":"resource","title":"BookxNote读书笔记","url":"about.html#contact","desc":"电子书标注与笔记，包含书签、高亮、批注等阅读记录，支持按书籍和主题浏览。","keywords":"BookxNote 读书笔记 电子书 标注 书签 高亮 批注 阅读记录","access":"member","category":"读书笔记与参考"},
-  {"type":"resource","title":"国家软考备考资料","url":"about.html#contact","desc":"信息系统项目管理师等软考备考资料索引，含真题、模拟题、知识点总结。3,600+文件积累。","keywords":"软考 信息系统 项目管理师 备考 真题 模拟题 知识点 免费","access":"free","category":"读书笔记与参考"}
+  {
+    "type": "page",
+    "title": "首页",
+    "url": "index.html",
+    "desc": "刘俊平，企业AI项目管理培训咨询师，20年培训经历。AI赋能项目管理、情绪陪伴禅修分享、教师免费AI工具周报。",
+    "keywords": "刘俊平 AI赋能 项目管理 培训 咨询 情绪陪伴 禅修 教师AI工具 周报 国央企 银行 制造业 IT 九型人格 武汉 纽黑文"
+  },
+  {
+    "type": "page",
+    "title": "关于我",
+    "url": "about.html",
+    "desc": "刘俊平个人介绍：20年培训经历，项目管理×AI×九型人格三大方向融合。含联系方式和在线咨询表单。",
+    "keywords": "刘俊平 关于我 简介 培训师 咨询师 项目管理 AI 九型人格 佛学 修行 情绪陪伴 禅修 围坐聊天 1对1倾听 联系方式 微信 JPAILab 邮箱 Liujp8 电话 13277049868 武汉 纽黑文 企业内训 课程开发 个人咨询"
+  },
+  {
+    "type": "page",
+    "title": "AI赋能项目管理课程",
+    "url": "ai-project-management.html",
+    "desc": "把AI工具嵌入项目管理全流程——需求分析、计划制定、风险管控、团队沟通、项目复盘。适合企业内训。",
+    "keywords": "AI赋能 项目管理 课程 培训 企业内训 PMO 项目经理 技术骨干 需求分析 计划制定 WBS 甘特图 风险管控 团队沟通 项目复盘 九型人格 团队协作 国央企 银行 制造业 IT行业 定制课程"
+  },
+  {
+    "type": "page",
+    "title": "教师免费AI工具周报",
+    "url": "teacher-ai-weekly.html",
+    "desc": "汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛、给出推荐组合。每周更新。",
+    "keywords": "教师 AI工具 周报 免费 每周 教学工具 备课 课件 PPT 国内外 推荐 组合 场景分类"
+  },
+  {
+    "type": "page",
+    "title": "周报列表",
+    "url": "weekly-list.html",
+    "desc": "教师免费AI工具周报全部历史期刊列表。每期40+款工具精选，按场景分类、标注门槛、给出推荐组合。",
+    "keywords": "周报列表 历史期刊 教师AI工具 免费 期刊 创刊号 第1期 归档"
+  },
+  {
+    "type": "page",
+    "title": "AI工具导航",
+    "url": "ai-tools.html",
+    "desc": "40+免费AI工具精选，6大分类：官方平台、通用大模型、教学课件、PPT制作、国外免费工具、教师专属。",
+    "keywords": "AI工具 导航 40+ 免费 教师 官方平台 大模型 课件 PPT 国外 VPN 推荐组合 DeepSeek 豆包 Kimi 智谱清言 文心一言 通义千问 讯飞星火 腾讯元宝 希沃白板 101教育PPT 秘塔搜索"
+  },
+  {
+    "type": "page",
+    "title": "资源中心",
+    "url": "resources.html",
+    "desc": "项目管理工具包、AI工具导航、禅修入门资料、招标投标资源、企业内训案例。按主题分类，免费与会员清晰标注。",
+    "keywords": "资源中心 工具包 表格 模板 案例 PPT课件 甘特图 华为 AI工具 禅修 九型人格 招标投标 标书 投标 企业内训 富士康 一汽 武大 灵泉寺 为知笔记 BookxNote 软考 免费 会员"
+  },
+  {
+    "type": "page",
+    "title": "教师AI工具周报内容",
+    "url": "free/teacher-ai-weekly-report.html",
+    "desc": "最新一期教师免费AI工具周报内容，含工具推荐、使用技巧、场景组合。",
+    "keywords": "周报内容 教师 AI工具 免费 工具推荐 使用技巧 场景 组合 DeepSeek 豆包 Kimi 希沃白板 101教育PPT"
+  },
+  {
+    "type": "tool",
+    "title": "国家智慧教育平台 2.0 智能版",
+    "url": "https://www.smartedu.cn/",
+    "desc": "教育部官方出品，覆盖全学段全学科，提供数学解题、英语点读、智能出题、心理健康大模型等AI功能。完全免费。",
+    "keywords": "国家智慧教育 smartedu 教育部 官方 数学解题 英语点读 智能出题 育小苗 心理健康 完全免费 直接可用",
+    "category": "国内官方平台"
+  },
+  {
+    "type": "tool",
+    "title": "国家高等教育智慧教育平台 · AI2026",
+    "url": "https://higher.smartedu.cn/ai2026",
+    "desc": "高等教育版AI专题入口，汇聚人工智能课程、教学资源与政策动态。适合高校教师。",
+    "keywords": "高等教育 智慧教育 AI2026 教育部 人工智能 课程 高校 教师 完全免费",
+    "category": "国内官方平台"
+  },
+  {
+    "type": "tool",
+    "title": "AI企鹅教师助手",
+    "url": "https://aiteach.qq.com/",
+    "desc": "腾讯出品，面向中小学教师，提供教材同步的AI备课、出题、资源推荐。",
+    "keywords": "AI企鹅 教师助手 腾讯 备课 出题 资源推荐 K12 中小学 免费",
+    "category": "国内官方平台"
+  },
+  {
+    "type": "tool",
+    "title": "DeepSeek",
+    "url": "https://www.deepseek.com/",
+    "desc": "深度推理能力强，适合跨学科备课、复杂课题研究、教案设计、题目解析。基础功能完全免费。",
+    "keywords": "DeepSeek 深度求索 推理 备课 课题 教案 题目解析 免费 直接可用",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "豆包",
+    "url": "https://www.doubao.com/",
+    "desc": "字节跳动出品，基础问答、作文批改、生图、语音对话免费。2026年5月起推出付费版。",
+    "keywords": "豆包 字节跳动 问答 作文批改 生图 语音 同声传译 PPT 基础免费",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "Kimi",
+    "url": "https://kimi.moonshot.cn/",
+    "desc": "月之暗面出品，超长上下文，可上传教材PDF生成知识大纲、一键生成PPT。",
+    "keywords": "Kimi 月之暗面 超长上下文 PDF 知识大纲 PPT moonshot 基础免费",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "智谱清言",
+    "url": "https://chatglm.cn/",
+    "desc": "清华系智谱AI出品，古诗文/文言文理解精准，可生成赏析、阅读理解习题，学术写作辅助。",
+    "keywords": "智谱清言 智谱AI 清华 chatglm 古诗文 文言文 赏析 阅读理解 学术写作 基础免费",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "文心一言",
+    "url": "https://yiyan.baidu.com/",
+    "desc": "百度出品，教案大纲生成、知识点拆解、学情数据分析，与百度搜索深度整合。",
+    "keywords": "文心一言 百度 yiyan 教案 知识点 学情 搜索 基础免费",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "通义千问",
+    "url": "https://tongyi.aliyun.com/",
+    "desc": "阿里巴巴出品，推理能力强、编程教学辅助、文档解析能力突出。适合信息技术和STEM课程。",
+    "keywords": "通义千问 阿里巴巴 tongyi 推理 编程 文档解析 信息技术 STEM 基础免费",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "讯飞星火",
+    "url": "https://xinghuo.xfyun.cn/",
+    "desc": "科大讯飞出品，语音识别精准，课堂实时转写、双语教学、数学解题、数字分身。",
+    "keywords": "讯飞星火 科大讯飞 xinghuo 语音识别 课堂转写 双语 数学 数字分身 基础免费",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "腾讯元宝",
+    "url": "https://yuanbao.tencent.com/",
+    "desc": "腾讯出品，教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档。",
+    "keywords": "腾讯元宝 腾讯 yuanbao 教案 写作 联网搜索 微信 腾讯文档 基础免费",
+    "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "希沃白板",
+    "url": "https://easinote.seewo.com/",
+    "desc": "输入主题一键生成课件、思维导图、互动课堂活动。教师常用的AI课件制作工具。",
+    "keywords": "希沃白板 视源股份 easinote 课件 思维导图 互动课堂 K12 免费 直接可用",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "101教育PPT",
+    "url": "https://ppt.101.com/",
+    "desc": "K12备授课一体化工具，覆盖全学段全学科，内置海量课件、教案、微课和学科工具。",
+    "keywords": "101教育PPT 网龙华渔 K12 备授课 课件 教案 微课 学科工具 免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "秘塔AI搜索",
+    "url": "https://metaso.cn/",
+    "desc": "无广告学术/资料检索，自动生成结构化答案、思维导图和参考文献。适合教师备课查资料。",
+    "keywords": "秘塔AI搜索 秘塔科技 metaso 学术检索 资料 结构化答案 思维导图 参考文献 基础免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "即梦",
+    "url": "https://jimeng.jianying.com/",
+    "desc": "字节跳动出品，AI生图、教学插图、历史场景还原、短视频素材。每日免费额度较大。",
+    "keywords": "即梦 字节跳动 jimeng AI生图 教学插图 历史场景 短视频 每日免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "腾讯智影",
+    "url": "https://zenvideo.qq.com/",
+    "desc": "AI数字人讲解、文字转视频微课制作。适合快速制作教学视频和微课。",
+    "keywords": "腾讯智影 腾讯 zenvideo AI数字人 文字转视频 微课 教学视频 基础免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "讯飞听见",
+    "url": "https://www.iflyrec.com/",
+    "desc": "语音转文字，教研会议录音转文字、口语作业评分。免费版支持实时转写。",
+    "keywords": "讯飞听见 科大讯飞 iflyrec 语音转文字 教研会议 口语作业 评分 实时转写 基础免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "海绵音乐",
+    "url": "https://www.haimian.com/",
+    "desc": "字节跳动出品，AI音乐生成，可用于课件背景音乐、班级活动BGM。完全免费。",
+    "keywords": "海绵音乐 字节跳动 haimian AI音乐 课件BGM 班级活动 完全免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "扣子 Coze",
+    "url": "https://www.coze.cn/",
+    "desc": "字节跳动出品，零代码搭建教案智能体、学科专用AI助手、班级管理机器人。",
+    "keywords": "扣子 Coze 字节跳动 零代码 教案智能体 学科AI助手 班级管理机器人 基础免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "腾讯IMA",
+    "url": "https://ima.qq.com/",
+    "desc": "跨平台检索论文、知识库管理、个人资料库问答。免费赠送1GB云存储。",
+    "keywords": "腾讯IMA 腾讯 ima 论文检索 知识库 个人资料库 1GB 免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "微软翻译",
+    "url": "https://www.microsoft.com/zh-cn/translator/",
+    "desc": "面对面双向实时翻译，支持100人对话模式。完全免费，中国直接可用，支持离线。",
+    "keywords": "微软翻译 microsoft translator 面对面翻译 100人对话 离线 跨语言 完全免费 直接可用",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "Canva可画教育版",
+    "url": "https://www.canva.cn/education/",
+    "desc": "国内站canva.cn，教师可用学校邮箱或上传教师资格证认证，认证后永久免费使用教育版功能。",
+    "keywords": "Canva可画 教育版 canva.cn 学校邮箱 教师资格证 认证 永久免费 设计",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "腾讯文档",
+    "url": "https://docs.qq.com/",
+    "desc": "多人协作在线文档，支持AI一键总结、思维导图生成、智能表格。适合教研组共享资料。",
+    "keywords": "腾讯文档 腾讯 docs.qq 多人协作 AI总结 思维导图 智能表格 教研组 基础免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "金山文档",
+    "url": "https://www.kdocs.cn/",
+    "desc": "在线协作文档、表格、PPT，兼容WPS格式，支持AI模板和多人实时编辑。学校可申请WPS 365教育版。",
+    "keywords": "金山文档 金山办公 kdocs 在线协作 表格 PPT WPS WPS365教育版 基础免费",
+    "category": "教学/课件专用"
+  },
+  {
+    "type": "tool",
+    "title": "Kimi PPT",
+    "url": "https://kimi.moonshot.cn/",
+    "desc": "Kimi内置PPT生成功能，输入主题自动生成大纲、内容和排版，可在线编辑导出。",
+    "keywords": "Kimi PPT 月之暗面 PPT生成 大纲 内容 排版 在线编辑 导出 免费",
+    "category": "PPT制作工具"
+  },
+  {
+    "type": "tool",
+    "title": "ChatPPT",
+    "url": "https://chat-ppt.com/",
+    "desc": "必优科技出品，对话式生成PPT，自然语言控制内容、样式和动画。基础功能免费。",
+    "keywords": "ChatPPT 必优科技 对话式 生成PPT 自然语言 样式 动画 基础免费",
+    "category": "PPT制作工具"
+  },
+  {
+    "type": "tool",
+    "title": "麦当秀AIPPT",
+    "url": "https://www.madown.com/",
+    "desc": "输入主题一键生成教学PPT，支持模板替换和在线编辑。基础功能免费。",
+    "keywords": "麦当秀 AIPPT madown 教学PPT 模板替换 在线编辑 基础免费",
+    "category": "PPT制作工具"
+  },
+  {
+    "type": "tool",
+    "title": "LivePPT",
+    "url": "https://liveppt.cn/",
+    "desc": "美图出品，AI生成PPT，操作简单，模板丰富。基础功能免费。",
+    "keywords": "LivePPT 美图 liveppt AI生成PPT 操作简单 模板 基础免费",
+    "category": "PPT制作工具"
+  },
+  {
+    "type": "tool",
+    "title": "讯飞智文",
+    "url": "https://zhiwen.xfyun.cn/",
+    "desc": "科大讯飞出品，AI生成PPT、Word文档，语音输入生成课件。教育场景适配好。",
+    "keywords": "讯飞智文 科大讯飞 zhiwen AI生成PPT Word 语音输入 课件 教育场景 基础免费",
+    "category": "PPT制作工具"
+  },
+  {
+    "type": "tool",
+    "title": "Gamma",
+    "url": "https://gamma.app/",
+    "desc": "国外AI演示工具，输入文字即可生成精美PPT/网页，设计感强。免费版有额度限制，需VPN。",
+    "keywords": "Gamma gamma.app 国外 AI演示 文字生成PPT 网页 设计感 免费额度 需VPN",
+    "category": "PPT制作工具"
+  },
+  {
+    "type": "tool",
+    "title": "Beautiful.ai",
+    "url": "https://www.beautiful.ai/",
+    "desc": "智能排版PPT工具，自动调整版式和图表。免费版功能有限，需VPN。",
+    "keywords": "Beautiful.ai 智能排版PPT 自动调整 版式 图表 基础免费 需VPN",
+    "category": "PPT制作工具"
+  },
+  {
+    "type": "tool",
+    "title": "twee",
+    "url": "https://twee.com/",
+    "desc": "英语教师专属工具，生成词汇、阅读、写作、口语、语法等教学素材。注册即用。有免费额度。需VPN。",
+    "keywords": "twee 英语教师 词汇 阅读 写作 口语 语法 教学素材 注册即用 免费额度 需VPN",
+    "category": "国外免费工具"
+  },
+  {
+    "type": "tool",
+    "title": "Inciteful",
+    "url": "https://inciteful.xyz/",
+    "desc": "基于引用网络的文献发现工具，可视化论文关系、快速定位相关文献。完全免费，需VPN。",
+    "keywords": "Inciteful inciteful.xyz 引用网络 文献发现 论文关系 相关文献 教研论文 完全免费 需VPN",
+    "category": "国外免费工具"
+  },
+  {
+    "type": "tool",
+    "title": "NotebookLM",
+    "url": "https://notebooklm.google.com/",
+    "desc": "Google出品，上传教学资料生成学习指南、FAQ、音频概要（AI播客）。需VPN+Google账号。",
+    "keywords": "NotebookLM Google 学习指南 FAQ 音频概要 AI播客 教学资料 免费 需VPN Google账号 Classroom",
+    "category": "国外免费工具"
+  },
+  {
+    "type": "tool",
+    "title": "ChatGPT for Teachers",
+    "url": "https://openai.com/chatgpt/education/",
+    "desc": "OpenAI出品，GPT-5.1无限对话、联网搜索、文件上传、语音模式、图片生成、数据分析。需VPN+美国K-12教师认证。",
+    "keywords": "ChatGPT Teachers OpenAI GPT-5.1 联网搜索 文件上传 语音 图片生成 数据分析 美国K-12 VPN 认证",
+    "category": "国外教师专属"
+  },
+  {
+    "type": "tool",
+    "title": "Google Gemini for Education",
+    "url": "https://edu.google.com/intl/ALL_us/get-started/gemini/",
+    "desc": "Google出品，深度集成Google Classroom、自动生成测验、播客式音频课程。需VPN+Google Workspace教育版账号。",
+    "keywords": "Google Gemini Education Classroom 测验 播客 音频课程 学习材料 Workspace VPN 学校账号",
+    "category": "国外教师专属"
+  },
+  {
+    "type": "tool",
+    "title": "Claude for Education",
+    "url": "https://claude.com/education",
+    "desc": "Anthropic出品，苏格拉底式学习模式、超长上下文、交互式课件生成、学术写作辅助。中国官方不可用。",
+    "keywords": "Claude Education Anthropic 苏格拉底 超长上下文 交互式课件 学术写作 中国不可用 合作院校",
+    "category": "国外教师专属"
+  },
+  {
+    "type": "tool",
+    "title": "Microsoft Copilot 教育版",
+    "url": "https://www.microsoft.com/zh-cn/education/products/copilot-in-education",
+    "desc": "微软出品，集成Microsoft 365、Word/PPT/Excel AI辅助、课堂管理工具。部分中国高校可用。",
+    "keywords": "Microsoft Copilot 教育版 微软 365 Word PPT Excel 课堂管理 学习智能体 学校账号 部分高校可用",
+    "category": "国外教师专属"
+  },
+  {
+    "type": "resource",
+    "title": "21套项目管理方法工具包",
+    "url": "https://whu.kdocs.cn/folder/cnms1oEoXBiP",
+    "desc": "涵盖项目管理核心方法论，从项目启动到收尾的全流程工具，包含模板、检查清单和操作指南。",
+    "keywords": "项目管理 方法 工具包 方法论 流程 模板 检查清单 操作指南",
+    "access": "free",
+    "category": "项目管理工具包"
+  },
+  {
+    "type": "resource",
+    "title": "255套项目管理表格工具包",
+    "url": "https://whu.kdocs.cn/folder/cnms1oEoXBiP",
+    "desc": "按CMMI过程域分类：生命周期模型、项目策划、配置管理、风险管理、质量保证、需求工程、测试等16大类。",
+    "keywords": "项目管理 表格 模板 excel CMMI 过程域 配置管理 风险管理 质量保证 需求工程 测试",
+    "access": "free",
+    "category": "项目管理工具包"
+  },
+  {
+    "type": "resource",
+    "title": "33套项目管理案例",
+    "url": "https://whu.kdocs.cn/folder/cnms1oEoXBiP",
+    "desc": "真实项目管理案例，覆盖不同行业和场景，适合培训教学和团队学习参考。",
+    "keywords": "项目管理 案例 实战 培训 教学 行业 场景",
+    "access": "free",
+    "category": "项目管理工具包"
+  },
+  {
+    "type": "resource",
+    "title": "39套项目管理PPT培训课件",
+    "url": "https://whu.kdocs.cn/folder/cnms1oEoXBiP",
+    "desc": "包含风险管理（63页）、PMO经验分享（112页）等专题课件，适合企业内训直接使用或参考改编。",
+    "keywords": "项目管理 PPT 课件 培训 风险管理 PMO 经验分享 企业内训",
+    "access": "free",
+    "category": "项目管理工具包"
+  },
+  {
+    "type": "resource",
+    "title": "甘特图模板合集",
+    "url": "https://whu.kdocs.cn/folder/cnms1oEoXBiP",
+    "desc": "全自动甘特图Excel模板、项目计划进度表、工作进度表、HR实施计划等多种场景模板。",
+    "keywords": "甘特图 模板 excel 进度表 项目计划 工作进度 HR实施计划 免费",
+    "access": "free",
+    "category": "项目管理工具包"
+  },
+  {
+    "type": "resource",
+    "title": "华为项目管理培训教材",
+    "url": "https://whu.kdocs.cn/folder/cnms1oEoXBiP",
+    "desc": "华为项目管理金种子中级培训教材，大型企业项目管理实战经验的系统总结。",
+    "keywords": "华为 项目管理 金种子 中级 培训教材 实战经验",
+    "access": "free",
+    "category": "项目管理工具包"
+  },
+  {
+    "type": "resource",
+    "title": "AI工具导航页",
+    "url": "ai-tools.html",
+    "desc": "40+精选AI工具，6大分类：国内官方平台、通用大模型、教学课件工具、PPT制作、国外免费工具、教师专属。",
+    "keywords": "AI工具 导航 40+ 免费 教师 官方平台 大模型 课件 PPT 国外",
+    "access": "free",
+    "category": "AI工具与教程"
+  },
+  {
+    "type": "resource",
+    "title": "教师免费AI工具周报",
+    "url": "free/teacher-ai-weekly-report.html",
+    "desc": "汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛、给出推荐组合。每周更新。",
+    "keywords": "教师 AI工具 周报 免费 每周 场景 门槛 推荐组合",
+    "access": "free",
+    "category": "AI工具与教程"
+  },
+  {
+    "type": "resource",
+    "title": "AI工具结构化数据库",
+    "url": "free-reports/tools.yaml",
+    "desc": "tools.yaml格式存储40+AI工具的结构化数据，包含名称、分类、免费/付费、使用门槛等字段。",
+    "keywords": "AI工具 数据 yaml 结构化 数据库 分类 付费 门槛",
+    "access": "free",
+    "category": "AI工具与教程"
+  },
+  {
+    "type": "resource",
+    "title": "禅修入门指南",
+    "url": "about.html#peitong",
+    "desc": "面向初学者的禅修入门资料，包含基础概念、坐姿指导、呼吸方法、常见问题解答。",
+    "keywords": "禅修 入门 基础 冥想 坐姿 呼吸 初学者 免费",
+    "access": "free",
+    "category": "情绪陪伴·禅修"
+  },
+  {
+    "type": "resource",
+    "title": "九型人格入门",
+    "url": "about.html#peitong",
+    "desc": "九型人格基础介绍，九种性格类型的特点、优势、成长方向。从修行视角解读。",
+    "keywords": "九型人格 性格 类型 特点 优势 成长 修行 免费",
+    "access": "free",
+    "category": "情绪陪伴·禅修"
+  },
+  {
+    "type": "resource",
+    "title": "佛学经论学习笔记",
+    "url": "about.html#contact",
+    "desc": "慧灯之光、广论等经论的学习笔记和读书心得，包含为知笔记和BookxNote中的标注与摘录。",
+    "keywords": "佛学 经论 慧灯之光 广论 学习笔记 读书心得 为知笔记 BookxNote",
+    "access": "member",
+    "category": "情绪陪伴·禅修"
+  },
+  {
+    "type": "resource",
+    "title": "情绪管理与陪伴笔记",
+    "url": "about.html#contact",
+    "desc": "情绪陪伴过程中的案例总结和方法论，结合九型人格和禅修视角，帮助看见情绪模式。",
+    "keywords": "情绪 管理 陪伴 案例 方法论 九型人格 禅修 情绪模式",
+    "access": "member",
+    "category": "情绪陪伴·禅修"
+  },
+  {
+    "type": "resource",
+    "title": "标书审查清单与模板",
+    "url": "about.html#contact",
+    "desc": "政府采购标书合规审查清单，包含致命问题检查、得分项检查、优化建议三级审查体系。",
+    "keywords": "标书 审查 清单 模板 政府采购 合规 致命问题 得分 优化建议",
+    "access": "member",
+    "category": "招标投标资源"
+  },
+  {
+    "type": "resource",
+    "title": "投标文件编制指南",
+    "url": "about.html#contact",
+    "desc": "投标响应文件编制模板和注意事项，涵盖技术方案、商务方案、资质文件等模块。",
+    "keywords": "投标 响应文件 编制 模板 技术方案 商务方案 资质文件",
+    "access": "member",
+    "category": "招标投标资源"
+  },
+  {
+    "type": "resource",
+    "title": "富士康系列培训案例",
+    "url": "about.html#contact",
+    "desc": "威海富士康创新与问题、郑州富士康技术培训、上海富士康过激行为管理、成都富士康思维导图等多期培训案例。",
+    "keywords": "富士康 威海 郑州 上海 成都 培训 案例 创新问题 技术培训 过激行为 思维导图",
+    "access": "member",
+    "category": "企业内训案例"
+  },
+  {
+    "type": "resource",
+    "title": "一汽集团培训案例",
+    "url": "about.html#contact",
+    "desc": "长春一汽项目管理培训案例，含课程设计、培训实施、效果评估全流程。",
+    "keywords": "一汽 长春 项目管理 培训 案例 课程设计 培训实施 效果评估",
+    "access": "member",
+    "category": "企业内训案例"
+  },
+  {
+    "type": "resource",
+    "title": "武大系列培训案例",
+    "url": "about.html#contact",
+    "desc": "武大继教院沙盘培训、武大图书馆大数据和AI培训、武大团委培训等多期案例。",
+    "keywords": "武大 武汉大学 继教院 沙盘 图书馆 大数据 AI 团委 培训 案例",
+    "access": "member",
+    "category": "企业内训案例"
+  },
+  {
+    "type": "resource",
+    "title": "灵泉寺禅修培训案例",
+    "url": "about.html#contact",
+    "desc": "灵泉寺短期出家班培训案例，将项目管理方法与禅修修行结合的实践探索。",
+    "keywords": "灵泉寺 短期出家 禅修 培训 项目管理 修行 实践",
+    "access": "member",
+    "category": "企业内训案例"
+  },
+  {
+    "type": "resource",
+    "title": "为知笔记知识库",
+    "url": "about.html#contact",
+    "desc": "多年积累的为知笔记数据，包含读书笔记、网页剪藏、学习心得，涵盖项目管理、佛学、AI等多个领域。",
+    "keywords": "为知笔记 知识库 读书笔记 网页剪藏 学习心得 项目管理 佛学 AI",
+    "access": "member",
+    "category": "读书笔记与参考"
+  },
+  {
+    "type": "resource",
+    "title": "BookxNote读书笔记",
+    "url": "about.html#contact",
+    "desc": "电子书标注与笔记，包含书签、高亮、批注等阅读记录，支持按书籍和主题浏览。",
+    "keywords": "BookxNote 读书笔记 电子书 标注 书签 高亮 批注 阅读记录",
+    "access": "member",
+    "category": "读书笔记与参考"
+  },
+  {
+    "type": "resource",
+    "title": "国家软考备考资料",
+    "url": "about.html#contact",
+    "desc": "信息系统项目管理师等软考备考资料索引，含真题、模拟题、知识点总结。3,600+文件积累。",
+    "keywords": "软考 信息系统 项目管理师 备考 真题 模拟题 知识点 免费",
+    "access": "free",
+    "category": "读书笔记与参考"
+  }
 ]
