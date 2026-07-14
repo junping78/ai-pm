@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-07-14 导航优化：AI工具→AI工具箱 + 教师周报导航指向调整
+
+### 变更
+- **AI工具→AI工具箱**：全站12个HTML页面导航栏"AI工具"改为"AI工具箱"，ai-tools.html页面标题/H1/描述同步更新
+- **教师周报导航指向调整**：导航"教师周报"从指向teacher-ai-weekly.html改为指向weekly-list.html（周报列表成为主入口）
+- **teacher-ai-weekly.html降级为周报介绍页**：标题改为"周报介绍"，加"返回周报列表"按钮，定位为活动介绍/订阅引导页
+- **weekly-list.html升级为教师周报主入口**：H1改为"教师周报"，顶部加"了解周报活动"按钮跳转到teacher-ai-weekly.html
+- **页脚链接调整**：全站页脚"周报列表"改为"周报介绍"指向teacher-ai-weekly.html
+- **相关推荐同步更新**：全站相关推荐卡片"AI工具导航"改为"AI工具箱"，教师周报相关卡片指向weekly-list.html
+- **search-index.json**：4条记录同步更新（周报介绍、教师周报、AI工具箱×2）
+- **tags.html tagData**：3条记录同步更新
+
+### 涉及文件
+- 全站12个HTML页面 + search-index.json + docs/changelog.md
+
+---
+
 ## 2026-07-08 标签体系精简 + 项目管理资料库接入WPS云盘
 
 ### 变更
