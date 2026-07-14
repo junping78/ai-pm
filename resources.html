@@ -255,7 +255,7 @@
             <li><a href="ai-project-management.html">AI项目管理</a></li>
             <li><a href="teacher-ai-weekly.html">教师周报</a></li>
             <li><a href="ai-tools.html">AI工具</a></li>
-            <li><a href="resources.html" class="active">资源</a></li>
+            <li><a href="resources.html" class="active">AI实践资源</a></li>
             <li><a href="about.html#contact">联系</a></li>
         </ul>
     </div>
@@ -275,7 +275,7 @@
         </p>
         <div class="res-stats">
             <div class="res-stat">
-                <div class="num">6</div>
+                <div class="num">7</div>
                 <div class="label">资源分类</div>
             </div>
             <div class="res-stat">
@@ -301,6 +301,7 @@
         <button class="filter-btn" onclick="setFilter('ai', this)">AI工具</button>
         <button class="filter-btn" onclick="setFilter('zen', this)">禅修</button>
         <button class="filter-btn" onclick="setFilter('bid', this)">招标投标</button>
+        <button class="filter-btn" onclick="setFilter('aipractice', this)">AI实践</button>
         <div class="res-search">
             <input type="text" id="resSearch" placeholder="搜索资源..." oninput="filterResources()">
         </div>
@@ -460,6 +461,34 @@
                 <div class="res-meta">
                     <span class="res-count">1个YAML</span>
                     <a href="free-reports/tools.yaml" class="res-action">查看数据 &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2.5 AI实践资源（案例与可复用产物） -->
+<section class="res-section" data-category="aipractice">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">🧪</span>
+            <h2>AI 实践资源（案例与可复用产物）</h2>
+        </div>
+        <p class="res-cat-desc">把 AI 用在真实场景里做出来的可复用产物：选品研究、内容策展、跨地区信息调研……每个案例都附完整方法说明。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="free" data-keywords="好穿不贵 运动服 选品 案例 运动 跑步 健身 瑜伽 徒步 迪卡侬 安踏 李宁 优衣库 Gymshark">
+                <div class="res-card-header">
+                    <h3>好穿不贵 · 全球高性价比运动服选品研究</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">AI案例</span>
+                    <span class="tag tag-warm">v1.0</span>
+                </div>
+                <p class="res-desc">用 AI 做的跨地区选品研究案例：覆盖 7 国 17 个品牌 24 个单品，按运动类型 + 价格 + 技术特色 5 字段结构化呈现。3 个特色榜单（低价 / 通勤运动 / 面料功能）+ AI 能力迁移 4 列映射。展示"AI 如何辅助跨地区信息搜索、价格比较、产品筛选、内容策展和页面呈现"。</p>
+                <div class="res-meta">
+                    <span class="res-count">24 个单品</span>
+                    <a href="sportswear-guide.html" class="res-action">查看案例 &rarr;</a>
                 </div>
             </div>
         </div>
@@ -828,6 +857,7 @@ function filterResources() {
                 case 'ai': matchFilter = sectionCategory === 'ai'; break;
                 case 'zen': matchFilter = sectionCategory === 'zen'; break;
                 case 'bid': matchFilter = sectionCategory === 'bid'; break;
+                case 'aipractice': matchFilter = sectionCategory === 'aipractice'; break;
             }
 
             if (matchSearch && matchFilter) {

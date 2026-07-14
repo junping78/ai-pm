@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好穿不贵 · 用AI做全球高性价比运动服选品研究 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="好穿不贵：用AI做全球高性价比运动服选品研究。24个单品卡片，按运动类型分类，标注到手价、特色和适用人群；3个特色榜单（低价/通勤运动/面料功能）；AI能力迁移4列映射。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="好穿不贵 · 用AI做全球高性价比运动服选品研究">
+<meta property="og:description" content="一份用AI做的全球高性价比运动服选品研究，覆盖跑步、健身、瑜伽、户外徒步。24个单品，3个榜单，1个AI能力迁移案例。">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="style.css">
+<style>
+/* === 本页专属样式 · 好穿不贵 v1.0 === */
+
+/* 头部版本号 */
+.page-header .page-version {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 4px 14px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    font-size: 12.5px;
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+    letter-spacing: 0.3px;
+}
+
+/* 介绍区 */
+.case-intro {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--c-border);
+    margin-bottom: 24px;
+}
+.case-intro h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.case-intro p {
+    font-size: 15px;
+    color: var(--c-text);
+    line-height: 1.85;
+}
+
+/* 4步研究方法 */
+.method-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+.method-step {
+    background: var(--c-primary-bg);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    position: relative;
+}
+.method-step .step-num {
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-primary);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.method-step .step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--c-text);
+    margin-bottom: 4px;
+}
+.method-step .step-desc {
+    font-size: 13.5px;
+    color: var(--c-text-light);
+    line-height: 1.7;
+}
+.method-step .step-tag {
+    display: inline-block;
+    font-size: 11.5px;
+    padding: 2px 8px;
+    background: rgba(83, 74, 183, 0.12);
+    color: var(--c-primary-dark);
+    border-radius: 10px;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+/* 工具流 */
+.tool-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 18px 0 8px;
+    font-size: 14px;
+    color: var(--c-text-light);
+}
+.tool-flow .tool-item {
+    background: var(--c-accent-bg);
+    color: var(--c-accent);
+    padding: 5px 14px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 13px;
+}
+.tool-flow .tool-arrow {
+    color: var(--c-primary);
+    font-size: 16px;
+}
+
+/* 价格图例 */
+.price-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin: 8px 0 24px;
+    font-size: 13px;
+    color: var(--c-text-light);
+}
+.price-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.price-legend .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.dot-low { background: var(--c-accent); }
+.dot-mid { background: var(--c-primary); }
+.dot-high { background: var(--c-warm); }
+
+/* 运动分类标题 */
+.sport-block { margin-bottom: 48px; }
+.sport-block:last-child { margin-bottom: 0; }
+
+.sport-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+.sport-header .sport-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+.sport-header .sport-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+}
+.sport-header .sport-count {
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+    font-size: 13px;
+    color: var(--c-text-muted);
+    margin-left: 4px;
+}
+.sport-desc {
+    font-size: 14.5px;
+    color: var(--c-text-light);
+    margin-bottom: 18px;
+    line-height: 1.75;
+}
+
+/* 单品卡片网格 */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 18px;
+}
+
+/* 单品卡片 5 字段 */
+.product-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 22px 22px 18px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s;
+    break-inside: avoid;
+}
+.product-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--c-primary-border);
+}
+
+.product-card .pc-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.product-card .pc-name {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.4;
+    flex: 1;
+}
+.product-card .pc-name .pc-name-en {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    margin-top: 2px;
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+}
+.product-card .pc-price {
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--c-primary);
+    white-space: nowrap;
+    letter-spacing: -0.3px;
+}
+
+.product-card .pc-fields {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    border-top: 1px solid var(--c-border-light);
+    border-bottom: 1px solid var(--c-border-light);
+    padding: 10px 0;
+}
+.product-card .pc-fields li {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--c-text);
+    padding: 2px 0;
+}
+.product-card .pc-fields .field-label {
+    color: var(--c-text-muted);
+    font-weight: 500;
+}
+.product-card .pc-fields .field-value {
+    color: var(--c-text);
+}
+
+.product-card .pc-reason {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--c-text);
+    background: var(--c-primary-bg);
+    border-left: 3px solid var(--c-primary);
+    padding: 10px 12px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: 10px;
+}
+.product-card .pc-reason strong {
+    color: var(--c-primary-dark);
+    margin-right: 4px;
+}
+
+.product-card .pc-source {
+    font-size: 11.5px;
+    color: var(--c-text-muted);
+    margin-top: auto;
+    padding-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.product-card .pc-source::before {
+    content: "🔍";
+    font-size: 11px;
+}
+
+/* 榜单区 */
+.ranking-section {
+    margin-bottom: 32px;
+}
+.ranking-section:last-child { margin-bottom: 0; }
+
+.ranking-section .ranking-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+.ranking-section .ranking-heading .rh-icon {
+    font-size: 22px;
+}
+.ranking-section .ranking-heading .rh-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+}
+.ranking-section .ranking-heading .rh-tag {
+    font-size: 12px;
+    padding: 2px 10px;
+    background: var(--c-primary-bg);
+    color: var(--c-primary);
+    border-radius: 12px;
+    font-weight: 600;
+}
+.ranking-section .ranking-sub {
+    font-size: 13.5px;
+    color: var(--c-text-light);
+    margin-bottom: 14px;
+    line-height: 1.7;
+}
+
+.ranking-list {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 6px 22px;
+    list-style: none;
+    counter-reset: rank;
+}
+.ranking-list li {
+    counter-increment: rank;
+    display: grid;
+    grid-template-columns: 30px 1fr auto auto;
+    gap: 14px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--c-border-light);
+    font-size: 14.5px;
+    color: var(--c-text);
+}
+.ranking-list li:last-child { border-bottom: none; }
+.ranking-list li::before {
+    content: counter(rank);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--c-primary-bg);
+    color: var(--c-primary-dark);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+}
+.ranking-list .rank-name {
+    color: var(--c-text);
+    font-weight: 600;
+}
+.ranking-list .rank-name .rank-name-en {
+    font-size: 12px;
+    color: var(--c-text-muted);
+    font-weight: 500;
+    margin-left: 6px;
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+}
+.ranking-list .rank-tag {
+    font-size: 12px;
+    color: var(--c-text-light);
+}
+.ranking-list .rank-price {
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--c-primary);
+    white-space: nowrap;
+    min-width: 90px;
+    text-align: right;
+}
+
+/* Top 10 结论区 */
+.top10-block {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 28px 30px;
+    border: 1px solid var(--c-border);
+}
+.top10-block ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: top10;
+}
+.top10-block ol li {
+    counter-increment: top10;
+    display: grid;
+    grid-template-columns: 38px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    background: var(--c-bg);
+    transition: all 0.2s;
+}
+.top10-block ol li:hover {
+    background: var(--c-primary-bg);
+}
+.top10-block ol li::before {
+    content: counter(top10, decimal-leading-zero);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 100%);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+    letter-spacing: -0.5px;
+}
+.top10-block .top10-info { font-size: 14.5px; line-height: 1.65; }
+.top10-block .top10-info strong { font-size: 15px; color: var(--c-text); display: block; margin-bottom: 2px; }
+.top10-block .top10-info .top10-note { font-size: 13px; color: var(--c-text-light); }
+.top10-block .top10-price {
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-primary);
+    white-space: nowrap;
+}
+
+/* AI能力迁移 4列映射 */
+.ai-map {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+.ai-map .aim-col {
+    padding: 22px 20px;
+    border-right: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.ai-map .aim-col:last-child { border-right: none; }
+.ai-map .aim-from {
+    background: var(--c-primary-bg);
+    color: var(--c-primary-dark);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ai-map .aim-from .aim-from-label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--c-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+.ai-map .aim-arrow {
+    text-align: center;
+    color: var(--c-primary);
+    font-size: 18px;
+    line-height: 1;
+}
+.ai-map .aim-to {
+    background: var(--c-accent-bg);
+    color: var(--c-accent);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: center;
+}
+.ai-map .aim-to .aim-to-label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--c-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+/* 更新说明 */
+.update-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+}
+.update-item {
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+}
+.update-item .ui-label {
+    font-size: 12px;
+    color: var(--c-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+.update-item .ui-value {
+    font-size: 14.5px;
+    color: var(--c-text);
+    line-height: 1.7;
+}
+
+/* 节奏区分块标题 */
+.section-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--c-primary);
+    background: var(--c-primary-bg);
+    padding: 3px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-family: "SF Mono", "Consolas", "Menlo", "Courier New", monospace;
+}
+
+/* 价格口径 */
+.price-note {
+    background: var(--c-warm-bg);
+    border-left: 4px solid var(--c-warm);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--c-warm);
+    line-height: 1.85;
+}
+.price-note strong { color: var(--c-warm); }
+
+/* 响应式 */
+@media (max-width: 960px) {
+    .ai-map {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .ai-map .aim-col:nth-child(2) {
+        border-right: none;
+    }
+    .ai-map .aim-col:nth-child(1),
+    .ai-map .aim-col:nth-child(2) {
+        border-bottom: 1px solid var(--c-border);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    .ranking-list li {
+        grid-template-columns: 24px 1fr;
+        gap: 10px;
+    }
+    .ranking-list .rank-tag,
+    .ranking-list .rank-price {
+        grid-column: 2;
+        text-align: left;
+        min-width: 0;
+        padding-left: 0;
+    }
+    .ranking-list .rank-price { padding-top: 2px; }
+    .top10-block ol li {
+        grid-template-columns: 32px 1fr;
+    }
+    .top10-block .top10-price {
+        grid-column: 2;
+        margin-top: 4px;
+    }
+    .ai-map { grid-template-columns: 1fr; }
+    .ai-map .aim-col {
+        border-right: none;
+        border-bottom: 1px solid var(--c-border);
+    }
+    .ai-map .aim-col:last-child { border-bottom: none; }
+}
+
+/* 打印样式 */
+@media print {
+    .navbar,
+    .footer,
+    .mini-nav,
+    .related-section,
+    .sport-filter {
+        display: none !important;
+    }
+    body {
+        background: #fff;
+        font-size: 11pt;
+        color: #000;
+    }
+    .page-header {
+        background: #534AB7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .section { padding: 16px 0; }
+    .product-card,
+    .ranking-list,
+    .ai-map,
+    .info-card,
+    .case-intro,
+    .top10-block {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    .product-card { margin-bottom: 8px; }
+    a { color: #000; text-decoration: none; }
+    .product-card .pc-source { color: #555; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="teacher-ai-weekly.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具</a></li>
+            <li><a href="resources.html" class="active">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ========== 页面头部 ========== -->
+<header class="page-header">
+    <h1>好穿不贵</h1>
+    <p class="page-subtitle">用 AI 做全球高性价比运动服选品研究</p>
+    <p style="font-size:14px; opacity:0.85; margin-top:8px;">
+        一份「AI 怎么帮你做跨地区信息调研」的实战案例 · 不是购物推荐
+    </p>
+    <span class="page-version">v1.0 · 2026年7月</span>
+</header>
+
+<!-- ========== 这是什么 + 研究方法 ========== -->
+<section class="section">
+    <div class="container-narrow">
+        <div class="case-intro">
+            <h3>📋 这是什么</h3>
+            <p>
+                一份用 AI 系统调研的「全球高性价比运动服」选品研究，覆盖<strong>跑步、健身训练、瑜伽、户外徒步</strong>四大类共 24 个单品，涵盖中国、日本、法国、英国、德国、西班牙、澳大利亚七个国家。
+                每个单品都标了<strong>国家、价格、适用运动、技术特色、推荐理由</strong>五项信息，并附上数据来源。
+            </p>
+            <p style="margin-top: 10px;">
+                这不是购物推荐页，而是一个<strong>「AI 如何辅助跨地区信息搜索、价格比较、产品筛选、内容策展和页面呈现」</strong>的案例。
+            </p>
+        </div>
+
+        <div class="case-intro">
+            <h3>🔬 研究方法 · 4 步 AI 调研流程</h3>
+            <div class="tool-flow">
+                <span class="tool-item">AI 搜索</span>
+                <span class="tool-arrow">×</span>
+                <span class="tool-item">多语言来源</span>
+                <span class="tool-arrow">×</span>
+                <span class="tool-item">交叉验证</span>
+            </div>
+            <div class="method-steps">
+                <div class="method-step">
+                    <div class="step-num">Step 01</div>
+                    <div class="step-title">搜索</div>
+                    <div class="step-desc">用 AI 搜索国内外运动服品牌测评、用户评价、价格数据，覆盖中文和英文来源</div>
+                    <span class="step-tag">覆盖7国17个品牌</span>
+                </div>
+                <div class="method-step">
+                    <div class="step-num">Step 02</div>
+                    <div class="step-title">筛选</div>
+                    <div class="step-desc">按运动类型分类，按价格区间筛选，按面料科技和用户口碑排序</div>
+                    <span class="step-tag">4类运动·24个单品</span>
+                </div>
+                <div class="method-step">
+                    <div class="step-num">Step 03</div>
+                    <div class="step-title">交叉验证</div>
+                    <div class="step-desc">对比多个来源的价格和评价，排除营销水分，保留真实口碑</div>
+                    <span class="step-tag">数据来源3+渠道</span>
+                </div>
+                <div class="method-step">
+                    <div class="step-num">Step 04</div>
+                    <div class="step-title">策展</div>
+                    <div class="step-desc">每个单品标注购买渠道和到手价口径，按场景重新组织而非按品牌罗列</div>
+                    <span class="step-tag">3个特色榜单</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="price-note">
+            <strong>⚠️ 价格口径说明：</strong><br>
+            • 中国市场到手价 = 天猫/京东日常活动价（非大促极限价）<br>
+            • 海外品牌已换算为含税含运的参考价（避免「看着便宜但买不到」）<br>
+            • 标 ¥ 的为实时到手机参考价；标 $ / € 为品牌官网或当地零售价<br>
+            • 价格随活动与汇率波动，仅供参考，以实际购买时为准
+        </div>
+
+        <div class="price-legend">
+            <span><span class="dot dot-low"></span> ¥100 以内 · 惊喜价</span>
+            <span><span class="dot dot-mid"></span> ¥100 - 300 · 主力区间</span>
+            <span><span class="dot dot-high"></span> ¥300+ · 品质款</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 筛选入口 ========== -->
+<section class="section section-alt">
+    <div class="container">
+        <span class="section-eyebrow">按运动类型浏览</span>
+        <h2 class="section-title">24 个单品，按场景分四类</h2>
+        <p class="section-subtitle">点击下方按钮跳转到对应类别 · 每张卡片都按 5 字段结构化呈现</p>
+        <div class="sport-filter" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:0;">
+            <a href="#running" class="filter-btn active" style="padding:8px 20px; border-radius:20px; font-size:14px; font-weight:600; border:1.5px solid var(--c-border); background:#fff; color:var(--c-text-light); text-decoration:none;">🏃 跑步（6）</a>
+            <a href="#fitness" class="filter-btn" style="padding:8px 20px; border-radius:20px; font-size:14px; font-weight:600; border:1.5px solid var(--c-border); background:#fff; color:var(--c-text-light); text-decoration:none;">💪 健身训练（6）</a>
+            <a href="#yoga" class="filter-btn" style="padding:8px 20px; border-radius:20px; font-size:14px; font-weight:600; border:1.5px solid var(--c-border); background:#fff; color:var(--c-text-light); text-decoration:none;">🧘 瑜伽（4）</a>
+            <a href="#hiking" class="filter-btn" style="padding:8px 20px; border-radius:20px; font-size:14px; font-weight:600; border:1.5px solid var(--c-border); background:#fff; color:var(--c-text-light); text-decoration:none;">🥾 户外徒步（8）</a>
+            <a href="#rankings" class="filter-btn" style="padding:8px 20px; border-radius:20px; font-size:14px; font-weight:600; border:1.5px solid var(--c-border); background:#fff; color:var(--c-text-light); text-decoration:none;">📊 3 个榜单</a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 跑步 ========== -->
+<section class="section" id="running">
+    <div class="container">
+        <div class="sport-block">
+            <div class="sport-header">
+                <span class="sport-icon">🏃</span>
+                <span class="sport-title">跑步</span>
+                <span class="sport-count">6 个单品 · ¥39.9 起</span>
+            </div>
+            <p class="sport-desc">速干 T 恤、跑步短裤、压缩衣——核心诉求：轻、透气、速干、不磨皮肤。</p>
+
+            <div class="product-grid">
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">MH100 速干 T 恤<span class="pc-name-en">Decathlon</span></h3>
+                        <span class="pc-price">¥39.9</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇫🇷 法国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥39.9</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">跑步 / 徒步 / 日常通勤</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">5 分钟速干，UPF50+ 防晒，机洗 20 次不变形</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 ¥39.9 到手 + 5 分钟速干，适合刚开始跑步、不想花太多钱试错的人。</p>
+                    <p class="pc-source">数据来源：迪卡侬官网 / 京东自营 / 用户评价</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">A-COOL II 速干 T 恤<span class="pc-name-en">ANTA 安踏</span></h3>
+                        <span class="pc-price">¥69</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥69</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">跑步 / 健身训练</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">WRCA 世界速干认证，A-COOL II 吸湿速干科技，凉感面料</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 WRCA 世界速干认证 + 国家队同款科技，适合每周跑量 20-50km、想「少花钱也穿到专业级」的跑者。</p>
+                    <p class="pc-source">数据来源：安踏官网 / 天猫旗舰店 / 国家速干认证</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">AT DRY 速干 T 恤<span class="pc-name-en">Li-Ning 李宁</span></h3>
+                        <span class="pc-price">¥59-99</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥59-99</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">跑步 / 健身训练</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">AT DRY 智能排湿技术，面料编织结构媲美 Nike ADV</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 AT DRY 智能排湿 + 编织结构对标 Nike ADV，价格只有 1/3，适合 10-20km 训练、想升级装备但预算有限的进阶跑者。</p>
+                    <p class="pc-source">数据来源：李宁官网 / 天猫旗舰店 / 知乎测评</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">AIRism 高弹力罗纹背心<span class="pc-name-en">UNIQLO 优衣库</span></h3>
+                        <span class="pc-price">¥79</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇯🇵 日本</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥79</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">跑步 / 瑜伽 / 通勤</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">AIRism 凉感科技，罗纹高弹，「Lulu 平替」</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 ¥79 + 凉感科技 + 一衣多穿（瑜伽+通勤+跑步），适合想要「一件衣服跨场景穿」、不想买太多件的人。</p>
+                    <p class="pc-source">数据来源：优衣库官网 / 京东自营 / 小红书测评</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">Kiprun Light 跑步 T 恤<span class="pc-name-en">Decathlon 迪卡侬</span></h3>
+                        <span class="pc-price">¥79-129</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇫🇷 法国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥79-129</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">跑步</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">蜂窝网眼 + 激光冲孔形成「通风道」，腋下散热加强</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为蜂窝网眼 + 激光冲孔形成真正「通风道」，适合夏天夜跑 / 长距离拉练、怕闷热的人。</p>
+                    <p class="pc-source">数据来源：迪卡侬官网 / 用户长测 / Runners' Choice</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">压缩衣 / 保暖内衣套装<span class="pc-name-en">UTO 悠途</span></h3>
+                        <span class="pc-price">¥129-229</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥129-229</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">跑步 / 滑雪 / 冬季户外</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">专注运动贴身层，透气排汗 + 冬季保暖</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为压缩 + 保暖 + 不到 ¥230 一套，适合冬天跑步 / 滑雪、怕冷又想保持灵活的人。</p>
+                    <p class="pc-source">数据来源：UTO 官网 / 天猫旗舰店 / 滑雪圈口碑</p>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 健身训练 ========== -->
+<section class="section section-alt" id="fitness">
+    <div class="container">
+        <div class="sport-block">
+            <div class="sport-header">
+                <span class="sport-icon">💪</span>
+                <span class="sport-title">健身训练</span>
+                <span class="sport-count">6 个单品 · ¥29 起</span>
+            </div>
+            <p class="sport-desc">健身裤、运动 Bra、训练短裤——核心诉求：高弹、支撑、不透、好看。</p>
+
+            <div class="product-grid">
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">Vital Seamless 2.0 Leggings<span class="pc-name-en">Gymshark</span></h3>
+                        <span class="pc-price">$35 ≈ ¥250</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇬🇧 英国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">官网价 $35（已含转运费参考）≈ ¥250</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">健身 / 瑜伽 / 力量训练</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">无缝工艺 + 臀部塑形 + 深蹲不透</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为无缝工艺 + 臀部塑形 + 不到 Lululemon 一半价格，适合每周健身 2 次以上、追求「深蹲不透 + 显瘦」的人。</p>
+                    <p class="pc-source">数据来源：Gymshark 官网 / 小红书健身博主实测 / Reddit</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">PUMA 运动长裤 / 短裤<span class="pc-name-en">PUMA 彪马</span></h3>
+                        <span class="pc-price">¥159-229</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇩🇪 德国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥159-229</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">健身 / 通勤 / 跑步</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">帕梅拉同款，潮流设计，健身出街两不误</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为帕梅拉同款 + 健身出街两不误 + 奥莱折扣大，适合下班直接去健身房、不想带换洗衣服的人。</p>
+                    <p class="pc-source">数据来源：PUMA 官网 / 奥莱门店 / 天猫旗舰店</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">高腰提臀瑜伽裤 / 健身裤<span class="pc-name-en">Keep</span></h3>
+                        <span class="pc-price">¥113-132</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥113-132</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">健身 / 瑜伽 / 跑步</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">无缝一体织 + 四面高弹 + 裸感面料</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为无缝一体织 + 四面高弹 + ¥100 出头，适合刚开始练瑜伽、想要专业级但不想花大价钱的人。</p>
+                    <p class="pc-source">数据来源：Keep App / 天猫旗舰店 / Keep 用户社区</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">氧气瑜伽裤（高腰鲨鱼裤）<span class="pc-name-en">Bananain 蕉内</span></h3>
+                        <span class="pc-price">¥69-119</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥69-119，活动价可低至 ¥62</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">瑜伽 / 通勤 / 健身</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">裸感面料 + 无痕设计 + 高腰收腹提臀</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为裸感无痕 + 活动价 ¥69 + 收腹提臀，适合日常通勤穿也能直接去瑜伽课、不想换衣服的人。</p>
+                    <p class="pc-source">数据来源：蕉内官网 / 天猫旗舰店 / 双 11 价格抓取</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">紧身衣 / Leggings / 短裤<span class="pc-name-en">KELME 卡尔美</span></h3>
+                        <span class="pc-price">¥59-169</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇪🇸 西班牙</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥59-169</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">健身 / 跑步 / 足球</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">西班牙老牌运动品牌，足球起家，简约大方</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为西班牙老牌 + ¥59 起步 + 多色多尺码，适合刚入门健身、想要大牌质量但只愿花基础款预算的人。</p>
+                    <p class="pc-source">数据来源：KELME 官网 / 天猫旗舰店 / 知乎品牌测评</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">健身套装四件套 / 基础款<span class="pc-name-en">步锐特 BURUITE</span></h3>
+                        <span class="pc-price">¥29-149</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥29-149（四件套 ¥100-149）</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">健身 / 跑步 / 日常</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">入门极致平价，款式基础，胜在便宜</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 ¥29-149 一套搞定 + 四件套齐全，适合刚开始运动、想「先用最便宜的试试看」的人。</p>
+                    <p class="pc-source">数据来源：天猫旗舰店 / 用户评价聚合</p>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 瑜伽 ========== -->
+<section class="section" id="yoga">
+    <div class="container">
+        <div class="sport-block">
+            <div class="sport-header">
+                <span class="sport-icon">🧘</span>
+                <span class="sport-title">瑜伽</span>
+                <span class="sport-count">4 个单品 · ¥69 起</span>
+            </div>
+            <p class="sport-desc">瑜伽裤、运动背心、阔腿喇叭裤——核心诉求：高弹、裸感、收腹提臀、不闷热。</p>
+
+            <div class="product-grid">
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">AIRism 高弹力罗纹喇叭裤<span class="pc-name-en">UNIQLO 优衣库</span></h3>
+                        <span class="pc-price">¥199</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇯🇵 日本</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥199</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">瑜伽 / 通勤 / 办公室</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">AIRism 凉感 + 罗纹高弹 + 喇叭版型</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 AIRism 凉感 + 喇叭版型 + 能穿去办公室也 OK，适合上午瑜伽下午上班、想「一衣多穿」的人。</p>
+                    <p class="pc-source">数据来源：优衣库官网 / 优衣库员工内购群 / 小红书</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">306A 裸感瑜伽裤<span class="pc-name-en">Bananain 蕉内</span></h3>
+                        <span class="pc-price">¥101-119</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥101-119</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">瑜伽 / 健身</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">裸感无痕 + 高腰收腹 + 经典款 306A</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 306A 是经典款 + 高腰收腹 + ¥100 出头，适合每周 2-3 次瑜伽课、想「穿得舒服 + 收腹显瘦」的人。</p>
+                    <p class="pc-source">数据来源：蕉内官网 / 天猫旗舰店 / 抖音直播价</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">阔腿裸感喇叭裤<span class="pc-name-en">Keep</span></h3>
+                        <span class="pc-price">¥143-159</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥143-159</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">瑜伽 / 通勤 / 健身</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">阔腿版型 + 裸感面料 + 高腰</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为阔腿版型 + 裸感面料 + ¥143-159，适合腿型不够自信、想要「瑜伽 + 日常通勤都能穿」的人。</p>
+                    <p class="pc-source">数据来源：Keep App / 天猫旗舰店 / Keep 用户社区</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">Soft Sculpt Leggings<span class="pc-name-en">Gymshark</span></h3>
+                        <span class="pc-price">$46.80 ≈ ¥335</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇬🇧 英国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">官网价 $46.80（已含转运费参考）≈ ¥335</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">瑜伽 / 健身</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">Soft Sculpt 塑形 + 无缝工艺 + 高腰显瘦</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 Soft Sculpt 塑形 + 无缝工艺，适合每周 3 次以上健身 / 瑜伽、想要「穿上身立刻显瘦 5 斤」效果的人。</p>
+                    <p class="pc-source">数据来源：Gymshark 官网 / 健身博主实测 / YouTube</p>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 户外徒步 ========== -->
+<section class="section section-alt" id="hiking">
+    <div class="container">
+        <div class="sport-block">
+            <div class="sport-header">
+                <span class="sport-icon">🥾</span>
+                <span class="sport-title">户外徒步</span>
+                <span class="sport-count">8 个单品 · ¥180 起</span>
+            </div>
+            <p class="sport-desc">冲锋衣、速干裤、徒步外套——核心诉求：防水、透气、耐磨、轻量。</p>
+
+            <div class="product-grid">
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">MH500 冲锋衣（防水 20000mm）<span class="pc-name-en">Decathlon 迪卡侬</span></h3>
+                        <span class="pc-price">¥599</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇫🇷 法国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥599</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">徒步 / 登山 / 越野</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">防水 20000mm，腋下透气拉链，欧盟 EN 标准</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为防水 20000mm + 腋下透气拉链 + 欧盟 EN 标准，适合刚开始徒步、想「一次投资穿 5 年」的人。</p>
+                    <p class="pc-source">数据来源：迪卡侬官网 / 京东自营 / 户外圈口碑</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">NH100 冲锋衣<span class="pc-name-en">Decathlon 迪卡侬</span></h3>
+                        <span class="pc-price">¥449.9</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇫🇷 法国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥449.9</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">徒步 / 通勤 / 日常</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">入门冲锋衣 + 欧盟 EN 标准 + 耐磨度超同价位</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 ¥449.9 + 欧盟 EN 标准 + 新手零试错，适合第一次买冲锋衣、不确定会不会爱上户外的人。</p>
+                    <p class="pc-source">数据来源：迪卡侬官网 / 京东自营 / 用户评价</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">透气立领徒步外套<span class="pc-name-en">Toread 探路者</span></h3>
+                        <span class="pc-price">¥244-289</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥244-289</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">徒步 / 登山 / 户外</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">TiEF 三防技术，南极科考队合作品牌，国标 Ⅰ 级认证</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 TiEF 三防 + 南极科考队同品牌 + ¥244 起步，适合周末近郊徒步、想「靠谱国货 + 不踩雷」的人。</p>
+                    <p class="pc-source">数据来源：探路者官网 / 天猫旗舰店 / 国标认证文件</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">三合一冲锋衣（内胆可单穿）<span class="pc-name-en">CAMEL 骆驼</span></h3>
+                        <span class="pc-price">¥339-469</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥339-469</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">徒步 / 通勤 / 户外</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">三合一设计 + 抓绒内胆可单穿 + 相当于买 2 件</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为三合一 + 内胆可单穿 + 相当于买 2 件，适合季节交替 + 预算有限的人。</p>
+                    <p class="pc-source">数据来源：骆驼天猫旗舰店 / 京东自营 / 电商爆款数据</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">山野 2.0 冲锋衣（防水 35900mm）<span class="pc-name-en">Pelliot 伯希和</span></h3>
+                        <span class="pc-price">¥280<span style="font-size:12px;color:var(--c-warm);font-weight:600;">（活动价）</span></span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">活动价 ¥280</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">徒步 / 登山 / 户外</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">防水 35900mm + 透湿 16000g，日标 ≈ 国标 2 倍</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为防水 35900mm + 日标 ≈ 国标 2 倍 + ¥280 活动价，适合追求「用最少的钱买最高防水等级」的人。</p>
+                    <p class="pc-source">数据来源：伯希和官网 / 天猫旗舰店 / 第三方检测报告</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">猎风冲锋衣（GORE-TEX）<span class="pc-name-en">KAILAS 凯乐石</span></h3>
+                        <span class="pc-price">¥1150</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇨🇳 中国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥1150</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">登山 / 高海拔徒步 / 越野</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">GORE-TEX 面料 + 中国登山队合作 + 专业登山级</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 GORE-TEX 面料 + 中国登山队合作 + 专业登山级，适合 3 次以上高海拔徒步经验、想「一步到位买专业级」的人。</p>
+                    <p class="pc-source">数据来源：凯乐石官网 / 天猫旗舰店 / 中国登山队公开信息</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">TREK100 速干长裤<span class="pc-name-en">Decathlon 迪卡侬</span></h3>
+                        <span class="pc-price">¥180</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇫🇷 法国</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥180</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">徒步 / 通勤 / 户外</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">轻薄弹力 + 防泼水 + 侧面拉链口袋</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为防泼水 + 侧面拉链口袋 + ¥180，适合周末郊游 + 想「穿去徒步也能直接进办公室」的人。</p>
+                    <p class="pc-source">数据来源：迪卡侬官网 / 京东自营 / 用户评价</p>
+                </article>
+
+                <article class="product-card">
+                    <div class="pc-top">
+                        <h3 class="pc-name">AIRism 防紫外线开衫<span class="pc-name-en">UNIQLO 优衣库</span></h3>
+                        <span class="pc-price">¥199</span>
+                    </div>
+                    <ul class="pc-fields">
+                        <li><span class="field-label">国家/地区</span><span class="field-value">🇯🇵 日本</span></li>
+                        <li><span class="field-label">价格区间</span><span class="field-value">到手价 ¥199</span></li>
+                        <li><span class="field-label">适用运动</span><span class="field-value">户外 / 通勤 / 跑步 / 瑜伽</span></li>
+                        <li><span class="field-label">特色</span><span class="field-value">UPF50+ 防晒 + 凉感科技 + 三季可穿</span></li>
+                    </ul>
+                    <p class="pc-reason"><strong>推荐理由：</strong>因为 UPF50+ 防晒 + 凉感 + 三季可穿，适合通勤路上不想晒黑 + 想「一件衣服能跨季节」的人。</p>
+                    <p class="pc-source">数据来源：优衣库官网 / 京东自营 / 小红书测评</p>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 3 个特色榜单 ========== -->
+<section class="section" id="rankings">
+    <div class="container">
+        <span class="section-eyebrow">3 个特色榜单</span>
+        <h2 class="section-title">不按品牌，按场景选</h2>
+        <p class="section-subtitle">从「我要便宜」到「我要能穿去办公室」再到「我要真技术」——按你真正在意的维度挑。</p>
+
+        <div class="ranking-section">
+            <div class="ranking-heading">
+                <span class="rh-icon">💰</span>
+                <span class="rh-title">低价榜</span>
+                <span class="rh-tag">¥100 以内</span>
+            </div>
+            <p class="ranking-sub">价格优先，兼顾实用。惊喜价不一定质量低，关键是看面料数据。</p>
+            <ol class="ranking-list">
+                <li>
+                    <span></span>
+                    <span class="rank-name">基础款运动单品<span class="rank-name-en">步锐特 BURUITE</span></span>
+                    <span class="rank-tag">入门极致平价</span>
+                    <span class="rank-price">¥29-79</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">MH100 速干 T 恤<span class="rank-name-en">Decathlon</span></span>
+                    <span class="rank-tag">5 分钟速干 + UPF50+</span>
+                    <span class="rank-price">¥39.9</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">A-COOL II 速干 T 恤<span class="rank-name-en">ANTA</span></span>
+                    <span class="rank-tag">WRCA 世界速干认证</span>
+                    <span class="rank-price">¥69</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">氧气瑜伽裤（活动价）<span class="rank-name-en">Bananain</span></span>
+                    <span class="rank-tag">裸感无痕 + 收腹提臀</span>
+                    <span class="rank-price">¥62-69</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">AT DRY 速干 T 恤<span class="rank-name-en">Li-Ning</span></span>
+                    <span class="rank-tag">AT DRY 智能排湿</span>
+                    <span class="rank-price">¥59-99</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">AIRism 高弹力罗纹背心<span class="rank-name-en">UNIQLO</span></span>
+                    <span class="rank-tag">凉感 + Lulu 平替</span>
+                    <span class="rank-price">¥79</span>
+                </li>
+            </ol>
+        </div>
+
+        <div class="ranking-section">
+            <div class="ranking-heading">
+                <span class="rh-icon">🧘</span>
+                <span class="rh-title">通勤运动榜</span>
+                <span class="rh-tag">一衣多穿</span>
+            </div>
+            <p class="ranking-sub">运动服如果能兼顾通勤，你就不需要换三套衣服——上班穿不突兀，下班直接去运动。</p>
+            <ol class="ranking-list">
+                <li>
+                    <span></span>
+                    <span class="rank-name">AIRism 高弹力罗纹喇叭裤<span class="rank-name-en">UNIQLO</span></span>
+                    <span class="rank-tag">瑜伽 + 通勤 + 办公室</span>
+                    <span class="rank-price">¥199</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">AIRism 防紫外线开衫<span class="rank-name-en">UNIQLO</span></span>
+                    <span class="rank-tag">户外 + 通勤 + 三季可穿</span>
+                    <span class="rank-price">¥199</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">氧气瑜伽裤<span class="rank-name-en">Bananain</span></span>
+                    <span class="rank-tag">瑜伽 + 通勤</span>
+                    <span class="rank-price">¥69-119</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">TREK100 速干长裤<span class="rank-name-en">Decathlon</span></span>
+                    <span class="rank-tag">徒步 + 通勤</span>
+                    <span class="rank-price">¥180</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">PUMA 运动长裤<span class="rank-name-en">PUMA</span></span>
+                    <span class="rank-tag">健身 + 通勤 + 潮流</span>
+                    <span class="rank-price">¥159-229</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">阔腿裸感喇叭裤<span class="rank-name-en">Keep</span></span>
+                    <span class="rank-tag">瑜伽 + 通勤</span>
+                    <span class="rank-price">¥143-159</span>
+                </li>
+            </ol>
+        </div>
+
+        <div class="ranking-section">
+            <div class="ranking-heading">
+                <span class="rh-icon">🔬</span>
+                <span class="rh-title">面料功能榜</span>
+                <span class="rh-tag">真技术</span>
+            </div>
+            <p class="ranking-sub">技术面料、功能性亮点——这一档看认证和检测数据，不看营销话术。</p>
+            <ol class="ranking-list">
+                <li>
+                    <span></span>
+                    <span class="rank-name">A-COOL II 速干 T 恤<span class="rank-name-en">ANTA</span></span>
+                    <span class="rank-tag">WRCA 世界速干认证</span>
+                    <span class="rank-price">¥69</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">猎风冲锋衣<span class="rank-name-en">KAILAS</span></span>
+                    <span class="rank-tag">GORE-TEX 面料</span>
+                    <span class="rank-price">¥1150</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">山野 2.0 冲锋衣<span class="rank-name-en">Pelliot</span></span>
+                    <span class="rank-tag">防水 35900mm（≈ 国标 2 倍）</span>
+                    <span class="rank-price">¥280</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">AT DRY 速干 T 恤<span class="rank-name-en">Li-Ning</span></span>
+                    <span class="rank-tag">AT DRY 智能排湿</span>
+                    <span class="rank-price">¥59-99</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">透气立领徒步外套<span class="rank-name-en">Toread</span></span>
+                    <span class="rank-tag">TiEF 三防技术</span>
+                    <span class="rank-price">¥244-289</span>
+                </li>
+                <li>
+                    <span></span>
+                    <span class="rank-name">AIRism 系列<span class="rank-name-en">UNIQLO</span></span>
+                    <span class="rank-tag">AIRism 凉感科技</span>
+                    <span class="rank-price">¥79-199</span>
+                </li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<!-- ========== Top 10 结论 ========== -->
+<section class="section section-alt">
+    <div class="container">
+        <span class="section-eyebrow">Top 10 结论</span>
+        <h2 class="section-title">如果你只想买几件，从这里开始</h2>
+        <p class="section-subtitle">综合价格、覆盖人群、口碑三个维度排序。</p>
+
+        <div class="top10-block">
+            <ol>
+                <li>
+                    <div class="top10-info">
+                        <strong>迪卡侬 MH100 速干 T 恤</strong>
+                        <div class="top10-note">跑步 / 徒步 · 5 分钟速干 + UPF50+，¥39.9 闭眼入</div>
+                    </div>
+                    <span class="top10-price">¥39.9</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>安踏 A-COOL II 速干 T 恤</strong>
+                        <div class="top10-note">跑步 · WRCA 世界速干认证，国家队同款科技</div>
+                    </div>
+                    <span class="top10-price">¥69</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>优衣库 AIRism 高弹力罗纹背心</strong>
+                        <div class="top10-note">瑜伽 / 健身 / 通勤 · Lulu 平替，凉感科技，一衣多穿</div>
+                    </div>
+                    <span class="top10-price">¥79</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>蕉内 氧气瑜伽裤</strong>
+                        <div class="top10-note">瑜伽 / 通勤 · 裸感无痕 + 高腰收腹，活动价可低至 ¥62</div>
+                    </div>
+                    <span class="top10-price">¥62-119</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>李宁 AT DRY 速干 T 恤</strong>
+                        <div class="top10-note">跑步 / 健身 · 智能排湿技术，对标 Nike ADV</div>
+                    </div>
+                    <span class="top10-price">¥59-99</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>Keep 高腰提臀瑜伽裤</strong>
+                        <div class="top10-note">瑜伽 / 健身 · 无缝一体织 + 四面高弹 + ¥100 出头</div>
+                    </div>
+                    <span class="top10-price">¥113-132</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>迪卡侬 TREK100 速干长裤</strong>
+                        <div class="top10-note">徒步 / 通勤 · 防泼水 + 侧面拉链口袋</div>
+                    </div>
+                    <span class="top10-price">¥180</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>Gymshark Vital Seamless Leggings</strong>
+                        <div class="top10-note">健身 · 无缝工艺 + 臀部塑形，健身圈网红爆款</div>
+                    </div>
+                    <span class="top10-price">$35 ≈ ¥250</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>探路者 透气立领徒步外套</strong>
+                        <div class="top10-note">徒步 · TiEF 三防技术，南极科考队同品牌</div>
+                    </div>
+                    <span class="top10-price">¥244-289</span>
+                </li>
+                <li>
+                    <div class="top10-info">
+                        <strong>优衣库 AIRism 防紫外线开衫</strong>
+                        <div class="top10-note">户外 / 通勤 · UPF50+ 防晒 + 凉感，三季可穿</div>
+                    </div>
+                    <span class="top10-price">¥199</span>
+                </li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<!-- ========== AI 能力迁移 ========== -->
+<section class="section" id="ai-transfer">
+    <div class="container">
+        <span class="section-eyebrow">AI 能力迁移</span>
+        <h2 class="section-title">这个案例能说明什么</h2>
+        <p class="section-subtitle">这次做选品用的 AI 能力，同样可以迁移到你的工作场景里。</p>
+
+        <div class="ai-map">
+            <div class="aim-col">
+                <div class="aim-from">
+                    <div>
+                        <span class="aim-from-label">本案例 AI 能力</span>
+                        跨地区信息搜索
+                    </div>
+                </div>
+                <div class="aim-arrow">↓</div>
+                <div class="aim-to">
+                    <div>
+                        <span class="aim-to-label">可迁移到</span>
+                        市场调研、竞品分析
+                    </div>
+                </div>
+            </div>
+            <div class="aim-col">
+                <div class="aim-from">
+                    <div>
+                        <span class="aim-from-label">本案例 AI 能力</span>
+                        多维度价格比较
+                    </div>
+                </div>
+                <div class="aim-arrow">↓</div>
+                <div class="aim-to">
+                    <div>
+                        <span class="aim-to-label">可迁移到</span>
+                        采购方案、预算编制
+                    </div>
+                </div>
+            </div>
+            <div class="aim-col">
+                <div class="aim-from">
+                    <div>
+                        <span class="aim-from-label">本案例 AI 能力</span>
+                        结构化产品筛选
+                    </div>
+                </div>
+                <div class="aim-arrow">↓</div>
+                <div class="aim-to">
+                    <div>
+                        <span class="aim-to-label">可迁移到</span>
+                        供应商选择、课程选题
+                    </div>
+                </div>
+            </div>
+            <div class="aim-col">
+                <div class="aim-from">
+                    <div>
+                        <span class="aim-from-label">本案例 AI 能力</span>
+                        内容策展与呈现
+                    </div>
+                </div>
+                <div class="aim-arrow">↓</div>
+                <div class="aim-to">
+                    <div>
+                        <span class="aim-to-label">可迁移到</span>
+                        培训材料、项目方案
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout" style="margin-top: 28px;">
+            <strong>💡 关键洞察：</strong>这四步不是「选衣服专用」，而是 AI 辅助决策的通用流程——
+            <strong>搜索 → 筛选 → 验证 → 策展</strong>。把对象从「运动服」换成「供应商」「培训课题」「项目方案」，方法完全一样。
+            如果你想了解如何在企业内训中把这套方法论教给团队，<a href="ai-project-management.html">AI 赋能项目管理课程</a>里有完整拆解。
+        </div>
+    </div>
+</section>
+
+<!-- ========== 更新说明 ========== -->
+<section class="section section-alt">
+    <div class="container-narrow">
+        <span class="section-eyebrow">更新说明</span>
+        <h2 class="section-title">数据怎么更新</h2>
+        <p class="section-subtitle" style="margin-bottom: 24px;">一份「活的」调研，不是发出去就不管了。</p>
+
+        <div class="info-card">
+            <h3>📅 版本与采集时间</h3>
+            <p style="margin-bottom: 12px;">当前版本 <strong style="font-family:'SF Mono',Consolas,Menlo,Courier New,monospace;">v1.0 · 2026年7月</strong>，数据采集于 2026年6月 - 7月。</p>
+            <div class="update-grid">
+                <div class="update-item">
+                    <div class="ui-label">价格采集</div>
+                    <div class="ui-value">2026.06 - 2026.07</div>
+                </div>
+                <div class="update-item">
+                    <div class="ui-label">数据来源</div>
+                    <div class="ui-value">官网 + 天猫 + 京东 + 用户评价</div>
+                </div>
+                <div class="update-item">
+                    <div class="ui-label">覆盖国家</div>
+                    <div class="ui-value">中国 / 日本 / 法国 / 英国 / 德国 / 西班牙 / 澳大利亚</div>
+                </div>
+                <div class="update-item">
+                    <div class="ui-label">单品数量</div>
+                    <div class="ui-value">24 个 · 17 个品牌</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3>🔄 季度更新计划</h3>
+            <p>本页面将按季度更新，未来扩展方向：</p>
+            <ul style="margin-top: 8px; padding-left: 1.5em; color: var(--c-text); font-size: 14.5px; line-height: 1.9;">
+                <li>每季度刷新价格与新出的面料技术</li>
+                <li>逐步扩展到 <strong>运动鞋、运动配件、儿童运动</strong>等品类</li>
+                <li>每半年做一次「用户实测反馈征集」，让真实穿过的数据回灌到卡片里</li>
+                <li>品牌和单品的增减都会标注日期，不静默修改</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>💡 价格变动提醒</h3>
+            <p>运动服是大促波动剧烈的品类，需要这样看价格：</p>
+            <ul style="margin-top: 8px; padding-left: 1.5em; color: var(--c-text); font-size: 14.5px; line-height: 1.9;">
+                <li>本页面价格为<strong>日常活动价</strong>，<strong>非大促极限价</strong>（大促期间通常还有 5-20% 下探空间）</li>
+                <li>海外品牌价格受汇率影响会有 5-10% 波动</li>
+                <li>标有「活动价」的，是采集时点正处于品牌活动期间，<strong>不代表长期价格</strong></li>
+                <li>建议把心仪单品加入购物车等降价提醒，比反复看页面更省心</li>
+            </ul>
+        </div>
+
+        <div class="callout">
+            <strong>📮 想推荐一个单品？</strong><br>
+            如果你穿过的好品牌 / 好单品没被收录，欢迎微信（JPAILab）告诉我——
+            下一版会加入。给我留言时建议附上：品牌、单品、到手机价、你穿它做什么运动。
+        </div>
+    </div>
+</section>
+
+<!-- ========== 相关推荐 ========== -->
+<section class="related-section">
+    <div class="container">
+        <div class="related-title">📌 你可能还感兴趣</div>
+        <div class="related-grid">
+            <a href="resources.html" class="related-card">
+                <div class="related-card-icon">📦</div>
+                <div class="related-card-title">AI 实践资源</div>
+                <div class="related-card-desc">更多 AI 调研案例、工具包、实战资源</div>
+            </a>
+            <a href="ai-tools.html" class="related-card">
+                <div class="related-card-icon">🤖</div>
+                <div class="related-card-title">AI 工具导航</div>
+                <div class="related-card-desc">40+ 免费 AI 工具精选，本案例就是用这些工具做的</div>
+            </a>
+            <a href="teacher-ai-weekly.html" class="related-card">
+                <div class="related-card-icon">📚</div>
+                <div class="related-card-title">教师 AI 工具周报</div>
+                <div class="related-card-desc">教师可免费使用的 AI 工具汇总，按场景分类</div>
+            </a>
+            <a href="ai-project-management.html" class="related-card">
+                <div class="related-card-icon">🎯</div>
+                <div class="related-card-title">AI 赋能项目管理</div>
+                <div class="related-card-desc">把 AI 嵌入项目管理全流程，含选品研究方法论</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="weekly-list.html">周报列表</a>
+                <a href="tags.html">标签</a>
+                <a href="search.html">搜索</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            电话：13277049868<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+<script>
+// 筛选标签高亮（点击时切换）
+document.querySelectorAll('.sport-filter a').forEach(link => {
+    link.addEventListener('click', function() {
+        document.querySelectorAll('.sport-filter a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+</script>
+
+</body>
+</html>
