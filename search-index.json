@@ -441,9 +441,9 @@
   {
     "type": "resource",
     "title": "AI工具结构化数据库",
-    "url": "free-reports/tools.yaml",
-    "desc": "tools.yaml格式存储40+AI工具的结构化数据，包含名称、分类、免费/付费、使用门槛等字段。",
-    "keywords": "AI工具 数据 yaml 结构化 数据库 分类 付费 门槛",
+    "url": "free-reports/tools.html",
+    "desc": "教师免费AI工具周报的结构化数据在线查看页，38个AI工具支持分类筛选和搜索，可下载YAML源文件。",
+    "keywords": "AI工具 数据 yaml 结构化 数据库 分类 付费 门槛 教师 周报 推荐组合",
     "access": "free",
     "category": "AI工具与教程"
   },
