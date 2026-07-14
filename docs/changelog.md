@@ -5,6 +5,25 @@
 
 ---
 
+## 2026-07-14 周报命名规则统一 + 列表布局调整（最新置顶）
+
+### 变更
+- **第1期文件重命名**：`teacher-ai-weekly-report.html` → `teacher-ai-weekly-report-01.html`，统一命名规则为 `teacher-ai-weekly-report-{期号}.html`
+- **周报列表布局调整**：weekly-list.html 从"第1期→第2期→第3期(占位)"正序改为"最新期刊→历史期刊"分区倒序
+  - 🔥 最新期刊区：第2期置顶（is-latest 高亮 + "最新"徽章）
+  - 📖 历史期刊区：第1期在下方
+  - 第3期占位卡片移到底部
+- **全站引用更新**：5个核心文件的旧文件名引用改为新文件名
+  - weekly-list.html、free/teacher-ai-weekly-report-02.html、search-index.json、sitemap.xml、tags.html
+
+### 命名规则（正式确认）
+- 格式：`teacher-ai-weekly-report-{XX}.html`
+- XX 为两位数字期号：01, 02, 03, ..., 10, 11, ...
+- 存放路径：`free/` 目录下
+- 第1期已从无编号版本改为 `-01` 版本
+
+---
+
 ## 2026-07-14 教师周报第2期上线
 
 ### 新增

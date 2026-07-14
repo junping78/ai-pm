@@ -28,7 +28,7 @@
 ```
 访客 → 网站首页 → teacher-ai-weekly.html（活动介绍）
                               ↓
-                    free/teacher-ai-weekly-report.html（免费周报，公开）
+                    free/teacher-ai-weekly-report-01.html（免费周报，公开）
                               ↓
                     member/（会员资源，需登录）
                     ├── weekly-report-member-2026-07.pdf

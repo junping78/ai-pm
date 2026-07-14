@@ -114,7 +114,8 @@ https://junping78.github.io/ai-pm/
 │   └── changelog.md                  变更记录
 ├── free/                           免费公开内容
 │   ├── README.md
-│   └── teacher-ai-weekly-report.html
+│   ├── teacher-ai-weekly-report-01.html
+│   └── teacher-ai-weekly-report-02.html
 ├── free-reports/                   周报内容源（Markdown + YAML）
 │   ├── README.md
 │   ├── 2026-07-02.md

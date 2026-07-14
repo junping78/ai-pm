@@ -46,12 +46,13 @@ free-reports/2026-07-02.md  →  free-reports/2026-07-09.md
 
 ### 第4步：生成 HTML
 
-目前手动：参考 `free/teacher-ai-weekly-report.html` 的格式，生成新 HTML 放到 `free/` 目录。
+目前手动：参考 `free/teacher-ai-weekly-report-01.html` 的格式，生成新 HTML 放到 `free/` 目录。
 
 文件命名规则：
 ```
-free/teacher-ai-weekly-report-YYYY-MM-DD.html
+free/teacher-ai-weekly-report-{XX}.html
 ```
+- XX 为两位数字期号：01, 02, 03, ..., 10, 11, ...
 
 后续计划：开发脚本从 Markdown + YAML 自动生成 HTML（待开发）。
 

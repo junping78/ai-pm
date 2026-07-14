@@ -8,7 +8,14 @@
 
 | 文件 | 说明 |
 |------|------|
-| `teacher-ai-weekly-report.html` | 教师免费AI工具周报（第1期，2026-07-02） |
+| `teacher-ai-weekly-report-01.html` | 教师免费AI工具周报（第1期，2026-07-02） |
+| `teacher-ai-weekly-report-02.html` | 教师免费AI工具周报（第2期，2026-07-14） |
+
+## 命名规则
+
+- 格式：`teacher-ai-weekly-report-{XX}.html`
+- XX 为两位数字期号：01, 02, 03, ..., 10, 11, ...
+- 所有周报统一存放在 `free/` 目录下
 
 ## 部署说明
 

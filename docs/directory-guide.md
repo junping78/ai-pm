@@ -36,7 +36,8 @@ member/     →  会员资源（预留，后续接入权限管理）
 │
 ├── free/                            免费公开内容
 │   ├── README.md                      目录说明
-│   └── teacher-ai-weekly-report.html  周报HTML（第1期）
+│   ├── teacher-ai-weekly-report-01.html  周报HTML（第1期）
+│   └── teacher-ai-weekly-report-02.html  周报HTML（第2期）
 │
 ├── free-reports/                    周报内容源
 │   ├── README.md                      工作流说明
@@ -76,7 +77,12 @@ member/     →  会员资源（预留，后续接入权限管理）
 **放什么：** 面向所有访客的免费内容，无需登录即可访问
 
 **当前内容：**
-- `teacher-ai-weekly-report.html` — 教师免费AI工具周报（第1期）
+- `teacher-ai-weekly-report-01.html` — 教师免费AI工具周报（第1期）
+- `teacher-ai-weekly-report-02.html` — 教师免费AI工具周报（第2期）
+
+**命名规则：**
+- 格式：`teacher-ai-weekly-report-{XX}.html`
+- XX 为两位数字期号：01, 02, 03, ..., 10, 11, ...
 
 **规则：**
 - 此目录会随网站一起部署到 GitHub Pages
