@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-07-14 教师周报第2期上线
+
+### 新增
+- **第2期周报上线**：`free/teacher-ai-weekly-report-02.html`，新增"九章爱学老师版"工具，DeepSeek和腾讯元宝标注"⭐完全免费"
+- 第2期文件已做网站适配（favicon、GA4、导航栏、页脚、相关推荐）
+- 第1期页脚和相关推荐增加指向第2期的链接
+
+### 更新
+- **weekly-list.html**：第2期占位改为正式卡片（is-latest），第1期取消is-latest，统计栏更新（2期/07-14），新增第3期占位
+- **teacher-ai-weekly.html**："打开最新一期"按钮指向第2期
+- **resources.html**："查看周报"改为"查看最新周报"指向第2期
+- **search-index.json**：新增第2期条目（page+resource），新增"九章爱学老师版"工具条目，腾讯元宝desc更新
+- **tags.html**：新增第2期tagData（page+resource），新增"九章爱学老师版"工具条目
+- **sitemap.xml**：新增第2期URL，第1期changefreq改为monthly
+
+---
+
 ## 2026-07-14 导航优化：AI工具→AI工具箱 + 教师周报导航指向调整
 
 ### 变更

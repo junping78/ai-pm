@@ -57,10 +57,17 @@
   },
   {
     "type": "page",
-    "title": "教师AI工具周报内容",
+    "title": "教师AI工具周报第1期（创刊号）",
     "url": "free/teacher-ai-weekly-report.html",
-    "desc": "最新一期教师免费AI工具周报内容，含工具推荐、使用技巧、场景组合。",
-    "keywords": "周报内容 教师 AI工具 免费 工具推荐 使用技巧 场景 组合 DeepSeek 豆包 Kimi 希沃白板 101教育PPT"
+    "desc": "首期教师免费AI工具周报，40+款工具全景盘点，覆盖国内官方平台、通用大模型、教学课件、PPT制作、国外工具五大分类，附5套推荐组合。",
+    "keywords": "周报 第1期 创刊号 教师 AI工具 免费 工具推荐 使用技巧 场景 组合 DeepSeek 豆包 Kimi 希沃白板 101教育PPT"
+  },
+  {
+    "type": "page",
+    "title": "教师AI工具周报第2期",
+    "url": "free/teacher-ai-weekly-report-02.html",
+    "desc": "第2期周报更新工具免费政策：DeepSeek、腾讯元宝标注完全免费，新增九章爱学老师版。40+款工具五大分类，附场景化推荐组合。",
+    "keywords": "周报 第2期 最新 教师 AI工具 免费 工具推荐 DeepSeek 腾讯元宝 九章爱学 完全免费 政策更新 场景 组合"
   },
   {
     "type": "tool",
@@ -146,9 +153,17 @@
     "type": "tool",
     "title": "腾讯元宝",
     "url": "https://yuanbao.tencent.com/",
-    "desc": "腾讯出品，教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档。",
-    "keywords": "腾讯元宝 腾讯 yuanbao 教案 写作 联网搜索 微信 腾讯文档 基础免费",
+    "desc": "腾讯出品，教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档。基础功能完全免费。",
+    "keywords": "腾讯元宝 腾讯 yuanbao 教案 写作 联网搜索 微信 腾讯文档 完全免费",
     "category": "国内通用大模型"
+  },
+  {
+    "type": "tool",
+    "title": "九章爱学老师版",
+    "url": "https://www.aixue.com/",
+    "desc": "学而思出品，面向教师的AI教学助手，支持出题、批改、学情分析。第2期周报新增。",
+    "keywords": "九章爱学 学而思 aixue 出题 批改 学情分析 教师 AI教学助手",
+    "category": "教学课件工具"
   },
   {
     "type": "tool",
@@ -431,10 +446,10 @@
   },
   {
     "type": "resource",
-    "title": "教师免费AI工具周报",
-    "url": "free/teacher-ai-weekly-report.html",
-    "desc": "汇总国内外教师可免费使用的AI工具，按场景分类、标注使用门槛、给出推荐组合。每周更新。",
-    "keywords": "教师 AI工具 周报 免费 每周 场景 门槛 推荐组合",
+    "title": "教师免费AI工具周报（第2期·最新）",
+    "url": "free/teacher-ai-weekly-report-02.html",
+    "desc": "第2期周报：更新工具免费政策，新增九章爱学老师版。40+款工具五大分类，按场景分类、标注使用门槛、给出推荐组合。",
+    "keywords": "教师 AI工具 周报 第2期 最新 免费 场景 门槛 推荐组合 DeepSeek 腾讯元宝 九章爱学",
     "access": "free",
     "category": "AI工具与教程"
   },

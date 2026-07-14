@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>教师免费AI工具周报 | 刘俊平</title>
+    <title>教师免费AI工具周报第2期 | 刘俊平</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
     <script>
@@ -121,6 +121,7 @@
         .tag-restricted { background: #FCEBEB; color: #A32D2D; }
         .tag-direct { background: #EAF3DE; color: #3B6D11; }
         .tag-ppt { background: #E6F1FB; color: #185FA5; }
+        .tag-new { background: #FCE7F3; color: #9D174D; }
 
         .category-official { border-left: 4px solid #534AB7; }
         .category-domestic { border-left: 4px solid #0F6E56; }
@@ -139,6 +140,19 @@
             color: #78350F;
         }
         .notice-box strong { color: #92400E; }
+
+        .weekly-update-box {
+            background: #EEEDFE;
+            border: 1px solid #CECBF6;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 24px;
+            font-size: 13.5px;
+            color: #3C3489;
+        }
+        .weekly-update-box strong { color: #534AB7; }
+        .weekly-update-box ul { margin-top: 10px; padding-left: 20px; }
+        .weekly-update-box li { margin-bottom: 6px; }
 
         .access-box {
             background: #FCEBEB;
@@ -207,61 +221,13 @@
             .compare-table { font-size: 12px; }
             .compare-table th, .compare-table td { padding: 10px 12px; }
         }
-
-        /* --- 返回网站导航条 --- */
-        .site-nav {
-            background: #fff;
-            border-bottom: 1px solid #e8e8e8;
-            padding: 0 20px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 200;
-        }
-        .site-nav .site-nav-brand {
-            font-size: 15px;
-            font-weight: 700;
-            color: #3C3489;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-        .site-nav .site-nav-brand:hover { text-decoration: none; color: #534AB7; }
-        .site-nav .site-nav-links {
-            display: flex;
-            gap: 14px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .site-nav .site-nav-links a {
-            font-size: 13.5px;
-            color: #555;
-            text-decoration: none;
-            padding: 6px 10px;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .site-nav .site-nav-links a:hover {
-            background: #EEEDFE;
-            color: #3C3489;
-            text-decoration: none;
-        }
-        @media (max-width: 640px) {
-            .site-nav { padding: 0 14px; height: 44px; }
-            .site-nav .site-nav-brand { font-size: 13px; }
-            .site-nav .site-nav-links { gap: 4px; }
-            .site-nav .site-nav-links a { font-size: 12px; padding: 4px 6px; }
-        }
     </style>
 </head>
 <body>
 
 <!-- 返回网站导航条 -->
 <nav class="site-nav">
-    <a href="../index.html" class="site-nav-brand">← 刘俊平 · AI赋能项目管理</a>
+    <a href="../index.html" class="site-nav-brand">&larr; 刘俊平 &middot; AI赋能项目管理</a>
     <ul class="site-nav-links">
         <li><a href="../index.html">首页</a></li>
         <li><a href="../about.html">关于我</a></li>
@@ -274,35 +240,48 @@
 </nav>
 
 <div class="header">
-    <h1>教师免费AI工具周报</h1>
+    <h1>🔍 教师免费AI工具周报</h1>
     <div class="subtitle">国内外教师可免费使用的AI工具汇总与最新政策更新</div>
     <div class="date-badge" id="report-date">本期日期：--</div>
 </div>
 
 <div class="container">
 
+    <!-- 本周关键变化 -->
+    <div class="weekly-update-box">
+        <strong>📌 本周关键变化（截至2026年7月14日）：</strong>
+        <ul>
+            <li><strong>DeepSeek推出5大永久免费新功能：</strong>多格式文件一键解析、联网搜索、语音办公、智能表格排版、深度推理解题 — 全部免费，无次数限制。</li>
+            <li><strong>Kimi正式收费：</strong>推出49/99/199/699元四档付费，基础版仍免费但深度研究限1次/月、PPT限3次/月。</li>
+            <li><strong>智谱清言上线会员：</strong>VIP 49元/月、SVIP 149元/月，基础功能仍免费。</li>
+            <li><strong>通义千问免费额度缩减：</strong>办公版收费，基础对话永久免费但复杂任务受限。</li>
+            <li><strong>九章爱学老师版：</strong>好未来（学而思）出品，专为教师打造，170+智能体，免费使用。</li>
+            <li><strong>豆包新增学生优惠：</strong>在校大学生认证后38元/月（标准版68元/月）。</li>
+        </ul>
+    </div>
+
     <div class="notice-box">
-        <strong>重要提示：</strong>AI工具的免费/付费政策变化很快，本报告信息截至页面标注日期。部分工具的“免费”指基础功能免费，高级功能或高频使用可能受限。豆包已于2026年5月起推出付费版（68元/月起），基础功能仍免费，但同声传译、AI PPT、高清生图等高算力功能每日有次数限制。
+        <strong>重要提示：</strong>2026年7月，国产AI大模型全面进入收费时代。豆包、Kimi、智谱清言、通义千问均已推出付费版。目前保持完全免费的仅剩<strong>DeepSeek</strong>和<strong>腾讯元宝</strong>。基础对话问答各家仍免费，但深度功能普遍受限。本报告标注各工具的具体免费/付费边界，请仔细阅读。
     </div>
 
     <div class="access-box">
         <strong>关于国外AI工具的实际门槛说明（非常重要）：</strong>
         <ul>
-            <li><strong>仅需VPN即可使用（无其他身份限制）：</strong>twee（twee.com）、Inciteful（实际官网为 inciteful.xyz）—— 有VPN就能打开，无教师身份要求，任何人可注册或直接使用。</li>
-            <li><strong>需VPN + Google账号：</strong>NotebookLM —— 无教师身份要求，但中国大陆访问需VPN，且个人账号使用需Google账号。</li>
-            <li><strong>VPN + 美国K-12教师认证（中国教师通常无法通过）：</strong>ChatGPT for Teachers —— 需OpenAI教师身份验证，仅面向美国K-12教师，中国教师基本无法通过。</li>
-            <li><strong>VPN + Google Workspace教育版账号（学校需已注册）：</strong>Google Gemini for Education —— 个人无法自行注册，需学校已开通Google教育版。</li>
-            <li><strong>中国官方不可用 + 合作院校账号：</strong>Claude for Education —— 官方支持地区不包含中国大陆，教育版仅限Anthropic合作院校师生。</li>
-            <li><strong>学校Microsoft 365教育版账号（部分中国高校已有，无需VPN）：</strong>Microsoft Copilot 教育版 —— 门槛在于学校是否开通微软教育版，个人无法自行注册。</li>
-            <li><strong>中国有独立版本（无需VPN）：</strong>Canva可画教育版 —— 国内站 canva.cn，中国教师可直接用学校邮箱或教师资格证认证，认证后永久免费。</li>
+            <li><strong>仅需VPN即可使用（无其他身份限制）：</strong>twee（twee.com）、Inciteful（inciteful.xyz）— 有VPN就能打开，无教师身份要求。</li>
+            <li><strong>需VPN + Google账号：</strong>NotebookLM — 无教师身份要求，中国大陆需VPN + Google账号。</li>
+            <li><strong>VPN + 美国K-12教师认证（中国教师通常无法通过）：</strong>ChatGPT for Teachers — 需OpenAI教师身份验证，仅面向美国K-12教师。</li>
+            <li><strong>VPN + Google Workspace教育版账号（学校需已注册）：</strong>Google Gemini for Education — 个人无法自行注册。</li>
+            <li><strong>中国官方不可用 + 合作院校账号：</strong>Claude for Education — 官方支持地区不包含中国大陆。</li>
+            <li><strong>学校Microsoft 365教育版账号（部分中国高校已有，无需VPN）：</strong>Microsoft Copilot 教育版。</li>
+            <li><strong>中国有独立版本（无需VPN）：</strong>Canva可画教育版 — 国内站 canva.cn，中国教师可直接用学校邮箱或教师资格证认证，永久免费。</li>
         </ul>
     </div>
 
     <div class="recommend-box">
         <h3>给教师的快速推荐组合</h3>
         <ol>
-            <li><strong>零门槛起步：</strong>国家智慧教育平台2.0 + DeepSeek + 豆包（基础功能）+ Kimi</li>
-            <li><strong>备课提效：</strong>希沃白板 / 101教育PPT 做课件 + 秘塔AI搜索查资料 + 即梦做教学插图</li>
+            <li><strong>零门槛起步：</strong>国家智慧教育平台2.0 + DeepSeek（完全免费）+ 九章爱学老师版（教师专用）</li>
+            <li><strong>备课提效：</strong>九章爱学老师版 / 希沃白板 做课件 + 秘塔AI搜索查资料 + 即梦做教学插图</li>
             <li><strong>英语教师专项：</strong>twee（需VPN）+ Canva可画教育版（国内直接可用）+ 微软翻译（面对面双向翻译）</li>
             <li><strong>科研/论文型教师：</strong>智谱清言 + 腾讯IMA + Inciteful（需VPN）</li>
             <li><strong>办公协作：</strong>腾讯文档 / 金山文档（WPS 365教育版）+ 讯飞听见（会议录音转文字）</li>
@@ -360,11 +339,12 @@
         </div>
         <div class="tool-grid">
             <div class="tool-card category-domestic">
-                <div class="tool-name"><a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a></div>
+                <div class="tool-name"><a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek ⭐完全免费</a></div>
                 <div class="tool-vendor">深度求索</div>
-                <div class="tool-desc">深度推理能力强，适合跨学科备课、复杂课题研究、教案设计、题目解析。基础功能完全免费。</div>
+                <div class="tool-desc">2026年7月新上线5大永久免费功能：多格式文件解析（PDF/Word/Excel/PPT，最大100MB）、联网搜索、语音办公、智能表格排版、深度推理。V4模型升级，基础功能全部免费，无使用次数限制。目前国内唯一保持完全免费的主流大模型。</div>
                 <div class="tool-tags">
-                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-free">完全免费</span>
+                    <span class="tag tag-new">本周更新</span>
                     <span class="tag tag-direct">直接可用</span>
                 </div>
                 <a href="https://www.deepseek.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
@@ -372,7 +352,7 @@
             <div class="tool-card category-domestic">
                 <div class="tool-name"><a href="https://www.doubao.com/" target="_blank" rel="noopener">豆包</a></div>
                 <div class="tool-vendor">字节跳动</div>
-                <div class="tool-desc">基础问答、作文批改、生图、语音对话免费。2026年5月起推出付费版（68元/月起），同声传译、AI PPT、高清生图等高算力功能免费版每日有限次数。</div>
+                <div class="tool-desc">基础问答、作文批改、生图、语音对话免费。2026年6月正式上线付费版（68元/月起），同声传译、AI PPT、高清生图等高算力功能免费版每日有限次数。大学生认证后38元/月。</div>
                 <div class="tool-tags">
                     <span class="tag tag-free">基础免费</span>
                     <span class="tag tag-limited">高算力功能受限</span>
@@ -382,20 +362,20 @@
             <div class="tool-card category-domestic">
                 <div class="tool-name"><a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener">Kimi</a></div>
                 <div class="tool-vendor">月之暗面</div>
-                <div class="tool-desc">超长上下文，可上传教材PDF生成知识大纲、一键生成PPT。适合处理长文档和教学资料。</div>
+                <div class="tool-desc">超长上下文，可上传教材PDF生成知识大纲、一键生成PPT。2026年7月起推出付费会员（49/99/199/699元四档），基础版仍免费但功能受限：深度研究限1次/月、PPT限3次/月、OK Computer限3次/月。</div>
                 <div class="tool-tags">
                     <span class="tag tag-free">基础免费</span>
-                    <span class="tag tag-direct">直接可用</span>
+                    <span class="tag tag-limited">深度功能受限</span>
                 </div>
                 <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
             </div>
             <div class="tool-card category-domestic">
                 <div class="tool-name"><a href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></div>
                 <div class="tool-vendor">智谱AI（清华系）</div>
-                <div class="tool-desc">古诗文/文言文理解精准，可生成赏析、阅读理解习题，学术写作辅助能力较强。</div>
+                <div class="tool-desc">古诗文/文言文理解精准，学术写作辅助。2026年7月上线VIP（49元/月）和SVIP（149元/月），基础问答仍免费。GLM-5.1编程能力突出。</div>
                 <div class="tool-tags">
                     <span class="tag tag-free">基础免费</span>
-                    <span class="tag tag-direct">直接可用</span>
+                    <span class="tag tag-limited">会员制</span>
                 </div>
                 <a href="https://chatglm.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
             </div>
@@ -412,10 +392,10 @@
             <div class="tool-card category-domestic">
                 <div class="tool-name"><a href="https://tongyi.aliyun.com/" target="_blank" rel="noopener">通义千问</a></div>
                 <div class="tool-vendor">阿里巴巴</div>
-                <div class="tool-desc">推理能力强、编程教学辅助、文档解析能力突出。适合信息技术教师和STEM课程备课。</div>
+                <div class="tool-desc">推理能力强、编程教学辅助、文档解析能力突出。2026年7月起办公版收费，免费额度大幅缩减；个人基础聊天问答仍永久免费，但复杂任务有限额。会员约25-30元/月。</div>
                 <div class="tool-tags">
                     <span class="tag tag-free">基础免费</span>
-                    <span class="tag tag-direct">直接可用</span>
+                    <span class="tag tag-limited">办公版收费</span>
                 </div>
                 <a href="https://tongyi.aliyun.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
             </div>
@@ -430,11 +410,11 @@
                 <a href="https://xinghuo.xfyun.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
             </div>
             <div class="tool-card category-domestic">
-                <div class="tool-name"><a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener">腾讯元宝</a></div>
+                <div class="tool-name"><a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener">腾讯元宝 ⭐完全免费</a></div>
                 <div class="tool-vendor">腾讯</div>
-                <div class="tool-desc">教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档，适合日常办公。</div>
+                <div class="tool-desc">教案模板、写作辅助、联网搜索，深度集成微信生态与腾讯文档。目前仍保持完全免费，未设置付费版本。</div>
                 <div class="tool-tags">
-                    <span class="tag tag-free">基础免费</span>
+                    <span class="tag tag-free">完全免费</span>
                     <span class="tag tag-direct">直接可用</span>
                 </div>
                 <a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
@@ -449,6 +429,17 @@
             国内教学 / 课件专用工具（直接可用）
         </div>
         <div class="tool-grid">
+            <div class="tool-card category-teaching">
+                <div class="tool-name"><a href="https://www.laoshibang.com/" target="_blank" rel="noopener">九章爱学老师版 🆕</a></div>
+                <div class="tool-vendor">好未来（学而思）</div>
+                <div class="tool-desc">专为中小学教师打造的AI全能助手，已服务超20万教师。170+智能体覆盖备课、出题、批改、家校沟通全流程。支持一句话生成完整教学课件、PPT转教案、跨学科设计、高情商回复、智能排座等。免费使用。</div>
+                <div class="tool-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-new">本周新增</span>
+                    <span class="tag tag-direct">直接可用</span>
+                </div>
+                <a href="https://www.laoshibang.com/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
+            </div>
             <div class="tool-card category-teaching">
                 <div class="tool-name"><a href="https://easinote.seewo.com/" target="_blank" rel="noopener">希沃白板</a></div>
                 <div class="tool-vendor">视源股份</div>
@@ -553,8 +544,8 @@
             <div class="tool-card category-ppt">
                 <div class="tool-name"><a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener">Kimi PPT</a></div>
                 <div class="tool-vendor">月之暗面</div>
-                <div class="tool-desc">Kimi内置PPT生成功能，输入主题自动生成大纲、内容和排版，可在线编辑导出。</div>
-                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-free">免费</span><span class="tag tag-direct">直接可用</span></div>
+                <div class="tool-desc">Kimi内置PPT生成功能，输入主题自动生成。2026年7月起免费版每月限3次，付费版不限。</div>
+                <div class="tool-tags"><span class="tag tag-ppt">PPT</span><span class="tag tag-limited">免费3次/月</span><span class="tag tag-direct">直接可用</span></div>
                 <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener" class="tool-link">点击访问 →</a>
             </div>
             <div class="tool-card category-ppt">
@@ -612,7 +603,7 @@
             <div class="tool-card category-foreign-free">
                 <div class="tool-name"><a href="https://twee.com/" target="_blank" rel="noopener">twee</a></div>
                 <div class="tool-vendor">twee.com</div>
-                <div class="tool-desc">英语教师专属工具，生成词汇、阅读、写作、口语、语法等教学素材。注册即用，无教师身份认证要求。有免费额度。</div>
+                <div class="tool-desc">英语教师专属工具，生成词汇、阅读、写作、口语、语法等教学素材。免费版每月20次文本运行 + 10次媒体运行。注册即用，无教师身份认证要求。</div>
                 <div class="tool-tags">
                     <span class="tag tag-free">有免费额度</span>
                     <span class="tag tag-vpn">需VPN</span>
@@ -632,7 +623,7 @@
             <div class="tool-card category-foreign-free">
                 <div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank" rel="noopener">NotebookLM</a></div>
                 <div class="tool-vendor">Google</div>
-                <div class="tool-desc">上传教学资料生成学习指南、FAQ、音频概要（AI播客）。需VPN + Google账号，无教师身份要求。2026年6月起与Google Classroom深度整合。</div>
+                <div class="tool-desc">上传教学资料生成学习指南、FAQ、音频概要（AI播客）。免费版：100个笔记本，50个来源/笔记本，每日50次对话，3次音频概要。需VPN + Google账号。</div>
                 <div class="tool-tags">
                     <span class="tag tag-free">免费</span>
                     <span class="tag tag-vpn">需VPN + Google账号</span>
@@ -670,7 +661,7 @@
                     <td>深度集成Google Classroom、自动生成测验、播客式音频课程、学习材料生成</td>
                     <td class="restriction-cell">
                         <span class="r-label" style="color:#A32D2D">VPN + Google Workspace教育版账号（学校需已注册）</span>
-                        需要学校已开通Google Workspace for Education，个人无法自行注册。中国大陆学校极少使用Google教育版，大多数中国教师无法使用。2026年6月起Gemini接入Google Classroom。
+                        需要学校已开通Google Workspace for Education，个人无法自行注册。中国大陆学校极少使用Google教育版，大多数中国教师无法使用。
                     </td>
                 </tr>
                 <tr>
@@ -678,75 +669,113 @@
                     <td>苏格拉底式学习模式、超长上下文、交互式课件生成、学术写作辅助</td>
                     <td class="restriction-cell">
                         <span class="r-label" style="color:#A32D2D">中国官方不可用 + 合作院校账号</span>
-                        Claude官方支持地区不包含中国大陆。教育版仅限Anthropic合作院校（如部分欧美高校）的师生。中国教师即使有VPN，也难以合规注册使用。建议使用国内替代品。
+                        Claude官方支持地区不包含中国大陆。教育版仅限Anthropic合作院校（如部分欧美高校）的师生。建议使用国内替代品。
                     </td>
                 </tr>
                 <tr>
                     <td><strong><a href="https://www.microsoft.com/zh-cn/education/products/copilot-in-education" target="_blank" rel="noopener">Microsoft Copilot 教育版</a></strong></td>
-                    <td>集成Microsoft 365、Word/PPT/Excel AI辅助、课堂管理工具，2026年6月新增学习智能体</td>
+                    <td>集成Microsoft 365、Word/PPT/Excel AI辅助、课堂管理工具，新增学习智能体</td>
                     <td class="restriction-cell">
                         <span class="r-label" style="color:#854F0B">学校Microsoft 365教育版账号（部分中国高校已有，无需VPN）</span>
-                        需要学校已开通Microsoft 365教育版。部分中国高校已有该账号，教师可直接使用，VPN通常不需要。门槛在于学校是否开通，个人无法自行注册。
+                        需要学校已开通Microsoft 365教育版。部分中国高校已有该账号，教师可直接使用，VPN通常不需要。门槛在于学校是否开通。
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- 豆包收费对比 -->
+    <!-- 国内大模型收费对比 -->
     <div class="section">
         <div class="section-title">
             <span class="icon">💰</span>
-            豆包免费版 VS 付费版对比（2026年5月起）
+            国产大模型收费政策对比（截至2026年7月14日）
         </div>
         <table class="compare-table">
             <thead>
                 <tr>
-                    <th>版本</th>
-                    <th>价格</th>
-                    <th>适合人群</th>
-                    <th>核心区别</th>
+                    <th>工具</th>
+                    <th>免费范围</th>
+                    <th>付费版本</th>
+                    <th>关键限制</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>免费版</strong></td>
-                    <td>0元</td>
-                    <td>日常问答、聊天、简单翻译、文档总结</td>
-                    <td>基础功能永久免费。高算力功能（同声传译、AI PPT、高清生图、复杂数据分析等）每日有限次数，次日重置。</td>
+                    <td><strong>DeepSeek</strong></td>
+                    <td><span style="color:#0F6E56;font-weight:600;">全部免费</span></td>
+                    <td>无付费版（仅API按量计费）</td>
+                    <td>网页版/App无任何限制。2026年7月新增5大免费功能。</td>
                 </tr>
                 <tr>
-                    <td><strong>标准版</strong></td>
-                    <td>68元/月</td>
-                    <td>轻度生产力用户</td>
-                    <td>长文本处理、PPT大纲、高峰期优先响应、更大使用额度。</td>
+                    <td><strong>腾讯元宝</strong></td>
+                    <td><span style="color:#0F6E56;font-weight:600;">全部免费</span></td>
+                    <td>无付费版</td>
+                    <td>目前未设置付费版本，完全免费。</td>
                 </tr>
                 <tr>
-                    <td><strong>加强版</strong></td>
-                    <td>200元/月</td>
-                    <td>专业创作者</td>
-                    <td>高清生图、复杂数据建模、API调用、额度约为标准版4倍。</td>
+                    <td><strong>豆包</strong></td>
+                    <td>基础问答永久免费</td>
+                    <td>68/200/500元/月<br>学生38元/月</td>
+                    <td>高算力功能（同声传译、AI PPT、生图等）免费版每日有限次数。</td>
                 </tr>
                 <tr>
-                    <td><strong>专业版</strong></td>
-                    <td>500元/月（年付5088元）</td>
-                    <td>企业/重度用户</td>
-                    <td>全量API、企业级服务、私有化部署、额度约为标准版10倍。</td>
+                    <td><strong>Kimi</strong></td>
+                    <td>基础问答免费</td>
+                    <td>49/99/199/699元/月</td>
+                    <td>深度研究1次/月、PPT 3次/月、OK Computer 3次/月。</td>
+                </tr>
+                <tr>
+                    <td><strong>智谱清言</strong></td>
+                    <td>基础问答免费</td>
+                    <td>VIP 49元/月<br>SVIP 149元/月</td>
+                    <td>复杂推理、长文本处理受限。</td>
+                </tr>
+                <tr>
+                    <td><strong>通义千问</strong></td>
+                    <td>基础对话永久免费</td>
+                    <td>办公版 ~25-30元/月</td>
+                    <td>办公版免费额度大幅缩减，复杂任务需付费。</td>
+                </tr>
+                <tr>
+                    <td><strong>文心一言</strong></td>
+                    <td>基础功能免费</td>
+                    <td>有付费方案</td>
+                    <td>专业版有付费选项。</td>
+                </tr>
+                <tr>
+                    <td><strong>讯飞星火</strong></td>
+                    <td>基础功能免费</td>
+                    <td>有付费方案</td>
+                    <td>高级API和长文本处理有付费选项。</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div class="footer">
-        <p>本报告由AI自动生成 · 信息截至报告标注日期 · 仅供教师参考</p>
-        <p>使用前请确认各工具最新政策 · 给人欢喜，不给人恐惧</p>
-        <p style="margin-top:12px;">
-            <a href="../free/teacher-ai-weekly-report-02.html">第2期</a> ·
-            <a href="../weekly-list.html">周报列表</a> ·
-            <a href="../tags.html">标签</a> ·
-            <a href="../search.html">搜索</a>
-        </p>
+        <p>本报告由AI自动生成 · 信息截至2026年7月14日 · 仅供教师参考</p>
+        <p>AI工具政策变化很快，使用前请确认各工具最新政策 · 给人欢喜，不给人恐惧</p>
     </div>
+</div>
+
+<script>
+    const now = new Date();
+    const weekdays = ['日','一','二','三','四','五','六'];
+    const dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 星期' + weekdays[now.getDay()];
+    document.getElementById('report-date').textContent = '本期日期：' + dateStr;
+</script>
+
+<!-- 页脚 -->
+<div class="footer">
+    <p>本报告由AI自动生成 &middot; 信息截至报告标注日期 &middot; 仅供教师参考</p>
+    <p>使用前请确认各工具最新政策 &middot; 给人欢喜，不给人恐惧</p>
+    <p style="margin-top:12px;">
+        <a href="../weekly-list.html">周报列表</a> &middot;
+        <a href="../free/teacher-ai-weekly-report.html">第1期</a> &middot;
+        <a href="../tags.html">标签</a> &middot;
+        <a href="../search.html">搜索</a>
+    </p>
+</div>
 </div>
 
 <!-- 相关推荐 -->
@@ -754,10 +783,10 @@
     <div class="container">
         <div class="related-title">📌 你可能还感兴趣</div>
         <div class="related-grid">
-            <a href="../free/teacher-ai-weekly-report-02.html" class="related-card">
+            <a href="../free/teacher-ai-weekly-report.html" class="related-card">
                 <div class="related-card-icon">📖</div>
-                <div class="related-card-title">第2期：最新周报</div>
-                <div class="related-card-desc">新增九章爱学老师版，更新工具免费政策</div>
+                <div class="related-card-title">第1期：创刊号</div>
+                <div class="related-card-desc">40+款教师免费AI工具全景盘点</div>
             </a>
             <a href="../ai-tools.html" class="related-card">
                 <div class="related-card-icon">🤖</div>
@@ -766,7 +795,7 @@
             </a>
             <a href="../teacher-ai-weekly.html" class="related-card">
                 <div class="related-card-icon">📋</div>
-                <div class="related-card-title">教师AI工具周报活动</div>
+                <div class="related-card-title">周报介绍</div>
                 <div class="related-card-desc">了解周报活动详情和参与方式</div>
             </a>
             <a href="../resources.html" class="related-card">
@@ -774,21 +803,9 @@
                 <div class="related-card-title">资源中心</div>
                 <div class="related-card-desc">更多教学资源和工具包</div>
             </a>
-            <a href="../tags.html" class="related-card">
-                <div class="related-card-icon">🏷️</div>
-                <div class="related-card-title">标签浏览</div>
-                <div class="related-card-desc">按"教师AI"标签查看更多内容</div>
-            </a>
         </div>
     </div>
 </section>
-
-<script>
-    const now = new Date();
-    const weekdays = ['日','一','二','三','四','五','六'];
-    const dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 星期' + weekdays[now.getDay()];
-    document.getElementById('report-date').textContent = '本期日期：' + dateStr;
-</script>
 
 </body>
 </html>
