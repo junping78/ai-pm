@@ -5,6 +5,21 @@
 
 ---
 
+## 2026-07-17 新增「耶鲁大学附近购物攻略」AI实践案例
+
+### 变更
+- 将纽黑文商超购物攻略（原 new-haven-shopping-2day.html）复制并改造为 `new-haven-yale-shopping.html`，加入「AI实践资源（案例与可复用产物）」
+- **SEO优化**：标题改为「耶鲁大学附近购物攻略 · 纽黑文商超地图指南（AI辅助生成）」，补充 description / keywords / og 标签，加入 favicon 与 GA 统计（承接耶鲁高检索频次的流量入口定位）
+- **AI标注**：banner 内加「🤖 本攻略由 AI 辅助调研与生成」标记
+- **回流引导**：底部新增靛紫 CTA 区（导回 AI 项目管理课程 + 资源中心）+ 简易页脚（返回主站链接与联系方式）
+- **resources.html**：「AI实践资源（案例与可复用产物）」区块新增入口卡片，链接新页面
+
+### 受影响文件
+- new-haven-yale-shopping.html（新增）
+- resources.html
+
+---
+
 ## 2026-07-16 课程案例改为静态HTML渲染，彻底解决JS不执行问题
 
 ### 变更

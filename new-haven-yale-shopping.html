@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>耶鲁大学附近购物攻略 · 纽黑文商超地图指南（AI辅助生成）| 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="耶鲁大学（Yale University）纽黑文（New Haven, CT）周边商超购物攻略：Costco、Walmart、Target、IKEA、Trader Joe's 等 12 家商超位置与路线，AI 辅助调研 + 交互地图呈现。适合耶鲁访学、短期交流、陪读家庭。">
+<meta name="keywords" content="耶鲁大学,耶鲁购物,纽黑文购物,New Haven shopping,Yale附近商超,纽黑文超市,康涅狄格购物攻略,耶鲁访学,留学生购物,美国超市攻略,Costco,Trader Joe's">
+<meta property="og:title" content="耶鲁大学附近购物攻略 · 纽黑文商超地图指南（AI辅助生成）">
+<meta property="og:description" content="耶鲁大学纽黑文周边 12 家商超位置与路线，AI 辅助调研 + 交互地图。适合耶鲁访学、短期交流、陪读家庭。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/new-haven-yale-shopping.html">
+<meta name="author" content="刘俊平 · AI赋能项目管理">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  background:#f6f9fc;color:#1a1f36;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+/* ===== Banner ===== */
+.banner{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#00875a 0%,#00a371 25%,#1abc9c 55%,#48dbfb 100%);
+  padding:56px 40px 48px;text-align:center;color:#fff;
+}
+.banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 0%,rgba(255,255,255,.18) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 100%,rgba(255,255,255,.12) 0%,transparent 50%);
+  pointer-events:none;
+}
+.banner::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:linear-gradient(to bottom,transparent,#f6f9fc);
+  pointer-events:none;
+}
+.banner-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto}
+.banner-eyebrow{
+  font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.82);margin-bottom:12px;
+}
+.banner h1{font-size:42px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.banner-sub{font-size:17px;color:rgba(255,255,255,.88);font-weight:400;margin-bottom:28px}
+.badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.2);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:100px;padding:8px 18px;font-size:14px;font-weight:600;
+}
+.badge svg{width:16px;height:16px;flex-shrink:0}
+
+/* ===== Tabs ===== */
+.tabs-wrap{
+  max-width:1200px;margin:0 auto;padding:0 40px;
+  display:flex;gap:8px;margin-top:-8px;position:relative;z-index:2;
+}
+.tab{
+  border:none;cursor:pointer;background:#fff;
+  border:1px solid #e3e8ee;border-bottom:none;
+  padding:12px 28px;border-radius:12px 12px 0 0;
+  font-size:14px;font-weight:600;color:#697386;
+  transition:all .2s ease;letter-spacing:.03em;
+  box-shadow:0 -2px 8px rgba(0,0,0,.02);
+}
+.tab:hover{color:#1a1f36;background:#fafbfd}
+.tab.active{
+  color:#00875a;background:#fff;
+  border-bottom:1px solid #fff;
+  box-shadow:0 -4px 12px rgba(0,135,90,.1);
+}
+.tab .tab-num{font-size:11px;color:#a3acb9;margin-right:4px}
+.tab.active .tab-num{color:#48dbfb}
+
+/* ===== Main Layout ===== */
+.main{
+  max-width:1200px;margin:0 auto;padding:0 40px 60px;
+  display:grid;grid-template-columns:1fr 480px;gap:28px;
+  background:#fff;border:1px solid #e3e8ee;border-top:none;
+  border-radius:0 0 16px 16px;min-height:600px;
+}
+
+/* ===== Day Header ===== */
+.day-panel{display:none;padding:28px 0 0}
+.day-panel.active{display:block}
+.day-header{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #eef0f4}
+.day-header h2{font-size:22px;font-weight:700;color:#1a1f36;margin-bottom:4px}
+.day-header p{font-size:14px;color:#697386}
+.day-stats{display:flex;gap:20px;margin-top:12px}
+.day-stat{font-size:13px;color:#697386}
+.day-stat strong{color:#1a1f36;font-weight:700}
+
+/* ===== Timeline ===== */
+.timeline{position:relative;padding-left:0}
+.timeline::before{
+  content:'';position:absolute;left:63px;top:8px;bottom:8px;
+  width:2px;background:linear-gradient(to bottom,#e3e8ee,#e3e8ee 80%,transparent);
+}
+.poi-card{
+  display:flex;gap:16px;margin-bottom:14px;cursor:pointer;
+  padding:14px 16px;border-radius:12px;
+  background:#fff;border:1px solid #e3e8ee;
+  transition:all .25s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.poi-card:hover{
+  border-color:#c8cdd8;box-shadow:0 4px 16px rgba(0,0,0,.06);
+  transform:translateX(4px);
+}
+.poi-card.active{
+  border-color:#00875a;box-shadow:0 4px 20px rgba(0,135,90,.12);
+  background:linear-gradient(135deg,#f0faf6,#e8f7f0);
+}
+.poi-time{
+  flex-shrink:0;width:50px;text-align:right;
+  font-size:14px;font-weight:700;color:#1a1f36;
+  padding-top:2px;
+}
+.poi-time .duration{font-size:11px;font-weight:500;color:#a3acb9;display:block;margin-top:2px}
+.poi-dot{
+  flex-shrink:0;width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;
+  position:relative;z-index:1;
+  box-shadow:0 0 0 4px #fff,0 2px 6px rgba(0,0,0,.1);
+}
+.poi-body{flex:1;min-width:0}
+.poi-body .poi-name{font-size:15px;font-weight:700;color:#1a1f36;margin-bottom:2px}
+.poi-body .poi-name-en{font-size:12px;color:#a3acb9;font-weight:400;margin-bottom:6px}
+.poi-body .poi-desc{font-size:13px;color:#697386;line-height:1.5;margin-bottom:6px}
+.poi-body .poi-tip{
+  font-size:12px;color:#00875a;line-height:1.5;margin-bottom:8px;
+  background:#f0faf6;border-radius:8px;padding:6px 10px;
+  border:1px solid #d4f0e2;
+}
+.poi-body .poi-tip strong{font-weight:700}
+.poi-tags{display:flex;gap:8px;flex-wrap:wrap}
+.poi-tag{
+  font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.poi-tag.cost{background:#f0f1f5;color:#4a5568}
+.poi-tag.cat{color:#fff}
+
+/* Category colors */
+.cat-wholesale{background:#635bff}
+.cat-retail{background:#0379d2}
+.cat-home{background:#00875a}
+.cat-discount{background:#e08300}
+
+.poi-card .poi-arrow{
+  flex-shrink:0;align-self:center;color:#c8cdd8;
+  transition:color .2s,transform .2s;
+}
+.poi-card:hover .poi-arrow{color:#00875a}
+.poi-card.active .poi-arrow{color:#00875a;transform:translateX(2px)}
+
+/* ===== Map ===== */
+.map-side{position:sticky;top:20px;height:calc(100vh - 120px);min-height:560px;padding-top:28px}
+.map-wrap{
+  height:100%;border-radius:16px;overflow:hidden;
+  border:1px solid #e3e8ee;box-shadow:0 4px 24px rgba(0,0,0,.06);
+  position:relative;background:#eaf0f4;
+}
+#map{width:100%;height:100%;z-index:1}
+.map-overlay-label{
+  position:absolute;top:16px;left:16px;z-index:500;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border:1px solid rgba(227,232,238,.8);border-radius:10px;
+  padding:8px 14px;font-size:13px;font-weight:600;color:#1a1f36;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  display:flex;align-items:center;gap:8px;
+}
+.map-overlay-label .dot{width:8px;height:8px;border-radius:50%;background:#00875a}
+
+/* Map legend */
+.map-legend{
+  position:absolute;bottom:16px;left:16px;z-index:500;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border:1px solid rgba(227,232,238,.8);border-radius:10px;
+  padding:10px 14px;font-size:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.map-legend .legend-title{font-weight:700;color:#1a1f36;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.map-legend .legend-item{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.map-legend .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.map-legend .legend-text{color:#697386}
+
+/* Leaflet custom marker */
+.custom-marker{background:transparent;border:none}
+.custom-marker-inner{
+  width:32px;height:32px;border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  border:2px solid #fff;
+}
+.custom-marker-inner span{transform:rotate(45deg)}
+
+/* Home marker (Ivy Manor) */
+.home-marker{background:transparent;border:none}
+.home-marker-inner{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  background:linear-gradient(135deg,#ff6b6b,#ee5a6f);
+  box-shadow:0 3px 12px rgba(238,90,111,.4);
+  border:3px solid #fff;
+  animation:pulse-home 2s ease-in-out infinite;
+}
+@keyframes pulse-home{
+  0%,100%{box-shadow:0 3px 12px rgba(238,90,111,.4),0 0 0 0 rgba(238,90,111,.3)}
+  50%{box-shadow:0 3px 12px rgba(238,90,111,.4),0 0 0 10px rgba(238,90,111,0)}
+}
+
+/* Distance badge in card */
+.poi-tag.dist{
+  background:linear-gradient(135deg,#fff5f5,#ffe8e8);
+  color:#ee5a6f;border:1px solid #ffcaca;
+}
+
+/* Leaflet overrides */
+.leaflet-container{font-family:inherit}
+.leaflet-popup-content-wrapper{
+  border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1);
+  border:1px solid #e3e8ee;
+}
+.leaflet-popup-content{margin:14px 16px;font-size:13px;min-width:180px}
+.leaflet-popup-content .pop-name{font-weight:700;color:#1a1f36;font-size:14px;margin-bottom:2px}
+.leaflet-popup-content .pop-en{color:#a3acb9;font-size:11px;margin-bottom:4px}
+.leaflet-popup-content .pop-desc{color:#697386;line-height:1.5}
+.leaflet-popup-content .pop-tip{color:#00875a;font-size:12px;margin-top:6px;line-height:1.5}
+.leaflet-popup-tip{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+
+/* ===== Responsive ===== */
+@media(max-width:980px){
+  .main{grid-template-columns:1fr;border-radius:0 0 12px 12px}
+  .map-side{position:relative;height:420px;min-height:420px;order:-1;padding-top:0}
+  .tabs-wrap{padding:0 20px}
+  .main{padding:0 20px 40px}
+  .banner{padding:40px 20px 36px}
+  .banner h1{font-size:30px}
+}
+@media(max-width:560px){
+  .banner h1{font-size:24px}
+  .badges{gap:8px}
+  .badge{padding:6px 14px;font-size:12px}
+  .tab{padding:10px 18px;font-size:13px}
+  .poi-card{padding:12px}
+  .poi-time{width:42px;font-size:13px}
+}
+
+/* ===== AI 标注与回流 ===== */
+.banner-ai-tag{margin-top:22px;display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:13px;font-weight:600;padding:6px 16px;border-radius:100px}
+.ai-cta{background:linear-gradient(135deg,#534AB7 0%,#6b5fd4 55%,#7d72e0 100%);color:#fff;text-align:center;padding:60px 40px}
+.ai-cta-inner{max-width:880px;margin:0 auto}
+.ai-cta-badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:5px 16px;font-size:12.5px;font-weight:600;margin-bottom:18px}
+.ai-cta h2{font-size:28px;font-weight:800;letter-spacing:-.01em;margin-bottom:14px}
+.ai-cta p{font-size:15.5px;line-height:1.9;color:rgba(255,255,255,.9);margin-bottom:30px}
+.ai-cta p strong{color:#fff;font-weight:700}
+.ai-cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.ai-cta .btn-primary{background:#fff;color:#534AB7;padding:13px 30px;border-radius:100px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s}
+.ai-cta .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.2)}
+.ai-cta .btn-ghost{background:rgba(255,255,255,.14);color:#fff;padding:13px 30px;border-radius:100px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.45);transition:all .2s}
+.ai-cta .btn-ghost:hover{background:rgba(255,255,255,.24)}
+.simple-footer{background:#1a1f36;color:rgba(255,255,255,.7);padding:40px 40px;text-align:center}
+.simple-footer .sf-inner{max-width:880px;margin:0 auto}
+.sf-brand{font-size:17px;font-weight:700;color:#fff;margin-bottom:4px}
+.sf-tagline{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:18px}
+.sf-links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.sf-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:14px;transition:color .2s}
+.sf-links a:hover{color:#fff}
+.sf-contact{font-size:13.5px;margin-bottom:10px}
+.sf-bottom{font-size:12.5px;color:rgba(255,255,255,.4)}
+@media(max-width:560px){
+  .ai-cta{padding:44px 22px}
+  .ai-cta h2{font-size:23px}
+  .ai-cta p{font-size:14.5px}
+}
+
+/* Print */
+@media print{
+  .map-side{display:none}
+  .main{grid-template-columns:1fr}
+  .banner::after{display:none}
+  .day-panel{display:block!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Banner ===== -->
+<header class="banner">
+  <div class="banner-inner">
+    <div class="banner-eyebrow">Greater New Haven · Connecticut · USA</div>
+    <h1>纽黑文商超购物 2 日行程</h1>
+    <p class="banner-sub">仓储会员 × 综合商超 × 家居电子 × 折扣名品 — 从 Ivy Manor 出发的一站式扫货攻略</p>
+    <div class="badges">
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        2 天
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        12 家商超
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 100 4h4a2 2 0 110 4H8M12 6v2M12 16v2"/></svg>
+        ~$625 预估消费
+      </span>
+    </div>
+    <div class="banner-ai-tag">🤖 本攻略由 AI 辅助调研与生成 · 展示「AI + 地图」的落地能力</div>
+  </div>
+</header>
+
+<!-- ===== Tabs ===== -->
+<div class="tabs-wrap">
+  <button class="tab active" data-day="1" onclick="switchDay(1)"><span class="tab-num">DAY</span>1 · 仓储+综合零售</button>
+  <button class="tab" data-day="2" onclick="switchDay(2)"><span class="tab-num">DAY</span>2 · 超市+特色零售</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+
+  <!-- ===== Left: Timeline ===== -->
+  <div class="timeline-side">
+
+    <!-- Day 1 -->
+    <div class="day-panel active" id="day-1">
+      <div class="day-header">
+        <h2>DAY 1 · 仓储会员 + 综合零售巨头</h2>
+        <p>从 Costco 到 Best Buy，一天逛遍美国零售业六大巨擘</p>
+        <div class="day-stats">
+          <span class="day-stat">🛒 <strong>6</strong> 家商超</span>
+          <span class="day-stat">💰 <strong>$340</strong> 预估消费</span>
+          <span class="day-stat">📍 最近 <strong>Walmart 4.3mi</strong> · 最远 <strong>Costco 10.1mi</strong></span>
+        </div>
+      </div>
+      <div class="timeline" id="timeline-1"></div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-panel" id="day-2">
+      <div class="day-header">
+        <h2>DAY 2 · 连锁超市 + 特色零售 + 北欧家居</h2>
+        <p>从 IKEA 到 Dick's，有机超市、平价精品、折扣名品一网打尽</p>
+        <div class="day-stats">
+          <span class="day-stat">🛒 <strong>6</strong> 家商超</span>
+          <span class="day-stat">💰 <strong>$285</strong> 预估消费</span>
+          <span class="day-stat">📍 最近 <strong>Stop & Shop 2.2mi</strong> · 最远 <strong>Whole Foods 14.6mi</strong></span>
+        </div>
+      </div>
+      <div class="timeline" id="timeline-2"></div>
+    </div>
+
+  </div>
+
+  <!-- ===== Right: Map ===== -->
+  <div class="map-side">
+    <div class="map-wrap">
+      <div class="map-overlay-label"><span class="dot"></span><span id="map-day-label">DAY 1 · 仓储会员 + 综合零售巨头</span></div>
+      <div class="map-legend">
+        <div class="legend-title">图例</div>
+        <div class="legend-item"><span class="legend-dot" style="background:linear-gradient(135deg,#ff6b6b,#ee5a6f)"></span><span class="legend-text">🏠 Ivy Manor（住所）</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#635bff"></span><span class="legend-text">📦 仓储会员店</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#0379d2"></span><span class="legend-text">🛒 综合商超</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#00875a"></span><span class="legend-text">🏠 家居电子</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#e08300"></span><span class="legend-text">🏷 折扣名品</span></div>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== AI 回流引导 ===== -->
+<section class="ai-cta">
+  <div class="ai-cta-inner">
+    <div class="ai-cta-badge">🤖 AI 实践案例</div>
+    <h2>这份攻略，是用 AI 做出来的</h2>
+    <p>从 12 家商超的信息搜集、距离与路线计算，到交互地图的呈现，全程由 AI 辅助完成。同样的「AI + 结构化数据 + 可视化」方法，也能用在<strong>供应商地理分布调研</strong>、<strong>项目现场资源摸排</strong>、<strong>行业信息扫描</strong>等企业场景——这正是 AI 赋能项目管理的日常。</p>
+    <div class="ai-cta-actions">
+      <a href="ai-project-management.html" class="btn-primary">了解 AI 赋能项目管理课程 →</a>
+      <a href="resources.html" class="btn-ghost">查看全部 AI 实践资源</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 简易页脚 ===== -->
+<footer class="simple-footer">
+  <div class="sf-inner">
+    <div class="sf-brand">刘俊平 · AI赋能项目管理</div>
+    <p class="sf-tagline">给人欢喜，不给人恐惧</p>
+    <div class="sf-links">
+      <a href="index.html">首页</a>
+      <a href="ai-project-management.html">AI项目管理</a>
+      <a href="resources.html">AI实践资源</a>
+      <a href="ai-tools.html">AI工具箱</a>
+      <a href="about.html#contact">联系我</a>
+    </div>
+    <div class="sf-contact">微信：JPAILab ｜ 邮箱：Liujp8@163.com ｜ 电话：13277049868</div>
+    <div class="sf-bottom">&copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询</div>
+  </div>
+</footer>
+
+<!-- ===== Leaflet JS ===== -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ===== POI Data ===== */
+const homeLocation = { name:"Ivy Manor", addr:"567 Prospect St, New Haven, CT 06511", lat:41.3274, lng:-72.9215 };
+
+const itinerary = {
+  1: {
+    title: "DAY 1 · 仓储会员 + 综合零售巨头",
+    pois: [
+      { time:"09:00", duration:"2h", name:"Costco Wholesale", nameEn:"Milford, CT · 仓储会员", cat:"wholesale", catLabel:"仓储会员", lat:41.2330, lng:-73.0350, cost:"~$80", distMi:"10.1", distMin:"18",
+        desc:"美国最大的仓储会员制连锁店，以大包装、低价格著称。Kirkland 自有品牌品质不输大牌，退换货政策全美最宽松。",
+        tip:"💡 必买：Kirkland 坚果/鱼油/保健品、大牌手表（比专柜便宜10-20%）；加油站比外面便宜$0.3-0.5/加仑。需会员卡（年费$65起）。" },
+      { time:"11:30", duration:"1.5h", name:"BJ's Wholesale Club", nameEn:"North Haven, CT · 仓储会员", cat:"wholesale", catLabel:"仓储会员", lat:41.3885, lng:-72.9095, cost:"~$60", distMi:"5.2", distMin:"10",
+        desc:"新英格兰起家的仓储会员店，与 Costco/Sam's Club 三足鼎立。接受厂家优惠券叠加会员折扣，性价比极高。",
+        tip:"💡 必买：Berkley Jensen 自有品牌生鲜、轮胎、大宗日用品。无会员卡可办一日体验卡免费逛。" },
+      { time:"13:00", duration:"1.5h", name:"Walmart Supercenter", nameEn:"East Haven, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.3275, lng:-72.8660, cost:"~$50", distMi:"4.3", distMin:"10",
+        desc:"全球最大零售商，商品种类覆盖食品、服装、电子、药品全品类。$4 仿制药计划闻名全美，日用品价格地板价。",
+        tip:"💡 必买：$4/$9 处方仿制药、季节性清仓商品、Great Value 自有品牌。价格 Match 政策 + 90天无理由退货。" },
+      { time:"15:00", duration:"1.5h", name:"Target", nameEn:"North Haven, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.3905, lng:-72.9604, cost:"~$50", distMi:"6.3", distMin:"17",
+        desc:"时尚平价百货，设计师联名系列是最大亮点。购物环境比 Walmart 优雅，自有品牌 Up&Up 和 Good&Gather 口碑极佳。",
+        tip:"💡 必买：设计师联名款（服装/家居限量）、Good&Gather 食品、美妆区。Cartwheel App 额外5-50%折扣，RedCard 5%返现。" },
+      { time:"16:30", duration:"1h", name:"Home Depot", nameEn:"North Haven, CT · 家居电子", cat:"home", catLabel:"家居电子", lat:41.3915, lng:-72.9560, cost:"~$40", distMi:"6.2", distMin:"17",
+        desc:"全球最大家居建材零售商，从五金工具到智能家居一应俱全。Ryobi 电动工具系列性价比极高，DIY 爱好者天堂。",
+        tip:"💡 必买：Ryobi/Husky 工具、智能家居设备、园艺植物。免费 DIY 工作坊（周六）；大型工具可租赁。" },
+      { time:"17:30", duration:"1h", name:"Best Buy", nameEn:"North Haven, CT · 家居电子", cat:"home", catLabel:"家居电子", lat:41.3900, lng:-72.9575, cost:"~$60", distMi:"6.3", distMin:"17",
+        desc:"全美最大消费电子零售商，苹果/微软/三星全线产品体验区。开箱清仓区（Open-Box）折扣可达4-5折。",
+        tip:"💡 必买：苹果产品（教育优惠$50-200 off）、耳机、游戏机。Open-Box 区淘退货机；价格匹配 Amazon。" }
+    ]
+  },
+  2: {
+    title: "DAY 2 · 连锁超市 + 特色零售 + 北欧家居",
+    pois: [
+      { time:"09:00", duration:"2h", name:"IKEA New Haven", nameEn:"450 Sargent Dr · 家居电子", cat:"home", catLabel:"家居电子", lat:41.2935, lng:-72.9260, cost:"~$80", distMi:"3.5", distMin:"9",
+        desc:"北欧家居巨头，纽黑文临海地标门店。三层楼面展示数十个样板间，瑞典食品超市和1美元热狗是经典彩蛋。",
+        tip:"💡 必买：POÄNG椅、BILLY书柜、瑞典肉丸、三文鱼。$1热狗+冰淇淋；仓库区自取家具；组装也是一种乐趣。" },
+      { time:"11:30", duration:"1h", name:"Whole Foods Market", nameEn:"Milford, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.2350, lng:-73.0450, cost:"~$40", distMi:"14.6", distMin:"23",
+        desc:"有机食品超市鼻祖（Amazon旗下），生鲜品质和有机认证标准全美最高。熟食 Hot Bar 和烘焙区是午餐好选择。",
+        tip:"💡 必买：365自有品牌有机食品、熟食区按磅称重、新鲜烘焙面包。Amazon Prime 会员额外10%折扣。" },
+      { time:"13:00", duration:"1h", name:"Trader Joe's", nameEn:"Orange, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.2780, lng:-73.0060, cost:"~$35", distMi:"7.0", distMin:"13",
+        desc:"平价精品超市，口号是'不卖最难卖的，只卖最好卖的'。全部自有品牌，绘风包装充满趣味，网红零食层出不穷。",
+        tip:"💡 必买：Mandarin Orange Chicken 橘子鸡（网红）、Cookie Butter 饼干酱、$3 Two Buck Chuck 红酒。无优惠券无会员卡。" },
+      { time:"14:30", duration:"1h", name:"Stop & Shop", nameEn:"New Haven, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.3120, lng:-72.9450, cost:"~$30", distMi:"2.2", distMin:"5",
+        desc:"新英格兰老牌连锁超市（1914年创立），本地农产品和海鲜 Deli 区是特色。Fuel Rewards 加油返利计划实用。",
+        tip:"💡 必买：本地农产品、Deli 熟食、新鲜海鲜。GeoBite App 数字优惠券；加油每$100返$0.10/加仑。" },
+      { time:"15:30", duration:"1h", name:"TJ Maxx", nameEn:"Hamden, CT · 折扣名品", cat:"discount", catLabel:"折扣名品", lat:41.3750, lng:-72.8900, cost:"~$50", distMi:"4.8", distMin:"10",
+        desc:"折扣名品百货，大牌低至3折。每周上新，淘货乐趣十足。The Runway 高端区有奢侈品手袋和设计师服装。",
+        tip:"💡 必买：品牌手袋、护肤品（La Mer/雅诗兰黛低至5折）、设计师服装。每周二/周三上新最齐；The Runway 区淘奢侈品。" },
+      { time:"16:30", duration:"1h", name:"Dick's Sporting Goods", nameEn:"North Haven, CT · 折扣名品", cat:"discount", catLabel:"折扣名品", lat:41.3895, lng:-72.9585, cost:"~$50", distMi:"6.4", distMin:"18",
+        desc:"全美最大体育用品零售商，Nike/Under Armour/lululemon 全线运动装备。户外装备和高尔夫专区专业度高。",
+        tip:"💡 必买：Nike/UA 运动鞋服、Columbia 户外装备、高尔夫球具。Price Match 政策；专业球拍穿线服务。" }
+    ]
+  }
+};
+
+/* ===== Category Colors & Icons ===== */
+const catColors = {
+  wholesale: '#635bff',
+  retail:    '#0379d2',
+  home:      '#00875a',
+  discount:  '#e08300'
+};
+const catIcons = {
+  wholesale: '📦',
+  retail:    '🛒',
+  home:      '🏠',
+  discount:  '🏷'
+};
+
+/* ===== Build Timeline Cards ===== */
+function buildTimeline(day) {
+  const container = document.getElementById('timeline-' + day);
+  const pois = itinerary[day].pois;
+  container.innerHTML = pois.map((poi, i) => `
+    <div class="poi-card" data-day="${day}" data-idx="${i}" onclick="flyToPoi(${day}, ${i})">
+      <div class="poi-time">${poi.time}<span class="duration">${poi.duration}</span></div>
+      <div class="poi-dot" style="background:${catColors[poi.cat]}">${i + 1}</div>
+      <div class="poi-body">
+        <div class="poi-name">${poi.name}</div>
+        <div class="poi-name-en">${poi.nameEn}</div>
+        <div class="poi-desc">${poi.desc}</div>
+        <div class="poi-tip">${poi.tip}</div>
+        <div class="poi-tags">
+          <span class="poi-tag cat" style="background:${catColors[poi.cat]}">${catIcons[poi.cat]} ${poi.catLabel}</span>
+          <span class="poi-tag cost">💰 ${poi.cost}</span>
+          <span class="poi-tag dist">🚗 ${poi.distMi} mi · ${poi.distMin} min</span>
+        </div>
+      </div>
+      <div class="poi-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ===== Map Init ===== */
+const map = L.map('map', {
+  zoomControl: true,
+  scrollWheelZoom: true,
+  attributionControl: false
+}).setView([41.3200, -72.9400], 12);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  maxZoom: 19,
+  subdomains: 'abcd'
+}).addTo(map);
+
+let currentMarkers = [];
+let currentPolyline = null;
+let homeMarker = null;
+let homeLine = null;
+let currentDay = 1;
+
+/* ===== Add Home Marker (Ivy Manor) ===== */
+function addHomeMarker() {
+  const homeIcon = L.divIcon({
+    className: 'home-marker',
+    html: '<div class="home-marker-inner">🏠</div>',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -22]
+  });
+  homeMarker = L.marker([homeLocation.lat, homeLocation.lng], { icon: homeIcon, zIndexOffset: 1000 }).addTo(map);
+  homeMarker.bindPopup(`
+    <div class="pop-name">🏠 ${homeLocation.name}</div>
+    <div class="pop-en">${homeLocation.addr}</div>
+    <div class="pop-desc">您的住所 · 所有距离以此为起点计算</div>
+  `);
+}
+
+/* ===== Render Day on Map ===== */
+function renderDayOnMap(day) {
+  // Clear previous
+  currentMarkers.forEach(m => map.removeLayer(m));
+  currentMarkers = [];
+  if (currentPolyline) { map.removeLayer(currentPolyline); currentPolyline = null; }
+  if (homeLine) { map.removeLayer(homeLine); homeLine = null; }
+
+  // Ensure home marker exists
+  if (!homeMarker) addHomeMarker();
+
+  const pois = itinerary[day].pois;
+  const latlngs = [];
+
+  pois.forEach((poi, i) => {
+    const latlng = [poi.lat, poi.lng];
+    latlngs.push(latlng);
+
+    const icon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div class="custom-marker-inner" style="background:${catColors[poi.cat]}"><span>${i + 1}</span></div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -28]
+    });
+
+    const marker = L.marker(latlng, { icon: icon }).addTo(map);
+    marker.bindPopup(`
+      <div class="pop-name">${poi.name}</div>
+      <div class="pop-en">${poi.nameEn}</div>
+      <div class="pop-desc">${poi.desc}</div>
+      <div class="pop-tip">${poi.tip}</div>
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e3e8ee;font-size:12px;color:#ee5a6f;font-weight:600;">🚗 距 Ivy Manor：${poi.distMi} mi · 驾车 ${poi.distMin} min</div>
+    `);
+    currentMarkers.push(marker);
+  });
+
+  // Polyline connecting POIs
+  currentPolyline = L.polyline(latlngs, {
+    color: '#00875a',
+    weight: 3,
+    opacity: 0.55,
+    dashArray: '8 8',
+    lineCap: 'round'
+  }).addTo(map);
+
+  // Fit bounds including home
+  const allPoints = [[homeLocation.lat, homeLocation.lng], ...latlngs];
+  const bounds = L.latLngBounds(allPoints);
+  map.flyToBounds(bounds, { padding: [60, 60], maxZoom: 13, duration: 0.8 });
+}
+
+/* ===== Fly to POI ===== */
+function flyToPoi(day, idx) {
+  const poi = itinerary[day].pois[idx];
+  document.querySelectorAll('.poi-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`.poi-card[data-day="${day}"][data-idx="${idx}"]`);
+  if (card) card.classList.add('active');
+
+  // Draw line from home to this POI
+  if (homeLine) { map.removeLayer(homeLine); homeLine = null; }
+  homeLine = L.polyline(
+    [[homeLocation.lat, homeLocation.lng], [poi.lat, poi.lng]],
+    { color: '#ee5a6f', weight: 3, opacity: 0.7, dashArray: '6 6', lineCap: 'round' }
+  ).addTo(map);
+
+  // Fly to a view that shows both home and POI
+  const bounds = L.latLngBounds([[homeLocation.lat, homeLocation.lng], [poi.lat, poi.lng]]);
+  map.flyToBounds(bounds, { padding: [80, 80], maxZoom: 15, duration: 0.8 });
+  setTimeout(() => {
+    if (currentMarkers[idx]) currentMarkers[idx].openPopup();
+  }, 850);
+}
+
+/* ===== Switch Day ===== */
+function switchDay(day) {
+  currentDay = day;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab[data-day="${day}"]`).classList.add('active');
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('day-' + day).classList.add('active');
+  document.getElementById('map-day-label').textContent = itinerary[day].title;
+  renderDayOnMap(day);
+}
+
+/* ===== Init ===== */
+buildTimeline(1);
+buildTimeline(2);
+renderDayOnMap(1);
+</script>
+</body>
+</html>
