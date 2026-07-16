@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 项目现场资源调研 · 耶鲁停车场建设项目实战案例（AI辅助生成）| 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="以耶鲁大学神学院大型停车场建设项目为例，用 AI 做施工现场周边资源调研：住宿、餐饮、交通、材料市场四大维度共 24 个资源点，逐点给出项目决策建议，并以交互地图可视化呈现。AI 赋能项目管理的真实落地案例。">
+<meta name="keywords" content="AI项目管理,项目现场资源调研,施工现场调研,项目选址,供应商调研,建材市场调研,AI地图可视化,耶鲁大学,纽黑文,New Haven,项目管理培训,AI赋能项目管理,刘俊平">
+<meta property="og:title" content="AI 项目现场资源调研 · 耶鲁停车场建设项目实战案例（AI辅助生成）">
+<meta property="og:description" content="用 AI 做施工现场周边资源调研：住宿/餐饮/交通/材料市场 24 个资源点 + 逐点项目建议 + 交互地图。AI 赋能项目管理的真实落地案例。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/yale-parking-project-survey.html">
+<meta name="author" content="刘俊平 · AI赋能项目管理">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;background:#f6f9fc;color:#1a1f36;line-height:1.6}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#cdd5e0;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#a8b2c1}
+
+/* ===== Banner ===== */
+.banner{
+  background:linear-gradient(135deg,#0a2540 0%,#1a3a5c 40%,#2d5a8e 70%,#3b6fa0 100%);
+  color:#fff;padding:36px 40px 30px;position:relative;overflow:hidden;
+}
+.banner::before{
+  content:"";position:absolute;top:-50%;right:-10%;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(99,91,255,.15) 0%,transparent 70%);
+  border-radius:50%;
+}
+.banner::after{
+  content:"";position:absolute;bottom:-30%;left:30%;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(0,193,184,.1) 0%,transparent 70%);
+  border-radius:50%;
+}
+.banner-inner{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px}
+.banner-left{flex:1;min-width:300px}
+.banner-tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;background:rgba(255,255,255,.15);
+  padding:4px 12px;border-radius:20px;margin-bottom:12px;
+  border:1px solid rgba(255,255,255,.2)
+}
+.banner-title{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.banner-sub{font-size:14px;color:rgba(255,255,255,.75);max-width:600px}
+.banner-badges{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.badge{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  padding:10px 16px;border-radius:12px;text-align:center;min-width:90px;backdrop-filter:blur(8px)
+}
+.badge-num{font-size:22px;font-weight:800;line-height:1.2}
+.badge-label{font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* ===== Project Info Bar ===== */
+.project-bar{
+  background:#fff;border-bottom:1px solid #e6ebf1;
+  padding:14px 40px;display:flex;gap:28px;flex-wrap:wrap;align-items:center
+}
+.proj-item{display:flex;align-items:center;gap:6px;font-size:13px;color:#5469d4}
+.proj-item strong{color:#1a1f36;font-weight:700}
+.proj-divider{width:1px;height:20px;background:#e6ebf1}
+
+/* ===== Category Tabs ===== */
+.tabs{
+  display:flex;gap:4px;padding:12px 40px 0;background:#fff;
+  border-bottom:2px solid #f0f2f7;overflow-x:auto
+}
+.tab{
+  padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;
+  border:none;background:transparent;color:#697386;border-bottom:3px solid transparent;
+  transition:all .2s;white-space:nowrap;border-radius:6px 6px 0 0
+}
+.tab:hover{color:#1a1f36;background:#f6f9fc}
+.tab.active{color:#635bff;border-bottom-color:#635bff;background:#f6f9fc}
+.tab-count{
+  display:inline-block;font-size:11px;font-weight:700;
+  background:#e6ebf1;color:#697386;padding:1px 7px;border-radius:10px;margin-left:4px
+}
+.tab.active .tab-count{background:#ece9ff;color:#635bff}
+
+/* ===== Main Layout ===== */
+.main{display:flex;gap:0;height:calc(100vh - 280px);min-height:600px}
+.left-panel{
+  width:480px;min-width:360px;overflow-y:auto;padding:16px;
+  background:#f6f9fc;border-right:1px solid #e6ebf1
+}
+.map-panel{flex:1;position:relative}
+
+/* ===== Category Section ===== */
+.cat-section{margin-bottom:20px}
+.cat-header{
+  display:flex;align-items:center;gap:8px;padding:8px 12px;margin-bottom:8px;
+  background:#fff;border-radius:8px;border:1px solid #e6ebf1
+}
+.cat-icon{font-size:18px}
+.cat-title{font-size:14px;font-weight:700;color:#1a1f36}
+.cat-count{font-size:12px;color:#697386;margin-left:auto}
+
+/* ===== Resource Card ===== */
+.res-card{
+  background:#fff;border:1px solid #e6ebf1;border-radius:10px;
+  padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:all .2s;
+  border-left:4px solid transparent;position:relative
+}
+.res-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06);transform:translateX(2px)}
+.res-card.active{box-shadow:0 4px 16px rgba(99,91,255,.15);border-color:#cdd5e0}
+.res-card.active .res-name{color:#635bff}
+.res-card[data-cat="hotel"]{border-left-color:#0379d2}
+.res-card[data-cat="dining"]{border-left-color:#e08300}
+.res-card[data-cat="transit"]{border-left-color:#00875a}
+.res-card[data-cat="material"]{border-left-color:#635bff}
+
+.res-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.res-name{font-size:14px;font-weight:700;color:#1a1f36;transition:color .2s}
+.res-addr{font-size:12px;color:#697386;margin-bottom:8px}
+.res-dist{
+  display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;
+  padding:3px 10px;border-radius:20px;white-space:nowrap
+}
+.res-dist[data-cat="hotel"]{background:#e8f2fc;color:#0379d2}
+.res-dist[data-cat="dining"]{background:#fff4e6;color:#c46e00}
+.res-dist[data-cat="transit"]{background:#e6f6ee;color:#00875a}
+.res-dist[data-cat="material"]{background:#ece9ff;color:#635bff}
+
+.res-desc{font-size:12.5px;color:#425466;line-height:1.55;margin-bottom:8px}
+.res-note{
+  font-size:11.5px;color:#697386;background:#f6f9fc;
+  padding:6px 10px;border-radius:6px;border:1px solid #e6ebf1;
+  line-height:1.5
+}
+.res-note strong{color:#1a1f36}
+
+/* ===== Map ===== */
+#map{width:100%;height:100%;z-index:1}
+.map-legend{
+  position:absolute;bottom:16px;left:16px;z-index:1000;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  border-radius:10px;padding:12px 14px;
+  box-shadow:0 4px 16px rgba(0,0,0,.1);
+  border:1px solid #e6ebf1
+}
+.legend-title{font-size:11px;font-weight:700;color:#697386;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.legend-item{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:12px;color:#1a1f36}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.legend-item:last-child{margin-bottom:0}
+
+.map-info{
+  position:absolute;top:16px;right:16px;z-index:1000;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  border-radius:10px;padding:10px 14px;
+  box-shadow:0 4px 16px rgba(0,0,0,.1);
+  border:1px solid #e6ebf1;font-size:12px;color:#1a1f36
+}
+.map-info strong{color:#ff6b35}
+
+/* Leaflet custom markers */
+.custom-marker{background:transparent;border:none}
+.marker-inner{
+  width:30px;height:30px;border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  border:2px solid #fff
+}
+.marker-inner span{transform:rotate(45deg)}
+
+/* Construction site marker */
+.site-marker{background:transparent;border:none}
+.site-pulse{
+  width:40px;height:40px;position:relative;
+  display:flex;align-items:center;justify-content:center
+}
+.site-pulse::before{
+  content:"";position:absolute;width:100%;height:100%;
+  border-radius:50%;background:rgba(255,107,53,.3);
+  animation:pulse 2s ease-out infinite
+}
+.site-pulse::after{
+  content:"";position:absolute;width:70%;height:70%;
+  border-radius:50%;background:rgba(255,107,53,.4);
+  animation:pulse 2s ease-out infinite .5s
+}
+.site-core{
+  width:22px;height:22px;border-radius:50%;
+  background:#ff6b35;border:3px solid #fff;
+  box-shadow:0 2px 8px rgba(255,107,53,.4);
+  z-index:2;display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff
+}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  100%{transform:scale(2.5);opacity:0}
+}
+
+/* Popup */
+.leaflet-popup-content-wrapper{border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.leaflet-popup-content{margin:14px 16px;font-size:13px}
+.pop-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.pop-name{font-size:15px;font-weight:700;color:#1a1f36;margin-bottom:2px}
+.pop-addr{font-size:12px;color:#697386;margin-bottom:6px}
+.pop-desc{font-size:12.5px;color:#425466;line-height:1.5}
+.pop-dist{font-size:12px;font-weight:700;margin-top:6px;padding-top:6px;border-top:1px solid #e6ebf1}
+
+/* Hidden */
+.hidden{display:none!important}
+
+/* ===== AI 标注与回流 ===== */
+.banner-ai-tag{margin-top:16px;display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:13px;font-weight:600;padding:6px 16px;border-radius:100px}
+.ai-cta{background:linear-gradient(135deg,#534AB7 0%,#6b5fd4 55%,#7d72e0 100%);color:#fff;text-align:center;padding:60px 40px}
+.ai-cta-inner{max-width:880px;margin:0 auto}
+.ai-cta-badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:5px 16px;font-size:12.5px;font-weight:600;margin-bottom:18px}
+.ai-cta h2{font-size:28px;font-weight:800;letter-spacing:-.01em;margin-bottom:14px}
+.ai-cta p{font-size:15.5px;line-height:1.9;color:rgba(255,255,255,.9);margin-bottom:30px}
+.ai-cta p strong{color:#fff;font-weight:700}
+.ai-cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.ai-cta .btn-primary{background:#fff;color:#534AB7;padding:13px 30px;border-radius:100px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s}
+.ai-cta .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.2)}
+.ai-cta .btn-ghost{background:rgba(255,255,255,.14);color:#fff;padding:13px 30px;border-radius:100px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.45);transition:all .2s}
+.ai-cta .btn-ghost:hover{background:rgba(255,255,255,.24)}
+.simple-footer{background:#1a1f36;color:rgba(255,255,255,.7);padding:40px 40px;text-align:center}
+.simple-footer .sf-inner{max-width:880px;margin:0 auto}
+.sf-brand{font-size:17px;font-weight:700;color:#fff;margin-bottom:4px}
+.sf-tagline{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:18px}
+.sf-links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.sf-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:14px;transition:color .2s}
+.sf-links a:hover{color:#fff}
+.sf-contact{font-size:13.5px;margin-bottom:10px}
+.sf-bottom{font-size:12.5px;color:rgba(255,255,255,.4)}
+@media(max-width:560px){
+  .ai-cta{padding:44px 22px}
+  .ai-cta h2{font-size:23px}
+  .ai-cta p{font-size:14.5px}
+}
+
+/* Print */
+@media print{
+  .map-panel{display:none}
+  .left-panel{width:100%;height:auto}
+  .banner{padding:20px}
+  .ai-cta,.simple-footer{display:none}
+}
+@media(max-width:900px){
+  .main{flex-direction:column;height:auto}
+  .left-panel{width:100%;max-height:500px}
+  .map-panel{height:500px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Banner ===== -->
+<div class="banner">
+  <div class="banner-inner">
+    <div class="banner-left">
+      <span class="banner-tag">AI Project Site Resource Survey</span>
+      <div class="banner-title">耶鲁神学院停车场建设项目 · 现场资源调研</div>
+      <p class="banner-sub">AI 驱动的施工项目周边资源全景扫描 — 覆盖住宿、餐饮、交通、材料市场四大维度，以地图可视化呈现，为项目团队提供选址决策支持。</p>
+      <div class="banner-ai-tag">🤖 本案例由 AI 辅助调研与生成 · 展示「AI + 项目管理」的落地能力</div>
+    </div>
+    <div class="banner-badges">
+      <div class="badge"><div class="badge-num">24</div><div class="badge-label">资源点</div></div>
+      <div class="badge"><div class="badge-num">4</div><div class="badge-label">资源类别</div></div>
+      <div class="badge"><div class="badge-num">5.7</div><div class="badge-label">mi 最大半径</div></div>
+      <div class="badge"><div class="badge-num">14</div><div class="badge-label">min 最远车程</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Project Info Bar ===== -->
+<div class="project-bar">
+  <div class="proj-item">📍 <strong>项目地点</strong> 409 Prospect St, New Haven, CT 06511</div>
+  <div class="proj-divider"></div>
+  <div class="proj-item">🏗 <strong>项目类型</strong> 大型停车场建设</div>
+  <div class="proj-divider"></div>
+  <div class="proj-item">📐 <strong>坐标</strong> 41.3232°N, 72.9225°W</div>
+  <div class="proj-divider"></div>
+  <div class="proj-item">📅 <strong>调研日期</strong> 2026-07-17</div>
+  <div class="proj-divider"></div>
+  <div class="proj-item">🔍 <strong>调研范围</strong> 工地方圆 6 英里</div>
+</div>
+
+<!-- ===== Category Tabs ===== -->
+<div class="tabs">
+  <button class="tab active" data-filter="all">全部资源 <span class="tab-count">24</span></button>
+  <button class="tab" data-filter="hotel">🏨 住宿 <span class="tab-count">7</span></button>
+  <button class="tab" data-filter="dining">🍽 餐饮 <span class="tab-count">7</span></button>
+  <button class="tab" data-filter="transit">🚌 交通 <span class="tab-count">5</span></button>
+  <button class="tab" data-filter="material">🏗 材料市场 <span class="tab-count">5</span></button>
+</div>
+
+<!-- ===== Main Layout ===== -->
+<div class="main">
+  <!-- Left Panel -->
+  <div class="left-panel" id="leftPanel"></div>
+  <!-- Map Panel -->
+  <div class="map-panel">
+    <div id="map"></div>
+    <div class="map-info">
+      🏗 施工工地：<strong>耶鲁神学院停车场</strong><br>
+      <span style="color:#697386">409 Prospect St, New Haven, CT</span>
+    </div>
+    <div class="map-legend">
+      <div class="legend-title">资源分类图例</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>施工工地（项目所在地）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#0379d2"></span>住宿（酒店/民宿）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#e08300"></span>餐饮（餐厅/咖啡）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#00875a"></span>交通（车站/机场/高速）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#635bff"></span>材料市场（建材/五金）</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Config ===== */
+const SITE = { lat: 41.3232004, lng: -72.9225078, name: "耶鲁神学院停车场建设工地", addr: "409 Prospect St, New Haven, CT 06511" };
+
+const catConfig = {
+  hotel:   { color: "#0379d2", icon: "🏨", label: "住宿", bg: "#e8f2fc" },
+  dining:  { color: "#e08300", icon: "🍽", label: "餐饮", bg: "#fff4e6" },
+  transit: { color: "#00875a", icon: "🚌", label: "交通", bg: "#e6f6ee" },
+  material:{ color: "#635bff", icon: "🏗", label: "材料市场", bg: "#ece9ff" }
+};
+
+/* ===== POI Data ===== */
+const pois = [
+  // ===== 住宿 =====
+  { cat:"hotel", name:"Farnum Guest House", addr:"616 Prospect St, New Haven, CT 06511", lat:41.328788, lng:-72.922373, dist:"0.4", dur:"1",
+    desc:"耶鲁大学附属客房，步行至工地仅5分钟。适合项目核心团队短期驻场，环境安静安全。",
+    note:"<strong>项目建议</strong>：项目经理及核心技术骨干首选。步行可达，省去每日通勤时间。需提前通过耶鲁大学预约。" },
+  { cat:"hotel", name:"Courtyard by Marriott New Haven at Yale", addr:"30 Whalley Ave, New Haven, CT 06511", lat:41.313071, lng:-72.933912, dist:"1.3", dur:"3",
+    desc:"万豪旗下商务酒店，含Bistro餐厅、24h健身房、免费Wi-Fi。停车$25/晚，适合中长期驻场。",
+    note:"<strong>项目建议</strong>：施工团队批量订房首选。万豪协议价可谈，含早+免费停车可协商。距I-95入口近，材料运输方便。" },
+  { cat:"hotel", name:"Omni New Haven Hotel at Yale", addr:"155 Temple St, New Haven, CT 06511", lat:41.305677, lng:-72.927325, dist:"2.0", dur:"6",
+    desc:"四星级高端酒店，耶鲁官方合作酒店。顶层餐厅可俯瞰全市，适合接待业主方和VIP考察。",
+    note:"<strong>项目建议</strong>：业主视察、监理会议、商务洽谈时使用。会议室可租用，适合项目里程碑汇报。" },
+  { cat:"hotel", name:"New Haven Hotel", addr:"229 George St, New Haven, CT 06511", lat:41.304949, lng:-72.929323, dist:"1.5", dur:"4",
+    desc:"市区中端商务酒店，性价比高。含免费早餐和Wi-Fi，周边餐饮选择丰富。",
+    note:"<strong>项目建议</strong>：预算受限时替代选择。步行可达市中心餐饮区，生活便利。" },
+  { cat:"hotel", name:"The Study at Yale", addr:"1157 Chapel St, New Haven, CT 06511", lat:41.308925, lng:-72.932889, dist:"1.4", dur:"3",
+    desc:"精品设计酒店，一楼Heirloom餐厅是新黑文知名fine dining。书吧设计感强，适合临时办公。",
+    note:"<strong>项目建议</strong>：设计方/顾问团队驻地。环境雅致，适合非正式会议和方案讨论。" },
+  { cat:"hotel", name:"Hotel Marcel", addr:"500 Sargent Dr, New Haven, CT 06511", lat:41.296554, lng:-72.918680, dist:"2.5", dur:"5",
+    desc:"全美首家LEED铂金认证净零能耗酒店，改装自历史建筑。距I-95出口仅2分钟，交通极为便利。",
+    note:"<strong>项目建议</strong>：强调绿色建造时可作为标杆参观点。紧邻I-95出口，重型设备运输团队可驻此。" },
+  { cat:"hotel", name:"La Quinta Inn & Suites", addr:"400 Sargent Dr, New Haven, CT 06511", lat:41.294506, lng:-72.920205, dist:"2.7", dur:"6",
+    desc:"经济型连锁酒店，含免费早餐和停车场。宠物友好，长期住宿有折扣。",
+    note:"<strong>项目建议</strong>：施工工人批量住宿性价比之选。I-95旁，每天往返工地方便。" },
+
+  // ===== 餐饮 =====
+  { cat:"dining", name:"Ground Coffee at Becton Hall", addr:"15 Prospect St, New Haven, CT 06511", lat:41.314057, lng:-72.925069, dist:"0.7", dur:"2",
+    desc:"纽约风格咖啡店，位于Becton Hall一楼。提供早餐、午餐三明治和精品咖啡，工地步行可达。",
+    note:"<strong>项目建议</strong>：每日晨会咖啡+早餐首选。可预约定制午餐盒饭，送至工地。" },
+  { cat:"dining", name:"P&M Orange Street Market", addr:"721 Orange St, New Haven, CT 06511", lat:41.320091, lng:-72.913116, dist:"0.9", dur:"2",
+    desc:"社区熟食Deli+杂货店，7:00-20:00营业。热食、三明治、饮料齐全，价格亲民。",
+    note:"<strong>项目建议</strong>：工人午餐便当采购点。可批量预订三明治+饮料套餐，$8-12/人。" },
+  { cat:"dining", name:"Caseus Fromagerie Bistro", addr:"93 Whitney Ave, New Haven, CT 06511", lat:41.313181, lng:-72.921492, dist:"0.9", dur:"2",
+    desc:"法式奶酪Bistro，手工三明治和烤奶酪闻名。隔壁有外卖窗口，午餐高峰期排队短。",
+    note:"<strong>项目建议</strong>：项目周会/客户午餐好去处。人均$15-25，品质感强但不至于太正式。" },
+  { cat:"dining", name:"Modern Apizza", addr:"874 State St, New Haven, CT 06511", lat:41.313825, lng:-72.912834, dist:"1.2", dur:"3",
+    desc:"纽黑文三大披萨之一，意大利薄底炭烤披萨。周一闭店，周二至周日营业，不接受预约。",
+    note:"<strong>项目建议</strong>：团队建设/庆功聚餐首选。建议提前到店或电话下单自取，人均$15-20。" },
+  { cat:"dining", name:"Archie Moore's Bar & Restaurant", addr:"188 Willow St, New Haven, CT 06511", lat:41.321283, lng:-72.910330, dist:"1.2", dur:"3",
+    desc:"本地运动酒吧连锁，布法罗鸡翅是新英格兰地区招牌。午晚皆营，氛围轻松。",
+    note:"<strong>项目建议</strong>：下班后团队小聚。鸡翅+啤酒人均$20，大屏可看比赛，氛围轻松。" },
+  { cat:"dining", name:"Frank Pepe Pizzeria Napoletana", addr:"157 Wooster St, New Haven, CT 06511", lat:41.302965, lng:-72.916958, dist:"1.9", dur:"5",
+    desc:"1925年创立的美国披萨传奇，白蛤蜊披萨（White Clam Pie）是 signature dish。排队通常1h+。",
+    note:"<strong>项目建议</strong>：里程碑庆祝/业主宴请。建议非高峰时段前往或提前1h到店排队取号。" },
+  { cat:"dining", name:"Louis' Lunch", addr:"261 Crown St, New Haven, CT 06511", lat:41.306489, lng:-72.930394, dist:"1.4", dur:"3",
+    desc:"1895年创立，公认美国汉堡发源地。仅售汉堡+土豆沙拉+派，现金only，周四至周日营业。",
+    note:"<strong>项目建议</strong>：文化体验+快餐。历史感强，适合接待外地来访的项目相关方。" },
+
+  // ===== 交通 =====
+  { cat:"transit", name:"CT Transit 公交枢纽 (Temple/Chapel)", addr:"Temple St & Chapel St, New Haven, CT", lat:41.308200, lng:-72.926700, dist:"1.2", dur:"3",
+    desc:"纽黑文市区公交枢纽，CT Transit多条线路交汇。Union Station免费接驳车每20分钟一班。",
+    note:"<strong>项目建议</strong>：无车工人通勤方案。公交覆盖全城，$2两小时通票。可在工地附近设临时站。" },
+  { cat:"transit", name:"State Street Station (Metro-North)", addr:"259 State St, New Haven, CT 06510", lat:41.305247, lng:-72.921818, dist:"1.6", dur:"4",
+    desc:"Metro-North通勤铁路站，直达纽约中央车站（2h），每30-40分钟一班。适合从纽约方向来的顾问/业主。",
+    note:"<strong>项目建议</strong>：纽约方向来访人员的落地点。距工地仅4分钟车程，Uber/Lyft充足。" },
+  { cat:"transit", name:"New Haven Union Station", addr:"50 Union Ave, New Haven, CT 06510", lat:41.297523, lng:-72.926621, dist:"2.2", dur:"5",
+    desc:"纽黑文主火车站，Amtrak东北走廊+Metro-North+CTrail三线交汇。Greyhound/Megabus长途巴士也在此发车。",
+    note:"<strong>项目建议</strong>：波士顿/纽约/华盛顿方向人员抵达主站。站内Avis/Budget可租车，ZipCar可用。" },
+  { cat:"transit", name:"I-95 / I-91 高速互通 (Q Bridge)", addr:"I-95 & I-91 Interchange, New Haven, CT", lat:41.295500, lng:-72.890000, dist:"3.5", dur:"8",
+    desc:"I-95（东北走廊主干）与I-91（南北向）互通枢纽，即Pearl Harbor Memorial Bridge（Q Bridge）。通往纽约/波士顿/哈特福德方向的核心节点。",
+    note:"<strong>项目建议</strong>：材料运输主通道。大型卡车从工地出发8分钟上I-95，可直达全美东部。注意高峰拥堵（7-9am/4-7pm）。" },
+  { cat:"transit", name:"Tweed New Haven Airport (HVN)", addr:"155 Burr St, New Haven, CT 06528", lat:41.268895, lng:-72.891224, dist:"5.7", dur:"14",
+    desc:"区域机场，Breeze/Avelo航空运营。有直飞奥兰多、坦帕等航线。Avis/Budget/Enterprise/National可租车。",
+    note:"<strong>项目建议</strong>：南方/中西部来的供应商考察。距工地14分钟车程，比飞JFK/LGA节省2h+地面交通。" },
+
+  // ===== 材料市场 =====
+  { cat:"material", name:"New Haven Masonry & Building Supply", addr:"355 James St, New Haven, CT 06513", lat:41.312607, lng:-72.903423, dist:"1.6", dur:"4",
+    desc:"1989年创立的家族建材商，砖石/水泥/砌体材料专业供应商。Nicolock铺路石、KF砖、Sakrete/Quikrete水泥、钢筋、铁丝网、安全围挡全线供应。",
+    note:"<strong>项目建议</strong>：停车场铺路石+水泥砂浆核心供应商。距工地仅4分钟，可小批量多次配送，减少工地仓储压力。电话: 203-562-6657" },
+  { cat:"material", name:"Lowe's New Haven", addr:"115 Foxon Blvd (US-1), New Haven, CT 06513", lat:41.321691, lng:-72.880727, dist:"3.1", dur:"7",
+    desc:"全美第二大建材连锁，覆盖木材/混凝土/管材/电气/照明/工具全品类。有Pro Desk承包商服务台，批量采购可谈折扣。",
+    note:"<strong>项目建议</strong>：通用建材+工具耗材集中采购点。Pro Desk可开企业账户，送货至工地，大额订单有5-15%折扣。" },
+  { cat:"material", name:"Colony Hardware Corporation", addr:"15 Stiles St, New Haven, CT 06512", lat:41.291431, lng:-72.900708, dist:"3.5", dur:"7",
+    desc:"专业承包商工具与设备供应商，主营混凝土配件、模板系统、安全设备、紧固件。面向专业施工方，非零售。",
+    note:"<strong>项目建议</strong>：施工模板/脚手架/安全装备专业供应商。可租可买，大型模板系统租赁比购买省成本。电话: 203-466-5252" },
+  { cat:"material", name:"White Cap Construction Supply", addr:"102 Wheeler St, New Haven, CT 06512", lat:41.297756, lng:-72.895848, dist:"3.6", dur:"8",
+    desc:"全美最大专业建材分销商之一，混凝土配件/化学品/防水材料/锚固件/安全防护全线覆盖。面向承包商批发。",
+    note:"<strong>项目建议</strong>：防水卷材/混凝土外加剂/锚固系统供应商。有专业技术人员可提供材料选型建议。电话: 203-468-9230" },
+  { cat:"material", name:"Home Depot New Haven", addr:"75 N Frontage Rd, North Haven, CT 06510", lat:41.350978, lng:-72.866498, dist:"4.8", dur:"9",
+    desc:"全美最大家居建材零售商，覆盖五金/电气/管材/涂料/园艺/工具。Tool Rental Center可租大型设备，Pro Desk服务承包商。",
+    note:"<strong>项目建议</strong>：应急补料+设备租赁。挖机/夯实机/切割机可日租$50-150/天，比购买划算。Pro Extra会员有2%返利。" }
+];
+
+/* ===== Init Map ===== */
+const map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView([SITE.lat, SITE.lng], 14);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap &copy; CARTO',
+  maxZoom: 19,
+  subdomains: 'abcd'
+}).addTo(map);
+
+/* ===== Site Marker ===== */
+const siteIcon = L.divIcon({
+  className: 'site-marker',
+  html: '<div class="site-pulse"><div class="site-core">🏗</div></div>',
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
+  popupAnchor: [0, -20]
+});
+
+const siteMarker = L.marker([SITE.lat, SITE.lng], { icon: siteIcon, zIndexOffset: 1000 }).addTo(map);
+siteMarker.bindPopup(`
+  <div>
+    <div class="pop-cat" style="color:#ff6b35">🏗 施工工地</div>
+    <div class="pop-name">${SITE.name}</div>
+    <div class="pop-addr">${SITE.addr}</div>
+    <div class="pop-desc">大型停车场建设项目。坐标 41.3232°N, 72.9225°W。<br>耶鲁神学院北侧，Prospect Hill社区。</div>
+    <div class="pop-dist" style="color:#ff6b35">📍 资源调研中心点 — 周边24个资源点</div>
+  </div>
+`);
+
+/* Add site circle (coverage area) */
+L.circle([SITE.lat, SITE.lng], {
+  color: '#ff6b35',
+  fillColor: '#ff6b35',
+  fillOpacity: 0.05,
+  weight: 1.5,
+  dashArray: '6 6',
+  radius: 9200 // ~5.7 miles
+}).addTo(map);
+
+/* ===== Render Markers ===== */
+let markers = {};
+let activeLine = null;
+
+pois.forEach((poi, i) => {
+  const cfg = catConfig[poi.cat];
+  const icon = L.divIcon({
+    className: 'custom-marker',
+    html: `<div class="marker-inner" style="background:${cfg.color}"><span>${cfg.icon}</span></div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -28]
+  });
+
+  const marker = L.marker([poi.lat, poi.lng], { icon }).addTo(map);
+  marker.bindPopup(`
+    <div>
+      <div class="pop-cat" style="color:${cfg.color}">${cfg.icon} ${cfg.label}</div>
+      <div class="pop-name">${poi.name}</div>
+      <div class="pop-addr">${poi.addr}</div>
+      <div class="pop-desc">${poi.desc}</div>
+      <div class="pop-dist" style="color:${cfg.color}">📍 距工地 ${poi.dist} mi · 驾车 ${poi.dur} min</div>
+    </div>
+  `);
+
+  marker.on('click', () => {
+    highlightCard(i);
+    drawSiteLine(poi);
+  });
+
+  markers[i] = marker;
+});
+
+/* ===== Draw line from site to POI ===== */
+function drawSiteLine(poi) {
+  if (activeLine) { map.removeLayer(activeLine); activeLine = null; }
+  activeLine = L.polyline(
+    [[SITE.lat, SITE.lng], [poi.lat, poi.lng]],
+    { color: '#ff6b35', weight: 2.5, opacity: 0.6, dashArray: '6 6', lineCap: 'round' }
+  ).addTo(map);
+
+  const bounds = L.latLngBounds([[SITE.lat, SITE.lng], [poi.lat, poi.lng]]);
+  map.flyToBounds(bounds, { padding: [80, 80], maxZoom: 16, duration: 0.8 });
+}
+
+/* ===== Render Cards ===== */
+function renderCards(filter) {
+  const panel = document.getElementById('leftPanel');
+  let html = '';
+
+  const cats = filter === 'all' ? ['hotel', 'dining', 'transit', 'material'] : [filter];
+
+  cats.forEach(cat => {
+    const cfg = catConfig[cat];
+    const catPois = pois.map((p, i) => ({...p, idx: i})).filter(p => p.cat === cat);
+
+    html += `<div class="cat-section" data-cat="${cat}">
+      <div class="cat-header">
+        <span class="cat-icon">${cfg.icon}</span>
+        <span class="cat-title">${cfg.label}</span>
+        <span class="cat-count">${catPois.length} 个资源点</span>
+      </div>`;
+
+    catPois.forEach(poi => {
+      html += `<div class="res-card" data-cat="${poi.cat}" data-idx="${poi.idx}">
+        <div class="res-top">
+          <div>
+            <div class="res-name">${poi.name}</div>
+            <div class="res-addr">${poi.addr}</div>
+          </div>
+          <span class="res-dist" data-cat="${poi.cat}">🚗 ${poi.dist} mi · ${poi.dur} min</span>
+        </div>
+        <div class="res-desc">${poi.desc}</div>
+        <div class="res-note">${poi.note}</div>
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  panel.innerHTML = html;
+
+  // Bind click events
+  panel.querySelectorAll('.res-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const idx = parseInt(card.dataset.idx);
+      flyToPoi(idx);
+    });
+  });
+}
+
+/* ===== Fly to POI ===== */
+function flyToPoi(idx) {
+  const poi = pois[idx];
+  document.querySelectorAll('.res-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`.res-card[data-idx="${idx}"]`);
+  if (card) {
+    card.classList.add('active');
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  map.flyTo([poi.lat, poi.lng], 15, { duration: 0.8 });
+  setTimeout(() => {
+    if (markers[idx]) markers[idx].openPopup();
+  }, 850);
+
+  drawSiteLine(poi);
+}
+
+/* ===== Highlight card from marker click ===== */
+function highlightCard(idx) {
+  document.querySelectorAll('.res-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`.res-card[data-idx="${idx}"]`);
+  if (card) {
+    card.classList.add('active');
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+/* ===== Tab Filter ===== */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const filter = tab.dataset.filter;
+    renderCards(filter);
+
+    // Show/hide markers
+    Object.entries(markers).forEach(([idx, marker]) => {
+      const poi = pois[parseInt(idx)];
+      if (filter === 'all' || poi.cat === filter) {
+        if (!map.hasLayer(marker)) marker.addTo(map);
+      } else {
+        if (map.hasLayer(marker)) map.removeLayer(marker);
+      }
+    });
+
+    // Fit bounds to visible markers
+    const visible = filter === 'all' ? pois : pois.filter(p => p.cat === filter);
+    if (visible.length > 0) {
+      const bounds = L.latLngBounds([[SITE.lat, SITE.lng], ...visible.map(p => [p.lat, p.lng])]);
+      map.flyToBounds(bounds, { padding: [60, 60], maxZoom: 14, duration: 0.8 });
+    }
+  });
+});
+
+/* ===== Init ===== */
+renderCards('all');
+
+// Initial fit bounds
+const allBounds = L.latLngBounds([[SITE.lat, SITE.lng], ...pois.map(p => [p.lat, p.lng])]);
+map.fitBounds(allBounds, { padding: [60, 60], maxZoom: 14 });
+</script>
+
+<!-- ===== AI 回流引导 ===== -->
+<section class="ai-cta">
+  <div class="ai-cta-inner">
+    <div class="ai-cta-badge">🤖 AI 赋能项目管理 · 实战案例</div>
+    <h2>这就是 AI 用在真实项目上的样子</h2>
+    <p>一个大型停车场建设项目，AI 在几分钟内完成了施工现场周边<strong>住宿、餐饮、交通、材料市场</strong>四维度的资源摸排——24 个资源点、逐点给出距离车程与项目决策建议、再以交互地图呈现。同样的「AI + 结构化数据 + 可视化」方法，可以复用到<strong>项目选址、供应商地理分布调研、材料集采比选、现场后勤规划</strong>等一切需要"把信息摸清楚再决策"的项目管理场景。</p>
+    <div class="ai-cta-actions">
+      <a href="ai-project-management.html" class="btn-primary">了解 AI 赋能项目管理课程 →</a>
+      <a href="resources.html" class="btn-ghost">查看全部 AI 实践资源</a>
+      <a href="new-haven-yale-shopping.html" class="btn-ghost">🛒 耶鲁周边购物攻略</a>
+      <a href="new-haven-yale-itinerary.html" class="btn-ghost">🏛 耶鲁周边 2 日游行程</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 简易页脚 ===== -->
+<footer class="simple-footer">
+  <div class="sf-inner">
+    <div class="sf-brand">刘俊平 · AI赋能项目管理</div>
+    <p class="sf-tagline">给人欢喜，不给人恐惧</p>
+    <div class="sf-links">
+      <a href="index.html">首页</a>
+      <a href="ai-project-management.html">AI项目管理</a>
+      <a href="resources.html">AI实践资源</a>
+      <a href="ai-tools.html">AI工具箱</a>
+      <a href="about.html#contact">联系我</a>
+    </div>
+    <div class="sf-contact">微信：JPAILab ｜ 邮箱：Liujp8@163.com ｜ 电话：13277049868</div>
+    <div class="sf-bottom">&copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询</div>
+  </div>
+</footer>
+
+</body>
+</html>
