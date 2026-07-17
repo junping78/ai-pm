@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌物料 · 刘俊平 AI赋能项目管理</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body { background: var(--c-bg); }
+
+        .promo-hero {
+            background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 50%, var(--c-primary-dark) 100%);
+            color: #fff;
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+        .promo-hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 12px; }
+        .promo-hero p { font-size: 1.1rem; opacity: 0.85; max-width: 600px; margin: 0 auto; }
+
+        .promo-container {
+            max-width: 1000px;
+            margin: -30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .promo-section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--c-text);
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--c-primary-border);
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .promo-card {
+            background: var(--c-bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .promo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(83,74,183,0.15);
+        }
+
+        .promo-card-img {
+            background: var(--c-primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            min-height: 200px;
+        }
+        .promo-card-img img {
+            max-width: 100%;
+            max-height: 220px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .promo-card-img.file-icon {
+            font-size: 3rem;
+        }
+
+        .promo-card-body { padding: 16px 20px 20px; }
+        .promo-card-body h3 { font-size: 1.05rem; font-weight: 600; color: var(--c-text); margin-bottom: 6px; }
+        .promo-card-body .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .badge-use { background: #E8F5E9; color: #2E7D32; }
+        .badge-wechat { background: #FFF3E0; color: #E65100; }
+        .badge-source { background: #F3E5F5; color: #7B1FA2; }
+        .badge-doc { background: #E3F2FD; color: #1565C0; }
+
+        .promo-card-body p { font-size: 0.88rem; color: var(--c-text-light); line-height: 1.6; }
+
+        .promo-card-footer {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--c-primary);
+            font-weight: 600;
+        }
+
+        .promo-note {
+            background: var(--c-primary-bg);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 40px 0;
+            font-size: 0.9rem;
+            color: var(--c-text-light);
+            line-height: 1.8;
+        }
+        .promo-note strong { color: var(--c-primary-dark); }
+
+        .promo-back {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+        .promo-back a {
+            display: inline-block;
+            padding: 10px 28px;
+            background: var(--c-primary);
+            color: #fff;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .promo-back a:hover { background: var(--c-primary-dark); }
+    </style>
+</head>
+<body>
+
+    <div class="promo-hero">
+        <h1>品牌物料下载</h1>
+        <p>刘俊平 · AI赋能项目管理 — 品牌海报、周报分享卡、文案素材，可直接下载使用</p>
+    </div>
+
+    <div class="promo-container">
+
+        <div class="promo-note">
+            <strong>使用说明：</strong><br>
+            • <strong>发朋友圈</strong> → 下载「周报分享卡（网址版）」，扫码可直达网站<br>
+            • <strong>加微信好友</strong> → 下载「周报分享卡（微信版）」，扫码可加微信<br>
+            • <strong>品牌展示</strong> → 下载「品牌海报」，适合名片/介绍页配图<br>
+            • 点击图片可查看大图，长按或右键可保存
+        </div>
+
+        <h2 class="promo-section-title">分享卡 & 海报</h2>
+        <div class="promo-grid">
+
+            <a class="promo-card" href="weekly-share-card.png" target="_blank">
+                <div class="promo-card-img">
+                    <img src="weekly-share-card.png" alt="周报分享卡-网址版" loading="lazy">
+                </div>
+                <div class="promo-card-body">
+                    <span class="badge badge-use">发朋友圈用</span>
+                    <h3>周报分享卡（网址版）</h3>
+                    <p>第2期 · 1080×1920 · 二维码指向网站链接，扫码直接打开周报页面</p>
+                    <div class="promo-card-footer">点击查看 / 下载 ↓</div>
+                </div>
+            </a>
+
+            <a class="promo-card" href="weekly-share-card-wechat.png" target="_blank">
+                <div class="promo-card-img">
+                    <img src="weekly-share-card-wechat.png" alt="周报分享卡-微信版" loading="lazy">
+                </div>
+                <div class="promo-card-body">
+                    <span class="badge badge-wechat">加微信用</span>
+                    <h3>周报分享卡（微信版）</h3>
+                    <p>第2期 · 1080×1920 · 二维码为个人微信，扫码可加好友</p>
+                    <div class="promo-card-footer">点击查看 / 下载 ↓</div>
+                </div>
+            </a>
+
+            <a class="promo-card" href="brand-poster.png" target="_blank">
+                <div class="promo-card-img">
+                    <img src="brand-poster.png" alt="品牌海报" loading="lazy">
+                </div>
+                <div class="promo-card-body">
+                    <span class="badge badge-source">品牌展示</span>
+                    <h3>品牌海报</h3>
+                    <p>1080×1620 · 靛紫渐变 · 「AI赋能项目管理」主视觉，适合名片/介绍页配图</p>
+                    <div class="promo-card-footer">点击查看 / 下载 ↓</div>
+                </div>
+            </a>
+
+        </div>
+
+        <h2 class="promo-section-title">素材源文件</h2>
+        <div class="promo-grid">
+
+            <a class="promo-card" href="url-qr-code.png" target="_blank">
+                <div class="promo-card-img">
+                    <img src="url-qr-code.png" alt="网址二维码" loading="lazy" style="max-height:160px;">
+                </div>
+                <div class="promo-card-body">
+                    <span class="badge badge-source">源文件</span>
+                    <h3>网址二维码</h3>
+                    <p>指向 weekly-list.html，可嵌入其他设计物料复用</p>
+                    <div class="promo-card-footer">点击查看 / 下载 ↓</div>
+                </div>
+            </a>
+
+            <a class="promo-card" href="微信图片.jpg" target="_blank">
+                <div class="promo-card-img">
+                    <img src="微信图片.jpg" alt="个人微信二维码" loading="lazy" style="max-height:160px;">
+                </div>
+                <div class="promo-card-body">
+                    <span class="badge badge-source">源文件</span>
+                    <h3>个人微信二维码</h3>
+                    <p>原始素材，可用于制作其他推广物料</p>
+                    <div class="promo-card-footer">点击查看 / 下载 ↓</div>
+                </div>
+            </a>
+
+        </div>
+
+        <h2 class="promo-section-title">策划文档</h2>
+        <div class="promo-grid">
+
+            <a class="promo-card" href="品牌传播策划.md" target="_blank">
+                <div class="promo-card-img file-icon">📄</div>
+                <div class="promo-card-body">
+                    <span class="badge badge-doc">文档</span>
+                    <h3>品牌传播策划</h3>
+                    <p>五大传播杠杆 · 30天执行清单 · 现成话术包 · 衡量指标</p>
+                    <div class="promo-card-footer">点击查看 ↓</div>
+                </div>
+            </a>
+
+            <a class="promo-card" href="周报分享卡-文案.md" target="_blank">
+                <div class="promo-card-img file-icon">📄</div>
+                <div class="promo-card-body">
+                    <span class="badge badge-doc">文档</span>
+                    <h3>周报分享卡文案</h3>
+                    <p>lovart.ai 提示词（中英）· 朋友圈配文模板 · 设计参数备忘</p>
+                    <div class="promo-card-footer">点击查看 ↓</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="promo-back">
+            <a href="../index.html">← 返回首页</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
