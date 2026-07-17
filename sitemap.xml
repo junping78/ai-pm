@@ -12,18 +12,13 @@
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/ai-project-management.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://junping78.github.io/ai-pm/teacher-ai-weekly.html</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/weekly-list.html</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/ai-tools.html</loc>
@@ -36,19 +31,39 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://junping78.github.io/ai-pm/teacher-ai-weekly.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://junping78.github.io/ai-pm/sportswear-guide.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://junping78.github.io/ai-pm/tags.html</loc>
+        <loc>https://junping78.github.io/ai-pm/new-haven-yale-shopping.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/new-haven-yale-itinerary.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/yale-parking-project-survey.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/search.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/tags.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/free/teacher-ai-weekly-report-01.html</loc>
@@ -57,12 +72,12 @@
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/free/teacher-ai-weekly-report-02.html</loc>
-        <changefreq>weekly</changefreq>
+        <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/free-reports/tools.html</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
 </urlset>
