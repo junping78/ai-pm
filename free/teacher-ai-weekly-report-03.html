@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教师免费AI工具周报第3期 | 刘俊平 · 2026年7月17日</title>
+<meta name="description" content="教师免费AI工具周报第3期：追踪 DeepSeek V4 新增5大永久免费功能、Anthropic Claude for Teachers 教师免费一年等重磅动态。30+款工具按场景分类，标注免费政策与使用门槛。">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta property="og:title" content="教师免费AI工具周报第3期 | 刘俊平">
+<meta property="og:description" content="追踪 DeepSeek V4、Claude for Teachers 等免费政策更新，30+款教师免费AI工具精选。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/free/teacher-ai-weekly-report-03.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<style>
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #F8F7FC;
+    color: #2D2D3A;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ===== Header ===== */
+  .report-header {
+    background: linear-gradient(135deg, #534AB7 0%, #6C5CE7 40%, #8B7CF6 100%);
+    color: #fff;
+    padding: 48px 0 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .report-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(10px);
+  }
+  .header-title {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+  .header-meta {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== Key Changes Section ===== */
+  .key-changes {
+    background: #fff;
+    border-radius: 16px;
+    margin: -28px auto 32px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 20px rgba(83,74,183,0.08);
+    border: 1px solid #EDEAF8;
+    position: relative;
+    z-index: 2;
+  }
+  .key-changes-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #534AB7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .key-changes-title::before {
+    content: '🔥';
+    font-size: 20px;
+  }
+  .key-change-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .key-change-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #F8F7FC;
+    border-radius: 10px;
+    border-left: 3px solid #534AB7;
+    font-size: 14px;
+    line-height: 1.6;
+    transition: background 0.2s;
+  }
+  .key-change-item:hover { background: #F0EEFA; }
+  .key-change-date {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: #534AB7;
+    font-weight: 600;
+    background: #EEEBF8;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .kc-new {
+    display: inline-block;
+    background: #9D174D;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: text-top;
+  }
+
+  /* ===== Section ===== */
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .section-desc {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 18px;
+    padding-left: 44px;
+  }
+
+  /* Color themes per section */
+  .s-official .icon { background: #534AB7; }
+  .s-official .section-title { color: #534AB7; }
+  .s-model .icon { background: #185FA5; }
+  .s-model .section-title { color: #185FA5; }
+  .s-teach .icon { background: #0F6E56; }
+  .s-teach .section-title { color: #0F6E56; }
+  .s-ppt .icon { background: #C75B1A; }
+  .s-ppt .section-title { color: #C75B1A; }
+  .s-foreign-vpn .icon { background: #993C1D; }
+  .s-foreign-vpn .section-title { color: #993C1D; }
+  .s-foreign-auth .icon { background: #A32D2D; }
+  .s-foreign-auth .section-title { color: #A32D2D; }
+  .s-compare .icon { background: #534AB7; }
+  .s-compare .section-title { color: #534AB7; }
+
+  /* ===== Tool Cards ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px 24px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    border: 1px solid #EDEAF8;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(83,74,183,0.1);
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .card-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2D2D3A;
+  }
+  .card-name a {
+    color: #534AB7;
+    border-bottom: 1px dashed transparent;
+    transition: border-color 0.2s;
+  }
+  .card-name a:hover { border-color: #534AB7; }
+  .card-vendor {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 12px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    line-height: 1.5;
+  }
+  .tag-free { background: #E6F4EE; color: #0F6E56; }
+  .tag-freemium { background: #FFF3E0; color: #C75B1A; }
+  .tag-paid { background: #FDEAEA; color: #A32D2D; }
+  .tag-vpn { background: #FFF0E6; color: #993C1D; }
+  .tag-auth { background: #FDEAEA; color: #A32D2D; }
+  .tag-new { background: #FCE7F3; color: #9D174D; font-weight: 700; }
+  .tag-official { background: #EEEBF8; color: #534AB7; }
+  .tag-teach { background: #E3F0FC; color: #185FA5; }
+
+  /* ===== Comparison Table ===== */
+  .table-wrap {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    border: 1px solid #EDEAF8;
+  }
+  .table-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .table-wrap thead th {
+    background: #534AB7;
+    color: #fff;
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .table-wrap tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #F0EEFA;
+    vertical-align: top;
+  }
+  .table-wrap tbody tr:hover { background: #FAF9FD; }
+  .table-wrap tbody tr:last-child td { border-bottom: none; }
+  .badge-free { display: inline-block; background: #E6F4EE; color: #0F6E56; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  .badge-paid { display: inline-block; background: #FDEAEA; color: #A32D2D; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  .badge-mix { display: inline-block; background: #FFF3E0; color: #C75B1A; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+
+  /* ===== Footer ===== */
+  .report-footer {
+    text-align: center;
+    padding: 32px 0 40px;
+    font-size: 13px;
+    color: #AAA;
+    border-top: 1px solid #EDEAF8;
+    margin-top: 40px;
+  }
+  .report-footer strong { color: #534AB7; }
+
+  /* ===== VIP Notice Bar ===== */
+  .vip-notice {
+    background: linear-gradient(90deg, #FFF8E1, #FFFDE7);
+    border: 1px solid #FFE082;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13px;
+    color: #8D6E00;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .vip-notice .icon { font-size: 18px; flex-shrink: 0; }
+
+  @media (max-width: 768px) {
+    .header-title { font-size: 26px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .key-change-list { grid-template-columns: 1fr; }
+    .container { padding: 0 16px; }
+    .table-wrap { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="report-header">
+  <div class="header-badge">TEACHER AI REPORT</div>
+  <div class="header-title">教师免费AI工具周报</div>
+  <div class="header-subtitle">国内外教师可用的免费AI工具 · 每周更新</div>
+  <div class="header-meta">
+    <span>📅 2026年7月17日（周五）</span>
+    <span>📋 第03期</span>
+    <span>📊 覆盖 30+ 工具</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== 本周关键变化 ===== -->
+  <div class="key-changes">
+    <div class="key-changes-title">本周关键变化（7月13日 — 7月17日）</div>
+    <div class="key-change-list">
+      <div class="key-change-item">
+        <span class="key-change-date">7/14</span>
+        <div><span class="kc-new">NEW</span> <strong>Anthropic 发布 Claude for Teachers</strong> — 美国K-12教师可免费使用 Claude Pro 全部高级功能一年（至2027年6月30日），集成50州课程标准 + 9大教育工具，含 AI 自动排程能力。</div>
+      </div>
+      <div class="key-change-item">
+        <span class="key-change-date">7/08</span>
+        <div><span class="kc-new">NEW</span> <strong>DeepSeek V4 新增5大永久免费功能</strong> — 多格式文件一键解析（PDF/Word/Excel/PPT，单文件最大100MB）、实时联网搜索、百万字超长上下文、语音办公、深度逻辑解题，全部免费不限次数。</div>
+      </div>
+      <div class="key-change-item">
+        <span class="key-change-date">7月初</span>
+        <div><span class="kc-new">NEW</span> <strong>腾讯元宝接入混元 Hy3 模型，Agent 免费</strong> — 对话即可直接生成 PPT/Word/Excel/PDF/HTML 文件，微信内容一键转发处理，全部免费。</div>
+      </div>
+      <div class="key-change-item">
+        <span class="key-change-date">近期</span>
+        <div><strong>智谱清言 VIP 调价至 49元/月</strong>（原79元/月），SVIP 149元/月（原229元/月），免费用户每日对话次数动态调整。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vip-notice">
+    <span class="icon">💡</span>
+    <span><strong>阅读提示：</strong>本报告标注的免费/收费状态基于 2026年7月17日 各平台官方政策，AI工具收费政策变化频繁，请以各官网最新公告为准。国内工具链接均可直接访问；国外工具均标注是否需要特殊身份认证。</span>
+  </div>
+
+  <!-- ===== 一、国内官方平台 ===== -->
+  <div class="section s-official">
+    <div class="section-title"><span class="icon">🏛</span>国内官方平台</div>
+    <div class="section-desc">国家级 / 省级教育平台，完全免费，无需任何注册门槛之外的付费</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.smartedu.cn" target="_blank">国家智慧教育公共服务平台 ↗</a></span>
+          <span class="tag tag-official">官方</span>
+        </div>
+        <div class="card-vendor">出品方：中华人民共和国教育部</div>
+        <div class="card-desc">
+          全球最大的教育资源数字化平台，覆盖1.78亿用户。2026年全新上线<strong>AI专区</strong>（含"AI试验场"），汇聚14款AI智能工具，覆盖学生学习、教师教学、教育治理、科学研究四大场景。含"启悟学习社区"国产AI开源生态、教师AI培训课程。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">完全免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://higher.smartedu.cn/ai" target="_blank">国家高等教育智慧平台 · AI专区 ↗</a></span>
+          <span class="tag tag-official">官方</span>
+        </div>
+        <div class="card-vendor">出品方：教育部高等教育司</div>
+        <div class="card-desc">
+          聚焦高校教师AI能力提升，开设"国产大模型应用公开课""高校人工智能公开课"等系列课程。2026年推出"人工智能综合能力提升培训"，通识→交叉→实战三阶进阶学习，完成可获培训证书。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">完全免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">云知师AI</span>
+          <span class="tag tag-official">官方入驻</span>
+        </div>
+        <div class="card-vendor">出品方：华东师范大学</div>
+        <div class="card-desc">
+          已入驻国家智慧教育平台"AI试验场"核心模块，专为教师打造的全链路AI备课方案。已集成<strong>40余项AI应用</strong>，覆盖课前备课、课中AI增强教学、课后个性化辅导、课外家校管理、教师终身发展五大场景。完全免费。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">完全免费</span>
+          <span class="tag tag-teach">教学专用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 二、国内通用大模型 ===== -->
+  <div class="section s-model">
+    <div class="section-title"><span class="icon">🤖</span>国内通用大模型（标注收费状态）</div>
+    <div class="section-desc">教师日常备课、写作、研究常用的国产AI大模型，按免费→付费排序</div>
+    <div class="card-grid">
+      <!-- DeepSeek -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://deepseek.com" target="_blank">DeepSeek ↗</a></span>
+          <span class="tag tag-new">推荐</span>
+        </div>
+        <div class="card-vendor">出品方：深度求索（杭州）</div>
+        <div class="card-desc">
+          <strong>国产唯一保持完全免费的主流大模型。</strong>2026年7月V4版本新增5大永久免费功能：①多格式文件一键解析（PDF/Word/Excel/PPT，单文件最大100MB）；②实时联网搜索；③百万字超长上下文（100万token）；④语音办公；⑤深度逻辑解题。C端无任何付费版本，API按token计费。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">完全免费·无付费版</span>
+        </div>
+      </div>
+
+      <!-- 腾讯元宝 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://yuanbao.tencent.com" target="_blank">腾讯元宝 ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：腾讯</div>
+        <div class="card-desc">
+          <strong>同样完全免费，未设置付费版本。</strong>2026年7月接入混元Hy3模型，支持Agent能力——对话即可生成PPT/Word/Excel/PDF/HTML文件。核心竞争力：<strong>微信生态深度打通</strong>，长按微信聊天记录即可一键转发给元宝处理（总结、翻译、提取待办），月活1.1亿。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">完全免费·无付费版</span>
+        </div>
+      </div>
+
+      <!-- 豆包 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.doubao.com" target="_blank">豆包 ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：字节跳动</div>
+        <div class="card-desc">
+          基础版免费可用，2026年6月下旬上线付费会员。三档：<strong>标准版68元/月</strong>（功能增强+优先响应）、<strong>加强版200元/月</strong>（长文本+高清创作）、<strong>专业版500元/月</strong>（视频生成+数据分析）。学生认证可享38元/月优惠。免费版日常对话仍够用。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-freemium">免费+付费</span>
+          <span class="tag tag-paid">68/200/500元/月</span>
+        </div>
+      </div>
+
+      <!-- Kimi -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://kimi.moonshot.cn" target="_blank">Kimi ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：月之暗面（Moonshot AI）</div>
+        <div class="card-desc">
+          已完全落地分层付费。四档：<strong>入门版49元/月</strong>、效率版99元/月、<strong>专业版199元/月</strong>、尊享版699元/月。免费版限制严：<strong>深度研究仅1次/月、PPT生成仅3次/月</strong>、OK Computer仅3次/月。高峰期算力紧张时免费用户易中断。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-freemium">免费+付费</span>
+          <span class="tag tag-paid">49/99/199/699元/月</span>
+        </div>
+      </div>
+
+      <!-- 智谱清言 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://chatglm.cn" target="_blank">智谱清言 ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：智谱AI（清华系）</div>
+        <div class="card-desc">
+          免费基础功能 + 分级付费。<strong>VIP 49元/月</strong>（原79元）、<strong>SVIP 149元/月</strong>（原229元）。搭载GLM-5模型，支持128K上下文。免费版每日对话次数不固定，系统根据服务器负载动态调整。付费解锁PPT智能体、高清视频生成、AI绘画、云知识库扩容。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-freemium">免费+付费</span>
+          <span class="tag tag-paid">VIP 49 / SVIP 149元/月</span>
+        </div>
+      </div>
+
+      <!-- 通义千问 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://tongyi.aliyun.com" target="_blank">通义千问 ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：阿里巴巴</div>
+        <div class="card-desc">
+          基础对话<strong>永久免费</strong>，无广告、无额度限制。办公版/Pro版需付费：个人专业版59元/月（年付599元），团队版198-1398元/坐席/月。新用户送7000万免费Tokens（90天），高校师生认证额外送3000万Tokens。API按量计费。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-freemium">基础免费+Pro付费</span>
+          <span class="tag tag-paid">Pro 59元/月</span>
+        </div>
+      </div>
+
+      <!-- MiniMax -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.minimax.com" target="_blank">MiniMax（海螺AI） ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：MiniMax（上海）</div>
+        <div class="card-desc">
+          三档会员：<strong>Plus 49元/月</strong>、Max 119元/月、Ultra 469元/月。另设积分包（30/150/500元），新用户注册+每日签到可免费领积分。2026年6月计费规则从"按次调用"改为"按Token消耗量"，曾引发用户争议。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-freemium">免费+付费</span>
+          <span class="tag tag-paid">49/119/469元/月</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 三、国内教学/课件专用工具 ===== -->
+  <div class="section s-teach">
+    <div class="section-title"><span class="icon">📚</span>国内教学 / 课件专用工具</div>
+    <div class="section-desc">专门为教师群体设计，深度融合教育场景和教学流程</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.laoshibang.com" target="_blank">九章爱学老师版 ↗</a></span>
+          <span class="tag tag-new">强烈推荐</span>
+        </div>
+        <div class="card-vendor">出品方：好未来 / 学而思（NYSE: TAL）</div>
+        <div class="card-desc">
+          专为教师打造的AI全能助手，已上线<strong>170+个智能体</strong>，覆盖教学全周期。核心功能：AI完整课件（一句话生成全流程互动课件）、AI单页课件（课堂小游戏/随堂测试）、教案生成、智能组卷、作文批改、家校沟通、学情分析。内置小初高全学段教材知识库，网页版<strong>免费使用</strong>。App有内购（月38元起），但核心备课功能免费。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">核心功能免费</span>
+          <span class="tag tag-teach">教师专用</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.feixianglaoshi.com" target="_blank">飞象老师 ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：飞象星球</div>
+        <div class="card-desc">
+          专为一线教师打造的免费互动教学工具。无需编程及美工基础，输入教学思路、上传教案文档或实拍课本照片，即可快速生成互动课件。核心功能：互动课件、教学动画、教学游戏三大模块，将传统静态PPT转化为动态交互式课堂资源。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">完全免费</span>
+          <span class="tag tag-teach">教师专用</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.101ppt.com" target="_blank">101教育PPT ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：网龙华渔教育</div>
+        <div class="card-desc">
+          备授课一体化教学软件，内置海量教材资源和课件模板。AI辅助备课功能，支持一键生成教案、课件。覆盖小初高全学段全学科，与主流教材版本同步。免费注册即可使用大部分功能。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">基础免费</span>
+          <span class="tag tag-teach">教师专用</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://docs.qq.com" target="_blank">腾讯文档AI ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：腾讯</div>
+        <div class="card-desc">
+          集成AI能力的在线文档工具，支持AI生成文档、表格、PPT、思维导图、流程图。多人协作功能完善，与企业微信打通。免费用户享有基础AI功能，适合教师团队协作备课、班级资料共享。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">基础免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.kdocs.cn" target="_blank">金山文档AI ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：金山办公</div>
+        <div class="card-desc">
+          与WPS深度集成的在线协作平台，AI支持智能写作、表格分析、PPT美化。教师可用于在线备课、协同编辑教案、班级资料管理。免费用户享有基础AI功能。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">基础免费</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 四、免费PPT制作工具 ===== -->
+  <div class="section s-ppt">
+    <div class="section-title"><span class="icon">📊</span>免费PPT制作工具</div>
+    <div class="section-desc">教师备课必备——AI一键生成课件PPT，节省大量排版时间</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.chatppt.com" target="_blank">ChatPPT ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：必优科技</div>
+        <div class="card-desc">
+          国内首个双模型（Wernicke+LLM）全文档级生成工具，<strong>中文语义适配极强</strong>。支持40+格式导入（含思维导图、试卷），7秒解析2万字文档。<strong>公式保留率100%</strong>，理科教师首选。基础功能<strong>永久免费</strong>，无强制水印，无限次生成。导出PPTX/会员需付费。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">基础永久免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://wenku.baidu.com" target="_blank">百度文库AI PPT ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：百度</div>
+        <div class="card-desc">
+          国家工信安全中心认证PPT生成能力第一。依托18亿专业文档库，内容专业不编造。支持Word/PDF/思维导图一键转PPT。<strong>每天2次免费生成</strong>额度，导出PPTX无水印。会员月卡约20元。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">每天2次免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.wps.cn" target="_blank">WPS AI演示 ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：金山办公</div>
+        <div class="card-desc">
+          与WPS无缝衔接，零学习成本。AI自动推荐排版方案，一键换风格/换模板，支持润色文字、生成图表、改错别字。<strong>每天2次免费生成</strong>额度。多端同步（电脑/手机/平板），日常课件制作首选。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">每天2次免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.gaippt.com" target="_blank">GAIPPT ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：GAIPPT团队</div>
+        <div class="card-desc">
+          AI美化PPT神器。上传现有PPT，<strong>60秒一键智能美化</strong>。支持AI换封面、AI生图、AI生表格、AI生金句。内置专家模式AI模型，智能适配结构版式，风格自由切换。免费体验。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">免费体验</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.islide.cc" target="_blank">iSlide ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：iSlide团队</div>
+        <div class="card-desc">
+          企业级PPT高效创作工具。教研组可上传统一模板，AI提取配色/字体/布局，后续所有老师一键调用保持风格统一。AI文生图、数据可视化功能出色，公开课课件制作利器。基础功能免费。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">基础免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.iflyrec.com" target="_blank">讯飞智文 ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：科大讯飞</div>
+        <div class="card-desc">
+          背靠讯飞AI大模型，需求理解灵活。输入"家长会PPT"自动生成完整模块。内置<strong>5万+商用图标和插画素材</strong>免费使用。多人协作功能完善，适合班级老师共同修改。基础版免费。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-free">基础免费</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 五、国外仅需VPN即可使用 ===== -->
+  <div class="section s-foreign-vpn">
+    <div class="section-title"><span class="icon">🌐</span>国外工具 — 仅需VPN即可使用</div>
+    <div class="section-desc">注册即可免费使用，无特殊身份验证门槛，但需自备网络条件</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://chat.openai.com" target="_blank">ChatGPT (GPT-5.1) ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：OpenAI</div>
+        <div class="card-desc">
+          全球使用最广泛的AI助手。免费版可使用GPT-5.1 Auto模型，支持联网搜索、文件上传、图片生成（DALL·E）。免费版每日有使用额度限制，超出后自动降级。教师可用于备课思路梳理、教学材料撰写、跨语言翻译。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-vpn">需VPN</span>
+          <span class="tag tag-freemium">免费+付费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://notebooklm.google" target="_blank">Google NotebookLM ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：Google</div>
+        <div class="card-desc">
+          <strong>完全免费</strong>的源文件研究工具。亮点：只从你上传的文档中回答问题，<strong>带文献引用，幻觉风险趋近于零</strong>。支持100个笔记本、每本50个来源、每天50次对话、3次AI播客。教师上传课件PDF/教材/课标后，可生成有据可查的教案和测验题。需Google账号。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-vpn">需VPN</span>
+          <span class="tag tag-free">完全免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.canva.com" target="_blank">Canva AI ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：Canva（澳大利亚）</div>
+        <div class="card-desc">
+          设计感最强的免费设计工具。AI生成课件/海报/信息图/班刊，模板风格活泼可爱，特别适合小学/幼教老师。<strong>教师认证可免费获取Canva for Education Pro版</strong>（部分地区需学校邮箱）。拖拽式操作零门槛。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-vpn">需VPN</span>
+          <span class="tag tag-free">教师认证免费Pro</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://gamma.app" target="_blank">Gamma ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：Gamma Tech</div>
+        <div class="card-desc">
+          极简AI PPT生成工具。输入主题自动生成完整演示文稿，支持导入文档转PPT，在线协作。模板设计感强，一键切换主题风格。免费版每日有生成次数限制，但日常够用。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-vpn">需VPN</span>
+          <span class="tag tag-free">免费版可用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 六、国外教师专属计划 ===== -->
+  <div class="section s-foreign-auth">
+    <div class="section-title"><span class="icon">🎓</span>国外教师专属计划（有身份限制）</div>
+    <div class="section-desc">需要特定国家/地区教师身份验证才能免费使用，门槛较高</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://claude.com/solutions/teachers" target="_blank">Claude for Teachers ↗</a></span>
+          <span class="tag tag-new">7/14 新发布</span>
+        </div>
+        <div class="card-vendor">出品方：Anthropic</div>
+        <div class="card-desc">
+          2026年7月14日发布。向<strong>美国K-12在职教师</strong>免费开放Claude Pro全部高级功能，含Claude Code和Cowork。接入全美50州课程标准与9大教育工具（Brisk Teaching、Canva Education、Diffit等）。在2027年6月30日前完成验证，享一年免费。教师数据不用于模型训练，FERPA合规。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-auth">需美国教师身份</span>
+          <span class="tag tag-free">免费一年</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://openai.com/chatgpt/education" target="_blank">ChatGPT for Teachers ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：OpenAI</div>
+        <div class="card-desc">
+          2025年11月发布。向<strong>美国K-12在职教师</strong>免费提供GPT-5.1 Auto、联网搜索、文件上传等功能，免费期至2027年6月。集成Google Workspace和Microsoft 365，FERPA合规，支持学区管理员控制。与Claude for Teachers形成直接竞争。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-auth">需美国教师身份</span>
+          <span class="tag tag-free">免费至2027.6</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.khanmigo.ai" target="_blank">Khanmigo for Teachers ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：Khan Academy（可汗学院）</div>
+        <div class="card-desc">
+          与微软Azure AI合作的AI教学助手。<strong>全球教师均可申请免费使用</strong>（需教师身份验证）。帮助教师完成差异化教学、评价量规制定、教案创建等任务。学生端采用苏格拉底式引导而非直接给答案，是设计理念最教育的AI工具。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-auth">需教师验证</span>
+          <span class="tag tag-free">全球教师免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://www.microsoft.com/en-us/education" target="_blank">Microsoft Education AI ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：Microsoft</div>
+        <div class="card-desc">
+          通过Microsoft Education向<strong>全球教师和学生</strong>免费提供AI工具。含Copilot for Education、Reading Coach（AI阅读辅导）、Math Solver等。需要学校/机构邮箱注册。2026年报告指出AI教育工具可帮助教师每周节省6小时。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-auth">需学校邮箱</span>
+          <span class="tag tag-free">全球教师免费</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name"><a href="https://gemini.google.com" target="_blank">Google Gemini for Education ↗</a></span>
+        </div>
+        <div class="card-vendor">出品方：Google</div>
+        <div class="card-desc">
+          Google Workspace for Education用户可免费使用30+课堂AI工具。集成Google Classroom，深度融合Google生态。2026年已与美国犹他州教育委员会签约进入全州K-12学校。需要学校Google Workspace教育版账号。
+        </div>
+        <div class="card-tags">
+          <span class="tag tag-auth">需学校教育账号</span>
+          <span class="tag tag-free">免费</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 七、国产大模型收费政策对比表 ===== -->
+  <div class="section s-compare">
+    <div class="section-title"><span class="icon">📋</span>国产大模型收费政策对比表</div>
+    <div class="section-desc">2026年7月最新数据，一表看清各平台免费/付费政策</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:14%">模型名称</th>
+            <th style="width:12%">出品方</th>
+            <th style="width:12%">免费状态</th>
+            <th style="width:28%">免费限制</th>
+            <th style="width:34%">付费方案</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>DeepSeek</strong></td>
+            <td>深度求索</td>
+            <td><span class="badge-free">完全免费</span></td>
+            <td>无任何限制，无付费版本</td>
+            <td>无付费版，仅API按token计费</td>
+          </tr>
+          <tr>
+            <td><strong>腾讯元宝</strong></td>
+            <td>腾讯</td>
+            <td><span class="badge-free">完全免费</span></td>
+            <td>无任何限制，无付费版本</td>
+            <td>无付费版，Agent/PPT生成均免费</td>
+          </tr>
+          <tr>
+            <td><strong>豆包</strong></td>
+            <td>字节跳动</td>
+            <td><span class="badge-mix">免费+付费</span></td>
+            <td>基础版免费，高级功能需付费</td>
+            <td>68/200/500元/月；学生38元/月</td>
+          </tr>
+          <tr>
+            <td><strong>Kimi</strong></td>
+            <td>月之暗面</td>
+            <td><span class="badge-mix">免费+付费</span></td>
+            <td>深度研究1次/月、PPT 3次/月、OK Computer 3次/月</td>
+            <td>49/99/199/699元/月</td>
+          </tr>
+          <tr>
+            <td><strong>智谱清言</strong></td>
+            <td>智谱AI</td>
+            <td><span class="badge-mix">免费+付费</span></td>
+            <td>每日对话次数动态调整，服务器负载时限制</td>
+            <td>VIP 49元/月；SVIP 149元/月</td>
+          </tr>
+          <tr>
+            <td><strong>通义千问</strong></td>
+            <td>阿里巴巴</td>
+            <td><span class="badge-mix">免费+付费</span></td>
+            <td>基础对话永久免费，办公/Pro功能需付费</td>
+            <td>个人Pro 59元/月；团队198-1398元/月</td>
+          </tr>
+          <tr>
+            <td><strong>MiniMax</strong></td>
+            <td>MiniMax</td>
+            <td><span class="badge-mix">免费+付费</span></td>
+            <td>新用户送积分，每日签到领积分</td>
+            <td>49/119/469元/月 + 积分包</td>
+          </tr>
+          <tr>
+            <td><strong>九章爱学</strong></td>
+            <td>好未来</td>
+            <td><span class="badge-free">核心免费</span></td>
+            <td>网页版核心备课功能免费</td>
+            <td>App内购38元/月起</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- .container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="report-footer">
+  <p><strong>教师免费AI工具周报 · 第03期</strong> · 2026年7月17日</p>
+  <p style="margin-top:6px;">数据来源：各平台官网、今日头条、搜狐、中国新闻网、多知网、Anthropic官方博客等</p>
+  <p style="margin-top:4px;">声明：免费/收费状态可能随时变化，请以各平台最新公告为准</p>
+  <p style="margin-top:12px; color:#BBB;">Made with ❤️ for Teachers</p>
+</div>
+
+</body>
+</html>
