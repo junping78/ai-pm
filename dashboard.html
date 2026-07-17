@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>网站运营仪表盘 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="网站运营仪表盘：搜索引擎数据可视化、收录状态、搜索效果趋势、流量来源分析，以及朋友圈分享卡等营销物料下载。">
+<meta property="og:title" content="网站运营仪表盘 | 刘俊平 · AI赋能项目管理">
+<meta property="og:description" content="搜索引擎数据可视化、收录状态、搜索效果趋势、流量来源分析，以及营销物料下载。">
+<meta property="og:image" content="og-image.png">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/dashboard.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ===== 仪表盘头部 ===== */
+.dashboard-header {
+    padding: 100px 20px 44px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
+    color: white;
+}
+.dashboard-header h1 {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+.dashboard-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 640px;
+    margin: 0 auto 20px;
+}
+.dashboard-header .data-date {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.9);
+}
+
+/* ===== 通用区块 ===== */
+.dashboard-section {
+    padding: 48px 20px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+.dashboard-section + .dashboard-section {
+    padding-top: 0;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--c-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.section-title .icon {
+    font-size: 1.3rem;
+}
+.section-desc {
+    font-size: 0.92rem;
+    color: var(--c-text-light);
+    margin-bottom: 24px;
+}
+
+/* ===== 提示框 ===== */
+.note-box {
+    background: var(--c-primary-bg);
+    border: 1px solid var(--c-primary-border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    color: var(--c-primary-dark);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.note-box strong { font-weight: 700; }
+
+/* ===== KPI 概览卡片 ===== */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+.kpi-card {
+    background: var(--c-bg-white);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--c-primary-border);
+    text-decoration: none;
+}
+.kpi-card .kpi-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+.kpi-card .kpi-label {
+    font-size: 0.85rem;
+    color: var(--c-text-light);
+    font-weight: 600;
+}
+.kpi-card .kpi-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--c-primary-dark);
+    line-height: 1.2;
+    font-family: "SF Mono", "Consolas", monospace;
+}
+.kpi-card .kpi-value .kpi-unit {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--c-text-muted);
+}
+.kpi-card .kpi-sub {
+    font-size: 0.82rem;
+    color: var(--c-text-muted);
+}
+.kpi-card .kpi-link {
+    margin-top: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--c-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.kpi-card:hover .kpi-link {
+    color: var(--c-primary-dark);
+}
+
+/* ===== 图表卡片 ===== */
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.chart-card {
+    background: var(--c-bg-white);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+}
+.chart-card:hover {
+    box-shadow: var(--shadow-md);
+}
+.chart-card.full-width {
+    grid-column: 1 / -1;
+}
+.chart-card .chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.chart-card .chart-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--c-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.chart-card .chart-title .ct-icon { font-size: 1.2rem; }
+.chart-card .chart-body {
+    position: relative;
+    height: 240px;
+    margin-bottom: 14px;
+}
+.chart-card .chart-body.tall { height: 280px; }
+.chart-card .chart-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--c-border-light);
+}
+.chart-card .chart-footer .chart-note {
+    font-size: 0.82rem;
+    color: var(--c-text-muted);
+}
+.chart-card .chart-footer .chart-detail-link {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--c-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+.chart-card .chart-footer .chart-detail-link:hover {
+    color: var(--c-primary-dark);
+    text-decoration: underline;
+}
+
+/* ===== 状态徽章 ===== */
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.status-wait { background: var(--c-warm-bg); color: var(--c-warm); }
+.status-ok { background: var(--c-accent-bg); color: var(--c-accent); }
+.status-pending { background: var(--c-primary-bg); color: var(--c-primary); }
+
+/* ===== 平台验证列表 ===== */
+.verify-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 8px 0;
+}
+.verify-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--c-bg);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--c-border-light);
+}
+.verify-item .vi-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.verify-item .vi-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: var(--c-primary-bg);
+}
+.verify-item .vi-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--c-text);
+}
+.verify-item .vi-desc {
+    font-size: 0.82rem;
+    color: var(--c-text-muted);
+}
+.verify-item .vi-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ===== 营销物料卡片（保留原有） ===== */
+.asset-card {
+    background: var(--c-bg-white);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.asset-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+.asset-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: var(--c-bg);
+    display: block;
+}
+.asset-card .asset-info { padding: 18px; }
+.asset-card h4 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    color: var(--c-text);
+}
+.asset-card p {
+    font-size: 0.9rem;
+    color: var(--c-text-light);
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+.asset-card .asset-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.asset-card .btn-sm {
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ===== 链接卡片（网站入口） ===== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+.link-card {
+    background: var(--c-bg-white);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+}
+.link-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--c-primary-border);
+    text-decoration: none;
+}
+.link-card h3 {
+    font-size: 1.15rem;
+    color: var(--c-primary);
+    margin: 0;
+}
+.link-card p {
+    font-size: 0.95rem;
+    color: var(--c-text-light);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+.link-card .card-action {
+    margin-top: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.link-card:hover .card-action { color: var(--c-primary-dark); }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+    .dashboard-header h1 { font-size: 1.8rem; }
+    .dashboard-section { padding: 32px 16px; }
+    .chart-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== 打印 ===== */
+@media print {
+    .navbar, .dashboard-header { display: none; }
+    .chart-card { break-inside: avoid; border: 1px solid #ddd; }
+    .asset-card img { height: 120px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="dashboard-header">
+    <h1>网站运营仪表盘</h1>
+    <p>搜索引擎数据可视化 &middot; 收录状态 &middot; 流量分析 &middot; 营销物料 &middot; 一站管理</p>
+    <span class="data-date">数据更新日期：2026年7月18日（初始状态）</span>
+</header>
+
+<main>
+
+<!-- ===== 提示 ===== -->
+<section class="dashboard-section">
+    <div class="note-box">
+        <strong>数据说明：</strong>Google Search Console 和 Bing Webmaster Tools 的数据通常在提交 sitemap 后 <strong>1-3 天</strong>开始出现。当前图表显示的是初始状态（零值），数据接入后请手动更新本页 JavaScript 中的数据数组。每个图表右下角有「查看实时数据」链接，点击可跳转到对应平台核对详细数据。
+    </div>
+</section>
+
+<!-- ===== 搜索引擎数据 ===== -->
+<section class="dashboard-section">
+    <h2 class="section-title"><span class="icon">📊</span>搜索引擎数据概览</h2>
+    <p class="section-desc">KPI 概览 &middot; 点击卡片可跳转到对应平台查看详细数据</p>
+
+    <!-- KPI 卡片 -->
+    <div class="kpi-grid">
+        <a href="https://search.google.com/search-console/index?resource_id=http%3A%2F%2Fjunping78.github.io%2Fai-pm%2F" target="_blank" rel="noopener noreferrer" class="kpi-card">
+            <span class="kpi-icon">📄</span>
+            <span class="kpi-label">Google 收录页面</span>
+            <span class="kpi-value">0<span class="kpi-unit"> / 19</span></span>
+            <span class="kpi-sub">共提交 19 个 URL</span>
+            <span class="kpi-link">查看详情 &rarr;</span>
+        </a>
+        <a href="https://search.google.com/search-console/performance/search-analytics?resource_id=http%3A%2F%2Fjunping78.github.io%2Fai-pm%2F" target="_blank" rel="noopener noreferrer" class="kpi-card">
+            <span class="kpi-icon">🔍</span>
+            <span class="kpi-label">Google 搜索点击</span>
+            <span class="kpi-value">0<span class="kpi-unit"> 次</span></span>
+            <span class="kpi-sub">数据采集中</span>
+            <span class="kpi-link">查看详情 &rarr;</span>
+        </a>
+        <a href="https://www.bing.com/webmasters/searchPerformance" target="_blank" rel="noopener noreferrer" class="kpi-card">
+            <span class="kpi-icon">🅱️</span>
+            <span class="kpi-label">Bing 搜索展示</span>
+            <span class="kpi-value">0<span class="kpi-unit"> 次</span></span>
+            <span class="kpi-sub">数据采集中</span>
+            <span class="kpi-link">查看详情 &rarr;</span>
+        </a>
+        <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer" class="kpi-card">
+            <span class="kpi-icon">📈</span>
+            <span class="kpi-label">网站访问量</span>
+            <span class="kpi-value">0<span class="kpi-unit"> PV</span></span>
+            <span class="kpi-sub">GA4 数据采集中</span>
+            <span class="kpi-link">查看详情 &rarr;</span>
+        </a>
+    </div>
+
+    <!-- 图表网格 -->
+    <div class="chart-grid">
+
+        <!-- 图表1: Google搜索效果趋势 -->
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div class="chart-title"><span class="ct-icon">📈</span>Google 搜索效果趋势（近 7 天）</div>
+                <span class="status-badge status-wait">数据采集中</span>
+            </div>
+            <div class="chart-body tall">
+                <canvas id="chartGscTrend"></canvas>
+            </div>
+            <div class="chart-footer">
+                <span class="chart-note">展示量（蓝色）与点击量（靛紫）趋势 &middot; 数据接入后更新</span>
+                <a href="https://search.google.com/search-console/performance/search-analytics?resource_id=http%3A%2F%2Fjunping78.github.io%2Fai-pm%2F" target="_blank" rel="noopener noreferrer" class="chart-detail-link">查看实时数据 &rarr;</a>
+            </div>
+        </div>
+
+        <!-- 图表2: 页面收录状态 -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title"><span class="ct-icon">📄</span>Google 页面收录状态</div>
+                <span class="status-badge status-wait">待收录</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="chartIndexStatus"></canvas>
+            </div>
+            <div class="chart-footer">
+                <span class="chart-note">19 个 URL 已提交，等待 Google 爬取收录</span>
+                <a href="https://search.google.com/search-console/index?resource_id=http%3A%2F%2Fjunping78.github.io%2Fai-pm%2F" target="_blank" rel="noopener noreferrer" class="chart-detail-link">查看实时数据 &rarr;</a>
+            </div>
+        </div>
+
+        <!-- 图表3: Bing搜索表现 -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title"><span class="ct-icon">🅱️</span>Bing 搜索表现（近 7 天）</div>
+                <span class="status-badge status-wait">数据采集中</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="chartBingPerf"></canvas>
+            </div>
+            <div class="chart-footer">
+                <span class="chart-note">Bing / Edge / Yahoo 搜索流量 &middot; 数据接入后更新</span>
+                <a href="https://www.bing.com/webmasters/searchPerformance" target="_blank" rel="noopener noreferrer" class="chart-detail-link">查看实时数据 &rarr;</a>
+            </div>
+        </div>
+
+        <!-- 图表4: 站点地图 URL 优先级分布 -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title"><span class="ct-icon">🗺️</span>站点地图 URL 优先级分布</div>
+                <span class="status-badge status-ok">已提交</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="chartSitemapPriority"></canvas>
+            </div>
+            <div class="chart-footer">
+                <span class="chart-note">共 19 个 URL &middot; 按优先级分组</span>
+                <a href="https://search.google.com/search-console/sitemaps?resource_id=http%3A%2F%2Fjunping78.github.io%2Fai-pm%2F" target="_blank" rel="noopener noreferrer" class="chart-detail-link">查看实时数据 &rarr;</a>
+            </div>
+        </div>
+
+        <!-- 图表5: 流量来源分布 -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title"><span class="ct-icon">🌐</span>流量来源分布（GA4）</div>
+                <span class="status-badge status-wait">数据采集中</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="chartTrafficSource"></canvas>
+            </div>
+            <div class="chart-footer">
+                <span class="chart-note">自然搜索 / 直接访问 / 社交 / 推荐 &middot; 数据接入后更新</span>
+                <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer" class="chart-detail-link">查看实时数据 &rarr;</a>
+            </div>
+        </div>
+
+        <!-- 图表6: 平台验证状态 -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title"><span class="ct-icon">✅</span>平台验证与接入状态</div>
+                <span class="status-badge status-ok">3/3 已验证</span>
+            </div>
+            <div class="verify-list">
+                <div class="verify-item">
+                    <div class="vi-left">
+                        <div class="vi-icon">🔍</div>
+                        <div>
+                            <div class="vi-name">Google Search Console</div>
+                            <div class="vi-desc">已验证所有权 &middot; sitemap 已提交</div>
+                        </div>
+                    </div>
+                    <div class="vi-right">
+                        <span class="status-badge status-ok">已验证</span>
+                        <a href="https://search.google.com/search-console?resource_id=http%3A%2F%2Fjunping78.github.io%2Fai-pm%2F" target="_blank" rel="noopener noreferrer" style="font-size:0.82rem;font-weight:600;color:var(--c-primary);">打开 &rarr;</a>
+                    </div>
+                </div>
+                <div class="verify-item">
+                    <div class="vi-left">
+                        <div class="vi-icon">🅱️</div>
+                        <div>
+                            <div class="vi-name">Bing Webmaster Tools</div>
+                            <div class="vi-desc">已验证 &middot; sitemap（https）已提交</div>
+                        </div>
+                    </div>
+                    <div class="vi-right">
+                        <span class="status-badge status-ok">已验证</span>
+                        <a href="https://www.bing.com/webmasters/" target="_blank" rel="noopener noreferrer" style="font-size:0.82rem;font-weight:600;color:var(--c-primary);">打开 &rarr;</a>
+                    </div>
+                </div>
+                <div class="verify-item">
+                    <div class="vi-left">
+                        <div class="vi-icon">📊</div>
+                        <div>
+                            <div class="vi-name">Google Analytics 4</div>
+                            <div class="vi-desc">跟踪代码已安装 &middot; G-ZWYYBYRN3S</div>
+                        </div>
+                    </div>
+                    <div class="vi-right">
+                        <span class="status-badge status-ok">已接入</span>
+                        <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer" style="font-size:0.82rem;font-weight:600;color:var(--c-primary);">打开 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer" style="margin-top: 14px;">
+                <span class="chart-note">三大平台均已接入，等待数据回流</span>
+                <a href="https://search.google.com/search-console?resource_id=http%3A%2F%2Fjunping78.github.io%2Fai-pm%2F" target="_blank" rel="noopener noreferrer" class="chart-detail-link">查看实时数据 &rarr;</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== 营销物料 ===== -->
+<section class="dashboard-section">
+    <h2 class="section-title"><span class="icon">📱</span>朋友圈 / 微信营销物料</h2>
+    <p class="section-desc">点击「查看大图」可在线预览，点击「下载」保存到本地后发送朋友圈或微信好友</p>
+    <div class="card-grid">
+        <div class="asset-card">
+            <img src="promo/weekly-share-card.png" alt="教师周报朋友圈分享卡" loading="lazy">
+            <div class="asset-info">
+                <h4>教师周报分享卡</h4>
+                <p>扫码直达网站周报页面，适合发朋友圈推广第2期周报。</p>
+                <div class="asset-actions">
+                    <a href="promo/weekly-share-card.png" target="_blank" class="btn btn-outline btn-sm">查看大图</a>
+                    <a href="promo/weekly-share-card.png" download class="btn btn-solid btn-sm">下载</a>
+                </div>
+            </div>
+        </div>
+        <div class="asset-card">
+            <img src="promo/weekly-share-card-wechat.png" alt="扫码加微信分享卡" loading="lazy">
+            <div class="asset-info">
+                <h4>扫码加微信版</h4>
+                <p>扫码加个人微信好友，适合想沉淀私域的场景。</p>
+                <div class="asset-actions">
+                    <a href="promo/weekly-share-card-wechat.png" target="_blank" class="btn btn-outline btn-sm">查看大图</a>
+                    <a href="promo/weekly-share-card-wechat.png" download class="btn btn-solid btn-sm">下载</a>
+                </div>
+            </div>
+        </div>
+        <div class="asset-card">
+            <img src="promo/brand-poster.png" alt="品牌海报" loading="lazy">
+            <div class="asset-info">
+                <h4>品牌海报</h4>
+                <p>个人品牌定位展示，适合简介、名片、品牌介绍场景。</p>
+                <div class="asset-actions">
+                    <a href="promo/brand-poster.png" target="_blank" class="btn btn-outline btn-sm">查看大图</a>
+                    <a href="promo/brand-poster.png" download class="btn btn-solid btn-sm">下载</a>
+                </div>
+            </div>
+        </div>
+        <div class="asset-card">
+            <img src="promo/url-qr-code.png" alt="网站网址二维码" loading="lazy">
+            <div class="asset-info">
+                <h4>网站网址二维码</h4>
+                <p>纯二维码，可嵌入其他设计或打印物料。</p>
+                <div class="asset-actions">
+                    <a href="promo/url-qr-code.png" target="_blank" class="btn btn-outline btn-sm">查看大图</a>
+                    <a href="promo/url-qr-code.png" download class="btn btn-solid btn-sm">下载</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 网站内容入口 ===== -->
+<section class="dashboard-section">
+    <h2 class="section-title"><span class="icon">🌐</span>网站内容入口</h2>
+    <p class="section-desc">快速检查网站各页面的呈现效果和内容状态</p>
+    <div class="card-grid">
+        <a href="index.html" class="link-card">
+            <h3>网站首页</h3>
+            <p>打开对外展示的主页面，检查整体呈现效果。</p>
+            <span class="card-action">打开首页 &rarr;</span>
+        </a>
+        <a href="weekly-list.html" class="link-card">
+            <h3>教师周报列表</h3>
+            <p>查看所有已发布周报，确认最新一期是否置顶。</p>
+            <span class="card-action">查看周报 &rarr;</span>
+        </a>
+        <a href="promo/" class="link-card">
+            <h3>营销物料浏览页</h3>
+            <p>访客也能看到的公开物料下载页，检查是否需要更新。</p>
+            <span class="card-action">查看 promo 页 &rarr;</span>
+        </a>
+        <a href="sitemap.xml" target="_blank" class="link-card">
+            <h3>sitemap.xml</h3>
+            <p>查看当前提交的站点地图内容，确认 URL 是否完整。</p>
+            <span class="card-action">查看站点地图 &rarr;</span>
+        </a>
+    </div>
+</section>
+
+</main>
+
+<footer class="footer" style="text-align: center; padding: 32px 20px; color: var(--c-text-muted); font-size: 0.9rem; border-top: 1px solid var(--c-border);">
+    <p>&copy; 2026 刘俊平 · AI赋能项目管理</p>
+</footer>
+
+<script>
+/* ================================================================
+   网站运营仪表盘 — Chart.js 图表配置
+   品牌色：靛紫 #534AB7 / 浅靛紫 #7F77DD / 深靛紫 #3C3489
+         绿色 #0F6E56 / 暖棕 #854F0B / 浅灰 #e8e8e8
+   ================================================================ */
+
+/* --- 品牌色常量 --- */
+const C = {
+    primary:    '#534AB7',
+    primaryL:   '#7F77DD',
+    primaryD:   '#3C3489',
+    primaryBg:  '#EEEDFE',
+    accent:     '#0F6E56',
+    accentL:    '#9FE1CB',
+    warm:       '#854F0B',
+    warmL:      '#FAEEDA',
+    gray:       '#e8e8e8',
+    grayL:      '#f0f0f0',
+    textLight:  '#666666',
+    textMuted:  '#999999'
+};
+
+/* --- Chart.js 全局默认值 --- */
+Chart.defaults.font.family = '-apple-system, "PingFang SC", "Microsoft YaHei", sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.color = C.textLight;
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.boxWidth = 8;
+Chart.defaults.plugins.legend.labels.padding = 14;
+
+/* ================================================================
+   图表1: Google 搜索效果趋势（折线图）
+   数据接入后：将 impressions / clicks 数组替换为真实数据
+   ================================================================ */
+const ctxGsc = document.getElementById('chartGscTrend').getContext('2d');
+new Chart(ctxGsc, {
+    type: 'line',
+    data: {
+        labels: ['7月12日','7月13日','7月14日','7月15日','7月16日','7月17日','7月18日'],
+        datasets: [
+            {
+                label: '展示量',
+                data: [0, 0, 0, 0, 0, 0, 0],
+                borderColor: C.primaryL,
+                backgroundColor: 'rgba(127,119,221,0.08)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.35,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: C.primaryL,
+                yAxisID: 'y'
+            },
+            {
+                label: '点击量',
+                data: [0, 0, 0, 0, 0, 0, 0],
+                borderColor: C.primary,
+                backgroundColor: 'rgba(83,74,183,0.12)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.35,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: C.primary,
+                yAxisID: 'y1'
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+            legend: { position: 'top', align: 'end' },
+            tooltip: {
+                backgroundColor: 'rgba(60,52,137,0.92)',
+                padding: 12,
+                cornerRadius: 8,
+                titleFont: { size: 13, weight: 'bold' },
+                bodyFont: { size: 12 }
+            }
+        },
+        scales: {
+            x: { grid: { display: false }, border: { display: false } },
+            y: {
+                position: 'left',
+                beginAtZero: true,
+                title: { display: true, text: '展示量', font: { size: 11 }, color: C.primaryL },
+                grid: { color: C.grayL },
+                border: { display: false }
+            },
+            y1: {
+                position: 'right',
+                beginAtZero: true,
+                title: { display: true, text: '点击量', font: { size: 11 }, color: C.primary },
+                grid: { display: false },
+                border: { display: false }
+            }
+        }
+    }
+});
+
+/* ================================================================
+   图表2: Google 页面收录状态（环形图）
+   ================================================================ */
+const ctxIndex = document.getElementById('chartIndexStatus').getContext('2d');
+new Chart(ctxIndex, {
+    type: 'doughnut',
+    data: {
+        labels: ['待收录', '已收录', '未收录'],
+        datasets: [{
+            data: [19, 0, 0],
+            backgroundColor: [C.warmL, C.accentL, '#FCEBEB'],
+            borderColor: [C.warm, C.accent, C.primary],
+            borderWidth: 2,
+            hoverOffset: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '62%',
+        plugins: {
+            legend: { position: 'bottom', labels: { padding: 12 } },
+            tooltip: {
+                backgroundColor: 'rgba(60,52,137,0.92)',
+                padding: 12,
+                cornerRadius: 8,
+                callbacks: {
+                    label: function(ctx) {
+                        return ctx.label + ': ' + ctx.parsed + ' 页';
+                    }
+                }
+            }
+        }
+    }
+});
+
+/* ================================================================
+   图表3: Bing 搜索表现（柱状图）
+   数据接入后：将 clicks / impressions 数组替换为真实数据
+   ================================================================ */
+const ctxBing = document.getElementById('chartBingPerf').getContext('2d');
+new Chart(ctxBing, {
+    type: 'bar',
+    data: {
+        labels: ['7月12日','7月13日','7月14日','7月15日','7月16日','7月17日','7月18日'],
+        datasets: [
+            {
+                label: '展示量',
+                data: [0, 0, 0, 0, 0, 0, 0],
+                backgroundColor: 'rgba(127,119,221,0.55)',
+                borderColor: C.primaryL,
+                borderWidth: 1.5,
+                borderRadius: 4,
+                barPercentage: 0.65,
+                categoryPercentage: 0.7
+            },
+            {
+                label: '点击量',
+                data: [0, 0, 0, 0, 0, 0, 0],
+                backgroundColor: 'rgba(83,74,183,0.85)',
+                borderColor: C.primary,
+                borderWidth: 1.5,
+                borderRadius: 4,
+                barPercentage: 0.65,
+                categoryPercentage: 0.7
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'top', align: 'end' },
+            tooltip: {
+                backgroundColor: 'rgba(60,52,137,0.92)',
+                padding: 12,
+                cornerRadius: 8
+            }
+        },
+        scales: {
+            x: { grid: { display: false }, border: { display: false } },
+            y: { beginAtZero: true, grid: { color: C.grayL }, border: { display: false } }
+        }
+    }
+});
+
+/* ================================================================
+   图表4: 站点地图 URL 优先级分布（水平柱状图）— 真实数据
+   ================================================================ */
+const ctxSitemap = document.getElementById('chartSitemapPriority').getContext('2d');
+new Chart(ctxSitemap, {
+    type: 'bar',
+    data: {
+        labels: ['优先级 1.0','优先级 0.9','优先级 0.8','优先级 0.7','优先级 0.6','优先级 0.5'],
+        datasets: [{
+            label: 'URL 数量',
+            data: [1, 3, 3, 6, 1, 5],
+            backgroundColor: [
+                'rgba(83,74,183,0.9)',
+                'rgba(99,90,195,0.85)',
+                'rgba(115,101,207,0.8)',
+                'rgba(127,119,221,0.75)',
+                'rgba(155,149,233,0.7)',
+                'rgba(183,179,243,0.65)'
+            ],
+            borderRadius: 6,
+            barPercentage: 0.7
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: 'rgba(60,52,137,0.92)',
+                padding: 12,
+                cornerRadius: 8,
+                callbacks: {
+                    label: function(ctx) { return ctx.parsed.x + ' 个 URL'; }
+                }
+            }
+        },
+        scales: {
+            x: { beginAtZero: true, grid: { color: C.grayL }, border: { display: false }, ticks: { stepSize: 1 } },
+            y: { grid: { display: false }, border: { display: false } }
+        }
+    }
+});
+
+/* ================================================================
+   图表5: 流量来源分布（环形图）
+   数据接入后：将数组替换为 GA4 真实数据
+   ================================================================ */
+const ctxTraffic = document.getElementById('chartTrafficSource').getContext('2d');
+new Chart(ctxTraffic, {
+    type: 'doughnut',
+    data: {
+        labels: ['自然搜索','直接访问','社交媒体','外部推荐'],
+        datasets: [{
+            data: [0, 0, 0, 0],
+            backgroundColor: [
+                'rgba(83,74,183,0.85)',
+                'rgba(15,110,86,0.8)',
+                'rgba(133,79,11,0.75)',
+                'rgba(127,119,221,0.7)'
+            ],
+            borderColor: [C.primary, C.accent, C.warm, C.primaryL],
+            borderWidth: 2,
+            hoverOffset: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '62%',
+        plugins: {
+            legend: { position: 'bottom', labels: { padding: 12 } },
+            tooltip: {
+                backgroundColor: 'rgba(60,52,137,0.92)',
+                padding: 12,
+                cornerRadius: 8,
+                callbacks: {
+                    label: function(ctx) { return ctx.label + ': ' + ctx.parsed + ' 次访问'; }
+                }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
