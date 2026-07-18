@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>耶鲁大学附近购物攻略 · 纽黑文商超地图指南（AI辅助生成）| 刘俊平 · AI赋能项目管理</title>
-<meta name="description" content="耶鲁大学（Yale University）纽黑文（New Haven, CT）周边商超购物攻略：Costco、Walmart、Target、IKEA、Trader Joe's 等 12 家商超位置与路线，AI 辅助调研 + 交互地图呈现。适合耶鲁访学、短期交流、陪读家庭。">
-<meta name="keywords" content="耶鲁大学,耶鲁购物,纽黑文购物,New Haven shopping,Yale附近商超,纽黑文超市,康涅狄格购物攻略,耶鲁访学,留学生购物,美国超市攻略,Costco,Trader Joe's">
-<meta property="og:title" content="耶鲁大学附近购物攻略 · 纽黑文商超地图指南（AI辅助生成）">
-<meta property="og:description" content="耶鲁大学纽黑文周边 12 家商超位置与路线，AI 辅助调研 + 交互地图。适合耶鲁访学、短期交流、陪读家庭。">
+<title>耶鲁大学附近购物攻略 · 纽黑文商超地图 + 伍德伯里奥特莱斯（AI辅助生成）| 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="耶鲁大学（Yale University）纽黑文（New Haven, CT）周边商超购物攻略：Costco、Walmart、Target、IKEA、Trader Joe's 等 12 家商超 + 纽约伍德伯里奥特莱斯（Woodbury Common Premium Outlets）一日往返攻略，含自驾路线、加油点、午餐、购物清单。AI 辅助调研 + 交互地图。">
+<meta name="keywords" content="耶鲁大学,耶鲁购物,纽黑文购物,New Haven shopping,Yale附近商超,纽黑文超市,康涅狄格购物攻略,耶鲁访学,留学生购物,美国超市攻略,Costco,Trader Joe's,伍德伯里奥特莱斯,Woodbury Common,奥特莱斯攻略,纽约购物,名牌折扣">
+<meta property="og:title" content="耶鲁大学附近购物攻略 · 纽黑文商超地图 + 伍德伯里奥特莱斯（AI辅助生成）">
+<meta property="og:description" content="耶鲁大学纽黑文周边 12 家商超 + 纽约伍德伯里奥特莱斯一日往返攻略，含自驾路线、加油点、午餐、购物清单。AI 辅助调研 + 交互地图。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://junping78.github.io/ai-pm/new-haven-yale-shopping.html">
 <meta name="author" content="刘俊平 · AI赋能项目管理">
@@ -233,6 +233,194 @@ body{
   color:#ee5a6f;border:1px solid #ffcaca;
 }
 
+/* ===== Outlet Promo Banner (醒目推荐横幅) ===== */
+.outlet-promo{
+  max-width:1200px;margin:0 auto;padding:0 40px;
+  position:relative;z-index:3;margin-top:-22px;
+}
+.outlet-promo-inner{
+  display:flex;align-items:center;gap:16px;
+  background:linear-gradient(135deg,#f6b73c 0%,#f59e0b 42%,#ef7d1a 100%);
+  border-radius:16px;padding:16px 24px;cursor:pointer;
+  box-shadow:0 10px 32px rgba(245,158,11,.38);
+  border:2px solid rgba(255,255,255,.65);
+  position:relative;overflow:hidden;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.outlet-promo-inner:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(245,158,11,.48)}
+.outlet-promo-inner::before{
+  content:'';position:absolute;top:-60%;left:-10%;width:35%;height:220%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:rotate(20deg);animation:promo-shine 3s linear infinite;
+}
+@keyframes promo-shine{0%{left:-40%}100%{left:130%}}
+.outlet-promo-badge{
+  flex-shrink:0;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);
+  border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;
+  font-size:28px;animation:promo-bounce 1.6s ease-in-out infinite;
+}
+@keyframes promo-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.outlet-promo-text{flex:1;min-width:0;color:#fff}
+.outlet-promo-text .t1{font-size:17px;font-weight:800;letter-spacing:.01em;text-shadow:0 1px 2px rgba(180,100,0,.3)}
+.outlet-promo-text .t2{font-size:13px;font-weight:500;color:rgba(255,255,255,.94);margin-top:3px}
+.outlet-promo-arrow{
+  flex-shrink:0;color:#fff;font-weight:800;font-size:14px;
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.outlet-promo-arrow svg{animation:promo-arrow 1.2s ease-in-out infinite}
+@keyframes promo-arrow{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+
+/* ===== Outlet Day-3 Tab ===== */
+.tab.outlet-tab.active{
+  color:#ef7d1a;background:#fff;border-bottom:1px solid #fff;
+  box-shadow:0 -4px 12px rgba(245,158,11,.18);
+}
+.tab.outlet-tab.active .tab-num{color:#f6b73c}
+
+/* ===== Outlet Feature Card ===== */
+.outlet-feature{
+  background:linear-gradient(135deg,#fffaf0,#fff3df);
+  border:2px solid #f6b73c;border-radius:16px;padding:24px;
+  position:relative;overflow:hidden;
+  box-shadow:0 6px 26px rgba(245,158,11,.2);
+}
+.outlet-feature::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,#f6b73c,#f59e0b,#ef7d1a);
+}
+.outlet-feature .of-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#f6b73c,#ef7d1a);color:#fff;
+  font-size:12px;font-weight:800;padding:6px 15px;border-radius:100px;
+  margin-bottom:14px;animation:of-pulse 2s ease-in-out infinite;
+}
+@keyframes of-pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.5)}50%{box-shadow:0 0 0 9px rgba(245,158,11,0)}}
+.outlet-feature h2{font-size:23px;font-weight:800;color:#1a1f36;margin-bottom:3px;line-height:1.3}
+.outlet-feature .of-en{font-size:13px;color:#a3acb9;margin-bottom:4px}
+.outlet-feature .of-rec{
+  font-size:14px;color:#7a4f12;line-height:1.75;
+  background:rgba(246,183,60,.13);border-left:4px solid #f6b73c;
+  padding:13px 17px;border-radius:0 10px 10px 0;margin:14px 0;
+}
+.outlet-feature .of-rec strong{color:#b9650a}
+.of-meta{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.of-chip{
+  font-size:12px;font-weight:600;padding:6px 13px;border-radius:100px;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.of-chip.dist{background:#fff0e8;color:#ef7d1a;border:1px solid #ffd9b8}
+.of-chip.time{background:#f0faf6;color:#00875a;border:1px solid #d4f0e2}
+.of-chip.web{background:#e8f3ff;color:#0379d2;border:1px solid #bfe0ff}
+.of-link{
+  display:inline-flex;align-items:center;gap:7px;
+  background:linear-gradient(135deg,#0379d2,#0a6ec4);color:#fff;
+  font-size:13px;font-weight:700;padding:10px 20px;border-radius:100px;
+  text-decoration:none;box-shadow:0 4px 14px rgba(3,121,210,.3);
+  transition:transform .2s,box-shadow .2s;
+}
+.of-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(3,121,210,.4)}
+.of-brands{margin-top:18px}
+.of-brands .ob-title{font-size:13px;font-weight:700;color:#1a1f36;margin-bottom:9px}
+.of-brand-grid{display:flex;flex-wrap:wrap;gap:8px}
+.of-brand{
+  font-size:12px;font-weight:600;color:#7a4f12;
+  background:rgba(246,183,60,.15);border:1px solid #ffe1ad;
+  padding:5px 12px;border-radius:8px;
+}
+.of-btn-map{
+  margin-top:20px;width:100%;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,#f6b73c,#ef7d1a);color:#fff;
+  font-size:15px;font-weight:800;padding:14px;border-radius:12px;border:none;cursor:pointer;
+  box-shadow:0 6px 20px rgba(245,158,11,.38);transition:transform .2s;
+  font-family:inherit;
+}
+.of-btn-map:hover{transform:translateY(-2px)}
+
+/* ===== Outlet Map Marker (special gold) ===== */
+.outlet-marker{background:transparent;border:none}
+.outlet-marker-inner{
+  width:50px;height:50px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:25px;
+  background:linear-gradient(135deg,#f6b73c,#ef7d1a);
+  box-shadow:0 4px 16px rgba(239,125,26,.5);
+  border:3px solid #fff;
+  animation:pulse-outlet 2s ease-in-out infinite;
+}
+@keyframes pulse-outlet{
+  0%,100%{box-shadow:0 4px 16px rgba(239,125,26,.5),0 0 0 0 rgba(245,158,11,.4)}
+  50%{box-shadow:0 4px 16px rgba(239,125,26,.5),0 0 0 15px rgba(245,158,11,0)}
+}
+
+/* ===== 一日往返攻略 ===== */
+.day-trip-guide{
+  margin-top:28px;background:#fff;border:1px solid #e3e8ee;border-radius:16px;overflow:hidden;
+}
+.dtg-header{
+  background:linear-gradient(135deg,#1a1f36,#2d3561);color:#fff;
+  padding:20px 24px;display:flex;align-items:center;gap:12px;
+}
+.dtg-header .dtg-icon{font-size:28px}
+.dtg-header h3{font-size:18px;font-weight:800;margin-bottom:2px}
+.dtg-header p{font-size:13px;color:rgba(255,255,255,.7)}
+.dtg-body{padding:24px}
+.dtg-section{margin-bottom:24px}
+.dtg-section:last-child{margin-bottom:0}
+.dtg-section-title{
+  font-size:15px;font-weight:700;color:#1a1f36;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:2px solid #f0f1f5;
+}
+.dtg-route{display:flex;flex-direction:column;gap:10px}
+.dtg-route-step{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:10px 14px;background:#f8f9fb;border-radius:10px;
+  border-left:3px solid #0379d2;
+}
+.dtg-route-step .step-num{
+  flex-shrink:0;width:24px;height:24px;border-radius:50%;
+  background:#0379d2;color:#fff;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.dtg-route-step .step-content{flex:1;font-size:13px;color:#4a5568;line-height:1.6}
+.dtg-route-step .step-content strong{color:#1a1f36}
+.dtg-route-step .step-meta{font-size:12px;color:#a3acb9;margin-top:2px}
+.dtg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.dtg-card{
+  padding:14px 16px;border-radius:10px;border:1px solid #e3e8ee;
+  background:#fff;transition:box-shadow .2s;
+}
+.dtg-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.dtg-card .dc-name{font-size:14px;font-weight:700;color:#1a1f36;margin-bottom:4px}
+.dtg-card .dc-desc{font-size:12px;color:#697386;line-height:1.5}
+.dtg-card .dc-tag{
+  display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;
+  border-radius:100px;margin-top:6px;
+}
+.dtg-card .dc-tag.gas{background:#fff0e8;color:#ef7d1a;border:1px solid #ffd9b8}
+.dtg-card .dc-tag.food{background:#f0faf6;color:#00875a;border:1px solid #d4f0e2}
+.dtg-checklist{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
+}
+.dtg-check-item{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;background:#f8f9fb;border-radius:8px;
+  font-size:13px;color:#4a5568;
+}
+.dtg-check-item .check-box{
+  flex-shrink:0;width:18px;height:18px;border-radius:4px;
+  border:2px solid #c8cdd8;display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:transparent;
+}
+.dtg-tips{
+  background:linear-gradient(135deg,#fffaf0,#fff3df);
+  border:1px solid #ffe1ad;border-radius:12px;padding:16px 20px;
+  margin-top:16px;
+}
+.dtg-tips .dt-tips-title{font-size:13px;font-weight:700;color:#7a4f12;margin-bottom:8px}
+.dtg-tips ul{list-style:none;padding:0}
+.dtg-tips li{font-size:13px;color:#7a4f12;line-height:1.8;padding-left:18px;position:relative}
+.dtg-tips li::before{content:'✓';position:absolute;left:0;color:#ef7d1a;font-weight:700}
+
 /* Leaflet overrides */
 .leaflet-container{font-family:inherit}
 .leaflet-popup-content-wrapper{
@@ -254,6 +442,9 @@ body{
   .main{padding:0 20px 40px}
   .banner{padding:40px 20px 36px}
   .banner h1{font-size:30px}
+  .outlet-promo{padding:0 20px}
+  .outlet-promo-inner{flex-wrap:wrap}
+  .dtg-grid{grid-template-columns:1fr}
 }
 @media(max-width:560px){
   .banner h1{font-size:24px}
@@ -262,6 +453,11 @@ body{
   .tab{padding:10px 18px;font-size:13px}
   .poi-card{padding:12px}
   .poi-time{width:42px;font-size:13px}
+  .outlet-promo-inner{flex-direction:column;text-align:center;padding:18px}
+  .outlet-promo-text .t1{font-size:15px}
+  .outlet-promo-arrow{justify-content:center}
+  .dtg-checklist{grid-template-columns:1fr}
+  .dtg-body{padding:16px}
 }
 
 /* ===== AI 标注与回流 ===== */
@@ -306,31 +502,50 @@ body{
 <!-- ===== Banner ===== -->
 <header class="banner">
   <div class="banner-inner">
-    <div class="banner-eyebrow">Greater New Haven · Connecticut · USA</div>
-    <h1>纽黑文商超购物 2 日行程</h1>
-    <p class="banner-sub">仓储会员 × 综合商超 × 家居电子 × 折扣名品 — 从 Ivy Manor 出发的一站式扫货攻略</p>
+    <div class="banner-eyebrow">耶鲁大学附近 · Greater New Haven · Connecticut · USA</div>
+    <h1>耶鲁大学附近 · 纽黑文商超购物地图</h1>
+    <p class="banner-sub">仓储会员 × 综合商超 × 家居电子 × 折扣名品 — 从 Ivy Manor 出发的一站式扫货攻略，附纽约伍德伯里奥特莱斯特别推荐</p>
     <div class="badges">
       <span class="badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        2 天
+        2 天 + 1 日往返
       </span>
       <span class="badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-        12 家商超
+        12 家商超 + 奥特莱斯
       </span>
       <span class="badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 100 4h4a2 2 0 110 4H8M12 6v2M12 16v2"/></svg>
         ~$625 预估消费
+      </span>
+      <span class="badge" style="background:linear-gradient(135deg,rgba(246,183,60,.4),rgba(239,125,26,.4));border-color:rgba(246,183,60,.55)">
+        🔥 奥特莱斯推荐
       </span>
     </div>
     <div class="banner-ai-tag">🤖 本攻略由 AI 辅助调研与生成 · 展示「AI + 地图」的落地能力</div>
   </div>
 </header>
 
+<!-- ===== Outlet Promo Banner (醒目推荐横幅) ===== -->
+<div class="outlet-promo">
+  <div class="outlet-promo-inner" onclick="switchDay(3)" role="button" aria-label="查看伍德伯里奥特莱斯推荐">
+    <div class="outlet-promo-badge">🔥</div>
+    <div class="outlet-promo-text">
+      <div class="t1">强烈推荐 · 纽约伍德伯里奥特莱斯 (Woodbury Common Premium Outlets)</div>
+      <div class="t2">距纽黑文仅 <strong>93 英里（约 2 小时车程）</strong> · 250+ 大牌常年低至 1–3 折 · 来美必逛的名牌折扣天堂！点此查看详情 →</div>
+    </div>
+    <div class="outlet-promo-arrow">
+      查看详情
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+  </div>
+</div>
+
 <!-- ===== Tabs ===== -->
 <div class="tabs-wrap">
   <button class="tab active" data-day="1" onclick="switchDay(1)"><span class="tab-num">DAY</span>1 · 仓储+综合零售</button>
   <button class="tab" data-day="2" onclick="switchDay(2)"><span class="tab-num">DAY</span>2 · 超市+特色零售</button>
+  <button class="tab outlet-tab" data-day="3" onclick="switchDay(3)"><span class="tab-num">DAY</span>3 · 纽约奥特莱斯（推荐）</button>
 </div>
 
 <!-- ===== Main ===== -->
@@ -367,6 +582,194 @@ body{
       <div class="timeline" id="timeline-2"></div>
     </div>
 
+    <!-- Day 3 · Outlet (特别推荐) -->
+    <div class="day-panel" id="day-3">
+      <div class="outlet-feature">
+        <span class="of-tag">⭐ 特别推荐 · 来美必逛</span>
+        <h2>伍德伯里奥特莱斯 · Woodbury Common Premium Outlets</h2>
+        <div class="of-en">498 Red Apple Court, Central Valley, NY 10917 · 纽约州（NYC 西北约 50 英里）</div>
+        <div class="of-rec">
+          💎 <strong>为什么强烈推荐你来逛？</strong><br>
+          这是美东最大、最负盛名的名牌奥特莱斯，<strong>250+ 家店铺</strong>云集 Gucci、Prada、Burberry、Coach、Nike 等顶级品牌，常年折扣 <strong>25%–65%</strong>，遇上季末清仓更是低至 <strong>1–3 折</strong>！从你住的 Ivy Manor 自驾约 2 小时即达，比在纽约市区血拼划算太多。<br>
+          无论给自己添置行头，还是给亲友带手信，这里都是<strong>不二之选</strong>——<strong>来一趟，省下的钱够你再吃好几顿纽黑文披萨！</strong>建议周三上午去，人最少、停车最方便。
+        </div>
+        <div class="of-meta">
+          <span class="of-chip dist">🚗 距 Ivy Manor <strong>93.1 mi</strong> · 驾车约 <strong>127 min</strong></span>
+          <span class="of-chip time">🕙 每日 10:00–21:00（节假日有变）</span>
+          <span class="of-chip web">🌐 250+ 品牌 · 免费停车</span>
+        </div>
+        <a class="of-link" href="https://www.premiumoutlets.com/outlets/outlet.asp?id=7" target="_blank" rel="noopener">
+          🔗 官网 premiumoutlets.com/outlets/outlet.asp?id=7
+        </a>
+        <div class="of-brands">
+          <div class="ob-title">🔥 热门品牌（部分）</div>
+          <div class="of-brand-grid">
+            <span class="of-brand">Gucci</span>
+            <span class="of-brand">Prada</span>
+            <span class="of-brand">Burberry</span>
+            <span class="of-brand">Coach</span>
+            <span class="of-brand">Michael Kors</span>
+            <span class="of-brand">Kate Spade</span>
+            <span class="of-brand">Tory Burch</span>
+            <span class="of-brand">Ralph Lauren</span>
+            <span class="of-brand">Nike</span>
+            <span class="of-brand">Adidas</span>
+            <span class="of-brand">Under Armour</span>
+            <span class="of-brand">New Balance</span>
+            <span class="of-brand">Tommy Hilfiger</span>
+            <span class="of-brand">Levi's</span>
+            <span class="of-brand">Columbia</span>
+            <span class="of-brand">UGG</span>
+            <span class="of-brand">Calvin Klein</span>
+            <span class="of-brand">Jimmy Choo</span>
+            <span class="of-brand">Fendi</span>
+            <span class="of-brand">Armani</span>
+          </div>
+        </div>
+        <button class="of-btn-map" onclick="flyToOutlet()">🗺️ 在地图上查看位置 &amp; 距你有多远</button>
+      </div>
+
+      <!-- ===== 一日往返攻略 ===== -->
+      <div class="day-trip-guide">
+        <div class="dtg-header">
+          <span class="dtg-icon">🚗</span>
+          <div>
+            <h3>伍德伯里奥特莱斯 · 一日往返攻略</h3>
+            <p>从 Ivy Manor 出发，自驾路线、加油点、午餐、购物清单一站式搞定</p>
+          </div>
+        </div>
+        <div class="dtg-body">
+
+          <!-- 自驾路线 -->
+          <div class="dtg-section">
+            <div class="dtg-section-title">🛣️ 自驾路线（Ivy Manor → Woodbury）</div>
+            <div class="dtg-route">
+              <div class="dtg-route-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <strong>从 Ivy Manor 出发</strong> → 上 I-95 North
+                  <div class="step-meta">约 5 分钟 · 2.5 mi</div>
+                </div>
+              </div>
+              <div class="dtg-route-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <strong>I-95 N 转 I-91 North</strong> → 经 Hartford 方向
+                  <div class="step-meta">约 30 分钟 · 35 mi</div>
+                </div>
+              </div>
+              <div class="dtg-route-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <strong>I-91 N 转 I-84 West</strong> → 经 Waterbury 方向
+                  <div class="step-meta">约 25 分钟 · 28 mi</div>
+                </div>
+              </div>
+              <div class="dtg-route-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <strong>I-84 W 转 US-6 West / NY-17 West</strong> → 进入纽约州
+                  <div class="step-meta">约 30 分钟 · 20 mi</div>
+                </div>
+              </div>
+              <div class="dtg-route-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <strong>到达 Woodbury Common Premium Outlets</strong>
+                  <div class="step-meta">498 Red Apple Court, Central Valley, NY 10917 · 免费停车</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 加油点 -->
+          <div class="dtg-section">
+            <div class="dtg-section-title">⛽ 沿途加油点推荐</div>
+            <div class="dtg-grid">
+              <div class="dtg-card">
+                <div class="dc-name">Costco Gas Station（出发前）</div>
+                <div class="dc-desc">Milford, CT · 出发前加满最便宜。比外面便宜 $0.3–0.5/加仑。需 Costco 会员卡。</div>
+                <span class="dc-tag gas">💡 最便宜</span>
+              </div>
+              <div class="dtg-card">
+                <div class="dc-name">Shell / Mobil（I-84 沿途）</div>
+                <div class="dc-desc">Waterbury 出口附近 · 高速沿线加油站，价格中等。建议半程时观察油表。</div>
+                <span class="dc-tag gas">⛽ 高速沿线</span>
+              </div>
+              <div class="dtg-card">
+                <div class="dc-name">Harriman Exit 16 加油站</div>
+                <div class="dc-desc">到达奥特莱斯前最后一个出口 · NY-17 沿线。比 NYC 便宜不少，返程前加满。</div>
+                <span class="dc-tag gas">🚗 返程推荐</span>
+              </div>
+              <div class="dtg-card">
+                <div class="dc-name">奥特莱斯内加油站</div>
+                <div class="dc-desc">Central Valley 小镇内有多家加油站，步行可达。但价格略高，仅紧急情况使用。</div>
+                <span class="dc-tag gas">⚠️ 备用</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 午餐建议 -->
+          <div class="dtg-section">
+            <div class="dtg-section-title">🍽️ 午餐建议</div>
+            <div class="dtg-grid">
+              <div class="dtg-card">
+                <div class="dc-name">奥特莱斯美食广场（Food Court）</div>
+                <div class="dc-desc">中心区域，快餐为主：汉堡、披萨、墨西哥卷。方便快捷，不耽误购物。人均 $12–18。</div>
+                <span class="dc-tag food">🛒 最方便</span>
+              </div>
+              <div class="dtg-card">
+                <div class="dc-name">Cheesecake Factory</div>
+                <div class="dc-desc">距奥特莱斯 2 分钟车程（Palisades Center 内）。分量大、选择多，适合逛累了好好吃一顿。人均 $25–35。</div>
+                <span class="dc-tag food">🍰 推荐</span>
+              </div>
+              <div class="dtg-card">
+                <div class="dc-name">Red Robin Gourmet Burgers</div>
+                <div class="dc-desc">Central Valley 店 · 招牌 Gourmet 汉堡 + 无限薯条。家庭友好，适合带娃。人均 $18–25。</div>
+                <span class="dc-tag food">🍔 家庭友好</span>
+              </div>
+              <div class="dtg-card">
+                <div class="dc-name">自驾途中简餐</div>
+                <div class="dc-desc">I-84 沿线有很多 McDonald's、Subway、Panera Bread。赶时间可在途中解决，人均 $8–12。</div>
+                <span class="dc-tag food">🚗 快速</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 购物清单 -->
+          <div class="dtg-section">
+            <div class="dtg-section-title">📋 购物清单 Checklist</div>
+            <div class="dtg-checklist">
+              <div class="dtg-check-item"><span class="check-box">☐</span> 品牌手袋（Gucci / Coach / MK）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 运动鞋（Nike / Adidas / New Balance）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 户外装备（Columbia / North Face）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 美妆护肤（雅诗兰黛 / 兰蔻）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 设计师服装（Ralph Lauren / Tommy）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 牛仔裤（Levi's / Calvin Klein）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 首饰配件（Kate Spade / Tory Burch）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 内衣（Calvin Klein / Victoria's Secret）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 童装童鞋（ Carter's / Nike Kids）</div>
+              <div class="dtg-check-item"><span class="check-box">☐</span> 伴手礼（巧克力 / 钱包 / 围巾）</div>
+            </div>
+          </div>
+
+          <!-- 实用贴士 -->
+          <div class="dtg-tips">
+            <div class="dt-tips-title">💡 实用贴士</div>
+            <ul>
+              <li>建议<strong>周三上午 9:30 出发</strong>，11:30 前到达，人最少、停车最方便</li>
+              <li>出发前在官网注册 VIP Shopper Club，领取<strong>额外优惠券手册（Visitor Coupon Book）</strong>，价值数百美元</li>
+              <li>穿着<strong>舒适运动鞋</strong>，奥特莱斯面积巨大，一天步行可能超过 2 万步</li>
+              <li>车内备好<strong>购物袋和冰袋</strong>（夏天车内温度高，护肤品/巧克力不宜久放）</li>
+              <li>返程走 I-87 South → I-95 South，走不同路线顺便看沿途风景</li>
+              <li>全年折扣 25%–65%，<strong>黑五至圣诞季</strong>折扣最大但人最多，非旺季体验更佳</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ===== Right: Map ===== -->
@@ -380,6 +783,7 @@ body{
         <div class="legend-item"><span class="legend-dot" style="background:#0379d2"></span><span class="legend-text">🛒 综合商超</span></div>
         <div class="legend-item"><span class="legend-dot" style="background:#00875a"></span><span class="legend-text">🏠 家居电子</span></div>
         <div class="legend-item"><span class="legend-dot" style="background:#e08300"></span><span class="legend-text">🏷 折扣名品</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:linear-gradient(135deg,#f6b73c,#ef7d1a)"></span><span class="legend-text">⭐ 伍德伯里奥特莱斯</span></div>
       </div>
       <div id="map"></div>
     </div>
@@ -392,7 +796,7 @@ body{
   <div class="ai-cta-inner">
     <div class="ai-cta-badge">🤖 AI 实践案例</div>
     <h2>这份攻略，是用 AI 做出来的</h2>
-    <p>从 12 家商超的信息搜集、距离与路线计算，到交互地图的呈现，全程由 AI 辅助完成。同样的「AI + 结构化数据 + 可视化」方法，也能用在<strong>供应商地理分布调研</strong>、<strong>项目现场资源摸排</strong>、<strong>行业信息扫描</strong>等企业场景——这正是 AI 赋能项目管理的日常。</p>
+    <p>从 12 家商超的信息搜集、距离与路线计算，到伍德伯里奥特莱斯一日往返攻略（自驾路线、加油点、午餐、购物清单）的结构化输出，全程由 AI 辅助完成。同样的「AI + 结构化数据 + 可视化」方法，也能用在<strong>供应商地理分布调研</strong>、<strong>项目现场资源摸排</strong>、<strong>行业信息扫描</strong>等企业场景——这正是 AI 赋能项目管理的日常。</p>
     <div class="ai-cta-actions">
       <a href="ai-project-management.html" class="btn-primary">了解 AI 赋能项目管理课程 →</a>
       <a href="resources.html" class="btn-ghost">查看全部 AI 实践资源</a>
@@ -630,8 +1034,80 @@ function switchDay(day) {
   document.querySelector(`.tab[data-day="${day}"]`).classList.add('active');
   document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('day-' + day).classList.add('active');
-  document.getElementById('map-day-label').textContent = itinerary[day].title;
-  renderDayOnMap(day);
+  if (itinerary[day]) {
+    document.getElementById('map-day-label').textContent = itinerary[day].title;
+    renderDayOnMap(day);
+  } else {
+    // Outlet special day
+    document.getElementById('map-day-label').textContent = 'DAY 3 · 纽约伍德伯里奥特莱斯（特别推荐）';
+    renderOutletOnMap();
+  }
+}
+
+/* ===== Outlet Data (特别推荐) ===== */
+const outletData = {
+  nameZh: "伍德伯里奥特莱斯",
+  nameEn: "498 Red Apple Court, Central Valley, NY 10917",
+  cat: "outlet", catLabel: "名牌奥特莱斯",
+  lat: 41.3193, lng: -74.1255,
+  cost: "按预算", distMi: "93.1", distMin: "127",
+  website: "https://www.premiumoutlets.com/outlets/outlet.asp?id=7",
+  desc: "美东最大、最著名的名牌奥特莱斯，250+ 家店铺云集 Gucci、Prada、Burberry 等顶级品牌，常年折扣 25%–65%，季末清仓低至 1–3 折。",
+  tip: "💡 省钱贴士：官网/游客中心可领 Visitor Coupon Book 额外折扣；避开黑五及 11–12 月周末，周三上午人最少；10:00 开门前到车位最足；加油走 I-87 Harriman Exit 16。"
+};
+
+/* ===== Outlet popup HTML ===== */
+function outletPopupHtml() {
+  return `
+    <div class="pop-name">⭐ ${outletData.nameZh}</div>
+    <div class="pop-en">${outletData.nameEn}</div>
+    <div class="pop-desc">${outletData.desc}</div>
+    <div class="pop-tip">${outletData.tip}</div>
+    <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e3e8ee;font-size:12px;color:#ef7d1a;font-weight:700;">🚗 距 Ivy Manor：${outletData.distMi} mi · 驾车约 ${outletData.distMin} min</div>
+  `;
+}
+
+/* ===== Render Outlet on Map ===== */
+function renderOutletOnMap() {
+  currentMarkers.forEach(m => map.removeLayer(m));
+  currentMarkers = [];
+  if (currentPolyline) { map.removeLayer(currentPolyline); currentPolyline = null; }
+  if (homeLine) { map.removeLayer(homeLine); homeLine = null; }
+  if (!homeMarker) addHomeMarker();
+
+  const latlng = [outletData.lat, outletData.lng];
+  const icon = L.divIcon({
+    className: 'outlet-marker',
+    html: '<div class="outlet-marker-inner">🛍️</div>',
+    iconSize: [50, 50],
+    iconAnchor: [25, 25],
+    popupAnchor: [0, -30]
+  });
+  const marker = L.marker(latlng, { icon: icon, zIndexOffset: 1500 }).addTo(map);
+  marker.bindPopup(outletPopupHtml());
+  currentMarkers = [marker];
+
+  // Line from home to outlet
+  homeLine = L.polyline(
+    [[homeLocation.lat, homeLocation.lng], latlng],
+    { color: '#ef7d1a', weight: 3, opacity: 0.8, dashArray: '8 8', lineCap: 'round' }
+  ).addTo(map);
+
+  const bounds = L.latLngBounds([[homeLocation.lat, homeLocation.lng], latlng]);
+  map.flyToBounds(bounds, { padding: [90, 90], maxZoom: 11, duration: 1.0 });
+}
+
+/* ===== Fly to Outlet (from card button) ===== */
+function flyToOutlet() {
+  if (currentDay !== 3) switchDay(3);
+  if (homeLine) { map.removeLayer(homeLine); homeLine = null; }
+  homeLine = L.polyline(
+    [[homeLocation.lat, homeLocation.lng], [outletData.lat, outletData.lng]],
+    { color: '#ef7d1a', weight: 3, opacity: 0.85, dashArray: '8 8', lineCap: 'round' }
+  ).addTo(map);
+  const bounds = L.latLngBounds([[homeLocation.lat, homeLocation.lng], [outletData.lat, outletData.lng]]);
+  map.flyToBounds(bounds, { padding: [90, 90], maxZoom: 11, duration: 1.0 });
+  setTimeout(() => { if (currentMarkers[0]) currentMarkers[0].openPopup(); }, 1050);
 }
 
 /* ===== Init ===== */

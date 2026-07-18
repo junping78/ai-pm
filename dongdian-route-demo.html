@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动点·就近推荐 — AI 路径优化 Demo | 刘俊平</title>
+<meta name="description" content="动点·就近推荐：一个可复用的路径优化引擎 Demo。从旅游出行到快递投递，同一个算法内核解决'先去哪、后去哪'的决策问题。支持最近邻与全局最优两种策略。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="动点·就近推荐 — AI 路径优化 Demo | 刘俊平">
+<meta property="og:description" content="一个可复用的路径优化引擎：旅游出行、快递投递、外卖配送、巡检排程……同一个算法内核。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/dongdian-route-demo.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root{
+    --ink:#1a2230;
+    --ink-soft:#4a5568;
+    --ink-faint:#8a94a6;
+    --line:#e8e8e8;
+    --bg:#f8f7f4;
+    --card:#ffffff;
+    --accent:#534AB7;
+    --accent-deep:#3C3489;
+    --accent-soft:#EEEDFE;
+    --warn:#e07a3c;
+    --warn-soft:#fdf0e6;
+    --done:#9ca3af;
+    --shadow:0 1px 3px rgba(20,30,50,.06),0 6px 24px rgba(20,30,50,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    display:flex;flex-direction:column;min-height:100vh;
+  }
+  .app{display:flex;flex-direction:column;flex:1;min-height:0;}
+
+  /* header */
+  .header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 20px;background:#fff;border-bottom:1px solid var(--line);
+    box-shadow:0 1px 3px rgba(0,0,0,.04);z-index:1000;flex-shrink:0;
+  }
+  .brand{display:flex;align-items:baseline;gap:10px;}
+  .brand-cn{font-size:20px;font-weight:800;letter-spacing:1px;}
+  .brand-en{font-size:13px;font-weight:600;color:var(--accent-deep);}
+  .brand-tag{font-size:12px;color:var(--ink-faint);margin-left:6px;}
+  .header-actions{display:flex;gap:8px;align-items:center;}
+  .status-chip{
+    font-size:11.5px;padding:4px 10px;border-radius:20px;font-weight:600;
+    background:var(--accent-soft);color:var(--accent-deep);
+  }
+  .status-chip.no-gps{background:#f4f6fa;color:var(--ink-faint);}
+
+  /* transport mode switch */
+  .mode-switch{
+    display:inline-flex;gap:2px;background:#f4f6fa;padding:3px;border-radius:8px;
+  }
+  .mode-switch button{
+    border:none;background:transparent;padding:5px 11px;border-radius:6px;
+    font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:.15s;
+  }
+  .mode-switch button.active{
+    background:#fff;color:var(--accent-deep);box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .mode-switch button:hover:not(.active){color:var(--ink);}
+
+  /* strategy switch */
+  .strategy-switch{
+    display:inline-flex;gap:2px;background:#f4f6fa;padding:3px;border-radius:8px;
+  }
+  .strategy-switch button{
+    border:none;background:transparent;padding:5px 11px;border-radius:6px;
+    font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:.15s;
+  }
+  .strategy-switch button.active{
+    background:#fff;color:var(--accent-deep);box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .strategy-switch button:hover:not(.active){color:var(--ink);}
+
+  /* main layout */
+  .main{display:flex;flex:1;overflow:hidden;}
+
+  /* sidebar */
+  .sidebar{
+    width:360px;flex-shrink:0;background:#fff;border-right:1px solid var(--line);
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .sb-section{padding:14px 18px;border-bottom:1px solid var(--line);}
+  .sb-section h3{
+    font-size:13px;font-weight:700;color:var(--ink-faint);
+    text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .sb-section h3 .count{
+    font-size:12px;font-weight:600;color:var(--accent-deep);
+    background:var(--accent-soft);padding:2px 8px;border-radius:10px;
+  }
+
+  /* current location */
+  .loc-box{
+    display:flex;align-items:center;gap:10px;
+    background:var(--bg);border-radius:8px;padding:10px 12px;
+  }
+  .loc-dot{
+    width:10px;height:10px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px rgba(83,74,183,.2);flex-shrink:0;
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(83,74,183,.2);}50%{box-shadow:0 0 0 8px rgba(83,74,183,.1);}}
+  .loc-text{font-size:13px;flex:1;min-width:0;}
+  .loc-text .label{color:var(--ink-faint);font-size:11.5px;}
+  .loc-text .addr{color:var(--ink);font-weight:600;word-break:break-word;}
+  .loc-text .addr.waiting{color:var(--ink-faint);font-weight:400;font-style:italic;}
+
+  /* recommendation highlight */
+  .next-rec{
+    background:linear-gradient(135deg,var(--accent),var(--accent-deep));
+    border-radius:10px;padding:14px 16px;color:#fff;margin-bottom:10px;
+  }
+  .next-rec .label{font-size:11.5px;opacity:.85;font-weight:600;letter-spacing:.5px;}
+  .next-rec .name{font-size:18px;font-weight:700;margin:2px 0 4px;}
+  .next-rec .dist{font-size:13px;opacity:.9;}
+  .next-rec .arrow{font-size:16px;margin-top:6px;}
+
+  /* point list */
+  .point-list{flex:1;overflow-y:auto;padding:0 18px 14px;}
+  .point-item{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;border-radius:8px;margin-bottom:6px;
+    border:1px solid var(--line);background:#fff;transition:all .15s;
+    cursor:default;
+  }
+  .point-item:hover{border-color:var(--accent);background:var(--accent-soft);}
+  .point-item.next{
+    border-color:var(--accent);border-width:2px;background:var(--accent-soft);
+  }
+  .point-item.done{opacity:.5;}
+  .point-item.done .pname{text-decoration:line-through;color:var(--done);}
+  .point-rank{
+    width:26px;height:26px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;
+  }
+  .point-item.next .point-rank{background:var(--accent);color:#fff;}
+  .point-item:not(.next):not(.done) .point-rank{background:#f4f6fa;color:var(--ink-soft);}
+  .point-item.done .point-rank{background:#f4f6fa;color:var(--done);}
+  .point-info{flex:1;min-width:0;}
+  .pname{font-size:14px;font-weight:600;color:var(--ink);word-break:break-word;}
+  .pdist{font-size:12px;color:var(--ink-faint);margin-top:1px;}
+  .point-item.done .pdist{color:var(--done);}
+  .point-actions{display:flex;gap:4px;}
+  .mini-btn{
+    font-size:11px;padding:4px 8px;border-radius:6px;border:1px solid var(--line);
+    background:#fff;color:var(--ink-soft);cursor:pointer;white-space:nowrap;
+    transition:all .12s;
+  }
+  .mini-btn:hover{border-color:var(--accent);color:var(--accent-deep);}
+  .mini-btn.arrive{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .mini-btn.arrive:hover{background:var(--accent-deep);}
+  .mini-btn.del:hover{border-color:var(--warn);color:var(--warn);}
+
+  /* add point */
+  .add-row{display:flex;gap:6px;margin-top:8px;}
+  .add-input{
+    flex:1;border:1px solid var(--line);border-radius:8px;padding:8px 10px;
+    font-size:13px;font-family:inherit;outline:none;transition:border .15s;
+  }
+  .add-input:focus{border-color:var(--accent);}
+  .add-btn{
+    padding:8px 14px;border:none;border-radius:8px;background:var(--accent);
+    color:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
+    transition:background .12s;
+  }
+  .add-btn:hover{background:var(--accent-deep);}
+  .hint{font-size:11px;color:var(--ink-faint);margin-top:6px;}
+
+  /* controls */
+  .ctrl-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .ctrl-btn{
+    flex:1;min-width:90px;padding:9px 12px;border:1px solid var(--line);
+    border-radius:8px;background:#fff;color:var(--ink-soft);font-size:13px;
+    font-weight:600;cursor:pointer;transition:all .12s;text-align:center;
+  }
+  .ctrl-btn:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft);}
+  .ctrl-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .ctrl-btn.primary:hover{background:var(--accent-deep);}
+
+  /* map */
+  .map-wrap{flex:1;position:relative;}
+  #map{width:100%;height:100%;background:#e8ecf0;}
+  .map-overlay{
+    position:absolute;bottom:16px;left:16px;z-index:500;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+    border-radius:10px;padding:10px 14px;box-shadow:var(--shadow);
+    font-size:12px;color:var(--ink-soft);max-width:320px;
+  }
+  .map-overlay b{color:var(--ink);}
+  .map-overlay .sep{margin:0 6px;color:var(--line);}
+
+  /* toast */
+  .toast{
+    position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-20px);
+    background:var(--ink);color:#fff;padding:10px 20px;border-radius:8px;
+    font-size:13px;z-index:2000;opacity:0;transition:all .3s;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* route lines — 流动虚线动画（Leaflet 内联样式管颜色/粗细，CSS 管动画）*/
+  .leaflet-overlay-pane path.route-active{
+    animation:dash-flow .7s linear infinite !important;
+    filter:drop-shadow(0 0 5px rgba(83,74,183,.45));
+  }
+  @keyframes dash-flow{ to{ stroke-dashoffset:-24; } }
+
+  /* leaflet marker custom */
+  .rec-marker{
+    background:var(--accent);color:#fff;border:3px solid #fff;
+    border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+    width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.3);font-size:14px;font-weight:700;
+  }
+  .rec-marker span{transform:rotate(45deg);}
+
+  /* === 案例介绍 Hero === */
+  .demo-hero{
+    background:linear-gradient(135deg,#534AB7 0%,#7F77DD 100%);
+    color:#fff;padding:24px 24px 14px;flex-shrink:0;
+  }
+  .demo-hero-inner{
+    max-width:1100px;margin:0 auto;display:flex;gap:28px;align-items:center;flex-wrap:wrap;
+  }
+  .demo-hero.collapsed .demo-hero-inner{display:none;}
+  .demo-hero.collapsed{padding:6px 24px;}
+  .demo-hero-left{flex:1;min-width:280px;}
+  .demo-hero-badge{
+    display:inline-block;background:rgba(255,255,255,.18);padding:4px 14px;
+    border-radius:20px;font-size:12px;margin-bottom:8px;font-weight:600;
+  }
+  .demo-hero h1{font-size:28px;font-weight:800;margin-bottom:6px;letter-spacing:1px;}
+  .demo-hero-sub{font-size:14.5px;opacity:.92;line-height:1.6;margin-bottom:12px;max-width:520px;}
+  .demo-hero-scenes{display:flex;gap:7px;flex-wrap:wrap;}
+  .scene-tag{
+    font-size:12px;padding:4px 11px;border-radius:16px;font-weight:600;
+    background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);transition:all .15s;
+  }
+  .scene-tag.active{background:#fff;color:#3C3489;border-color:#fff;}
+  .demo-hero-right{flex-shrink:0;}
+  .demo-hero-tech{
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+    border-radius:12px;padding:14px 18px;min-width:260px;
+  }
+  .tech-item{display:flex;justify-content:space-between;gap:14px;padding:4px 0;font-size:12.5px;}
+  .tech-item+.tech-item{border-top:1px solid rgba(255,255,255,.12);}
+  .tech-label{opacity:.75;}
+  .tech-val{font-weight:600;}
+  .demo-collapse{
+    display:block;margin:10px auto 0;background:rgba(255,255,255,.2);color:#fff;
+    border:1px solid rgba(255,255,255,.3);padding:3px 16px;border-radius:16px;
+    font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;
+  }
+  .demo-collapse:hover{background:rgba(255,255,255,.32);}
+  .demo-collapse::before{content:'收起介绍 ▲';}
+  .demo-hero.collapsed .demo-collapse::before{content:'展开介绍 ▼';}
+
+  @media (max-width:780px){
+    .main{flex-direction:column-reverse;}
+    .sidebar{width:100%;height:45%;border-right:none;border-top:1px solid var(--line);}
+    .map-wrap{height:55%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 全站导航 -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html" class="active">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 案例介绍 Hero -->
+<header class="demo-hero" id="demoHero">
+  <div class="demo-hero-inner">
+    <div class="demo-hero-left">
+      <span class="demo-hero-badge">🧪 AI 实践资源 · 项目案例</span>
+      <h1>动点 · 就近推荐</h1>
+      <p class="demo-hero-sub">一个可复用的路径优化引擎 —— 从"去哪些景点"到"送哪些快递"，同一个算法内核解决"先去哪、后去哪"的决策问题。</p>
+      <div class="demo-hero-scenes">
+        <span class="scene-tag active">🗺️ 旅游出行</span>
+        <span class="scene-tag">📦 快递投递</span>
+        <span class="scene-tag">🛵 外卖配送</span>
+        <span class="scene-tag">🔍 巡检排程</span>
+        <span class="scene-tag">🏠 上门服务</span>
+      </div>
+    </div>
+    <div class="demo-hero-right">
+      <div class="demo-hero-tech">
+        <div class="tech-item"><span class="tech-label">算法内核</span><span class="tech-val">最近邻 + TSP 全局最优</span></div>
+        <div class="tech-item"><span class="tech-label">架构</span><span class="tech-val">MapProvider 抽象层</span></div>
+        <div class="tech-item"><span class="tech-label">数据源</span><span class="tech-val">OSRM 免Key · 境内外自动切换</span></div>
+        <div class="tech-item"><span class="tech-label">持久化</span><span class="tech-val">localStorage + JSON/CSV</span></div>
+      </div>
+    </div>
+  </div>
+  <button class="demo-collapse" onclick="document.getElementById('demoHero').classList.toggle('collapsed')"></button>
+</header>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">
+      <span class="brand-cn">动点·就近推荐</span>
+      <span class="brand-en">Dongdian</span>
+      <span class="brand-tag">路径优化 Demo v0.1</span>
+    </div>
+    <div class="header-actions">
+      <div class="mode-switch" id="modeSwitch">
+        <button class="active" data-mode="foot" onclick="setRouteMode('foot')">🚶 步行</button>
+        <button data-mode="bike" onclick="setRouteMode('bike')">🚲 自行车</button>
+        <button data-mode="car" onclick="setRouteMode('car')">🚗 驾车</button>
+      </div>
+      <div class="strategy-switch" id="strategySwitch">
+        <button class="active" data-strategy="nearest" onclick="setRouteStrategy('nearest')">最近邻</button>
+        <button data-strategy="global" onclick="setRouteStrategy('global')">全局最优</button>
+      </div>
+      <span class="status-chip no-gps" id="gpsStatus">GPS 未连接</span>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- current location -->
+      <div class="sb-section">
+        <h3>当前位置</h3>
+        <div class="loc-box">
+          <div class="loc-dot" id="locDot" style="background:var(--ink-faint);box-shadow:none;animation:none;"></div>
+          <div class="loc-text">
+            <div class="label">实时定位</div>
+            <div class="addr waiting" id="curAddr">点击下方"定位"获取…</div>
+          </div>
+        </div>
+        <div class="ctrl-row" style="margin-top:10px;">
+          <button class="ctrl-btn primary" onclick="locateMe()">📍 定位</button>
+          <button class="ctrl-btn" onclick="useManualLoc()">✏️ 手动设点</button>
+        </div>
+      </div>
+
+      <!-- next recommendation -->
+      <div class="sb-section" id="recSection" style="display:none;">
+        <h3>推荐下一站</h3>
+        <div class="next-rec" id="nextRec">
+          <div class="label" id="nextLabel">最近且最优</div>
+          <div class="name" id="nextName">—</div>
+          <div class="dist" id="nextDist">—</div>
+          <div class="arrow">👇 到达后点"已到"</div>
+        </div>
+      </div>
+
+      <!-- point list -->
+      <div class="sb-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden;border-bottom:none;">
+        <h3>候选点位 <span class="count" id="pointCount">0</span></h3>
+        <div class="point-list" id="pointList">
+          <p style="color:var(--ink-faint);font-size:13px;padding:8px 0;">添加你要去的地点，系统会根据当前位置自动推荐最近的。</p>
+        </div>
+      </div>
+
+      <!-- add point -->
+      <div class="sb-section">
+        <h3>添加点位</h3>
+        <div class="add-row">
+          <input class="add-input" id="addInput" placeholder="地点名（如 Yale University）" onkeydown="if(event.key==='Enter')addPoint()">
+          <button class="add-btn" onclick="addPoint()">添加</button>
+        </div>
+        <div class="hint">输入地名后会自动解析坐标。也可直接在地图上点击添加。</div>
+        <div class="ctrl-row" style="margin-top:10px;">
+          <button class="ctrl-btn" onclick="loadPreset()">加载纽黑文示例</button>
+          <button class="ctrl-btn" onclick="resetAll()">🔄 重置</button>
+        </div>
+      </div>
+
+      <!-- 数据管理：持久化 + 批量导入导出 -->
+      <div class="sb-section">
+        <h3>💾 数据管理 <span class="count" id="saveStatus" style="font-size:10px;background:var(--accent-soft);color:var(--accent-deep);">已自动保存</span></h3>
+        <div class="hint" style="margin-bottom:8px;">点位数据自动存到浏览器，刷新不丢。可批量导出/导入。</div>
+        <div class="ctrl-row" style="flex-wrap:wrap;gap:6px;">
+          <button class="ctrl-btn" onclick="exportJSON()">⬇️ 导出JSON</button>
+          <button class="ctrl-btn" onclick="exportCSV()">⬇️ 导出CSV</button>
+          <button class="ctrl-btn" onclick="document.getElementById('importFile').click()">⬆️ 导入文件</button>
+          <input type="file" id="importFile" accept=".json,.csv" style="display:none" onchange="importFile(event)">
+        </div>
+        <div class="hint" style="margin-top:6px;font-size:11px;color:var(--ink-faint);">支持 JSON / CSV。CSV 格式：name,lat,lng</div>
+      </div>
+
+    </div>
+
+    <!-- MAP -->
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="map-overlay">
+        <b>动点引擎</b> <span class="sep">|</span>
+        <span id="providerBadge">数据源：OSRM (免Key)</span>
+        <span class="sep">|</span>
+        <span id="modeLabel">🚶 步行</span>模式
+        <span class="sep">|</span>
+        <span style="color:#534AB7;font-weight:600;">━━ 流动虚线</span> = 推荐路线
+        <span class="sep">|</span>
+        <span style="color:#c4c9d4;font-weight:600;">┄┄ 灰色虚线</span> = 已走过
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 全站页脚 -->
+<footer class="footer" style="flex-shrink:0;">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="resources.html">AI实践资源</a>
+                <a href="teacher-ai-weekly.html">周报介绍</a>
+                <a href="search.html">搜索</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+ * MapProvider 接口（数据服务层抽象）
+ * ------------------------------------------------------------
+ * 所有地图/路径服务商都要实现这 5 个方法：
+ *   geocode(name)              地名 → 坐标
+ *   reverseGeocode(lat, lng)   坐标 → 地名
+ *   calcDistances(from, targets, mode)   单源 → 多目标距离
+ *   calcDistanceMatrix(points, mode)     全矩阵（TSP 用）
+ *   fetchRoute(from, to, mode)           路线 polyline
+ *
+ * 地图底图统一用 Leaflet 容器（可加载各家瓦片），
+ * 因此 Provider 只管"数据服务"，不管"画图"。
+ *
+ * 切换服务商 = 新增一个 Provider 子类 + 改 pickProvider，
+ * 引擎和 UI 一行不动。
+ * ============================================================ */
+class MapProvider {
+  constructor(name) { this.name = name; }
+  geocode(name) { throw new Error('geocode not implemented'); }
+  reverseGeocode(lat, lng) { throw new Error('reverseGeocode not implemented'); }
+  async calcDistances(fromLat, fromLng, targets, mode) { throw new Error('calcDistances not implemented'); }
+  async calcDistanceMatrix(points, mode) { throw new Error('calcDistanceMatrix not implemented'); }
+  async fetchRoute(fromLat, fromLng, toLat, toLng, mode) { throw new Error('fetchRoute not implemented'); }
+}
+
+/* ---- 通用工具：haversine 直线距离（所有 Provider 的兜底）---- */
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+  return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+}
+
+/* ============================================================
+ * OSRMProvider —— 海外免 Key 默认实现
+ * 数据源：OpenStreetMap + OSRM 公共 API + Nominatim
+ * 坐标系：WGS-84
+ * 适合：海外 demo、无 Key 快速验证
+ * ============================================================ */
+class OSRMProvider extends MapProvider {
+  constructor() { super('OSRM (免Key)'); }
+
+  async geocode(name) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(name)}&limit=1`;
+    const resp = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+    const data = await resp.json();
+    if (data && data[0]) {
+      return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon), display: data[0].display_name };
+    }
+    return null;
+  }
+
+  async reverseGeocode(lat, lng) {
+    const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+    const d = await r.json();
+    return d.display_name || `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  }
+
+  async calcDistances(fromLat, fromLng, targets, mode = 'foot') {
+    const coords = targets.map(t => `${t.lng},${t.lat}`).join(';');
+    const from = `${fromLng},${fromLat}`;
+    const url = `https://router.project-osrm.org/table/v1/${mode}/${from};${coords}?sources=0&annotations=duration,distance`;
+    try {
+      const resp = await fetch(url);
+      const data = await resp.json();
+      if (data.code === 'Ok' && data.distances && data.distances[0]) {
+        const dists = data.distances[0];
+        const durs = data.durations ? data.durations[0] : null;
+        return targets.map((t, i) => ({
+          point: t,
+          distance: dists[i + 1] || 0,
+          duration: durs ? (durs[i + 1] || 0) : 0,
+        }));
+      }
+    } catch (e) { console.warn('OSRM calcDistances failed:', e); }
+    return targets.map(t => ({ point: t, distance: haversine(fromLat, fromLng, t.lat, t.lng), duration: 0 }));
+  }
+
+  async calcDistanceMatrix(points, mode = 'foot') {
+    const coords = points.map(p => `${p.lng},${p.lat}`).join(';');
+    const url = `https://router.project-osrm.org/table/v1/${mode}/${coords}?annotations=distance,duration`;
+    try {
+      const resp = await fetch(url);
+      const data = await resp.json();
+      if (data.code === 'Ok' && data.distances && data.durations) {
+        const n = points.length;
+        return Array.from({ length: n }, (_, i) =>
+          Array.from({ length: n }, (_, j) => ({
+            distance: data.distances[i][j] || 0,
+            duration: data.durations[i][j] || 0,
+          }))
+        );
+      }
+    } catch (e) { console.warn('OSRM matrix failed:', e); }
+    return points.map((a, i) =>
+      points.map((b, j) => ({ distance: i === j ? 0 : haversine(a.lat, a.lng, b.lat, b.lng), duration: 0 }))
+    );
+  }
+
+  async fetchRoute(fromLat, fromLng, toLat, toLng, mode = 'foot') {
+    const url = `https://router.project-osrm.org/route/v1/${mode}/${fromLng},${fromLat};${toLng},${toLat}?overview=full&geometries=geojson`;
+    try {
+      const resp = await fetch(url);
+      const data = await resp.json();
+      if (data.code === 'Ok' && data.routes && data.routes[0]) {
+        const coords = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+        return { coords, distance: data.routes[0].distance, duration: data.routes[0].duration };
+      }
+    } catch (e) { console.warn('Route fetch failed:', e); }
+    return { coords: [[fromLat, fromLng], [toLat, toLng]], distance: haversine(fromLat, fromLng, toLat, toLng), duration: 0, fallback: true };
+  }
+}
+
+/* ============================================================
+ * GoogleMapsProvider —— 海外正式实现（需 API Key）
+ * 申请：https://console.cloud.google.com/  启用 Maps JS / Distance Matrix / Directions / Geocoding
+ * 坐标系：WGS-84
+ * 待 Key 到位后填充实现，与 OSRMProvider 接口完全一致
+ * ============================================================ */
+class GoogleMapsProvider extends MapProvider {
+  constructor(apiKey) {
+    super('Google Maps');
+    this.apiKey = apiKey || '';
+    this.ready = !!this.apiKey; // 有 Key 才算就绪
+  }
+  // TODO（拿到 Key 后实现）：
+  //   geocode        → https://maps.googleapis.com/maps/api/geocode/json?address=...&key=...
+  //   reverseGeocode → https://maps.googleapis.com/maps/api/geocode/json?latlng=...&key=...
+  //   calcDistances  → https://maps.googleapis.com/maps/api/distancematrix/json?origins=...&mode=walking&key=...
+  //   calcDistanceMatrix → 同上，多对多
+  //   fetchRoute     → https://maps.googleapis.com/maps/api/directions/json?origin=...&destination=...&mode=walking&key=...
+  // 瓦片层：把 Leaflet 的 tileLayer 换成 Google 瓦片，或直接用 Google Maps JS API 渲染
+}
+
+/* ============================================================
+ * AMapProvider —— 中国大陆正式实现（需高德 Web 服务 Key）
+ * 申请：https://lbs.amap.com/  控制台→应用管理→创建新应用→添加 Key（Web服务）
+ * 坐标系：GCJ-02（需 WGS-84↔GCJ-02 转换，高德 API 内部可指定 coordsys=wgs84）
+ * 国内路网/步行路径最准，免费额度大
+ * ============================================================ */
+class AMapProvider extends MapProvider {
+  constructor(apiKey) {
+    super('高德地图');
+    this.apiKey = apiKey || '';
+    this.ready = !!this.apiKey;
+  }
+  // TODO（拿到 Key 后实现）：
+  //   geocode        → https://restapi.amap.com/v3/geocode/geo?address=...&key=...&output=json
+  //   reverseGeocode → https://restapi.amap.com/v3/geocode/regeo?location=lng,lat&key=...
+  //   calcDistances  → https://restapi.amap.com/v3/distance?origins=...&destination=...&type=3(步行)&key=...
+  //   fetchRoute     → https://restapi.amap.com/v3/direction/walking?origin=...&destination=...&key=...
+  //   瓦片层：Leaflet 加载高德瓦片 https://webrd0{1-4}.is.autonavi.com/appmaptile?...
+  //   坐标注意：高德返回 GCJ-02，Leaflet 需用 GCJ-02 瓦片，或统一转 WGS-84
+}
+
+/* ============================================================
+ * TencentProvider —— 中国大陆（微信生态联动）
+ * 申请：https://lbs.qq.com/  控制台→Key管理→创建Key
+ * 坐标系：GCJ-02
+ * 适合：微信内嵌 H5、小程序场景
+ * ============================================================ */
+class TencentProvider extends MapProvider {
+  constructor(apiKey) {
+    super('腾讯地图');
+    this.apiKey = apiKey || '';
+    this.ready = !!this.apiKey;
+  }
+  // TODO：distance_matrix、direction（walking/driving/bicycling）、geocoder
+}
+
+/* ---- 境内/境外判断（简化边界框，覆盖中国大陆主体）---- */
+function isInChina(lat, lng) {
+  // 粗略边界：纬度 18~54，经度 73~135
+  return lat >= 18 && lat <= 54 && lng >= 73 && lng <= 135;
+}
+
+/* ---- Provider 自动选择 ----
+ * 境内 → 高德（无 Key 时回退 OSRM，数据会不准但能跑）
+ * 境外 → Google（无 Key 时回退 OSRM）
+ * 拿到 Key 后，把对应 Provider 的 apiKey 填入即可自动启用
+ */
+function pickProvider(lat, lng) {
+  const GOOGLE_KEY = '';   // TODO: 填入 Google API Key
+  const AMAP_KEY = '';     // TODO: 填入高德 Web 服务 Key
+  const TENCENT_KEY = '';  // TODO: 填入腾讯 Key
+
+  if (isInChina(lat, lng)) {
+    if (AMAP_KEY) return new AMapProvider(AMAP_KEY);
+    if (TENCENT_KEY) return new TencentProvider(TENCENT_KEY);
+    console.warn('境内但无国内 Key，回退 OSRM（数据可能不准）');
+    return new OSRMProvider();
+  }
+  if (GOOGLE_KEY) return new GoogleMapsProvider(GOOGLE_KEY);
+  return new OSRMProvider();
+}
+
+/* ============================================================
+ * 动点引擎 (DongdianEngine)
+ * 核心：候选点位 + 当前位置 → 按最近最优排序
+ * 可复用：旅游(趣游)、快递(速派)都能调
+ * 数据服务层通过 MapProvider 注入，与具体地图服务商解耦
+ * ============================================================ */
+class DongdianEngine {
+  constructor(provider) {
+    this.provider = provider || new OSRMProvider();
+    this.points = [];       // {id, name, lat, lng}
+    this.visited = [];      // 已到达的点
+    this.currentLoc = null; // {lat, lng}
+    this._nextId = 0;
+  }
+
+  setProvider(provider) { this.provider = provider; }
+
+  addPoint(name, lat, lng) {
+    const p = { id: 'p' + (this._nextId++), name, lat, lng };
+    this.points.push(p);
+    return p;
+  }
+
+  removePoint(id) {
+    this.points = this.points.filter(p => p.id !== id);
+    this.visited = this.visited.filter(id2 => id2 !== id);
+  }
+
+  markVisited(id) {
+    if (!this.visited.includes(id)) this.visited.push(id);
+  }
+
+  getUnvisited() {
+    return this.points.filter(p => !this.visited.includes(p.id));
+  }
+
+  isDone(id) { return this.visited.includes(p => p.id === id); }
+
+  reset() { this.visited = []; }
+
+  resetAll() { this.points = []; this.visited = []; this.currentLoc = null; this._nextId = 0; }
+
+  /**
+   * 贪心最近邻：从当前位置到各未访问点，按距离排序
+   */
+  async recommendNearest(lat, lng, mode = 'foot') {
+    this.currentLoc = { lat, lng };
+    const targets = this.getUnvisited();
+    if (targets.length === 0) return [];
+
+    const results = await this.provider.calcDistances(lat, lng, targets, mode);
+    results.sort((a, b) => a.distance - b.distance);
+    return results.map((r, i) => ({ ...r, rank: i + 1 }));
+  }
+
+  /**
+   * 全局最优路线：从当前位置出发，访问所有未访问点的最短总顺序（TSP 路径）
+   * 点位少（≤8）直接穷举；>8 回退到最近邻。
+   */
+  async recommendGlobal(lat, lng, mode = 'foot') {
+    this.currentLoc = { lat, lng };
+    const targets = this.getUnvisited();
+    if (targets.length === 0) return [];
+    if (targets.length === 1) {
+      const r = await this.provider.calcDistances(lat, lng, targets, mode);
+      return [{ ...r[0], rank: 1, isGlobal: true }];
+    }
+    if (targets.length > 8) {
+      return this.recommendNearest(lat, lng, mode).then(list => list.map(r => ({ ...r, isGlobal: true })));
+    }
+
+    // 距离矩阵：索引 0 = 当前位置，1..n = targets
+    const allPoints = [{ lat, lng }, ...targets];
+    const matrix = await this.provider.calcDistanceMatrix(allPoints, mode); // matrix[i][j] = {distance, duration}
+
+    const n = targets.length;
+    const indices = Array.from({ length: n }, (_, i) => i + 1);
+
+    let bestOrder = null;
+    let bestCost = Infinity;
+
+    function permute(arr, start) {
+      if (start === arr.length - 1) {
+        let cost = 0;
+        let prev = 0; // 当前位置
+        for (const idx of arr) {
+          cost += matrix[prev][idx].distance;
+          prev = idx;
+        }
+        if (cost < bestCost) {
+          bestCost = cost;
+          bestOrder = arr.slice();
+        }
+        return;
+      }
+      for (let i = start; i < arr.length; i++) {
+        [arr[start], arr[i]] = [arr[i], arr[start]];
+        permute(arr, start + 1);
+        [arr[start], arr[i]] = [arr[i], arr[start]];
+      }
+    }
+    permute(indices, 0);
+
+    // 构建返回结果，带每段距离/时长
+    let prev = 0;
+    return bestOrder.map((idx, i) => {
+      const point = targets[idx - 1];
+      const cell = matrix[prev][idx];
+      prev = idx;
+      return { point, distance: cell.distance, duration: cell.duration, rank: i + 1, isGlobal: true };
+    });
+  }
+}
+
+/* ---- 格式化工具（与 Provider 无关）---- */
+function fmtDist(m) {
+  if (m < 1000) return m + ' 米';
+  return (m / 1000).toFixed(1) + ' 公里';
+}
+function fmtDur(s) {
+  if (!s) return '';
+  if (s < 60) return s + ' 秒';
+  const min = Math.round(s / 60);
+  if (min < 60) return '约 ' + min + ' 分钟';
+  return '约 ' + Math.floor(min/60) + '小时' + (min%60) + '分';
+}
+function modeLabel(mode) {
+  return { foot: '步行', bike: '自行车', car: '驾车' }[mode] || '步行';
+}
+
+/* ============================================================
+ * 地图 & UI
+ * ============================================================ */
+const engine = new DongdianEngine(new OSRMProvider()); // 默认 OSRM，定位后按地区自动切换
+let map, userMarker, recMarkers = [], userCircle;
+let activeRoute = null;       // 当前推荐路线（流动虚线）
+let doneRoutes = [];          // 已走过的路线（灰色）
+let routeMode = 'foot';       // foot | bike | car，步行默认
+let routeStrategy = 'nearest'; // nearest | global，默认贪心最近邻
+let currentProviderName = engine.provider.name; // 当前数据服务商（UI 显示）
+let routeGen = 0;             // 防止旧 fetchRoute 异步回调覆盖当前 activeRoute
+const NH_CENTER = [41.3083, -72.9279]; // New Haven
+
+function initMap() {
+  map = L.map('map').setView(NH_CENTER, 14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap | 动点·就近推荐 Demo',
+    maxZoom: 19,
+  }).addTo(map);
+
+  map.on('click', async (e) => {
+    const { lat, lng } = e.latlng;
+    const name = prompt('给这个点位起个名字：', `点位 ${engine.points.length + 1}`);
+    if (name) {
+      engine.addPoint(name, lat, lng);
+      await refresh();
+      toast(`已添加：${name}`);
+    }
+  });
+}
+
+async function locateMe() {
+  const statusEl = document.getElementById('gpsStatus');
+  const dot = document.getElementById('locDot');
+  const addrEl = document.getElementById('curAddr');
+
+  if (!navigator.geolocation) {
+    toast('浏览器不支持定位');
+    return;
+  }
+
+  addrEl.textContent = '正在定位…';
+  addrEl.classList.add('waiting');
+  statusEl.textContent = '定位中…';
+  statusEl.classList.add('no-gps');
+
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      const { latitude: lat, longitude: lng, accuracy } = pos.coords;
+      engine.currentLoc = { lat, lng };
+
+      // 按当前位置自动切换数据服务商（境内外）
+      const newProvider = pickProvider(lat, lng);
+      if (newProvider.name !== engine.provider.name) {
+        engine.setProvider(newProvider);
+        currentProviderName = newProvider.name;
+        updateProviderBadge();
+        toast('已自动切换数据源：' + newProvider.name);
+      }
+
+      // update marker
+      if (userMarker) map.removeLayer(userMarker);
+      if (userCircle) map.removeLayer(userCircle);
+      userMarker = L.marker([lat, lng], { icon: userIcon() }).addTo(map);
+      userMarker.bindPopup('<b>我在这里</b>');
+      const radius = Math.min(accuracy || 10, 50); // 真实精度，最大50米防止过度占屏
+      userCircle = L.circle([lat, lng], { radius, color: '#534AB7', fillColor: '#534AB7', fillOpacity: 0.08, weight: 1 }).addTo(map);
+
+      // reverse geocode for display（走 Provider）
+      try {
+        const addr = await engine.provider.reverseGeocode(lat, lng);
+        addrEl.textContent = addr || `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+      } catch {
+        addrEl.textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+      }
+      addrEl.classList.remove('waiting');
+
+      dot.style.background = 'var(--accent)';
+      dot.style.boxShadow = '0 0 0 4px rgba(83,74,183,.2)';
+      dot.style.animation = 'pulse 2s ease-in-out infinite';
+      statusEl.textContent = 'GPS 已连接';
+      statusEl.classList.remove('no-gps');
+
+      map.setView([lat, lng], 15);
+      await refresh();
+      toast('定位成功，已更新推荐');
+    },
+    (err) => {
+      addrEl.textContent = '定位失败：' + (err.message || '请检查浏览器权限');
+      statusEl.textContent = '定位失败';
+      toast('定位失败，可改用"手动设点"');
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
+
+function useManualLoc() {
+  if (!map) return;
+  toast('在地图上点击你的位置');
+  map.once('click', async (e) => {
+    const { lat, lng } = e.latlng;
+    engine.currentLoc = { lat, lng };
+
+    // 按当前位置自动切换数据服务商（境内外）
+    const newProvider = pickProvider(lat, lng);
+    if (newProvider.name !== engine.provider.name) {
+      engine.setProvider(newProvider);
+      currentProviderName = newProvider.name;
+      updateProviderBadge();
+      toast('已自动切换数据源：' + newProvider.name);
+    }
+
+    if (userMarker) map.removeLayer(userMarker);
+    if (userCircle) map.removeLayer(userCircle);
+    userMarker = L.marker([lat, lng], { icon: userIcon() }).addTo(map);
+    userMarker.bindPopup('<b>我的位置（手动）</b>').openPopup();
+    userCircle = L.circle([lat, lng], { radius: 15, color: '#534AB7', fillColor: '#534AB7', fillOpacity: 0.1, weight: 1 }).addTo(map);
+
+    document.getElementById('curAddr').textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}（手动）`;
+    document.getElementById('curAddr').classList.remove('waiting');
+    document.getElementById('locDot').style.background = 'var(--accent)';
+    document.getElementById('locDot').style.boxShadow = '0 0 0 4px rgba(83,74,183,.2)';
+    document.getElementById('gpsStatus').textContent = '手动定位';
+    document.getElementById('gpsStatus').classList.remove('no-gps');
+
+    map.setView([lat, lng], 15);
+    await refresh();
+    toast('位置已设定');
+  });
+}
+
+function updateProviderBadge() {
+  const el = document.getElementById('providerBadge');
+  if (el) el.textContent = '数据源：' + currentProviderName;
+}
+
+function setRouteStrategy(strategy) {
+  routeStrategy = strategy;
+  document.querySelectorAll('#strategySwitch button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.strategy === strategy);
+  });
+  refresh();
+  toast('已切换为：' + (strategy === 'global' ? '全局最优路线' : '动态最近邻'));
+}
+
+function setRouteMode(mode) {
+  routeMode = mode;
+  document.querySelectorAll('#modeSwitch button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  const icon = { foot: '🚶', bike: '🚲', car: '🚗' }[mode] || '🚶';
+  document.getElementById('modeLabel').textContent = icon + ' ' + modeLabel(mode);
+  refresh();
+  toast('已切换为：' + modeLabel(mode) + '模式');
+}
+
+function userIcon() {
+  return L.divIcon({
+    className: '',
+    html: '<div style="width:16px;height:16px;background:#534AB7;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.3);"></div>',
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+  });
+}
+
+function pointIcon(rank, isNext, isDone) {
+  if (isDone) {
+    return L.divIcon({ className: '', html: `<div style="width:28px;height:28px;background:#d1d5db;color:#6b7280;border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.2);">✓</div>`, iconSize: [32, 32], iconAnchor: [16, 16] });
+  }
+  const bg = isNext ? '#534AB7' : '#6b7280';
+  return L.divIcon({ className: '', html: `<div style="width:28px;height:28px;background:${bg};color:#fff;border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.3);">${rank}</div>`, iconSize: [32, 32], iconAnchor: [16, 16] });
+}
+
+async function addPoint() {
+  const input = document.getElementById('addInput');
+  const name = input.value.trim();
+  if (!name) return;
+
+  input.value = '';
+  input.placeholder = '解析中…';
+
+  try {
+    const geo = await engine.provider.geocode(name);
+    if (geo) {
+      engine.addPoint(name, geo.lat, geo.lng);
+      toast(`已添加：${name}`);
+      await refresh();
+    } else {
+      toast('未找到该地点，请换一个名字试试');
+    }
+  } catch (e) {
+    toast('解析失败：' + e.message);
+  }
+  input.placeholder = '地点名（如 Yale University）';
+}
+
+async function arriveAt(id) {
+  // —— 把当前活跃路线变灰（保留为历史轨迹）——
+  if (activeRoute) {
+    const coords = activeRoute.getLatLngs();
+    map.removeLayer(activeRoute);
+    const doneRoute = L.polyline(coords, {
+      className: 'route-done',
+      color: '#c4c9d4', weight: 3, dashArray: '6,6', lineCap: 'round', opacity: 0.55,
+    }).addTo(map);
+    doneRoutes.push(doneRoute);
+    activeRoute = null;
+  }
+
+  engine.markVisited(id);
+  const p = engine.points.find(x => x.id === id);
+  toast(`已到达：${p ? p.name : ''} 🎉`);
+  // 如果有当前位置，用到达点作为新起点重新推荐
+  if (p) {
+    engine.currentLoc = { lat: p.lat, lng: p.lng };
+    if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
+    if (userCircle) { map.removeLayer(userCircle); userCircle = null; }
+    userMarker = L.marker([p.lat, p.lng], { icon: userIcon() }).addTo(map);
+    userMarker.bindPopup(`<b>已到达：${p.name}</b>`).openPopup();
+    document.getElementById('curAddr').textContent = `${p.name}（已到达）`;
+  }
+  await refresh();
+  // 防御性清除：即使竞态导致旧 fetchRoute 回调稍后画线，全部走完后也要确保无活跃路线
+  if (engine.getUnvisited().length === 0 && activeRoute) {
+    map.removeLayer(activeRoute);
+    activeRoute = null;
+  }
+  saveData();
+}
+
+function removePoint(id) {
+  engine.removePoint(id);
+  refresh();
+  toast('已移除');
+}
+
+function resetAll() {
+  engine.resetAll();
+  // 重置数据源回默认 OSRM
+  engine.setProvider(new OSRMProvider());
+  currentProviderName = engine.provider.name;
+  updateProviderBadge();
+  if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
+  if (userCircle) { map.removeLayer(userCircle); userCircle = null; }
+  recMarkers.forEach(m => map.removeLayer(m));
+  recMarkers = [];
+  if (activeRoute) { map.removeLayer(activeRoute); activeRoute = null; }
+  doneRoutes.forEach(r => map.removeLayer(r));
+  doneRoutes = [];
+  document.getElementById('curAddr').textContent = '点击下方"定位"获取…';
+  document.getElementById('curAddr').classList.add('waiting');
+  document.getElementById('locDot').style.background = 'var(--ink-faint)';
+  document.getElementById('locDot').style.boxShadow = 'none';
+  document.getElementById('locDot').style.animation = 'none';
+  document.getElementById('gpsStatus').textContent = 'GPS 未连接';
+  document.getElementById('gpsStatus').classList.add('no-gps');
+  document.getElementById('recSection').style.display = 'none';
+  renderPointList([]);
+  toast('已重置');
+}
+
+async function loadPreset() {
+  const preset = [
+    { name: 'Yale University (Old Campus)', lat: 41.3083, lng: -72.9279 },
+    { name: 'New Haven Green', lat: 41.3081, lng: -72.9287 },
+    { name: 'East Rock Park', lat: 41.3208, lng: -72.9176 },
+    { name: 'Peabody Museum of Natural History', lat: 41.3187, lng: -72.9252 },
+    { name: 'Lighthouse Point Park', lat: 41.2474, lng: -72.9056 },
+  ];
+  preset.forEach(p => engine.addPoint(p.name, p.lat, p.lng));
+  toast('已加载 5 个纽黑文景点');
+  await refresh();
+}
+
+async function refresh() {
+  // 用 generation 机制防止旧异步路线请求覆盖当前结果
+  const myGen = ++routeGen;
+
+  // clear old markers
+  recMarkers.forEach(m => map.removeLayer(m));
+  recMarkers = [];
+
+  const unvisited = engine.getUnvisited();
+  let ranked = [];
+
+  if (engine.currentLoc && unvisited.length > 0) {
+    if (routeStrategy === 'global') {
+      ranked = await engine.recommendGlobal(engine.currentLoc.lat, engine.currentLoc.lng, routeMode);
+    } else {
+      ranked = await engine.recommendNearest(engine.currentLoc.lat, engine.currentLoc.lng, routeMode);
+    }
+  }
+
+  // 如果已经被更新的 refresh 抢先，直接丢弃当前结果
+  if (routeGen !== myGen) return;
+
+  // draw markers for all points
+  const allBounds = [];
+  engine.points.forEach(p => {
+    const isVisited = engine.visited.includes(p.id);
+    let rank = 0;
+    if (!isVisited) {
+      const found = ranked.find(r => r.point.id === p.id);
+      rank = found ? found.rank : 0;
+    }
+    const isNext = ranked.length > 0 && ranked[0].point.id === p.id;
+
+    const marker = L.marker([p.lat, p.lng], { icon: pointIcon(rank || '?', isNext, isVisited) }).addTo(map);
+    let popup = `<b>${p.name}</b>`;
+    if (isVisited) popup += '<br><span style="color:#9ca3af;">✓ 已到达</span>';
+    else if (rank > 0) {
+      const r = ranked.find(x => x.point.id === p.id);
+      popup += `<br>排名 #${rank}<br>距离 ${fmtDist(r.distance)}` + (r.duration ? `<br>${fmtDur(r.duration)}` : '');
+      if (isNext) popup += '<br><b style="color:#534AB7;">← 推荐下一站</b>';
+    }
+    marker.bindPopup(popup);
+    recMarkers.push(marker);
+    allBounds.push([p.lat, p.lng]);
+  });
+
+  if (engine.currentLoc) allBounds.push([engine.currentLoc.lat, engine.currentLoc.lng]);
+  if (allBounds.length > 1) {
+    map.fitBounds(L.latLngBounds(allBounds).pad(0.2), { maxZoom: 16 });
+  } else if (allBounds.length === 1) {
+    map.setView(allBounds[0], 15);
+  }
+
+  // —— 画推荐路线（流动虚线）——
+  // 先清除旧的活跃路线（不动 doneRoutes）
+  if (activeRoute) { map.removeLayer(activeRoute); activeRoute = null; }
+
+  if (ranked.length > 0 && engine.currentLoc) {
+    const next = ranked[0];
+    const route = await engine.provider.fetchRoute(engine.currentLoc.lat, engine.currentLoc.lng, next.point.lat, next.point.lng, routeMode);
+    // 丢弃过期请求：刷新已经发生时，不要覆盖当前结果
+    if (routeGen !== myGen) return;
+    // 双重检查：确认还有未访问点才画，避免"全部走完后"仍被旧回调画上
+    if (engine.getUnvisited().length === 0) return;
+    if (route && route.coords.length > 1) {
+      activeRoute = L.polyline(route.coords, {
+        className: 'route-active',
+        color: '#534AB7', weight: 5, dashArray: '14,10', lineCap: 'round',
+      }).addTo(map);
+      // 如果路线 API 返回了更准的距离/时长，更新推荐信息
+      if (!route.fallback) {
+        next.distance = route.distance;
+        next.duration = route.duration;
+      }
+    }
+  }
+
+  // update recommendation highlight
+  const recSection = document.getElementById('recSection');
+  if (ranked.length > 0) {
+    recSection.style.display = 'block';
+    const next = ranked[0];
+    document.getElementById('nextName').textContent = next.point.name;
+    document.getElementById('nextDist').textContent = fmtDist(next.distance) + (next.duration ? ' · ' + fmtDur(next.duration) : '');
+    const strategyText = routeStrategy === 'global' ? '全局最优路线' : '最近且最优';
+    document.getElementById('nextLabel').textContent = strategyText + ' · ' + modeLabel(routeMode) + '路线';
+  } else if (engine.getUnvisited().length === 0 && engine.points.length > 0) {
+    recSection.style.display = 'block';
+    document.getElementById('nextName').textContent = '全部走完！🎉';
+    document.getElementById('nextDist').textContent = `${engine.points.length} 个点位已全部到达`;
+    document.querySelector('.next-rec .arrow').textContent = '恭喜！可以重置重新开始';
+  } else {
+    recSection.style.display = 'none';
+  }
+
+  renderPointList(ranked);
+}
+
+function renderPointList(ranked) {
+  const list = document.getElementById('pointList');
+  document.getElementById('pointCount').textContent = engine.points.length;
+
+  if (engine.points.length === 0) {
+    list.innerHTML = '<p style="color:var(--ink-faint);font-size:13px;padding:8px 0;">添加你要去的地点，系统会根据当前位置自动推荐最近的。</p>';
+    return;
+  }
+
+  // build display order: unvisited (by rank) first, then visited
+  const unvisited = ranked.length > 0
+    ? ranked.map(r => ({ ...r.point, distance: r.distance, duration: r.duration, rank: r.rank, done: false }))
+    : engine.getUnvisited().map(p => ({ ...p, done: false }));
+  const visited = engine.points.filter(p => engine.visited.includes(p.id)).map(p => ({ ...p, done: true }));
+
+  const items = [...unvisited, ...visited];
+
+  list.innerHTML = items.map(p => {
+    const isNext = ranked.length > 0 && ranked[0].point.id === p.id;
+    const cls = p.done ? 'done' : (isNext ? 'next' : '');
+    const rankContent = p.done ? '✓' : (p.rank || '?');
+    const distContent = p.done ? '已到达' : (p.distance != null ? fmtDist(p.distance) + (p.duration ? ' · ' + fmtDur(p.duration) : '') : '待定位');
+    return `
+      <div class="point-item ${cls}">
+        <div class="point-rank">${rankContent}</div>
+        <div class="point-info">
+          <div class="pname">${p.name}</div>
+          <div class="pdist">${distContent}</div>
+        </div>
+        <div class="point-actions">
+          ${!p.done ? `<button class="mini-btn arrive" onclick="arriveAt('${p.id}')">已到</button>` : ''}
+          <button class="mini-btn del" onclick="removePoint('${p.id}')">删除</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+/* ============================================================
+ * 数据持久化 & 批量导入导出
+ * ------------------------------------------------------------
+ * - localStorage 自动保存：每次点位变化时自动存，刷新不丢
+ * - JSON 导出/导入：完整数据（点位+已访问+当前位置）
+ * - CSV 导出/导入：纯点位列表（name,lat,lng），方便 Excel 编辑
+ *
+ * 存储键：dongdian_data
+ * 存储格式：{ points, visited, currentLoc, _nextId, savedAt }
+ * ============================================================ */
+const STORAGE_KEY = 'dongdian_data';
+
+function saveData() {
+  const data = {
+    points: engine.points,
+    visited: engine.visited,
+    currentLoc: engine.currentLoc,
+    _nextId: engine._nextId,
+    savedAt: new Date().toISOString(),
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    const el = document.getElementById('saveStatus');
+    if (el) {
+      el.textContent = '已保存 ' + new Date().toLocaleTimeString();
+      el.style.background = 'var(--accent-soft)';
+      el.style.color = 'var(--accent-deep)';
+    }
+  } catch (e) {
+    console.warn('保存失败:', e);
+    const el = document.getElementById('saveStatus');
+    if (el) { el.textContent = '保存失败'; el.style.background = '#fee'; el.style.color = '#c33'; }
+  }
+}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    engine.points = data.points || [];
+    engine.visited = data.visited || [];
+    engine.currentLoc = data.currentLoc || null;
+    engine._nextId = data._nextId || engine.points.length;
+    return engine.points.length > 0;
+  } catch (e) {
+    console.warn('加载失败:', e);
+    return false;
+  }
+}
+
+/* ---- JSON 导出 ---- */
+function exportJSON() {
+  if (engine.points.length === 0) { toast('没有点位可导出'); return; }
+  const data = {
+    app: 'Dongdian',
+    version: '1.0',
+    exportedAt: new Date().toISOString(),
+    points: engine.points,
+    visited: engine.visited,
+    currentLoc: engine.currentLoc,
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  downloadBlob(blob, `动点数据_${dateStr()}.json`);
+  toast(`已导出 ${engine.points.length} 个点位（JSON）`);
+}
+
+/* ---- CSV 导出 ---- */
+function exportCSV() {
+  if (engine.points.length === 0) { toast('没有点位可导出'); return; }
+  const header = 'name,lat,lng,visited\n';
+  const rows = engine.points.map(p => {
+    const v = engine.visited.includes(p.id) ? '1' : '0';
+    // CSV 转义：含逗号的字段加引号
+    const name = p.name.includes(',') ? `"${p.name.replace(/"/g, '""')}"` : p.name;
+    return `${name},${p.lat},${p.lng},${v}`;
+  }).join('\n');
+  const blob = new Blob(['\ufeff' + header + rows], { type: 'text/csv;charset=utf-8' });
+  downloadBlob(blob, `动点点位_${dateStr()}.csv`);
+  toast(`已导出 ${engine.points.length} 个点位（CSV）`);
+}
+
+/* ---- 文件导入（自动识别 JSON / CSV）---- */
+function importFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const text = e.target.result;
+    let count = 0;
+    if (file.name.endsWith('.json')) {
+      count = importFromJSON(text);
+    } else if (file.name.endsWith('.csv')) {
+      count = importFromCSV(text);
+    } else {
+      toast('只支持 .json 和 .csv 文件');
+      return;
+    }
+    if (count > 0) {
+      saveData();
+      await refresh();
+      toast(`成功导入 ${count} 个点位`);
+    } else {
+      toast('导入失败：文件格式不正确');
+    }
+    event.target.value = ''; // 重置 input，允许重复导入同一文件
+  };
+  reader.readAsText(file);
+}
+
+function importFromJSON(text) {
+  try {
+    const data = JSON.parse(text);
+    const points = data.points || data; // 兼容纯数组格式
+    if (!Array.isArray(points)) return 0;
+    let count = 0;
+    for (const p of points) {
+      if (p.name && p.lat != null && p.lng != null) {
+        engine.addPoint(p.name, parseFloat(p.lat), parseFloat(p.lng));
+        count++;
+      }
+    }
+    return count;
+  } catch (e) {
+    console.warn('JSON 导入失败:', e);
+    return 0;
+  }
+}
+
+function importFromCSV(text) {
+  const lines = text.replace(/^\ufeff/, '').split(/\r?\n/).filter(l => l.trim());
+  if (lines.length === 0) return 0;
+  // 检测是否有表头
+  const first = lines[0].toLowerCase();
+  const hasHeader = first.includes('name') || first.includes('lat') || first.includes('名称');
+  const startIdx = hasHeader ? 1 : 0;
+  let count = 0;
+  for (let i = startIdx; i < lines.length; i++) {
+    const cols = parseCSVLine(lines[i]);
+    if (cols.length >= 3) {
+      const name = cols[0];
+      const lat = parseFloat(cols[1]);
+      const lng = parseFloat(cols[2]);
+      if (name && !isNaN(lat) && !isNaN(lng)) {
+        engine.addPoint(name, lat, lng);
+        count++;
+      }
+    }
+  }
+  return count;
+}
+
+// 简单 CSV 行解析（支持引号包裹的字段）
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') { cur += '"'; i++; }
+        else inQuotes = false;
+      } else cur += ch;
+    } else {
+      if (ch === '"') inQuotes = true;
+      else if (ch === ',') { result.push(cur); cur = ''; }
+      else cur += ch;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function dateStr() {
+  const d = new Date();
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}_${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+/* init */
+initMap();
+updateProviderBadge();
+
+/* 启动时自动加载已保存的数据 */
+if (loadData()) {
+  refresh().then(() => {
+    // 如果有上次的位置，在地图上恢复
+    if (engine.currentLoc) {
+      const { lat, lng } = engine.currentLoc;
+      userMarker = L.marker([lat, lng], { icon: userIcon() }).addTo(map);
+      userMarker.bindPopup('<b>上次的位置</b>');
+      map.setView([lat, lng], 14);
+    }
+    toast(`已恢复 ${engine.points.length} 个点位`);
+  });
+}
+
+/* 监听点位变化自动保存 —— 包装关键操作函数 */
+const _origAddPoint = engine.addPoint.bind(engine);
+engine.addPoint = function(name, lat, lng) {
+  const r = _origAddPoint(name, lat, lng);
+  saveData();
+  return r;
+};
+const _origRemovePoint = engine.removePoint.bind(engine);
+engine.removePoint = function(id) {
+  _origRemovePoint(id);
+  saveData();
+};
+const _origMarkVisited = engine.markVisited.bind(engine);
+engine.markVisited = function(id) {
+  _origMarkVisited(id);
+  saveData();
+};
+const _origResetAll = engine.resetAll.bind(engine);
+engine.resetAll = function() {
+  _origResetAll();
+  saveData();
+};
+</script>
+</body>
+</html>

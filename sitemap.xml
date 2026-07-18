@@ -42,8 +42,9 @@
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/new-haven-yale-shopping.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/new-haven-yale-itinerary.html</loc>
@@ -52,6 +53,11 @@
     </url>
     <url>
         <loc>https://junping78.github.io/ai-pm/yale-parking-project-survey.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://junping78.github.io/ai-pm/dongdian-route-demo.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>

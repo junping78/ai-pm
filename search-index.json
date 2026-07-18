@@ -57,6 +57,13 @@
   },
   {
     "type": "page",
+    "title": "动点·就近推荐 — AI 路径优化 Demo",
+    "url": "dongdian-route-demo.html",
+    "desc": "一个可复用的路径优化引擎Demo：从旅游出行到快递投递，同一个算法内核解决'先去哪、后去哪'。最近邻+TSP全局最优双策略，步行/自行车/驾车三模式，境内外自动切换数据源。",
+    "keywords": "动点 就近推荐 路径优化 TSP 快递 投递 旅游 出行 地图 算法 Demo 纽黑文 Leaflet OSRM 最近邻 全局最优 外卖 巡检 上门服务 AI案例"
+  },
+  {
+    "type": "page",
     "title": "教师AI工具周报第1期（创刊号）",
     "url": "free/teacher-ai-weekly-report-01.html",
     "desc": "首期教师免费AI工具周报，40+款工具全景盘点，覆盖国内官方平台、通用大模型、教学课件、PPT制作、国外工具五大分类，附5套推荐组合。",
