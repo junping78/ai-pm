@@ -157,6 +157,21 @@ ol {
     text-decoration: none;
 }
 
+/* 周报导航入口「每周五更新」标识（全站自动生效） */
+.navbar .nav-links a[href='weekly-list.html']::after {
+    content: '每周五更新';
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    font-size: 10px;
+    line-height: 1.5;
+    color: #fff;
+    background: #0F6E56;
+    border-radius: 9px;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
 .nav-toggle {
     display: none;
     background: none;
