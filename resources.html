@@ -278,7 +278,7 @@
         </p>
         <div class="res-stats">
             <div class="res-stat">
-                <div class="num">7</div>
+                <div class="num">8</div>
                 <div class="label">资源分类</div>
             </div>
             <div class="res-stat">
@@ -305,6 +305,7 @@
         <button class="filter-btn" onclick="setFilter('zen', this)">禅修</button>
         <button class="filter-btn" onclick="setFilter('bid', this)">招标投标</button>
         <button class="filter-btn" onclick="setFilter('aipractice', this)">AI实践</button>
+        <button class="filter-btn" onclick="setFilter('shinystar', this)">亮晶晶</button>
         <div class="res-search">
             <input type="text" id="resSearch" placeholder="搜索资源..." oninput="filterResources()">
         </div>
@@ -529,6 +530,34 @@
                 <div class="res-meta">
                     <span class="res-count">可交互 Demo</span>
                     <a href="dongdian-route-demo.html" class="res-action">打开 Demo &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2.6 亮晶晶 · AI 实践手记 -->
+<section class="res-section" data-category="shinystar">
+    <div class="container">
+        <div class="res-cat-header">
+            <span class="cat-icon">✨</span>
+            <h2>亮晶晶 · AI 实践手记</h2>
+        </div>
+        <p class="res-cat-desc">我在实际使用 AI 过程中验证过的心得：真实场景、具体工具、操作步骤、注意点。不定期更新，下次遇到同样问题直接复用。</p>
+        <div class="res-grid">
+            <div class="res-card" data-access="free" data-keywords="亮晶晶 美图设计室 改字 图片文字 替换文字 designkit 海报 PPT 截图">
+                <div class="res-card-header">
+                    <h3>用美图设计室改图片文字</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">AI手记</span>
+                    <span class="tag tag-warm">图片处理</span>
+                </div>
+                <p class="res-desc">不用 PS，把截图、海报、PPT 配图里的文字换成新字。上传图片 → 框选文字 → 输入新内容，AI 自动匹配字体和背景，几分钟出图。</p>
+                <div class="res-meta">
+                    <span class="res-count">已验证</span>
+                    <a href="ai-notes.html" class="res-action">查看手记 &rarr;</a>
                 </div>
             </div>
         </div>
@@ -898,6 +927,7 @@ function filterResources() {
                 case 'zen': matchFilter = sectionCategory === 'zen'; break;
                 case 'bid': matchFilter = sectionCategory === 'bid'; break;
                 case 'aipractice': matchFilter = sectionCategory === 'aipractice'; break;
+                case 'shinystar': matchFilter = sectionCategory === 'shinystar'; break;
             }
 
             if (matchSearch && matchFilter) {

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亮晶晶 · AI 实践手记 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="刘俊平老师的 AI 实践手记：在实际工作学习中遇到的真问题、用到的真工具、踩过的真坑。不定期更新，每条都值得复用。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="亮晶晶 · AI 实践手记 | 刘俊平 · AI赋能项目管理">
+<meta property="og:description" content="真实 AI 使用心得：什么场景下用什么工具、怎么操作、效果如何。不定期更新。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/ai-notes.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 页面专用样式 */
+  .notes-hero {
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 100%);
+    color: #fff;
+    padding: 52px 20px 44px;
+    text-align: center;
+  }
+  .notes-hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .notes-hero .subtitle {
+    font-size: 16px;
+    opacity: 0.92;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .notes-hero .back-link {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+  }
+  .notes-hero .back-link:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  /* Tab 栏 */
+  .notes-tabs {
+    background: #fff;
+    border-bottom: 1px solid var(--c-border);
+    padding: 16px 0 0;
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 50;
+  }
+  .notes-tabs .container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--c-text);
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+  .tab-btn:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+  }
+  .tab-btn.active {
+    background: var(--c-primary);
+    color: #fff;
+    border-color: var(--c-primary);
+  }
+
+  /* 手记条目 */
+  .notes-list {
+    padding: 36px 0 48px;
+  }
+  .note-item {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
+    margin-bottom: 24px;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .note-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .note-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .note-meta {
+    font-size: 13px;
+    color: var(--c-text-muted);
+    white-space: nowrap;
+  }
+  .note-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .note-tags .tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .tag-shine { background: #FFF8E1; color: #B8860B; }
+  .tag-scene { background: var(--c-primary-bg); color: var(--c-primary-dark); }
+  .tag-tool { background: var(--c-accent-bg); color: var(--c-accent); }
+
+  .note-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--c-text);
+  }
+  .note-body h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    margin: 20px 0 8px;
+  }
+  .note-body p {
+    margin-bottom: 12px;
+  }
+  .note-body ol,
+  .note-body ul {
+    padding-left: 1.6em;
+    margin-bottom: 14px;
+  }
+  .note-body li {
+    margin-bottom: 6px;
+  }
+  .note-body .tool-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--c-primary-bg);
+    color: var(--c-primary-dark);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 4px;
+  }
+  .note-body .tool-link:hover {
+    background: var(--c-primary-border);
+    text-decoration: none;
+  }
+  .note-body .highlight {
+    background: #FFF8E1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  /* 空状态/预留提示 */
+  .notes-empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--c-text-light);
+  }
+
+  /* 相关 AI 实践资源 */
+  .related-resources {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid var(--c-border);
+  }
+  .related-resources h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .related-resources .rr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .related-resources .rr-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 22px;
+    text-decoration: none;
+    color: var(--c-text);
+    transition: all 0.25s;
+  }
+  .related-resources .rr-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--c-primary-border);
+    text-decoration: none;
+    color: var(--c-text);
+  }
+  .related-resources .rr-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--c-text);
+    line-height: 1.4;
+  }
+  .related-resources .rr-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .related-resources .rr-tags .tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .related-resources .rr-card-desc {
+    font-size: 13.5px;
+    color: var(--c-text-light);
+    line-height: 1.7;
+    flex-grow: 1;
+    margin-bottom: 14px;
+  }
+  .related-resources .rr-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--c-border-light);
+    font-size: 13px;
+  }
+  .related-resources .rr-card-count {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related-resources .rr-card-action {
+    color: var(--c-primary);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .tag-free { background: var(--c-accent-bg); color: var(--c-accent); }
+  .tag-case { background: var(--c-primary-bg); color: var(--c-primary-dark); }
+  .tag-version { background: var(--c-warm-bg); color: var(--c-warm); }
+
+  /* 延伸阅读 */
+  .related-bar {
+    background: var(--c-primary-bg);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin: 32px 0 8px;
+  }
+  .related-bar strong {
+    color: var(--c-primary-dark);
+    margin-right: 8px;
+  }
+  .related-bar a {
+    color: var(--c-primary);
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 16px;
+  }
+  .related-bar a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .notes-hero h1 { font-size: 26px; }
+    .note-header { flex-direction: column; }
+    .note-title { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="notes-hero">
+    <div class="container-narrow">
+        <a href="resources.html" class="back-link">&larr; 返回 AI实践资源</a>
+        <h1>✨ 亮晶晶 · AI 实践手记</h1>
+        <p class="subtitle">
+            这是<strong>个人使用心得短记</strong>：我在实际工作学习中遇到的真问题、用到的真工具、踩过的真坑。<br>
+            每条都经过亲手验证，不定期更新，目标是「下次遇到同样问题，直接复用」。
+        </p>
+    </div>
+</header>
+
+<!-- Tab 栏（目前仅“全部”，后续随条目增加扩展分类） -->
+<div class="notes-tabs">
+    <div class="container">
+        <button class="tab-btn active" onclick="switchTab('all', this)">全部</button>
+        <!-- 未来分类示例：
+        <button class="tab-btn" onclick="switchTab('image', this)">图片处理</button>
+        <button class="tab-btn" onclick="switchTab('writing', this)">文案写作</button>
+        <button class="tab-btn" onclick="switchTab('efficiency', this)">效率办公</button>
+        <button class="tab-btn" onclick="switchTab('teaching', this)">教学科研</button>
+        -->
+    </div>
+</div>
+
+<!-- 手记列表 -->
+<main class="notes-list">
+    <div class="container-narrow">
+
+        <article class="note-item" data-category="image">
+            <div class="note-header">
+                <h2 class="note-title">用美图设计室改图片文字：不用 PS，也能把截图/海报里的字换成新字</h2>
+                <span class="note-meta">2026-08-01</span>
+            </div>
+            <div class="note-tags">
+                <span class="tag tag-shine">亮晶晶</span>
+                <span class="tag tag-scene">图片处理</span>
+                <span class="tag tag-tool">美图设计室</span>
+            </div>
+            <div class="note-body">
+                <p><strong>场景：</strong>手头有一张截图、海报或 PPT 配图，上面的文字需要改掉——可能是把旧日期换成新日期，可能是把示例文案换成自己的内容，也可能是把英文改成中文。以前这种活只能开 PS，找字体、抠图、补背景，半小时起。</p>
+
+                <h4>工具</h4>
+                <p>
+                    <a href="https://www.designkit.cn/" target="_blank" rel="noopener" class="tool-link">美图设计室 designkit.cn ↗</a>
+                </p>
+
+                <h4>操作步骤</h4>
+                <ol>
+                    <li>打开网站，上传需要改字的图片。</li>
+                    <li>在 AI 作图或编辑功能里找到「改字」/「替换文字」入口（通常在图片编辑或 AI 重绘区域）。</li>
+                    <li>框选或涂抹要修改的文字区域，输入你想换成的文字。</li>
+                    <li>AI 会自动匹配原图的字体风格、颜色、透视和背景纹理，生成新图。</li>
+                    <li>不满意就重试一次，通常 2-3 次就能得到可用结果。</li>
+                </ol>
+
+                <h4>效果</h4>
+                <p>对于背景不太复杂的文字替换，基本能做到<span class="highlight">「看不出改过的痕迹」</span>。最省时间的是不用找原字体、不用手动修补背景，几分钟就能出图。</p>
+
+                <h4>适合谁</h4>
+                <ul>
+                    <li>做课程海报、活动海报，需要快速改标题或日期</li>
+                    <li>做 PPT，想改一张截图里的文字来适配当前主题</li>
+                    <li>不会 PS 或不想为了改几个字打开设计软件</li>
+                </ul>
+
+                <h4>注意点</h4>
+                <ul>
+                    <li>背景越复杂、文字越大、字体越特殊，AI 匹配效果越不稳定，可能需要多试几次。</li>
+                    <li>中文支持整体可用，但艺术字、书法字类的替换成功率相对低一些。</li>
+                    <li>免费额度足够日常少量使用，批量处理或高清下载可能需要登录或付费。</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- 相关 AI 实践资源 -->
+        <div class="related-resources">
+            <h3>🧪 相关 AI 实践资源</h3>
+            <div class="rr-grid">
+                <a href="sportswear-guide.html" class="rr-card">
+                    <div class="rr-card-title">好穿不贵 · 全球高性价比运动服选品研究</div>
+                    <div class="rr-tags">
+                        <span class="tag tag-free">免费</span>
+                        <span class="tag tag-case">AI案例</span>
+                        <span class="tag tag-version">v1.0</span>
+                    </div>
+                    <div class="rr-card-desc">用 AI 做的跨地区选品研究案例：覆盖 7 国 17 个品牌 24 个单品，按运动类型 + 价格 + 技术特色 5 字段结构化呈现。3 个特色榜单（低价 / 通勤运动 / 面料功能）+ AI 能力迁移 4 列映射。</div>
+                    <div class="rr-card-footer">
+                        <span class="rr-card-count">24 个单品</span>
+                        <span class="rr-card-action">查看案例 &rarr;</span>
+                    </div>
+                </a>
+                <a href="new-haven-yale-shopping.html" class="rr-card">
+                    <div class="rr-card-title">耶鲁大学附近购物攻略 · 纽黑文商超地图</div>
+                    <div class="rr-tags">
+                        <span class="tag tag-free">免费</span>
+                        <span class="tag tag-case">AI案例</span>
+                        <span class="tag tag-version">v1.0</span>
+                    </div>
+                    <div class="rr-card-desc">用 AI 做的跨地区购物攻略：耶鲁大学（Yale）纽黑文周边 12 家商超，按仓储会员 / 综合商超 / 家居电子 / 折扣名品 4 类着色，交互地图串联路线与距离。面向耶鲁访学、陪读家庭的实用工具。</div>
+                    <div class="rr-card-footer">
+                        <span class="rr-card-count">12 家商超</span>
+                        <span class="rr-card-action">查看案例 &rarr;</span>
+                    </div>
+                </a>
+                <a href="new-haven-yale-itinerary.html" class="rr-card">
+                    <div class="rr-card-title">纽黑文 2 日游行程 · 耶鲁周边游玩地图</div>
+                    <div class="rr-tags">
+                        <span class="tag tag-free">免费</span>
+                        <span class="tag tag-case">AI案例</span>
+                        <span class="tag tag-version">v1.0</span>
+                    </div>
+                    <div class="rr-card-desc">用 AI 做的跨地区旅游攻略：耶鲁大学（Yale）纽黑文 2 日行程，17 个景点按景点 / 美食 / 文化 / 购物 / 夜生活 5 类着色，交互地图串联路线。DAY1 耶鲁人文，DAY2 自然海滨。</div>
+                    <div class="rr-card-footer">
+                        <span class="rr-card-count">17 个景点</span>
+                        <span class="rr-card-action">查看案例 &rarr;</span>
+                    </div>
+                </a>
+                <a href="yale-parking-project-survey.html" class="rr-card">
+                    <div class="rr-card-title">AI 项目现场资源调研 · 耶鲁停车场建设项目</div>
+                    <div class="rr-tags">
+                        <span class="tag tag-free">免费</span>
+                        <span class="tag tag-case">AI案例</span>
+                        <span class="tag tag-version">v1.0</span>
+                    </div>
+                    <div class="rr-card-desc">用 AI 把「项目现场资源调研」做成一张地图：以耶鲁神学院大型停车场建设项目为例，摸排施工现场周边住宿 / 餐饮 / 交通 / 材料市场 4 维度共 24 个资源点，逐点给出距离车程与项目决策建议。</div>
+                    <div class="rr-card-footer">
+                        <span class="rr-card-count">24 个资源点 · 项目管理版</span>
+                        <span class="rr-card-action">查看案例 &rarr;</span>
+                    </div>
+                </a>
+                <a href="dongdian-route-demo.html" class="rr-card">
+                    <div class="rr-card-title">动点·就近推荐 — AI 路径优化 Demo</div>
+                    <div class="rr-tags">
+                        <span class="tag tag-free">免费</span>
+                        <span class="tag tag-case">AI案例</span>
+                        <span class="tag tag-version">v0.1</span>
+                    </div>
+                    <div class="rr-card-desc">一个可复用的路径优化引擎 Demo：从"去哪些景点"到"送哪些快递"，同一个算法内核解决"先去哪、后去哪"。内置最近邻贪心与 TSP 全局最优（≤8 点穷举）两种策略，境内外自动切换数据源。</div>
+                    <div class="rr-card-footer">
+                        <span class="rr-card-count">可交互 Demo</span>
+                        <span class="rr-card-action">打开 Demo &rarr;</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="related-bar">
+            <strong>延伸阅读：</strong>
+            <a href="resources.html">AI实践资源</a>
+            <a href="ai-tools.html">AI工具箱</a>
+            <a href="weekly-list.html">教师免费AI工具周报</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="resources.html">AI实践资源</a>
+                <a href="ai-tools.html">AI工具箱</a>
+                <a href="weekly-list.html">教师周报</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            电话：13277049868<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+<script>
+function switchTab(category, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.note-item').forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+</script>
+
+</body>
+</html>
