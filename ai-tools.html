@@ -115,6 +115,16 @@
   }
   .rec-card h4 { font-size: 14px; font-weight: 700; color: var(--c-primary-dark); margin-bottom: 8px; }
   .rec-card p { font-size: 13.5px; color: var(--c-text); line-height: 1.7; }
+  .rec-card p a {
+    color: var(--c-primary);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--c-primary-border);
+    transition: all 0.2s;
+  }
+  .rec-card p a:hover {
+    color: var(--c-primary-light);
+    border-bottom-style: solid;
+  }
 
   /* 工具卡片 */
   .tools-section { padding: 40px 0 64px; }
@@ -129,6 +139,10 @@
   }
   .cat-header .cat-icon { font-size: 26px; }
   .cat-desc { font-size: 14.5px; color: var(--c-text-light); margin-bottom: 20px; }
+  .cat-group {
+    scroll-margin-top: 130px;
+    margin-bottom: 48px;
+  }
   .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -264,6 +278,7 @@
 <section class="tools-hero">
   <h1>AI工具箱</h1>
   <p class="tools-subtitle">40+ 免费AI工具精选，涵盖大模型、课件制作、PPT生成、学术检索、办公协作</p>
+  <p style="color:rgba(255,255,255,0.9);font-size:14px;margin-top:10px;">不用全都试，按场景挑 2-3 个先用起来就好。</p>
   <div class="tools-stats">
     <div class="stat"><div class="num">40+</div><div class="label">精选工具</div></div>
     <div class="stat"><div class="num">6</div><div class="label">分类</div></div>
@@ -295,23 +310,45 @@
     <div class="rec-grid">
       <div class="rec-card">
         <h4>零门槛起步</h4>
-        <p>国家智慧教育平台2.0、DeepSeek、豆包（基础功能）、Kimi</p>
+        <p>
+          <a href="https://www.smartedu.cn/" target="_blank" rel="noopener">国家智慧教育平台2.0</a>、
+          <a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a>、
+          <a href="https://www.doubao.com/" target="_blank" rel="noopener">豆包</a>（基础功能）、
+          <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener">Kimi</a>
+        </p>
       </div>
       <div class="rec-card">
         <h4>备课提效</h4>
-        <p>希沃白板 / 101教育PPT、秘塔AI搜索、即梦</p>
+        <p>
+          <a href="https://easinote.seewo.com/" target="_blank" rel="noopener">希沃白板</a> / 
+          <a href="https://ppt.101.com/" target="_blank" rel="noopener">101教育PPT</a>、
+          <a href="https://metaso.cn/" target="_blank" rel="noopener">秘塔AI搜索</a>、
+          <a href="https://jimeng.jianying.com/" target="_blank" rel="noopener">即梦</a>
+        </p>
       </div>
       <div class="rec-card">
         <h4>英语教师专项</h4>
-        <p>twee（需VPN）、Canva可画教育版、微软翻译</p>
+        <p>
+          <a href="https://twee.com/" target="_blank" rel="noopener">twee</a>（需VPN）、
+          <a href="https://www.canva.cn/education/" target="_blank" rel="noopener">Canva可画教育版</a>、
+          <a href="https://www.microsoft.com/zh-cn/translator/" target="_blank" rel="noopener">微软翻译</a>
+        </p>
       </div>
       <div class="rec-card">
         <h4>科研/论文型教师</h4>
-        <p>智谱清言、腾讯IMA、Inciteful（需VPN）</p>
+        <p>
+          <a href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a>、
+          <a href="https://ima.qq.com/" target="_blank" rel="noopener">腾讯IMA</a>、
+          <a href="https://inciteful.xyz/" target="_blank" rel="noopener">Inciteful</a>（需VPN）
+        </p>
       </div>
       <div class="rec-card">
         <h4>办公协作</h4>
-        <p>腾讯文档 / 金山文档、讯飞听见</p>
+        <p>
+          <a href="https://docs.qq.com/" target="_blank" rel="noopener">腾讯文档</a> / 
+          <a href="https://www.kdocs.cn/" target="_blank" rel="noopener">金山文档</a>、
+          <a href="https://www.iflyrec.com/" target="_blank" rel="noopener">讯飞听见</a>
+        </p>
       </div>
     </div>
   </div>
@@ -886,7 +923,34 @@ function filterCategory(cat, btn) {
   currentCategory = cat;
   document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
+
+  const recSection = document.querySelector('.rec-section');
+  const noticeBox = document.querySelector('.notice-box');
+
+  // 切换分类时清空搜索，避免叠加过滤导致空结果
+  document.getElementById('searchInput').value = '';
   filterTools();
+
+  const navHeight = document.querySelector('.navbar').offsetHeight;
+
+  if (cat === 'all') {
+    // 全部：显示按场景推荐和温馨提示，回到筛选栏位置看全貌
+    if (recSection) recSection.style.display = '';
+    if (noticeBox) noticeBox.style.display = '';
+    const filterBar = document.querySelector('.filter-bar');
+    if (filterBar) {
+      window.scrollTo({ top: filterBar.offsetTop - navHeight - 10, behavior: 'smooth' });
+    }
+  } else {
+    // 具体分类：隐藏推荐和提示，只显示目标分类并滚动定位
+    if (recSection) recSection.style.display = 'none';
+    if (noticeBox) noticeBox.style.display = 'none';
+    const target = document.querySelector(`.cat-group[data-cat="${cat}"]`);
+    if (target) {
+      const filterHeight = document.querySelector('.filter-bar').offsetHeight;
+      window.scrollTo({ top: target.offsetTop - navHeight - filterHeight - 16, behavior: 'smooth' });
+    }
+  }
 }
 </script>
 
