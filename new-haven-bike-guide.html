@@ -275,6 +275,172 @@ body{
 .leaflet-popup-content .pop-link{display:inline-block;margin-top:8px;color:#534AB7;font-weight:700;text-decoration:none}
 .leaflet-popup-content .pop-link:hover{text-decoration:underline}
 
+/* ===== 距离条 & 营业状态 ===== */
+.dist-row{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 2px;align-items:center;}
+.dist-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:8px;
+  background:#f2f1fb;color:#453da0;border:1px solid #ddd9f5;white-space:nowrap;
+}
+.dist-chip.walk{background:#ecf7f1;color:#137a44;border-color:#cde9da;}
+.dist-chip.bike{background:#fff4e8;color:#9c5c00;border-color:#f3ddb9;}
+.open-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:800;padding:5px 11px;border-radius:20px;white-space:nowrap;
+  background:#f2f2f4;color:#7a7a86;
+}
+.open-pill.on{background:#e6f7ef;color:#0f7038;}
+.open-pill.off{background:#f6f1f1;color:#96707a;}
+.open-pill .od{width:7px;height:7px;border-radius:50%;background:currentColor;}
+.card-cta{
+  margin-top:11px;font-size:12.5px;font-weight:700;color:#534AB7;
+  display:flex;align-items:center;gap:5px;opacity:.85;
+}
+.shop-card:hover .card-cta{opacity:1;}
+
+/* ===== 性价比对比 ===== */
+.compare-box{
+  background:#fff;border:1px solid #e6e4ef;border-radius:16px;
+  padding:20px 22px;margin-top:22px;
+  box-shadow:0 4px 18px rgba(83,74,183,.07);
+}
+.compare-box h3{
+  font-size:16px;font-weight:800;color:#3C3489;margin-bottom:4px;
+  display:flex;align-items:center;gap:8px;
+}
+.compare-note{font-size:12.5px;color:#8a8a95;margin-bottom:14px;line-height:1.6;}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;}
+.cmp-table th,.cmp-table td{padding:9px 8px;text-align:center;border-bottom:1px solid #f0eef7;}
+.cmp-table th{font-size:12px;color:#6b6b76;font-weight:700;background:#faf9fd;}
+.cmp-table th:first-child,.cmp-table td:first-child{text-align:left;color:#6b6b76;font-weight:600;white-space:nowrap;}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table .cmp-total td{background:#f7f6fd;font-weight:800;color:#3C3489;font-size:14px;}
+.cmp-win{color:#0f7038;font-weight:800;}
+.cmp-rank{
+  display:inline-block;font-size:11px;font-weight:800;padding:3px 9px;
+  border-radius:20px;background:#eceaf9;color:#534AB7;
+}
+.cmp-rank.r1{background:#fff3cf;color:#8a6200;}
+.cmp-verdict{
+  margin-top:16px;padding-top:14px;border-top:1px dashed #e6e4ef;
+  font-size:14px;color:#4a4a55;line-height:1.8;
+}
+.cmp-verdict b{color:#534AB7;}
+.route-box{
+  background:linear-gradient(135deg,#f5f4ff,#eeecfc);
+  border:1px solid #ddd9f5;border-radius:14px;padding:18px 20px;margin-top:16px;
+}
+.route-box h4{font-size:14.5px;color:#3C3489;margin-bottom:10px;}
+.route-step{display:flex;gap:11px;font-size:13.5px;color:#4a4a55;margin:8px 0;line-height:1.6;}
+.route-time{
+  flex-shrink:0;font-size:12px;font-weight:800;color:#534AB7;
+  background:#fff;border:1px solid #ddd9f5;border-radius:6px;
+  padding:2px 8px;height:fit-content;min-width:52px;text-align:center;
+}
+
+/* ===== Modal ===== */
+.modal-mask{
+  position:fixed;inset:0;z-index:3000;
+  background:rgba(28,26,48,.55);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-mask.show{display:flex;animation:maskIn .2s ease;}
+@keyframes maskIn{from{opacity:0}to{opacity:1}}
+.modal{
+  background:#fff;border-radius:18px;width:100%;max-width:640px;
+  max-height:88vh;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.3);
+  animation:modalIn .3s cubic-bezier(.2,.9,.3,1);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{position:relative;padding:22px 56px 20px 24px;color:#fff;}
+.modal-eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px;}
+.modal-head h3{font-size:20px;font-weight:800;line-height:1.25;margin-bottom:6px;}
+.modal-head .m-addr{font-size:12.5px;opacity:.9;line-height:1.5;}
+.modal-close{
+  position:absolute;top:16px;right:16px;width:32px;height:32px;
+  border:none;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.22);color:#fff;font-size:19px;line-height:1;
+  display:flex;align-items:center;justify-content:center;transition:background .2s;
+}
+.modal-close:hover{background:rgba(255,255,255,.36);}
+.modal-body{padding:20px 24px 24px;overflow-y:auto;}
+.m-dist{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;}
+.m-sec{margin-bottom:20px;}
+.m-sec:last-child{margin-bottom:0;}
+.m-sec h4{
+  font-size:14px;font-weight:800;color:#3C3489;margin-bottom:9px;
+  display:flex;align-items:center;gap:7px;
+}
+.hours-tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.hours-tbl td{padding:6px 8px;border-bottom:1px solid #f2f0f8;}
+.hours-tbl td:first-child{width:56px;color:#8a8a95;font-weight:600;}
+.hours-tbl td:last-child{text-align:right;font-weight:600;color:#2b2b33;}
+.hours-tbl tr.closed td:last-child{color:#b0aeb8;font-weight:500;}
+.hours-tbl tr.today td{background:#f5f4ff;}
+.hours-tbl tr.today td:first-child{color:#534AB7;font-weight:800;border-radius:6px 0 0 6px;}
+.hours-tbl tr.today td:last-child{color:#534AB7;border-radius:0 6px 6px 0;}
+.price-list{list-style:none;padding:0;margin:0;font-size:13.5px;}
+.price-list li{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:7px 0;border-bottom:1px dashed #f0eef7;
+}
+.price-list li:last-child{border-bottom:none;}
+.price-list .pn{color:#4a4a55;}
+.price-list .pv{font-family:'SF Mono',Consolas,monospace;font-weight:700;color:#2b2b33;white-space:nowrap;}
+.px-tag{
+  display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;
+  border-radius:5px;margin-left:6px;vertical-align:1px;
+}
+.px-ok{background:#e6f7ef;color:#0f7038;}
+.px-est{background:#fff7ec;color:#a86a00;}
+.pc-list{list-style:none;padding:0;margin:0;font-size:13.5px;color:#4a4a55;}
+.pc-list li{display:flex;gap:8px;margin:7px 0;line-height:1.65;}
+.pc-list li::before{flex-shrink:0;font-weight:800;}
+.pros li::before{content:'✓';color:#1a8a4a;}
+.cons li::before{content:'!';color:#c98a00;}
+.score-row{display:grid;grid-template-columns:78px 1fr 30px;align-items:center;gap:10px;margin:8px 0;font-size:12.5px;}
+.score-row .sl{color:#6b6b76;font-weight:600;}
+.score-bar{height:8px;border-radius:6px;background:#eeecf6;overflow:hidden;}
+.score-bar i{display:block;height:100%;border-radius:6px;transition:width .5s ease;}
+.score-row .sv{font-size:12px;font-weight:800;color:#2b2b33;text-align:right;font-family:'SF Mono',Consolas,monospace;}
+.total-score{
+  display:flex;align-items:center;gap:12px;margin-top:14px;padding:13px 16px;
+  background:#f7f6fd;border-radius:12px;
+}
+.total-score .ts-num{font-size:28px;font-weight:800;color:#534AB7;line-height:1;font-family:'SF Mono',Consolas,monospace;}
+.total-score .ts-meta{flex:1;font-size:12.5px;color:#6b6b76;line-height:1.55;}
+.total-score .ts-stars{font-size:15px;letter-spacing:2px;color:#f0a500;}
+.verdict-box{
+  background:#f0fbf5;border:1px solid #cfe9da;border-radius:12px;
+  padding:14px 16px;font-size:13.5px;color:#2b2b33;line-height:1.75;
+}
+.verdict-box b{color:#0f7038;}
+.modal-foot{
+  padding:14px 24px;border-top:1px solid #f0eef7;background:#fafafc;
+  display:flex;gap:9px;flex-wrap:wrap;
+}
+.mf-btn{
+  flex:1;min-width:118px;text-align:center;text-decoration:none;
+  font-size:13px;font-weight:700;padding:10px 12px;border-radius:10px;
+  border:1px solid #ddd9f5;background:#fff;color:#534AB7;transition:all .2s;
+  cursor:pointer;
+}
+.mf-btn:hover{background:#f5f4ff;transform:translateY(-1px);}
+.mf-btn.primary{background:#534AB7;color:#fff;border-color:#534AB7;}
+.mf-btn.primary:hover{background:#453da0;}
+@media(max-width:560px){
+  .modal-mask{padding:0;align-items:flex-end;}
+  .modal{max-width:100%;max-height:92vh;border-radius:18px 18px 0 0;}
+  .modal-head{padding:20px 50px 18px 20px;}
+  .modal-head h3{font-size:18px;}
+  .modal-body{padding:18px 20px 20px;}
+  .modal-foot{padding:12px 20px;}
+  .mf-btn{min-width:calc(50% - 5px);}
+  .cmp-table{font-size:12px;}
+  .cmp-table th,.cmp-table td{padding:8px 4px;}
+}
+
 /* Back bar */
 .back-bar{
   margin-top:36px;padding-top:22px;border-top:1px solid #e6e4ef;
@@ -323,7 +489,7 @@ body{
 }
 
 @media print{
-  .navbar,.tabs{display:none;}
+  .navbar,.tabs,.modal-mask,.card-cta,.shop-arrow{display:none !important;}
   .tab-content{display:block !important;}
   .map-side{display:none}
   .main{grid-template-columns:1fr}
@@ -375,7 +541,8 @@ body{
     <section class="summary-card">
       <h2>🎯 三句话结论</h2>
       <ul>
-        <li><span class="highlight">最稳妥</span>：先去 <strong>Bradley Street Bicycle Co-op</strong>（非营利公益车店，车已检修，$150–350，离 Ivy Manor 约 10 分钟车程）。</li>
+        <li><span class="highlight">最稳妥</span>：先去 <strong>Bradley Street Bicycle Co-op</strong>（非营利公益车店，车已检修，$150–300；从 Ivy Manor <strong>步行 2.5 公里、约 31 分钟</strong>）。</li>
+        <li><span class="highlight">先看这个</span>：三家车店离你家的步行距离几乎一样（<strong>2.5–2.9 公里、走 30 分钟出头</strong>），所以<strong>别按远近选，按预算和开门时间选</strong>——点开任意一家可看详细营业时间、价格与性价比评分。</li>
         <li><span class="highlight">最便宜</span>：蹲 <strong>Facebook Marketplace</strong> 和 <strong>Yale Free & For Sale</strong> 群，8 月中下旬学生离校/回国时大量抛售。</li>
         <li><span class="highlight">最重要</span>：买车同时配一把 <strong>U 型防盗锁</strong>，纽黑文自行车盗窃不少；日常代步选 <strong>hybrid / commuter bike</strong>，不要专业公路车。</li>
       </ul>
@@ -391,7 +558,7 @@ body{
 
     <!-- Tab 1: 线下车店 -->
     <div class="tab-content active" id="tab-0">
-      <div class="shop-card active" data-idx="0" onclick="flyToShop(0)">
+      <div class="shop-card active" data-idx="0" onclick="openShop(0)">
         <div class="shop-header">
           <div class="shop-num">1</div>
           <div class="shop-title">
@@ -401,17 +568,23 @@ body{
           <span class="tag tag-green">首选</span>
         </div>
         <p>风险最低，明码标价，可现场试骑。适合不想自己修车的新手，也适合线上淘车后做检修。</p>
-        <div class="shop-meta">
-          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=138+Bradley+St,+New+Haven,+CT+06511" target="_blank">138 Bradley St, New Haven, CT 06511</a></span>
-          <span>🕒 周二、周四 16:00–20:00</span>
-          <span>💵 $150–350</span>
+        <div class="dist-row">
+          <span class="dist-chip walk">🚶 步行 2.5 km · 约 31 分钟</span>
+          <span class="dist-chip bike">🚴 买到车骑回家约 10 分钟</span>
+          <span class="open-pill" data-open="0"><span class="od"></span>状态加载中</span>
         </div>
+        <div class="shop-meta">
+          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=138+Bradley+St,+New+Haven,+CT+06511" target="_blank" onclick="event.stopPropagation()">138 Bradley St, New Haven, CT 06511</a></span>
+          <span>🕒 周二、周四 16:00–20:00</span>
+          <span>💵 $150–300</span>
+        </div>
+        <div class="card-cta">点击查看详情：营业时间 · 价格 · 优势 · 性价比评分 →</div>
         <div class="shop-arrow">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
         </div>
       </div>
 
-      <div class="shop-card" data-idx="1" onclick="flyToShop(1)">
+      <div class="shop-card" data-idx="1" onclick="openShop(1)">
         <div class="shop-header">
           <div class="shop-num">2</div>
           <div class="shop-title">
@@ -420,17 +593,24 @@ body{
           </div>
           <span class="tag tag-blue">老牌</span>
         </div>
-        <p>位置在市中心 Chapel St，交通方便。二手通勤车选择较多，但价格通常比合作社略高。</p>
-        <div class="shop-meta">
-          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=845+Chapel+St,+New+Haven,+CT" target="_blank">845 Chapel St, New Haven, CT</a></span>
-          <span>🕒 周二~周六营业（周一休息）</span>
+        <p>位置在市中心 Chapel St，交通方便。二手通勤车选择较多，但价格通常比合作社略高。<strong>一周开六天（含周日下午）</strong>，时间上最灵活。</p>
+        <div class="dist-row">
+          <span class="dist-chip walk">🚶 步行 2.9 km · 约 36 分钟</span>
+          <span class="dist-chip bike">🚴 买到车骑回家约 12 分钟</span>
+          <span class="open-pill" data-open="1"><span class="od"></span>状态加载中</span>
         </div>
+        <div class="shop-meta">
+          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=845+Chapel+St,+New+Haven,+CT" target="_blank" onclick="event.stopPropagation()">845 Chapel St, New Haven, CT</a></span>
+          <span>🕒 周二~周日营业（周一休息）</span>
+          <span>💵 二手约 $250–500</span>
+        </div>
+        <div class="card-cta">点击查看详情：营业时间 · 价格 · 优势 · 性价比评分 →</div>
         <div class="shop-arrow">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
         </div>
       </div>
 
-      <div class="shop-card" data-idx="2" onclick="flyToShop(2)">
+      <div class="shop-card" data-idx="2" onclick="openShop(2)">
         <div class="shop-header">
           <div class="shop-num">3</div>
           <div class="shop-title">
@@ -439,12 +619,69 @@ body{
           </div>
           <span class="tag tag-orange">新车为主</span>
         </div>
-        <p>如果前两家没找到合适的车，可以顺路来看看。也提供维修服务。</p>
-        <div class="shop-meta">
-          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=252+College+St,+New+Haven,+CT" target="_blank">252 College St, New Haven, CT</a></span>
+        <p>离 Devil's Gear 只有 150 米，可以一趟走完两家。<strong>营业时间最长最稳定</strong>，买车不一定，但以后修车靠它。</p>
+        <div class="dist-row">
+          <span class="dist-chip walk">🚶 步行 2.9 km · 约 36 分钟</span>
+          <span class="dist-chip bike">🚴 买到车骑回家约 12 分钟</span>
+          <span class="open-pill" data-open="2"><span class="od"></span>状态加载中</span>
         </div>
+        <div class="shop-meta">
+          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=252+College+St,+New+Haven,+CT" target="_blank" onclick="event.stopPropagation()">252 College St, New Haven, CT</a></span>
+          <span>🕒 周一~周六营业（周日休息）</span>
+          <span>💵 新车 $500 起</span>
+        </div>
+        <div class="card-cta">点击查看详情：营业时间 · 价格 · 优势 · 性价比评分 →</div>
         <div class="shop-arrow">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
+      <!-- 性价比横向对比 -->
+      <div class="compare-box">
+        <h3>⚖️ 三家横向对比 · 性价比谁更高</h3>
+        <p class="compare-note">
+          评分场景：<strong>刚到纽黑文、预算有限、只求一辆能天天骑的代步车</strong>。
+          权重为 价格 30% · 车况保障 25% · 二手选择面 20% · 到店便利 15% · 售后维修 10%。
+          换个场景（比如打算长期骑好车），排名会完全不同。
+        </p>
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>对比维度</th>
+              <th>Bradley 合作社</th>
+              <th>Devil's Gear</th>
+              <th>College St</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>二手整车价</td><td class="cmp-win">$150–300</td><td>$250–500</td><td>基本没有</td></tr>
+            <tr><td>每周开门</td><td>仅 2 天</td><td>6 天</td><td class="cmp-win">6 天</td></tr>
+            <tr><td>车是否已检修</td><td class="cmp-win">全部已调校</td><td>已检查</td><td class="cmp-win">新车</td></tr>
+            <tr><td>白跑风险</td><td>较高</td><td>低</td><td class="cmp-win">最低</td></tr>
+            <tr><td>后续修车成本</td><td class="cmp-win">可自己动手，几乎不花钱</td><td>正常收费</td><td>正常收费</td></tr>
+            <tr><td>步行距离</td><td class="cmp-win">2.5 km</td><td>2.9 km</td><td>2.9 km</td></tr>
+            <tr class="cmp-total">
+              <td>综合性价比</td>
+              <td>4.2 <span class="cmp-rank r1">第 1</span></td>
+              <td>3.9 <span class="cmp-rank">第 2</span></td>
+              <td>3.4 <span class="cmp-rank">第 3</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="cmp-verdict">
+          <b>一句话结论：</b>三家离你家的步行距离几乎一样（都是 2.5–2.9 公里、走 30 分钟出头），
+          <strong>所以别按远近选，按预算和时间选</strong>。<br>
+          · 预算 $300 以内、能空出周二或周四傍晚 → <b>直接去 Bradley 合作社</b>，不用比了。<br>
+          · 时间不固定、愿意多花 $100–200 买省心 → <b>Devil's Gear</b>。<br>
+          · College Street Cycles <b>买二手别指望，但以后修车一定用得上</b>——它开门最稳，评价里反复出现"当天修好""价格公道"。
+        </div>
+
+        <div class="route-box">
+          <h4>🗺️ 推荐动线：一个下午看完三家（选周二或周四）</h4>
+          <div class="route-step"><span class="route-time">14:30</span><span>从 Ivy Manor 出发，步行下 Prospect St 往市中心。</span></div>
+          <div class="route-step"><span class="route-time">15:10</span><span>先到 <strong>College Street Cycles</strong>（252 College St）—— 它 18:00 才关门，但先来是为了摸清新车行情，心里有个价格锚。</span></div>
+          <div class="route-step"><span class="route-time">15:40</span><span>步行 <strong>2 分钟</strong>到隔壁 <strong>Devil's Gear</strong>（845 Chapel St）—— 两家只隔 150 米，看二手车源和报价。</span></div>
+          <div class="route-step"><span class="route-time">16:20</span><span>步行 <strong>12 分钟</strong>去 <strong>Bradley 合作社</strong>（138 Bradley St）—— 它 16:00 才开门，所以放最后，压轴的性价比之王。</span></div>
+          <div class="route-step"><span class="route-time">17:30</span><span>挑到车当场骑回家，约 <strong>10 分钟</strong>；没挑到也不亏，三家行情已经全摸清了。</span></div>
         </div>
       </div>
     </div>
@@ -490,9 +727,14 @@ body{
       <div class="card">
         <h3>Boulevard Flea Market</h3>
         <p>周末跳蚤市场，偶尔有二手单车摊位。货源不稳定，价格低但车况看运气。适合顺路逛逛，不建议专门跑。</p>
+        <div class="dist-row">
+          <span class="dist-chip walk">🚶 步行 4.3 km · 约 54 分钟</span>
+          <span class="dist-chip">🚌 建议坐公交或搭车前往</span>
+        </div>
         <div class="meta">
           📍 <a href="https://www.google.com/maps/search/?api=1&query=500+Ella+T+Grasso+Blvd,+New+Haven,+CT" target="_blank">500 Ella T Grasso Blvd, New Haven, CT</a> ·
-          🕒 周六、周日 8:00–16:00
+          🕒 周六、周日 8:00–16:00 ·
+          <a href="https://www.google.com/maps/dir/?api=1&origin=567+Prospect+St,+New+Haven,+CT+06511&destination=500+Ella+T+Grasso+Blvd,+New+Haven,+CT&travelmode=walking" target="_blank">步行路线 →</a>
         </div>
       </div>
     </div>
@@ -570,10 +812,28 @@ body{
   本页为 AI 辅助整理的生活信息，价格和营业时间可能变动，出行前建议电话或官网确认 · 刘俊平 · AI赋能项目管理
 </footer>
 
+<!-- 车店详情弹窗 -->
+<div class="modal-mask" id="shopModal" onclick="if(event.target===this)closeShop()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="smTitle">
+    <div class="modal-head" id="smHead">
+      <button class="modal-close" onclick="closeShop()" aria-label="关闭">&times;</button>
+      <div class="modal-eyebrow" id="smEyebrow"></div>
+      <h3 id="smTitle"></h3>
+      <div class="m-addr" id="smAddr"></div>
+    </div>
+    <div class="modal-body" id="smBody"></div>
+    <div class="modal-foot" id="smFoot"></div>
+  </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ===== Data ===== */
 const homeLocation = { name:"Ivy Manor", addr:"567 Prospect St, New Haven, CT 06511", lat:41.3274, lng:-72.9215 };
+
+const ORIGIN = "567+Prospect+St,+New+Haven,+CT+06511";
+const walkUrl = d => `https://www.google.com/maps/dir/?api=1&origin=${ORIGIN}&destination=${d}&travelmode=walking`;
+const DAY_CN = ["周日","周一","周二","周三","周四","周五","周六"];
 
 const shops = [
   {
@@ -582,28 +842,238 @@ const shops = [
     tag: "首选公益车行", tagClass: "tag-green", color: "#1a8a4a",
     lat: 41.3069, lng: -72.9196,
     desc: "非营利社区公益车行，车辆全部翻新检修过，明码标价，可现场试骑。",
-    hours: "周二、周四 16:00–20:00", price: "$150–350",
-    gmaps: "https://www.google.com/maps/search/?api=1&query=138+Bradley+St,+New+Haven,+CT+06511"
+    hours: "周二、周四 16:00–20:00", price: "$150–300",
+    walkKm: 2.5, walkMin: 31, bikeMin: 10,
+    phone: "(203) 848-3400", tel: "+12038483400", site: "http://bsbc.co",
+    gmaps: "https://www.google.com/maps/search/?api=1&query=138+Bradley+St,+New+Haven,+CT+06511",
+    walk: walkUrl("138+Bradley+St,+New+Haven,+CT+06511"),
+    openHours: { 2: [16, 20], 4: [16, 20] },
+    prices: [
+      ["二手整车（已专业调校）", "$150 – $300", "ok"],
+      ["DIY 开放工位（自己动手修车）", "低价 / 自愿捐赠", "est"],
+      ["二手配件、旧零件", "远低于车店零售", "est"],
+      ["Earn-a-Bike 志愿工时换车", "以工时抵车款", "est"]
+    ],
+    pros: [
+      "非营利运营，定价不为盈利 —— 同样的钱能买到车况更好的车",
+      "每辆车出售前都由技师调校过，不是「原样转手」，骑回去就能用",
+      "有开放工位可以自己动手修车，还有人手把手教，后续维护几乎不花钱",
+      "社区氛围友好，对刚到纽黑文、英语还不熟的人特别有耐心"
+    ],
+    cons: [
+      "一周只开周二、周四两个傍晚（16:00–20:00），时间必须提前安排",
+      "车源全靠捐赠，去晚了可能没有合适的尺寸，建议先打电话问",
+      "不卖新车，也没有品牌保修"
+    ],
+    scores: [["价格友好", 5], ["车况保障", 4.5], ["二手选择面", 4], ["到店便利", 2], ["售后维修", 4.5]],
+    total: 4.2, rank: 1,
+    verdict: "预算 $300 以内、能空出周二或周四傍晚 —— <b>直接来这家，不用再比了</b>。它是三家里「每一块钱换到的可骑里程」最高的。唯一的代价是时间不自由，所以出门前先打个电话确认有没有你能骑的尺寸。"
   },
   {
     idx: 1, name: "Devil's Gear Bike Shop",
-    addr: "845 Chapel St, New Haven, CT",
+    addr: "845 Chapel St, New Haven, CT 06510",
     tag: "老牌车店", tagClass: "tag-blue", color: "#534AB7",
     lat: 41.3078, lng: -72.9296,
     desc: "耶鲁校园附近老牌车店，卖二手通勤车也做维修。市中心位置方便。",
-    hours: "周二~周六营业（周一休息）", price: "价格略高于合作社",
-    gmaps: "https://www.google.com/maps/search/?api=1&query=845+Chapel+St,+New+Haven,+CT"
+    hours: "周二~周日营业（周一休息）", price: "二手约 $250–500",
+    walkKm: 2.9, walkMin: 36, bikeMin: 12,
+    phone: "(203) 773-9288", tel: "+12037739288", site: "http://www.thedevilsgear.com/",
+    gmaps: "https://www.google.com/maps/search/?api=1&query=845+Chapel+St,+New+Haven,+CT",
+    walk: walkUrl("845+Chapel+St,+New+Haven,+CT+06510"),
+    openHours: { 0: [12, 16], 2: [10, 17], 3: [10, 18], 4: [10, 18], 5: [10, 18], 6: [10, 16] },
+    prices: [
+      ["二手通勤车", "约 $250 – $500", "est"],
+      ["新车（入门通勤）", "约 $600 起", "est"],
+      ["基础调校 / 保养", "约 $75 – $110", "est"],
+      ["补胎 / 换内胎", "约 $20 – $35", "est"]
+    ],
+    pros: [
+      "一周开六天，含周日下午 —— 三家里时间最灵活，临时想去也去得成",
+      "在市中心 Chapel St，逛街顺路；试骑的路况就是你以后天天骑的路",
+      "卖车 + 修车 + 配件一站解决，不用来回跑",
+      "二手和新车都有，可以横向比着挑，不容易买贵"
+    ],
+    cons: [
+      "二手车价格通常比合作社高 $100–200，同样预算车况档次差不多",
+      "二手车源不稳定，常见尺寸容易断货",
+      "周一闭店，别白跑"
+    ],
+    scores: [["价格友好", 3], ["车况保障", 4.5], ["二手选择面", 3.5], ["到店便利", 4.5], ["售后维修", 4.5]],
+    total: 3.9, rank: 2,
+    verdict: "如果你的时间不固定、又不想为了买车专门迁就周二周四 —— <b>多花 $100–200 买省心，选这家</b>。它是三家里唯一周日也开门的，对刚落地、日程还没稳定下来的人最友好。"
   },
   {
     idx: 2, name: "College Street Cycles",
-    addr: "252 College St, New Haven, CT",
+    addr: "252 College St, New Haven, CT 06510",
     tag: "新车/维修", tagClass: "tag-orange", color: "#a86a00",
     lat: 41.3068, lng: -72.9289,
     desc: "主营新车，偶尔有少量二手代步车，也提供维修服务。",
-    hours: "建议电话确认", price: "新车为主",
-    gmaps: "https://www.google.com/maps/search/?api=1&query=252+College+St,+New+Haven,+CT"
+    hours: "周一~周六营业（周日休息）", price: "新车 $500 起",
+    walkKm: 2.9, walkMin: 36, bikeMin: 12,
+    phone: "(203) 865-2724", tel: "+12038652724", site: "http://www.collegestreetcycles.com/",
+    gmaps: "https://www.google.com/maps/search/?api=1&query=252+College+St,+New+Haven,+CT",
+    walk: walkUrl("252+College+St,+New+Haven,+CT+06510"),
+    openHours: { 1: [9.5, 18], 2: [9.5, 18], 3: [9.5, 18], 4: [9.5, 18], 5: [10, 17], 6: [10, 17] },
+    prices: [
+      ["新车（主营）", "约 $500 – $1,500+", "est"],
+      ["二手车", "极少，遇上算运气", "est"],
+      ["调校 / 维修", "按工时，口碑「价格公道」", "est"],
+      ["Brompton 折叠车（授权经销）", "$1,500 起", "est"]
+    ],
+    pros: [
+      "营业时间最长最稳定（周一至周六几乎全天），三家里最不容易白跑",
+      "Google 4.0 分，多条评价提到「当天修好」「价格公道」「愿意教你怎么保养」",
+      "紧邻耶鲁主校区和 The Green，走路能到，骑车更快",
+      "Brompton 授权经销商 —— 以后要折叠车或长期骑好车，本地首选"
+    ],
+    cons: [
+      "主营新车，二手基本靠碰运气，纯低预算淘车不合适",
+      "新车起步价高，不适合「只想凑合骑一年」的需求",
+      "周日休息"
+    ],
+    scores: [["价格友好", 2], ["车况保障", 5], ["二手选择面", 1.5], ["到店便利", 5], ["售后维修", 5]],
+    total: 3.4, rank: 3,
+    verdict: "<b>买二手车别指望它，但以后修车一定用得上。</b>它离 Devil's Gear 只有 150 米，顺路花 10 分钟看一眼就够。真正的价值在于：等你的车出了毛病、或者想认真买一辆能骑五年的好车时，这里是本地口碑最稳的一家。"
   }
 ];
+
+/* ===== 营业状态（按纽黑文当地时间 America/New_York 计算）===== */
+function nowInNewHaven(){
+  const s = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+  return new Date(s);
+}
+function fmtH(h){
+  const hh = Math.floor(h), mm = Math.round((h - hh) * 60);
+  return String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+}
+function openState(shop){
+  const now = nowInNewHaven();
+  const d = now.getDay();
+  const cur = now.getHours() + now.getMinutes() / 60;
+  const today = shop.openHours[d];
+  if (today && cur >= today[0] && cur < today[1]) {
+    return { on: true, text: `营业中 · 今天开到 ${fmtH(today[1])}` };
+  }
+  if (today && cur < today[0]) {
+    return { on: false, text: `今天 ${fmtH(today[0])} 开门` };
+  }
+  // 今天没开 / 已过打烊时间 → 找下一个营业日
+  const prefix = today ? '今日已打烊' : '今日不营业';
+  for (let i = 1; i <= 7; i++) {
+    const nd = (d + i) % 7;
+    if (shop.openHours[nd]) {
+      return { on: false, text: `${prefix} · ${DAY_CN[nd]} ${fmtH(shop.openHours[nd][0])} 开门` };
+    }
+  }
+  return { on: false, text: '营业时间请电话确认' };
+}
+function paintOpenPills(){
+  document.querySelectorAll('.open-pill[data-open]').forEach(el => {
+    const s = openState(shops[+el.dataset.open]);
+    el.classList.add(s.on ? 'on' : 'off');
+    el.innerHTML = `<span class="od"></span>${s.text}`;
+  });
+}
+
+/* ===== 详情弹窗 ===== */
+function openShop(idx){
+  const s = shops[idx];
+  const st = openState(s);
+  const nowD = nowInNewHaven().getDay();
+
+  document.getElementById('smHead').style.background =
+    `linear-gradient(135deg, ${s.color}, ${s.color}cc)`;
+  document.getElementById('smEyebrow').textContent = `车店 ${idx + 1} / 3 · ${s.tag} · 性价比第 ${s.rank} 名`;
+  document.getElementById('smTitle').textContent = s.name;
+  document.getElementById('smAddr').textContent = '📍 ' + s.addr;
+
+  // 营业时间表
+  let hoursRows = '';
+  for (let i = 1; i <= 7; i++) {
+    const d = i % 7;
+    const h = s.openHours[d];
+    hoursRows += `<tr class="${h ? '' : 'closed'} ${d === nowD ? 'today' : ''}">
+      <td>${DAY_CN[d]}${d === nowD ? '（今天）' : ''}</td>
+      <td>${h ? fmtH(h[0]) + ' – ' + fmtH(h[1]) : '休息'}</td></tr>`;
+  }
+
+  const priceRows = s.prices.map(p => `<li>
+      <span class="pn">${p[0]}<span class="px-tag ${p[2] === 'ok' ? 'px-ok' : 'px-est'}">${p[2] === 'ok' ? '已核实' : '参考'}</span></span>
+      <span class="pv">${p[1]}</span></li>`).join('');
+
+  const scoreRows = s.scores.map(sc => `<div class="score-row">
+      <span class="sl">${sc[0]}</span>
+      <span class="score-bar"><i style="width:${sc[1] / 5 * 100}%;background:${s.color}"></i></span>
+      <span class="sv">${sc[1].toFixed(1)}</span></div>`).join('');
+
+  const stars = '★'.repeat(Math.round(s.total)) + '☆'.repeat(5 - Math.round(s.total));
+
+  document.getElementById('smBody').innerHTML = `
+    <div class="m-dist">
+      <span class="dist-chip walk">🚶 从 Ivy Manor 步行 ${s.walkKm} km · 约 ${s.walkMin} 分钟</span>
+      <span class="dist-chip bike">🚴 买到车骑回家约 ${s.bikeMin} 分钟</span>
+      <span class="open-pill ${st.on ? 'on' : 'off'}"><span class="od"></span>${st.text}</span>
+    </div>
+
+    <div class="m-sec">
+      <h4>🕒 营业时间<span style="font-size:11.5px;font-weight:600;color:#8a8a95;">（纽黑文当地时间）</span></h4>
+      <table class="hours-tbl">${hoursRows}</table>
+    </div>
+
+    <div class="m-sec">
+      <h4>💵 价格</h4>
+      <ul class="price-list">${priceRows}</ul>
+      <p style="font-size:11.5px;color:#8a8a95;margin-top:8px;line-height:1.6;">
+        标「参考」的为区间估算，实际以店内报价为准，出门前建议先打电话。
+      </p>
+    </div>
+
+    <div class="m-sec">
+      <h4>✨ 优势</h4>
+      <ul class="pc-list pros">${s.pros.map(x => `<li><span>${x}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="m-sec">
+      <h4>⚠️ 需要留意</h4>
+      <ul class="pc-list cons">${s.cons.map(x => `<li><span>${x}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="m-sec">
+      <h4>⚖️ 性价比评分</h4>
+      ${scoreRows}
+      <div class="total-score">
+        <span class="ts-num">${s.total.toFixed(1)}</span>
+        <span class="ts-meta">
+          <span class="ts-stars">${stars}</span><br>
+          三家横向对比 <strong>第 ${s.rank} 名</strong>（满分 5.0）<br>
+          <span style="font-size:11.5px;">场景：预算有限 · 只求代步 · 价格30%/车况25%/选择面20%/便利15%/售后10%</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="m-sec">
+      <h4>🎯 一句话建议</h4>
+      <div class="verdict-box">${s.verdict}</div>
+    </div>
+  `;
+
+  document.getElementById('smFoot').innerHTML = `
+    <a class="mf-btn primary" href="${s.walk}" target="_blank" rel="noopener">🚶 步行导航</a>
+    <a class="mf-btn" href="tel:${s.tel}">📞 ${s.phone}</a>
+    <a class="mf-btn" href="${s.site}" target="_blank" rel="noopener">🔗 官网</a>
+    <button class="mf-btn" onclick="closeShop();flyToShop(${idx});">🗺️ 在地图上看</button>
+  `;
+
+  document.getElementById('shopModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  flyToShop(idx, true);
+}
+
+function closeShop(){
+  document.getElementById('shopModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeShop(); });
 
 /* ===== Tabs ===== */
 function switchTab(idx){
@@ -669,8 +1139,9 @@ function renderShopsOnMap() {
     marker.bindPopup(`
       <div class="pop-name">${i + 1}. ${shop.name}</div>
       <div class="pop-addr">${shop.addr}</div>
-      <div class="pop-desc">${shop.desc}</div>
-      <div class="pop-desc">🕒 ${shop.hours} · ${shop.price}</div>
+      <div class="pop-desc">🚶 从 Ivy Manor 步行 <strong>${shop.walkKm} km · 约 ${shop.walkMin} 分钟</strong></div>
+      <div class="pop-desc">🕒 ${shop.hours} · 💵 ${shop.price}</div>
+      <a class="pop-link" href="javascript:void(0)" onclick="openShop(${i})">查看详情与性价比 →</a><br>
       <a class="pop-link" href="${shop.gmaps}" target="_blank" rel="noopener">在 Google Maps 中打开 →</a>
     `);
     shopMarkers.push(marker);
@@ -682,7 +1153,7 @@ function renderShopsOnMap() {
   map.flyToBounds(bounds, { padding: [70, 70], maxZoom: 14, duration: 0.8 });
 }
 
-function flyToShop(idx) {
+function flyToShop(idx, noPopup) {
   const shop = shops[idx];
   const marker = shopMarkers[idx];
   if (!marker) return;
@@ -707,11 +1178,13 @@ function flyToShop(idx) {
   const bounds = L.latLngBounds([[homeLocation.lat, homeLocation.lng], [shop.lat, shop.lng]]);
   map.flyToBounds(bounds, { padding: [90, 90], maxZoom: 15, duration: 0.8 });
 
-  setTimeout(() => marker.openPopup(), 850);
+  if (!noPopup) setTimeout(() => marker.openPopup(), 850);
 }
 
 // Initialize
 renderShopsOnMap();
+paintOpenPills();
+setInterval(paintOpenPills, 60000);
 </script>
 
 </body>
