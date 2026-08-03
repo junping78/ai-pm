@@ -46,3 +46,6 @@ docs/content-asset-registry.html
 docs/content-asset-registry-v2.html
 generate_asset_registry.py
 generate_asset_registry_v2.py
+
+# === 内部工作列表：对话梳理文档，不进版本库 ===
+工作列表.html
