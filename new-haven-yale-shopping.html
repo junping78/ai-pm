@@ -495,6 +495,180 @@ body{
   .banner::after{display:none}
   .day-panel{display:block!important}
 }
+
+/* ===== 距离条 & 营业状态（可复用组件 · 绿色主题） ===== */
+.dist-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px;align-items:center}
+.dist-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;
+  background:#f4f6fa;color:#4d566b;border:1px solid #e3e8ee;white-space:nowrap;
+}
+.dist-chip.walk{background:#ecf7f1;color:#137a44;border-color:#cde9da}
+.dist-chip.prev{background:#f2f1ff;color:#4f46d6;border-color:#dedbfa}
+.open-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:700;padding:4px 10px;border-radius:100px;
+  background:#f4f6fa;color:#697386;white-space:nowrap;
+}
+.open-pill.on{background:#e6f7ef;color:#0f7038}
+.open-pill.off{background:#f8f1f3;color:#96707a}
+.open-pill .od{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.card-cta{
+  margin-top:10px;font-size:12.5px;font-weight:700;color:#00875a;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.poi-card:hover .card-cta{text-decoration:underline}
+
+/* ===== 详情弹窗（可复用组件） ===== */
+.modal-mask{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(16,20,38,.55);backdrop-filter:blur(3px);
+  padding:28px;align-items:center;justify-content:center;
+}
+.modal-mask.show{display:flex;animation:maskIn .2s ease}
+@keyframes maskIn{from{opacity:0}to{opacity:1}}
+.modal-box{
+  background:#fff;border-radius:18px;width:100%;max-width:620px;
+  max-height:88vh;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 24px 64px rgba(16,20,38,.28);animation:boxIn .26s cubic-bezier(.4,0,.2,1);
+}
+@keyframes boxIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{
+  padding:22px 26px 18px;border-bottom:1px solid #eef0f4;position:relative;flex-shrink:0;
+}
+.modal-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;
+  letter-spacing:.06em;padding:4px 10px;border-radius:100px;color:#fff;margin-bottom:9px;
+}
+.modal-head h3{font-size:21px;font-weight:800;color:#1a1f36;line-height:1.35;padding-right:34px}
+.modal-head .m-en{font-size:13px;color:#8792a8;margin-top:3px}
+.modal-close{
+  position:absolute;top:18px;right:20px;width:32px;height:32px;border:none;cursor:pointer;
+  background:#f4f6fa;border-radius:50%;color:#697386;font-size:19px;line-height:1;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.modal-close:hover{background:#e8ebf2;color:#1a1f36}
+.modal-body{padding:20px 26px 4px;overflow-y:auto;flex:1}
+.m-sec{margin-bottom:20px}
+.m-sec h4{
+  font-size:12.5px;font-weight:800;color:#8792a8;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:9px;
+}
+.m-addr{font-size:13.5px;color:#4d566b;line-height:1.65}
+.m-addr a{color:#00875a;text-decoration:none;font-weight:600}
+.m-addr a:hover{text-decoration:underline}
+
+/* 营业时间表 */
+.hours-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.hours-tbl tr{border-bottom:1px solid #f2f4f8}
+.hours-tbl tr:last-child{border-bottom:none}
+.hours-tbl td{padding:6px 4px;color:#4d566b}
+.hours-tbl td:first-child{width:64px;font-weight:600;color:#697386}
+.hours-tbl td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.hours-tbl tr.today{background:#eafaf3}
+.hours-tbl tr.today td{color:#0f7038;font-weight:700}
+.hours-tbl td.closed{color:#b0637a}
+.hours-note{
+  margin-top:9px;font-size:12px;color:#8792a8;line-height:1.6;
+  padding:8px 11px;background:#fafbfd;border-radius:8px;border-left:3px solid #e3e8ee;
+}
+.hours-note.warn{background:#fff8ee;border-left-color:#e8a33d;color:#8a6220}
+
+/* 优势 / 注意 */
+.pc-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.pc-list li{font-size:13.5px;line-height:1.6;display:flex;gap:8px;color:#4d566b}
+.pc-list li::before{flex-shrink:0;font-weight:800;margin-top:-1px}
+.pc-list.pros li::before{content:'✓';color:#0f9d58}
+.pc-list.cons li::before{content:'!';color:#e8a33d}
+
+/* 评分 */
+.score-row{display:flex;align-items:center;gap:11px;margin-bottom:9px;font-size:13px}
+.score-row .sr-label{width:76px;flex-shrink:0;color:#697386;font-weight:600}
+.score-bar{flex:1;height:7px;background:#eef0f4;border-radius:100px;overflow:hidden}
+.score-bar i{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,#1abc9c,#00875a)}
+.score-row .sr-num{width:26px;text-align:right;font-weight:700;color:#1a1f36;font-variant-numeric:tabular-nums}
+.total-score{
+  display:flex;align-items:center;gap:14px;margin-top:15px;padding:14px 16px;
+  background:linear-gradient(135deg,#f0faf6,#e8f7f0);border-radius:12px;border:1px solid #d4f0e2;
+}
+.ts-num{font-size:31px;font-weight:800;color:#00875a;line-height:1;font-variant-numeric:tabular-nums}
+.ts-meta{flex:1}
+.ts-stars{font-size:14px;letter-spacing:.08em;color:#f0a500;line-height:1.2}
+.ts-cap{font-size:12px;color:#8792a8;margin-top:3px}
+.verdict-box{
+  margin-top:14px;padding:13px 15px;background:#f7fbf9;border:1px solid #d9ece3;
+  border-radius:10px;font-size:13.5px;line-height:1.7;color:#28624a;
+}
+.verdict-box b{color:#0f7038}
+
+/* 弹窗底部按钮 */
+.modal-foot{
+  padding:15px 26px 20px;border-top:1px solid #eef0f4;flex-shrink:0;
+  display:flex;gap:9px;flex-wrap:wrap;background:#fafbfd;
+}
+.mf-btn{
+  flex:1;min-width:132px;text-align:center;padding:10px 14px;border-radius:10px;
+  font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;
+  border:1px solid #e3e8ee;background:#fff;color:#4d566b;
+}
+.mf-btn:hover{border-color:#c8cdd8;transform:translateY(-1px)}
+.mf-btn.primary{background:#00875a;color:#fff;border-color:#00875a}
+.mf-btn.primary:hover{background:#007a4f}
+
+/* ===== 横向对比 ===== */
+.compare-box{
+  margin:28px 0 6px;padding:22px 24px;background:#fafbfd;
+  border:1px solid #e3e8ee;border-radius:14px;
+}
+.compare-box h3{
+  font-size:16.5px;font-weight:800;color:#1a1f36;margin-bottom:5px;
+  display:flex;align-items:center;gap:7px;
+}
+.compare-note{font-size:12.5px;color:#8792a8;line-height:1.65;margin-bottom:15px}
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.cmp-table th{
+  text-align:left;padding:9px 10px;font-size:11.5px;font-weight:800;color:#8792a8;
+  letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid #e3e8ee;white-space:nowrap;
+}
+.cmp-table td{padding:10px;border-bottom:1px solid #eef0f4;color:#4d566b;vertical-align:middle}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table td:first-child{font-weight:700;color:#1a1f36}
+.cmp-rank{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:21px;height:21px;border-radius:50%;font-size:11.5px;font-weight:800;
+  background:#eef0f4;color:#697386;margin-right:7px;
+}
+.cmp-rank.r1{background:#00875a;color:#fff}
+.cmp-rank.r2{background:#1abc9c;color:#fff}
+.cmp-rank.r3{background:#a8e6cf;color:#0f7038}
+.cmp-total{font-weight:800;color:#00875a;font-variant-numeric:tabular-nums}
+.cmp-win{color:#0f7038;font-weight:600}
+.cmp-verdict{font-size:12.5px;color:#697386;line-height:1.55}
+
+/* 一句话结论条 */
+.pick-strip{
+  display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px;
+}
+.pick-item{
+  flex:1;min-width:158px;padding:12px 14px;border-radius:11px;
+  background:#fff;border:1px solid #e3e8ee;
+}
+.pick-item .pi-tag{
+  font-size:11px;font-weight:800;letter-spacing:.05em;color:#fff;
+  padding:2px 8px;border-radius:100px;display:inline-block;margin-bottom:6px;
+}
+.pick-item .pi-name{font-size:13.5px;font-weight:700;color:#1a1f36;line-height:1.4}
+.pick-item .pi-why{font-size:12px;color:#8792a8;margin-top:3px;line-height:1.55}
+
+@media(max-width:900px){
+  .modal-mask{padding:0;align-items:flex-end}
+  .modal-box{max-width:100%;border-radius:18px 18px 0 0;max-height:92vh}
+  .mf-btn{min-width:calc(50% - 5px)}
+}
+@media print{
+  .modal-mask,.card-cta,.poi-arrow{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -823,6 +997,18 @@ body{
   </div>
 </footer>
 
+<!-- ===== 站点详情弹窗 ===== -->
+<div class="modal-mask" id="poiModal" onclick="if(event.target===this)closePoi()">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <button class="modal-close" onclick="closePoi()" aria-label="关闭">&times;</button>
+      <div id="pm-head"></div>
+    </div>
+    <div class="modal-body" id="pm-body"></div>
+    <div class="modal-foot" id="pm-foot"></div>
+  </div>
+</div>
+
 <!-- ===== Leaflet JS ===== -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -832,48 +1018,158 @@ const homeLocation = { name:"Ivy Manor", addr:"567 Prospect St, New Haven, CT 06
 const itinerary = {
   1: {
     title: "DAY 1 · 仓储会员 + 综合零售巨头",
+    move: "全程自驾 / 打车",
+    moveNote: "6 家全是仓储会员与综合商超，分散在 Milford、North Haven、East Haven 三地，彼此相距 5–18 分钟车程，<b>没有公交可达，必须有车</b>。建议按 Costco→BJ's→Walmart→Target→Home Depot→Best Buy 的顺序走，最后三家都在 North Haven 的 Universal Dr 商圈，可连着逛。",
     pois: [
       { time:"09:00", duration:"2h", name:"Costco Wholesale", nameEn:"Milford, CT · 仓储会员", cat:"wholesale", catLabel:"仓储会员", lat:41.2330, lng:-73.0350, cost:"~$80", distMi:"10.1", distMin:"18",
+        addr:"1718 Boston Post Rd, Milford, CT 06460", tel:"12038828881", site:"https://www.costco.com/",
+        kind:"std", hrs:{0:[[10,18]],1:[[10,20.5]],2:[[10,20.5]],3:[[10,20.5]],4:[[10,20.5]],5:[[10,20.5]],6:[[9.5,18]]},
+        hrsText:"周一至周五 10:00–20:30 · 周六 9:30–18:00 · 周日 10:00–18:00",
+        hrsNote:"仓储会员店，结账需年费会员卡（$65 起）。加油站只对会员开放，比外面便宜约 $0.3–0.5/加仑。",
         desc:"美国最大的仓储会员制连锁店，以大包装、低价格著称。Kirkland 自有品牌品质不输大牌，退换货政策全美最宽松。",
-        tip:"💡 必买：Kirkland 坚果/鱼油/保健品、大牌手表（比专柜便宜10-20%）；加油站比外面便宜$0.3-0.5/加仑。需会员卡（年费$65起）。" },
+        tip:"💡 必买：Kirkland 坚果/鱼油/保健品、大牌手表（比专柜便宜10-20%）；加油站比外面便宜$0.3-0.5/加仑。需会员卡（年费$65起）。",
+        pros:["大包装单价全美最低，Kirkland 自有品牌品质不输大牌","退换货政策最宽松，几乎无理由可退","加油站比外面便宜 $0.3–0.5/加仑"],
+        cons:["需年费会员（$65 起）才能结账","包装太大，单身/小家庭容易吃灰或放过期","周末下午人挤人，结账排队久"],
+        scores:[["值得逛",4.8],["性价比",5.0],["省心度",4.0],["品类丰富",4.9]], total:4.7, rank:1,
+        verdict:"仓储会员店里的「综合冠军」。<b>要囤日用品、保健品、坚果、厕纸，这里单价确实最低。</b>第一次来先办张会员卡，退换货兜底让你毫无压力。" },
+
       { time:"11:30", duration:"1.5h", name:"BJ's Wholesale Club", nameEn:"North Haven, CT · 仓储会员", cat:"wholesale", catLabel:"仓储会员", lat:41.3885, lng:-72.9095, cost:"~$60", distMi:"5.2", distMin:"10",
+        addr:"555 Universal Dr N, North Haven, CT 06473", tel:"12032346000", site:"https://www.bjs.com/",
+        kind:"std", hrs:{0:[[8,20]],1:[[8,21]],2:[[8,21]],3:[[8,21]],4:[[8,21]],5:[[8,21]],6:[[8,21]]},
+        hrsText:"周一至周六 8:00–21:00 · 周日 8:00–20:00",
+        hrsNote:"接受厂家优惠券叠加会员折扣，叠加后常比 Costco 还便宜。无会员可办「一日体验卡」免费进店。",
         desc:"新英格兰起家的仓储会员店，与 Costco/Sam's Club 三足鼎立。接受厂家优惠券叠加会员折扣，性价比极高。",
-        tip:"💡 必买：Berkley Jensen 自有品牌生鲜、轮胎、大宗日用品。无会员卡可办一日体验卡免费逛。" },
-      { time:"13:00", duration:"1.5h", name:"Walmart Supercenter", nameEn:"East Haven, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.3275, lng:-72.8660, cost:"~$50", distMi:"4.3", distMin:"10",
+        tip:"💡 必买：Berkley Jensen 自有品牌生鲜、轮胎、大宗日用品。无会员卡可办一日体验卡免费逛。",
+        pros:["接受厂家优惠券叠加会员折扣，叠加后常比 Costco 还便宜","无会员可办「一日体验卡」免费逛，门槛最低","Berkley Jensen 生鲜自有品牌口碑好"],
+        cons:["门店比 Costco 少，品类广度略逊","大包装同样考验储存空间","部分热门商品经常断货"],
+        scores:[["值得逛",4.5],["性价比",4.9],["省心度",4.2],["品类丰富",4.5]], total:4.5, rank:2,
+        verdict:"比 Costco 更「<b>无门槛</b>」的仓储店——没会员也能进。想先感受一下仓储购物再决定办哪家的卡，从 BJ's 入门最轻松。" },
+
+      { time:"13:00", duration:"1.5h", name:"Walmart Supercenter", nameEn:"New Haven, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.3236, lng:-72.8798, cost:"~$50", distMi:"4.3", distMin:"10",
+        addr:"315 Foxon Blvd, New Haven, CT 06513", tel:"12034677509", site:"https://www.walmart.com/",
+        kind:"std", hrs:{0:[[6,23]],1:[[6,23]],2:[[6,23]],3:[[6,23]],4:[[6,23]],5:[[6,23]],6:[[6,23]]},
+        hrsText:"每日 6:00–23:00",
+        hrsNote:"全球最大零售商，商品覆盖食品、服装、电子、药品全品类。$4/$9 处方仿制药计划对长期用药很友好。",
         desc:"全球最大零售商，商品种类覆盖食品、服装、电子、药品全品类。$4 仿制药计划闻名全美，日用品价格地板价。",
-        tip:"💡 必买：$4/$9 处方仿制药、季节性清仓商品、Great Value 自有品牌。价格 Match 政策 + 90天无理由退货。" },
+        tip:"💡 必买：$4/$9 处方仿制药、季节性清仓商品、Great Value 自有品牌。价格 Match 政策 + 90天无理由退货。",
+        pros:["日用品价格几乎是全城地板价","$4/$9 处方仿制药计划对长期用药很友好","价格 Match + 90 天无理由退货，买错也不怕"],
+        cons:["款式与质感偏基础，想买有点设计感的需要绕开","门店大、货架密，找东西费时间","自助结账排队是常态"],
+        scores:[["值得逛",4.0],["性价比",4.8],["省心度",4.2],["品类丰富",5.0]], total:4.4, rank:3,
+        verdict:"不追求品牌、只求把生活必需品以最低价补齐，Walmart 是最稳的一站。<b>$4 仿制药和 Price Match 是隐藏省钱点。</b>" },
+
       { time:"15:00", duration:"1.5h", name:"Target", nameEn:"North Haven, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.3905, lng:-72.9604, cost:"~$50", distMi:"6.3", distMin:"17",
+        addr:"200 Universal Dr N, North Haven, CT 06473", tel:"12038593490", site:"https://www.target.com/",
+        kind:"std", hrs:{0:[[8,23]],1:[[8,23]],2:[[8,23]],3:[[8,23]],4:[[8,23]],5:[[8,23]],6:[[8,23]]},
+        hrsText:"每日 8:00–23:00",
+        hrsNote:"购物环境明亮舒服，比 Walmart 体面一截。RedCard 5% 返现 + App 额外折扣可叠加。",
         desc:"时尚平价百货，设计师联名系列是最大亮点。购物环境比 Walmart 优雅，自有品牌 Up&Up 和 Good&Gather 口碑极佳。",
-        tip:"💡 必买：设计师联名款（服装/家居限量）、Good&Gather 食品、美妆区。Cartwheel App 额外5-50%折扣，RedCard 5%返现。" },
+        tip:"💡 必买：设计师联名款（服装/家居限量）、Good&Gather 食品、美妆区。Cartwheel App 额外5-50%折扣，RedCard 5%返现。",
+        pros:["购物环境明亮舒服，比 Walmart 体面一截","设计师联名款（服装/家居限量）是独家亮点","RedCard 5% 返现 + App 额外折扣叠加很香"],
+        cons:["同款日用品通常比 Walmart 贵一截","联名款易断码，热门尺码要靠抢","大件囤货不如仓储店划算"],
+        scores:[["值得逛",4.5],["性价比",4.0],["省心度",4.5],["品类丰富",4.3]], total:4.2, rank:4,
+        verdict:"如果想要「买得开心」而不是「买得最便宜」，Target 是这一天的情绪价值担当。<b>联名款和 RedCard 返现是它值得专程来的理由。</b>" },
+
       { time:"16:30", duration:"1h", name:"Home Depot", nameEn:"North Haven, CT · 家居电子", cat:"home", catLabel:"家居电子", lat:41.3915, lng:-72.9560, cost:"~$40", distMi:"6.2", distMin:"17",
+        addr:"111 Universal Dr N, North Haven, CT 06473", tel:"12032341300", site:"https://www.homedepot.com/",
+        kind:"std", hrs:{0:[[8,20]],1:[[6,22]],2:[[6,22]],3:[[6,22]],4:[[6,22]],5:[[6,22]],6:[[6,22]]},
+        hrsText:"周一至周六 6:00–22:00 · 周日 8:00–20:00",
+        hrsNote:"全球最大家居建材零售商。大型工具可租赁，周六有免费 DIY 工作坊。纯家居建材需求才用得上。",
         desc:"全球最大家居建材零售商，从五金工具到智能家居一应俱全。Ryobi 电动工具系列性价比极高，DIY 爱好者天堂。",
-        tip:"💡 必买：Ryobi/Husky 工具、智能家居设备、园艺植物。免费 DIY 工作坊（周六）；大型工具可租赁。" },
+        tip:"💡 必买：Ryobi/Husky 工具、智能家居设备、园艺植物。免费 DIY 工作坊（周六）；大型工具可租赁。",
+        pros:["Ryobi/Husky 工具性价比高，DIY 爱好者天堂","大型工具可租赁，不用为一次性工程买断","免费周六 DIY 工作坊，新手友好"],
+        cons:["纯家居建材，不做日用采购的人用不上","仓储式陈列，目标不明确容易逛晕","周末上午自驾停车紧张"],
+        scores:[["值得逛",3.5],["性价比",4.0],["省心度",3.8],["品类丰富",4.2]], total:3.8, rank:5,
+        verdict:"只有当你真有家居/维修需求时才值得绕过来。<b>工具租赁和 DIY 工作坊是它独有的价值</b>，纯囤货则跳过。" },
+
       { time:"17:30", duration:"1h", name:"Best Buy", nameEn:"North Haven, CT · 家居电子", cat:"home", catLabel:"家居电子", lat:41.3900, lng:-72.9575, cost:"~$60", distMi:"6.3", distMin:"17",
+        addr:"398 Universal Dr N, North Haven, CT 06473", tel:"12039850079", site:"https://www.bestbuy.com/",
+        kind:"std", hrs:{0:[[10,19]],1:[[10,21]],2:[[10,21]],3:[[10,21]],4:[[10,21]],5:[[10,21]],6:[[10,21]]},
+        hrsText:"周一至周六 10:00–21:00 · 周日 10:00–19:00",
+        hrsNote:"全美最大消费电子零售商，苹果/微软/三星全线可上手体验。Open-Box 退货机折扣可达 4–5 折。",
         desc:"全美最大消费电子零售商，苹果/微软/三星全线产品体验区。开箱清仓区（Open-Box）折扣可达4-5折。",
-        tip:"💡 必买：苹果产品（教育优惠$50-200 off）、耳机、游戏机。Open-Box 区淘退货机；价格匹配 Amazon。" }
+        tip:"💡 必买：苹果产品（教育优惠$50-200 off）、耳机、游戏机。Open-Box 区淘退货机；价格匹配 Amazon。",
+        pros:["苹果/微软/三星全线可上手体验，比网购踏实","Open-Box 退货机折扣可达 4–5 折","价格 Match Amazon，看到低价可现场核"],
+        cons:["正价偏贵，除非赶上促销或 Open-Box","导购推销延保/会员，需自己把关","大家电配送排期长"],
+        scores:[["值得逛",3.6],["性价比",3.5],["省心度",3.8],["品类丰富",4.0]], total:3.7, rank:6,
+        verdict:"买电子产品想「先摸再买」，Best Buy 比纯线上稳妥。<b>重点淘 Open-Box 区</b>，正价入场则性价比一般。" }
     ]
   },
   2: {
     title: "DAY 2 · 连锁超市 + 特色零售 + 北欧家居",
+    move: "全程自驾 / 打车",
+    moveNote: "IKEA 在纽黑文市区临海，其余 5 家沿 Boston Post Rd / Whalley Ave 分布，<b>同样依赖自驾</b>。北边三家（Whole Foods / Trader Joe's / Stop & Shop）与南边 TJ Maxx、Dick's 不在同一方向，按 IKEA→Whole Foods→Trader Joe's→Stop & Shop→TJ Maxx→Dick's 顺路最省油。",
     pois: [
       { time:"09:00", duration:"2h", name:"IKEA New Haven", nameEn:"450 Sargent Dr · 家居电子", cat:"home", catLabel:"家居电子", lat:41.2935, lng:-72.9260, cost:"~$80", distMi:"3.5", distMin:"9",
+        addr:"450 Sargent Dr, New Haven, CT 06511", tel:"", site:"https://www.ikea.com/us/en/",
+        kind:"std", hrs:{0:[[11,19]],1:[[11,19]],2:[[11,19]],3:[[11,19]],4:[[11,19]],5:[[11,19]],6:[[11,19]]},
+        hrsText:"每日 11:00–19:00",
+        hrsNote:"北欧家居巨头，纽黑文临海地标门店。三层楼面展示数十个样板间，热门单品常缺货，建议先官网查库存。",
         desc:"北欧家居巨头，纽黑文临海地标门店。三层楼面展示数十个样板间，瑞典食品超市和1美元热狗是经典彩蛋。",
-        tip:"💡 必买：POÄNG椅、BILLY书柜、瑞典肉丸、三文鱼。$1热狗+冰淇淋；仓库区自取家具；组装也是一种乐趣。" },
+        tip:"💡 必买：POÄNG椅、BILLY书柜、瑞典肉丸、三文鱼。$1热狗+冰淇淋；仓库区自取家具；组装也是一种乐趣。",
+        pros:["北欧设计 + flat-pack 价格，家具性价比标杆","三层样板间直接给搭配灵感，$1 热狗是经典彩蛋","瑞典食品超市可顺手补货"],
+        cons:["动线设计「只能按它给的路线走」，耗时","组装是体力活，大件搬运要计划","热门单品常缺货，最好先官网查库存"],
+        scores:[["值得逛",4.9],["性价比",4.5],["省心度",3.9],["品类丰富",4.9]], total:4.6, rank:1,
+        verdict:"想给住处添置家具，IKEA 是纽黑文最方便的一站。<b>把「逛样板间 + 吃热狗 + 仓库自取」当半天活动</b>，体验感比纯采购高得多。" },
+
       { time:"11:30", duration:"1h", name:"Whole Foods Market", nameEn:"Milford, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.2350, lng:-73.0450, cost:"~$40", distMi:"14.6", distMin:"23",
+        addr:"1686 Boston Post Rd, Milford, CT 06460", tel:"12038740883", site:"https://www.wholefoodsmarket.com/",
+        kind:"std", hrs:{0:[[8,21]],1:[[8,21]],2:[[8,21]],3:[[8,21]],4:[[8,21]],5:[[8,21]],6:[[8,21]]},
+        hrsText:"每日 8:00–21:00",
+        hrsNote:"有机食品超市鼻祖（Amazon 旗下），生鲜与有机认证标准全美最高。Amazon Prime 会员额外 10% 折扣。",
         desc:"有机食品超市鼻祖（Amazon旗下），生鲜品质和有机认证标准全美最高。熟食 Hot Bar 和烘焙区是午餐好选择。",
-        tip:"💡 必买：365自有品牌有机食品、熟食区按磅称重、新鲜烘焙面包。Amazon Prime 会员额外10%折扣。" },
+        tip:"💡 必买：365自有品牌有机食品、熟食区按磅称重、新鲜烘焙面包。Amazon Prime 会员额外10%折扣。",
+        pros:["有机与生鲜标准全美最高，品质放心","熟食 Hot Bar 按磅称重，午餐省心","365 自有有机品牌价格友好，Prime 再省 10%"],
+        cons:["单价偏高，是这一天的「贵价站」","包装偏小，囤货不划算","周末中午熟食区排队"],
+        scores:[["值得逛",4.0],["性价比",3.3],["省心度",4.3],["品类丰富",4.1]], total:3.9, rank:5,
+        verdict:"追求有机/高品质食材时的首选，但单价明显高。<b>把它当「补品质」而不是「补量」的一站</b>，Prime 会员记得用上折扣。" },
+
       { time:"13:00", duration:"1h", name:"Trader Joe's", nameEn:"Orange, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.2780, lng:-73.0060, cost:"~$35", distMi:"7.0", distMin:"13",
+        addr:"560 Boston Post Rd, Orange, CT 06477", tel:"12037955505", site:"https://www.traderjoes.com/",
+        kind:"std", hrs:{0:[[8,21]],1:[[8,21]],2:[[8,21]],3:[[8,21]],4:[[8,21]],5:[[8,21]],6:[[8,21]]},
+        hrsText:"每日 8:00–21:00",
+        hrsNote:"平价精品超市，全部自有品牌、绘风包装。无会员无优惠券，价格却很亲民。热门单品常断货。",
         desc:"平价精品超市，口号是'不卖最难卖的，只卖最好卖的'。全部自有品牌，绘风包装充满趣味，网红零食层出不穷。",
-        tip:"💡 必买：Mandarin Orange Chicken 橘子鸡（网红）、Cookie Butter 饼干酱、$3 Two Buck Chuck 红酒。无优惠券无会员卡。" },
+        tip:"💡 必买：Mandarin Orange Chicken 橘子鸡（网红）、Cookie Butter 饼干酱、$3 Two Buck Chuck 红酒。无优惠券无会员卡。",
+        pros:["全部自有品牌，网红零食（橘子鸡、饼干酱）别处买不到","无会员无优惠券，价格却很亲民","绘风包装有趣，购物本身很轻松"],
+        cons:["品类窄，家庭补给不够全面","热门单品常断货，别指望一次买齐","不设外送，需到店"],
+        scores:[["值得逛",4.6],["性价比",4.7],["省心度",4.4],["品类丰富",4.0]], total:4.5, rank:2,
+        verdict:"这一天的「快乐站」。<b>橘子鸡和 Cookie Butter 值得专程来</b>，价格还便宜。缺点是品类不全，需搭配 Stop & Shop 才能补齐日常。" },
+
       { time:"14:30", duration:"1h", name:"Stop & Shop", nameEn:"New Haven, CT · 综合商超", cat:"retail", catLabel:"综合商超", lat:41.3120, lng:-72.9450, cost:"~$30", distMi:"2.2", distMin:"5",
+        addr:"150 Whalley Ave, New Haven, CT 06511", tel:"12035030105", site:"https://www.stopandshop.com/",
+        kind:"std", hrs:{0:[[7,21]],1:[[7,22]],2:[[7,22]],3:[[7,22]],4:[[7,22]],5:[[7,22]],6:[[7,22]]},
+        hrsText:"周三至周一 7:00–22:00 · 周日 7:00–21:00",
+        hrsNote:"新英格兰老牌连锁超市（1914 年创立），本地农产品和海鲜 Deli 区是特色。Fuel Rewards 加油返利实用。",
         desc:"新英格兰老牌连锁超市（1914年创立），本地农产品和海鲜 Deli 区是特色。Fuel Rewards 加油返利计划实用。",
-        tip:"💡 必买：本地农产品、Deli 熟食、新鲜海鲜。GeoBite App 数字优惠券；加油每$100返$0.10/加仑。" },
+        tip:"💡 必买：本地农产品、Deli 熟食、新鲜海鲜。GeoBite App 数字优惠券；加油每$100返$0.10/加仑。",
+        pros:["本地老牌，生鲜与 Deli 海鲜是特色","Fuel Rewards 加油返利，日常高频实用","离家近（距 Ivy Manor 仅 2.2 mi），补货方便"],
+        cons:["整体价格略高于 Walmart","门店偏传统，体验不如 Target 精致","促销需 App 数字券，不领就按原价"],
+        scores:[["值得逛",3.9],["性价比",4.3],["省心度",4.5],["品类丰富",3.9]], total:4.2, rank:4,
+        verdict:"离住处最近的常规超市，适合「日常补给 + 顺路补货」。<b>想便宜又近，它是比沃尔玛更方便的选择</b>；想省钱则配合 App 券。" },
+
       { time:"15:30", duration:"1h", name:"TJ Maxx", nameEn:"Hamden, CT · 折扣名品", cat:"discount", catLabel:"折扣名品", lat:41.3750, lng:-72.8900, cost:"~$50", distMi:"4.8", distMin:"10",
+        addr:"2335 Dixwell Ave, Hamden, CT 06518", tel:"12032888157", site:"https://www.tjmaxx.com/",
+        kind:"std", hrs:{0:[[10,20]],1:[[9.5,21.5]],2:[[9.5,21.5]],3:[[9.5,21.5]],4:[[9.5,21.5]],5:[[9.5,21.5]],6:[[9.5,21.5]]},
+        hrsText:"周一至周六 9:30–21:30 · 周日 10:00–20:00",
+        hrsNote:"折扣名品百货，大牌低至 3 折。每周二/三上新最齐。退换通常需小票，部分折扣品不退。",
         desc:"折扣名品百货，大牌低至3折。每周上新，淘货乐趣十足。The Runway 高端区有奢侈品手袋和设计师服装。",
-        tip:"💡 必买：品牌手袋、护肤品（La Mer/雅诗兰黛低至5折）、设计师服装。每周二/周三上新最齐；The Runway 区淘奢侈品。" },
+        tip:"💡 必买：品牌手袋、护肤品（La Mer/雅诗兰黛低至5折）、设计师服装。每周二/周三上新最齐；The Runway 区淘奢侈品。",
+        pros:["大牌低至 3 折，The Runway 区能淘到奢侈品手袋","每周二/三上新最齐，淘货乐趣足","护肤品（La Mer/雅诗兰黛）常低至 5 折"],
+        cons:["尺码色号随机，不能指望齐全","陈列乱，需要耐心翻","退换需小票，折扣品有时不退"],
+        scores:[["值得逛",4.4],["性价比",4.8],["省心度",3.8],["品类丰富",4.3]], total:4.3, rank:3,
+        verdict:"想用零头价格拿 designer 货，TJ Maxx 是这一天的惊喜站。<b>周二三去上新最齐</b>，但抱着「淘到是赚」的心态最舒服。" },
+
       { time:"16:30", duration:"1h", name:"Dick's Sporting Goods", nameEn:"North Haven, CT · 折扣名品", cat:"discount", catLabel:"折扣名品", lat:41.3895, lng:-72.9585, cost:"~$50", distMi:"6.4", distMin:"18",
+        addr:"411 Universal Dr N, North Haven, CT 06473", tel:"12038362860", site:"https://www.dickssportinggoods.com/",
+        kind:"std", hrs:{0:[[10,19]],1:[[9,21]],2:[[9,21]],3:[[9,21]],4:[[9,21]],5:[[9,21]],6:[[9,21]]},
+        hrsText:"周一至周六 9:00–21:00 · 周日 10:00–19:00",
+        hrsNote:"全美最大体育用品零售商。Price Match 政策，看到低价可现场核。正价偏高，促销季才划算。",
         desc:"全美最大体育用品零售商，Nike/Under Armour/lululemon 全线运动装备。户外装备和高尔夫专区专业度高。",
-        tip:"💡 必买：Nike/UA 运动鞋服、Columbia 户外装备、高尔夫球具。Price Match 政策；专业球拍穿线服务。" }
+        tip:"💡 必买：Nike/UA 运动鞋服、Columbia 户外装备、高尔夫球具。Price Match 政策；专业球拍穿线服务。",
+        pros:["Nike/UA/lululemon 运动装备一线齐全","户外与高尔夫专区专业度高，可试用","Price Match 政策，看到低价可现场核"],
+        cons:["正价偏高，促销季才划算","运动专精，非运动需求用不上","大件器材库存依赖门店"],
+        scores:[["值得逛",3.8],["性价比",3.7],["省心度",3.9],["品类丰富",4.1]], total:3.8, rank:6,
+        verdict:"只有运动/户外装备需求时才值得来。<b>正价偏高，建议等换季促销或先官网查价再出手。</b>" }
     ]
   }
 };
@@ -893,30 +1189,258 @@ const catIcons = {
 };
 
 /* ===== Build Timeline Cards ===== */
+/* ===== 常量 ===== */
+const DAY_CN = ['周日','周一','周二','周三','周四','周五','周六'];
+const SCORE_NOTE = '评分维度：值得逛 35% · 性价比 25% · 省心度（停车 / 退换是否省心）25% · 品类丰富 15%。距离以 Ivy Manor 为原点，按真实驾车里程估算。';
+
+/* ===== 距离计算（购物页以真实驾车里程为准：mi → km） ===== */
+function calcDist(poi) {
+  const km = poi.distMi * 1.60934;
+  return {
+    km: km,
+    kmTxt: km.toFixed(1),
+    mi: poi.distMi,
+    min: poi.distMin,
+    walkMin: Math.round(km / 4.8 * 60),
+    driveMin: +poi.distMin
+  };
+}
+function distChip(poi) {
+  const d = calcDist(poi);
+  return `<span class="dist-chip">🚗 距 Ivy Manor ${d.mi} mi（${d.kmTxt} km）· 驾车约 ${d.min} 分钟</span>`;
+}
+
+/* ===== 营业状态（按纽黑文当地时间 America/New_York 计算） ===== */
+function nowInNewHaven() {
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+}
+function fmtH(h) {
+  const over = h >= 24;
+  const hh = Math.floor(h % 24), mm = Math.round((h % 1) * 60);
+  return (over ? '次日 ' : '') + String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
+}
+function openState(poi) {
+  if (poi.kind === 'always')   return { on: true,  text: '全天开放' };
+  if (poi.kind === 'daylight') {
+    const h = nowInNewHaven().getHours();
+    return (h >= 7 && h < 19)
+      ? { on: true,  text: '日出至日落开放 · 现在可去' }
+      : { on: false, text: '日落后关闭 · 明早再来' };
+  }
+  if (poi.kind === 'varies')   return { on: false, text: '时间不固定 · 建议先查证' };
+
+  const now = nowInNewHaven(), d = now.getDay();
+  const cur = now.getHours() + now.getMinutes() / 60;
+  const today = poi.hrs[d];
+  if (today) {
+    for (const seg of today) {
+      if (cur >= seg[0] && cur < seg[1]) return { on: true, text: `营业中 · 今天开到 ${fmtH(seg[1])}` };
+    }
+    const y = poi.hrs[(d + 6) % 7];
+    if (y) for (const seg of y) {
+      if (seg[1] > 24 && cur < seg[1] - 24) return { on: true, text: `营业中 · 开到 ${fmtH(seg[1])}` };
+    }
+    const next = today.find(seg => cur < seg[0]);
+    if (next) return { on: false, text: `今天 ${fmtH(next[0])} 开门` };
+  }
+  const prefix = today ? '今日已打烊' : '今日不营业';
+  for (let i = 1; i <= 7; i++) {
+    const nd = (d + i) % 7;
+    if (poi.hrs[nd]) return { on: false, text: `${prefix} · ${DAY_CN[nd]} ${fmtH(poi.hrs[nd][0][0])} 开门` };
+  }
+  return { on: false, text: '营业时间请电话确认' };
+}
+function paintOpenPills() {
+  document.querySelectorAll('.open-pill[data-open]').forEach(el => {
+    const [day, idx] = el.dataset.open.split('-');
+    const s = openState(itinerary[day].pois[+idx]);
+    el.classList.remove('on', 'off');
+    el.classList.add(s.on ? 'on' : 'off');
+    el.innerHTML = `<span class="od"></span>${s.text}`;
+  });
+}
+
+/* ===== Build Timeline Cards ===== */
 function buildTimeline(day) {
   const container = document.getElementById('timeline-' + day);
-  const pois = itinerary[day].pois;
-  container.innerHTML = pois.map((poi, i) => `
-    <div class="poi-card" data-day="${day}" data-idx="${i}" onclick="flyToPoi(${day}, ${i})">
+  const data = itinerary[day];
+  container.innerHTML = data.pois.map((poi, i) => `
+    <div class="poi-card" data-day="${day}" data-idx="${i}" onclick="openPoi(${day}, ${i})">
       <div class="poi-time">${poi.time}<span class="duration">${poi.duration}</span></div>
       <div class="poi-dot" style="background:${catColors[poi.cat]}">${i + 1}</div>
       <div class="poi-body">
         <div class="poi-name">${poi.name}</div>
         <div class="poi-name-en">${poi.nameEn}</div>
         <div class="poi-desc">${poi.desc}</div>
-        <div class="poi-tip">${poi.tip}</div>
+        <div class="dist-row">
+          ${distChip(poi)}
+          <span class="open-pill" data-open="${day}-${i}"><span class="od"></span>查询中…</span>
+        </div>
         <div class="poi-tags">
           <span class="poi-tag cat" style="background:${catColors[poi.cat]}">${catIcons[poi.cat]} ${poi.catLabel}</span>
           <span class="poi-tag cost">💰 ${poi.cost}</span>
-          <span class="poi-tag dist">🚗 ${poi.distMi} mi · ${poi.distMin} min</span>
+          <span class="poi-tag" style="background:#e6f7ef;color:#0f7038">⚖️ 性价比 ${poi.total.toFixed(1)} · 当日第 ${poi.rank} 名</span>
         </div>
+        <div class="card-cta">点击查看营业时间 · 优势 · 性价比详情 →</div>
       </div>
       <div class="poi-arrow">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
       </div>
     </div>
-  `).join('');
+  `).join('') + buildCompare(day);
+  paintOpenPills();
 }
+
+/* ===== 当日横向对比 ===== */
+function buildCompare(day) {
+  const data = itinerary[day];
+  const ranked = data.pois.map((p, i) => ({ p, i })).sort((a, b) => a.p.rank - b.p.rank);
+  const top3 = ranked.slice(0, 3);
+  const rows = ranked.map(({ p, i }) => {
+    const d = calcDist(p);
+    const rc = p.rank <= 3 ? ' r' + p.rank : '';
+    return `<tr onclick="openPoi(${day},${i})" style="cursor:pointer">
+      <td><span class="cmp-rank${rc}">${p.rank}</span>${p.name}</td>
+      <td>${p.cost}</td>
+      <td>${d.mi} mi · 驾车 ${d.min} 分</td>
+      <td>${p.duration}</td>
+      <td class="cmp-total">${p.total.toFixed(1)}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+  <div class="compare-box">
+    <h3>⚖️ DAY ${day} 店铺横向对比</h3>
+    <p class="compare-note">
+      ${SCORE_NOTE}<b>时间不够时，优先保住前三名。</b>
+    </p>
+    <div class="pick-strip">
+      ${top3.map((x, k) => `
+        <div class="pick-item" onclick="openPoi(${day},${x.i})" style="cursor:pointer">
+          <span class="pi-tag" style="background:${['#00875a', '#1abc9c', '#a8e6cf'][k]}">当日第 ${k + 1} 名</span>
+          <div class="pi-name">${x.p.name}</div>
+          <div class="pi-why">${x.p.cost} · ${x.p.duration} · 综合 ${x.p.total.toFixed(1)} 分</div>
+        </div>`).join('')}
+    </div>
+    <div class="cmp-scroll">
+      <table class="cmp-table">
+        <thead><tr><th>店铺</th><th>花费</th><th>距 Ivy Manor</th><th>建议时长</th><th>综合分</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <div class="hours-note" style="margin-top:14px">
+      <b>交通提示 · ${data.move}：</b>${data.moveNote}
+    </div>
+  </div>`;
+}
+
+/* ===== 详情弹窗 ===== */
+function openPoi(day, idx) {
+  const p = itinerary[day].pois[idx];
+  const st = openState(p);
+  const d = calcDist(p);
+  const nowD = nowInNewHaven().getDay();
+  const color = catColors[p.cat];
+
+  document.getElementById('pm-head').innerHTML = `
+    <span class="modal-eyebrow" style="background:${color}">
+      ${catIcons[p.cat]} DAY ${day} · 第 ${idx + 1} 站 · ${p.time} · 性价比第 ${p.rank} 名
+    </span>
+    <h3>${p.name}</h3>
+    <div class="m-en">${p.nameEn}</div>`;
+
+  let hoursHtml;
+  if (p.kind === 'std') {
+    let rows = '';
+    for (let i = 1; i <= 7; i++) {
+      const wd = i % 7, h = p.hrs[wd];
+      const txt = h ? h.map(s => fmtH(s[0]) + ' – ' + fmtH(s[1])).join('　/　') : '休息';
+      rows += `<tr class="${wd === nowD ? 'today' : ''}">
+        <td>${DAY_CN[wd]}${wd === nowD ? '（今天）' : ''}</td>
+        <td class="${h ? '' : 'closed'}">${txt}</td></tr>`;
+    }
+    hoursHtml = `<table class="hours-tbl">${rows}</table>`;
+  } else {
+    hoursHtml = `<div class="m-addr" style="font-weight:600">${p.hrsText}</div>`;
+  }
+
+  const scoreRows = p.scores.map(s => `
+    <div class="score-row">
+      <span class="sr-label">${s[0]}</span>
+      <span class="score-bar"><i style="width:${s[1] / 5 * 100}%"></i></span>
+      <span class="sr-num">${s[1].toFixed(1)}</span>
+    </div>`).join('');
+  const stars = '★'.repeat(Math.round(p.total)) + '☆'.repeat(5 - Math.round(p.total));
+
+  document.getElementById('pm-body').innerHTML = `
+    <div class="dist-row" style="margin-top:0;margin-bottom:16px">
+      ${distChip(p)}
+      <span class="open-pill ${st.on ? 'on' : 'off'}"><span class="od"></span>${st.text}</span>
+      <span class="dist-chip">💰 ${p.cost}</span>
+      <span class="dist-chip">⏱ 建议 ${p.duration}</span>
+    </div>
+
+    <div class="m-sec">
+      <h4>📍 地址</h4>
+      <div class="m-addr">
+        ${p.addr}<br>
+        <a href="https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}" target="_blank" rel="noopener">在 Google 地图打开 ↗</a>
+      </div>
+    </div>
+
+    <div class="m-sec">
+      <h4>🕒 营业时间<span style="font-size:11.5px;font-weight:600;color:#8a8a95;text-transform:none;letter-spacing:0"> （纽黑文当地时间）</span></h4>
+      ${hoursHtml}
+      <div class="hours-note ${p.hrsWarn ? 'warn' : ''}">${p.hrsWarn ? '⚠️ ' : ''}${p.hrsNote}</div>
+    </div>
+
+    ${p.tip ? `<div class="m-sec">
+      <h4>💡 必买清单</h4>
+      <div class="m-addr">${p.tip.replace(/^💡\s*/, '')}</div>
+    </div>` : ''}
+
+    <div class="m-sec">
+      <h4>✨ 优势</h4>
+      <ul class="pc-list pros">${p.pros.map(x => `<li><span>${x}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="m-sec">
+      <h4>⚠️ 需要留意</h4>
+      <ul class="pc-list cons">${p.cons.map(x => `<li><span>${x}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="m-sec">
+      <h4>⚖️ 性价比评分</h4>
+      ${scoreRows}
+      <div class="total-score">
+        <span class="ts-num">${p.total.toFixed(1)}</span>
+        <span class="ts-meta">
+          <span class="ts-stars">${stars}</span>
+          <div class="ts-cap">
+            DAY ${day} 共 ${itinerary[day].pois.length} 店，横向对比<b style="color:#00875a"> 第 ${p.rank} 名</b>（满分 5.0）<br>
+            权重：值得逛 35% · 性价比 25% · 省心度 25% · 品类丰富 15%
+          </div>
+        </span>
+      </div>
+      <div class="verdict-box">🎯 ${p.verdict}</div>
+    </div>`;
+
+  document.getElementById('pm-foot').innerHTML = `
+    <a class="mf-btn primary" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&travelmode=driving" target="_blank" rel="noopener">
+      🚗 驾车导航
+    </a>
+    ${p.tel ? `<a class="mf-btn" href="tel:${p.tel}">📞 打电话确认</a>` : ''}
+    ${p.site ? `<a class="mf-btn" href="${p.site}" target="_blank" rel="noopener">🔗 官网</a>` : ''}
+    <button class="mf-btn" onclick="closePoi();flyToPoi(${day},${idx});">🗺️ 在地图上看</button>`;
+
+  document.getElementById('poiModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closePoi() {
+  document.getElementById('poiModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePoi(); });
 
 /* ===== Map Init ===== */
 const map = L.map('map', {
@@ -979,14 +1503,24 @@ function renderDayOnMap(day) {
       popupAnchor: [0, -28]
     });
 
+    const st = openState(poi);
+    const dd = calcDist(poi);
     const marker = L.marker(latlng, { icon: icon }).addTo(map);
     marker.bindPopup(`
       <div class="pop-name">${poi.name}</div>
       <div class="pop-en">${poi.nameEn}</div>
+      <div style="margin:6px 0 4px;font-size:12px;font-weight:700;color:${st.on ? '#0f7038' : '#96707a'}">
+        ● ${st.text}
+      </div>
+      <div style="font-size:12px;color:#4d566b">
+        🚗 距 Ivy Manor ${dd.kmTxt} km（${dd.mi} mi）· 驾车约 ${dd.min} 分钟 ｜ 💰 ${poi.cost}
+      </div>
       <div class="pop-desc">${poi.desc}</div>
-      <div class="pop-tip">${poi.tip}</div>
-      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e3e8ee;font-size:12px;color:#ee5a6f;font-weight:600;">🚗 距 Ivy Manor：${poi.distMi} mi · 驾车 ${poi.distMin} min</div>
-    `);
+      <button onclick="map.closePopup();openPoi(${day},${i})"
+        style="margin-top:8px;width:100%;padding:7px 10px;border:none;border-radius:8px;background:#00875a;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer">
+        查看详情 · 营业时间 · 性价比 →
+      </button>
+    `, { maxWidth: 280 });
     currentMarkers.push(marker);
   });
 
@@ -1114,6 +1648,8 @@ function flyToOutlet() {
 buildTimeline(1);
 buildTimeline(2);
 renderDayOnMap(1);
+paintOpenPills();
+setInterval(paintOpenPills, 60000);
 </script>
 </body>
 </html>

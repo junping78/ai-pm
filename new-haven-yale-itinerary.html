@@ -259,12 +259,185 @@ body{
   .ai-cta p{font-size:14.5px}
 }
 
+/* ===== 距离条 & 营业状态（可复用组件） ===== */
+.dist-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px;align-items:center}
+.dist-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;
+  background:#f4f6fa;color:#4d566b;border:1px solid #e3e8ee;white-space:nowrap;
+}
+.dist-chip.walk{background:#ecf7f1;color:#137a44;border-color:#cde9da}
+.dist-chip.prev{background:#f2f1ff;color:#4f46d6;border-color:#dedbfa}
+.open-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:700;padding:4px 10px;border-radius:100px;
+  background:#f4f6fa;color:#697386;white-space:nowrap;
+}
+.open-pill.on{background:#e6f7ef;color:#0f7038}
+.open-pill.off{background:#f8f1f3;color:#96707a}
+.open-pill .od{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.card-cta{
+  margin-top:10px;font-size:12.5px;font-weight:700;color:#635bff;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.poi-card:hover .card-cta{text-decoration:underline}
+
+/* ===== 详情弹窗（可复用组件） ===== */
+.modal-mask{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(16,20,38,.55);backdrop-filter:blur(3px);
+  padding:28px;align-items:center;justify-content:center;
+}
+.modal-mask.show{display:flex;animation:maskIn .2s ease}
+@keyframes maskIn{from{opacity:0}to{opacity:1}}
+.modal-box{
+  background:#fff;border-radius:18px;width:100%;max-width:620px;
+  max-height:88vh;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 24px 64px rgba(16,20,38,.28);animation:boxIn .26s cubic-bezier(.4,0,.2,1);
+}
+@keyframes boxIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{
+  padding:22px 26px 18px;border-bottom:1px solid #eef0f4;position:relative;flex-shrink:0;
+}
+.modal-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;
+  letter-spacing:.06em;padding:4px 10px;border-radius:100px;color:#fff;margin-bottom:9px;
+}
+.modal-head h3{font-size:21px;font-weight:800;color:#1a1f36;line-height:1.35;padding-right:34px}
+.modal-head .m-en{font-size:13px;color:#8792a8;margin-top:3px}
+.modal-close{
+  position:absolute;top:18px;right:20px;width:32px;height:32px;border:none;cursor:pointer;
+  background:#f4f6fa;border-radius:50%;color:#697386;font-size:19px;line-height:1;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.modal-close:hover{background:#e8ebf2;color:#1a1f36}
+.modal-body{padding:20px 26px 4px;overflow-y:auto;flex:1}
+.m-sec{margin-bottom:20px}
+.m-sec h4{
+  font-size:12.5px;font-weight:800;color:#8792a8;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:9px;
+}
+.m-addr{font-size:13.5px;color:#4d566b;line-height:1.65}
+.m-addr a{color:#635bff;text-decoration:none;font-weight:600}
+.m-addr a:hover{text-decoration:underline}
+
+/* 营业时间表 */
+.hours-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.hours-tbl tr{border-bottom:1px solid #f2f4f8}
+.hours-tbl tr:last-child{border-bottom:none}
+.hours-tbl td{padding:6px 4px;color:#4d566b}
+.hours-tbl td:first-child{width:64px;font-weight:600;color:#697386}
+.hours-tbl td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.hours-tbl tr.today{background:#f2f1ff}
+.hours-tbl tr.today td{color:#4f46d6;font-weight:700}
+.hours-tbl td.closed{color:#b0637a}
+.hours-note{
+  margin-top:9px;font-size:12px;color:#8792a8;line-height:1.6;
+  padding:8px 11px;background:#fafbfd;border-radius:8px;border-left:3px solid #e3e8ee;
+}
+.hours-note.warn{background:#fff8ee;border-left-color:#e8a33d;color:#8a6220}
+
+/* 优势 / 注意 */
+.pc-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.pc-list li{font-size:13.5px;line-height:1.6;display:flex;gap:8px;color:#4d566b}
+.pc-list li::before{flex-shrink:0;font-weight:800;margin-top:-1px}
+.pc-list.pros li::before{content:'✓';color:#0f9d58}
+.pc-list.cons li::before{content:'!';color:#e8a33d}
+
+/* 评分 */
+.score-row{display:flex;align-items:center;gap:11px;margin-bottom:9px;font-size:13px}
+.score-row .sr-label{width:76px;flex-shrink:0;color:#697386;font-weight:600}
+.score-bar{flex:1;height:7px;background:#eef0f4;border-radius:100px;overflow:hidden}
+.score-bar i{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,#7a73ff,#635bff)}
+.score-row .sr-num{width:26px;text-align:right;font-weight:700;color:#1a1f36;font-variant-numeric:tabular-nums}
+.total-score{
+  display:flex;align-items:center;gap:14px;margin-top:15px;padding:14px 16px;
+  background:linear-gradient(135deg,#f6f5ff,#f0efff);border-radius:12px;border:1px solid #e5e2fb;
+}
+.ts-num{font-size:31px;font-weight:800;color:#635bff;line-height:1;font-variant-numeric:tabular-nums}
+.ts-meta{flex:1}
+.ts-stars{font-size:14px;letter-spacing:.08em;color:#f0a500;line-height:1.2}
+.ts-cap{font-size:12px;color:#8792a8;margin-top:3px}
+.verdict-box{
+  margin-top:14px;padding:13px 15px;background:#f7fbf9;border:1px solid #d9ece3;
+  border-radius:10px;font-size:13.5px;line-height:1.7;color:#28624a;
+}
+.verdict-box b{color:#0f7038}
+
+/* 弹窗底部按钮 */
+.modal-foot{
+  padding:15px 26px 20px;border-top:1px solid #eef0f4;flex-shrink:0;
+  display:flex;gap:9px;flex-wrap:wrap;background:#fafbfd;
+}
+.mf-btn{
+  flex:1;min-width:132px;text-align:center;padding:10px 14px;border-radius:10px;
+  font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;
+  border:1px solid #e3e8ee;background:#fff;color:#4d566b;
+}
+.mf-btn:hover{border-color:#c8cdd8;transform:translateY(-1px)}
+.mf-btn.primary{background:#635bff;color:#fff;border-color:#635bff}
+.mf-btn.primary:hover{background:#5348f5}
+
+/* ===== 横向对比 ===== */
+.compare-box{
+  margin:28px 0 6px;padding:22px 24px;background:#fafbfd;
+  border:1px solid #e3e8ee;border-radius:14px;
+}
+.compare-box h3{
+  font-size:16.5px;font-weight:800;color:#1a1f36;margin-bottom:5px;
+  display:flex;align-items:center;gap:7px;
+}
+.compare-note{font-size:12.5px;color:#8792a8;line-height:1.65;margin-bottom:15px}
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.cmp-table th{
+  text-align:left;padding:9px 10px;font-size:11.5px;font-weight:800;color:#8792a8;
+  letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid #e3e8ee;white-space:nowrap;
+}
+.cmp-table td{padding:10px;border-bottom:1px solid #eef0f4;color:#4d566b;vertical-align:middle}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table td:first-child{font-weight:700;color:#1a1f36}
+.cmp-rank{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:21px;height:21px;border-radius:50%;font-size:11.5px;font-weight:800;
+  background:#eef0f4;color:#697386;margin-right:7px;
+}
+.cmp-rank.r1{background:#635bff;color:#fff}
+.cmp-rank.r2{background:#c7c3ff;color:#3b34a8}
+.cmp-rank.r3{background:#e5e2fb;color:#5b54b8}
+.cmp-total{font-weight:800;color:#635bff;font-variant-numeric:tabular-nums}
+.cmp-win{color:#0f7038;font-weight:600}
+.cmp-verdict{font-size:12.5px;color:#697386;line-height:1.55}
+
+/* 一句话结论条 */
+.pick-strip{
+  display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px;
+}
+.pick-item{
+  flex:1;min-width:158px;padding:12px 14px;border-radius:11px;
+  background:#fff;border:1px solid #e3e8ee;
+}
+.pick-item .pi-tag{
+  font-size:11px;font-weight:800;letter-spacing:.05em;color:#fff;
+  padding:2px 8px;border-radius:100px;display:inline-block;margin-bottom:6px;
+}
+.pick-item .pi-name{font-size:13.5px;font-weight:700;color:#1a1f36;line-height:1.4}
+.pick-item .pi-why{font-size:12px;color:#8792a8;margin-top:3px;line-height:1.55}
+
+@media(max-width:900px){
+  .modal-mask{padding:0;align-items:flex-end}
+  .modal-box{max-width:100%;border-radius:18px 18px 0 0;max-height:92vh}
+  .mf-btn{min-width:calc(50% - 5px)}
+}
+
 /* Print friendly */
 @media print{
   .map-side{display:none}
   .main{grid-template-columns:1fr}
   .banner::after{display:none}
   .day-panel{display:block!important}
+  .modal-mask,.card-cta,.poi-arrow{display:none!important}
+  .compare-box{break-inside:avoid}
 }
 </style>
 </head>
@@ -378,53 +551,209 @@ body{
   </div>
 </footer>
 
+<!-- ===== 站点详情弹窗 ===== -->
+<div class="modal-mask" id="poiModal" onclick="if(event.target===this)closePoi()">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <button class="modal-close" onclick="closePoi()" aria-label="关闭">&times;</button>
+      <div id="pm-head"></div>
+    </div>
+    <div class="modal-body" id="pm-body"></div>
+    <div class="modal-foot" id="pm-foot"></div>
+  </div>
+</div>
+
 <!-- ===== Leaflet JS ===== -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-/* ===== POI Data ===== */
+/* ===== POI Data =====
+   hrs: 0=周日 … 6=周六；null=当天不开；[[开,关]] 支持多时段，关>24 表示跨午夜
+   kind: std=固定营业时间 / daylight=日出至日落 / always=全天开放 / varies=各家不一
+*/
+const REF = { name:"纽黑文绿地", lat:41.3082, lng:-72.9265 };
+const DAY_CN = ['周日','周一','周二','周三','周四','周五','周六'];
+
 const itinerary = {
   1: {
     title: "DAY 1 · 耶鲁人文探索日",
+    move: "全程步行",
+    moveNote: "9 个站点全部在纽黑文绿地 1.3 km 范围内，站与站之间最远也就 15 分钟脚程，<b>不需要开车、不需要打车</b>。穿双好走的鞋就够了。",
     pois: [
-      { time:"09:00", duration:"1.5h", name:"耶鲁大学校园漫步", nameEn:"Yale University Campus", cat:"attraction", catLabel:"景点", lat:41.3163, lng:-72.9223, cost:"免费",
-        desc:"从菲尔普斯门进入老校园，穿过康涅狄格大厅（耶鲁最古老建筑），感受常春藤学府的哥特与乔治亚建筑交融之美。" },
-      { time:"10:30", duration:"1h", name:"斯特林纪念图书馆", nameEn:"Sterling Memorial Library", cat:"culture", catLabel:"文化", lat:41.3147, lng:-72.9291, cost:"免费",
-        desc:"耶鲁最大的图书馆，哥特复兴建筑杰作。中殿如教堂般高耸，彩色玻璃窗描绘学术主题，被誉为'书的教堂'。" },
-      { time:"11:30", duration:"1h", name:"耶鲁大学美术馆", nameEn:"Yale University Art Gallery", cat:"culture", catLabel:"文化", lat:41.3089, lng:-72.9279, cost:"免费",
-        desc:"美国最古老的大学美术馆，藏品超20万件。梵高、莫奈印象派名作，古埃及文物与现代雕塑皆有。" },
-      { time:"12:30", duration:"1h", name:"Frank Pepe 比萨店", nameEn:"Frank Pepe Pizzeria Napoletana", cat:"food", catLabel:"美食", lat:41.3027, lng:-72.9362, cost:"~$18",
-        desc:"纽黑文'apizza'传奇鼻祖（1925年），煤火烤制薄底披萨。必点 White Clam Pie 白蛤蜊披萨——纽约时报评为全美最佳。" },
-      { time:"14:00", duration:"1.5h", name:"耶鲁皮博迪自然历史博物馆", nameEn:"Yale Peabody Museum", cat:"culture", catLabel:"文化", lat:41.3131, lng:-72.9247, cost:"$15",
-        desc:"世界级自然历史博物馆，大厅展示完整雷龙骨架化石。矿物展厅、古生物标本丰富，适合各年龄探索。" },
-      { time:"15:30", duration:"0.5h", name:"纽黑文绿地", nameEn:"New Haven Green", cat:"attraction", catLabel:"景点", lat:41.3082, lng:-72.9252, cost:"免费",
-        desc:"城市心脏地带的国家历史地标，1638年清教徒定居地。三座历史教堂环绕，草坪上是 locals 休憩之地。" },
-      { time:"16:30", duration:"1h", name:"哥伦布骑士博物馆", nameEn:"Knights of Columbus Museum", cat:"culture", catLabel:"文化", lat:41.3114, lng:-72.9238, cost:"免费",
-        desc:"天主教兄弟会总部博物馆，展示哥伦布骑士会历史与天主教艺术。旋转展览常含精美圣诞主题展。" },
-      { time:"18:00", duration:"1h", name:"Louis' Lunch", nameEn:"Louis' Lunch (汉堡发源地)", cat:"food", catLabel:"美食", lat:41.3085, lng:-72.9299, cost:"~$15",
-        desc:"1900年开业，公认美式汉堡发源地。竖式烤架烤肉饼，夹在吐司之间，仅加番茄和洋葱——百年配方不曾改变。" },
-      { time:"20:00", duration:"2h", name:"舒伯特剧院", nameEn:"Shubert Theatre", cat:"culture", catLabel:"夜生活", lat:41.3046, lng:-72.9247, cost:"~$50",
-        desc:"百老汇试演名剧院，诞生了《南太平洋》《窈窕淑女》等经典首演。至今仍是外百老汇重磅剧目的预演舞台。" }
+      { time:"09:00", duration:"1.5h", name:"耶鲁大学校园漫步", nameEn:"Yale University Campus", cat:"attraction", catLabel:"景点", lat:41.3083, lng:-72.9290, cost:"免费",
+        addr:"Old Campus, High St & Chapel St, New Haven, CT 06511", tel:"", site:"https://visitorcenter.yale.edu/",
+        desc:"从菲尔普斯门进入老校园，穿过康涅狄格大厅（耶鲁最古老建筑），感受常春藤学府的哥特与乔治亚建筑交融之美。",
+        kind:"daylight", hrsText:"庭院白天自由进出（约 8:00–18:00）",
+        hrsNote:"老校园庭院对公众开放，但住宿学院内部、部分教学楼需持耶鲁 ID。游客中心（149 Elm St）周一至周五提供免费导览，建议提前上官网预约。",
+        pros:["整条线路的起点，位置最中心，几乎不用走冤枉路","完全免费，也不需要预约","建筑密度高，1.5 小时就能拍到最标志性的几个角度"],
+        cons:["纯户外，下雨天体验会打折","室内不能随便进，想看宿舍学院内部要跟官方导览","毕业季与开学周人非常多"],
+        scores:[["值得看",4.6],["性价比",5.0],["省心度",4.8],["出片指数",4.7]], total:4.8, rank:1,
+        verdict:"<b>整个 DAY 1 的最佳开场。</b>免费、零门槛、就在市中心，先走这一圈把方位感建立起来，后面 8 个点都在你脚下的 1 公里里。" },
+
+      { time:"10:30", duration:"1h", name:"斯特林纪念图书馆", nameEn:"Sterling Memorial Library", cat:"culture", catLabel:"文化", lat:41.3113, lng:-72.9284, cost:"免费",
+        addr:"120 High St, New Haven, CT 06511", tel:"12034321775", site:"https://library.yale.edu/building/sterling-memorial-library",
+        desc:"耶鲁最大的图书馆，哥特复兴建筑杰作。中殿如教堂般高耸，彩色玻璃窗描绘学术主题，被誉为「书的教堂」。",
+        kind:"varies", hrsText:"学期内约 08:30–21:45（周末缩短），假期时间另定",
+        hrsNote:"开放时间随学期/假期变动很大，公众可进入的主要是入口中殿（Nave）与展览区。出发前请上官网当日页面确认。", hrsWarn:true,
+        pros:["中殿的哥特空间感是纽黑文最震撼的室内场景之一，免费","离校园漫步只有 500 米，顺路","室内，天气不好时的最佳备选"],
+        cons:["开放时间随学期变化，假期可能大幅缩短甚至关闭","阅览区不对公众开放，能逛的主要是中殿和展厅","需保持安静，不适合大声讨论与长时间拍摄"],
+        scores:[["值得看",4.5],["性价比",5.0],["省心度",3.6],["出片指数",4.9]], total:4.5, rank:3,
+        verdict:"出片天花板，但<b>务必先查当天开放时间</b>。如果时间对得上，这是 DAY 1 最值得多留 20 分钟的地方。" },
+
+      { time:"11:30", duration:"1h", name:"耶鲁大学美术馆", nameEn:"Yale University Art Gallery", cat:"culture", catLabel:"文化", lat:41.3082, lng:-72.9315, cost:"免费",
+        addr:"1111 Chapel St, New Haven, CT 06510", tel:"12034320600", site:"https://artgallery.yale.edu/",
+        desc:"美国最古老的大学美术馆，藏品超 20 万件。梵高、莫奈印象派名作，古埃及文物与现代雕塑皆有。",
+        kind:"std", hrs:{0:[[11,17]],1:null,2:[[10,17]],3:[[10,17]],4:[[10,20]],5:[[10,17]],6:[[11,17]]},
+        hrsNote:"周一闭馆（耶鲁毕业典礼期间除外）。周四延长至 20:00 通常只在 9 月–6 月。元旦、六月节、独立日、感恩节、平安夜、圣诞节闭馆。",
+        pros:["常设展终身免费，无需门票也无需预约","梵高《夜间咖啡馆》原作就在这里","街对面就是耶鲁英国艺术中心，也免费，可连看"],
+        cons:["周一闭馆，行程若落在周一必须换顺序","体量大，1 小时只够走马观花","特展偶尔需另行排队"],
+        scores:[["值得看",4.9],["性价比",5.0],["省心度",4.2],["出片指数",4.3]], total:4.7, rank:2,
+        verdict:"<b>纽黑文含金量最高的免费项目，没有之一。</b>只留 1 小时的话，直接奔二楼欧洲绘画区。<b>注意周一闭馆。</b>" },
+
+      { time:"12:30", duration:"1h", name:"Frank Pepe 比萨店", nameEn:"Frank Pepe Pizzeria Napoletana", cat:"food", catLabel:"美食", lat:41.3043, lng:-72.9185, cost:"~$18",
+        addr:"157 Wooster St, New Haven, CT 06511", tel:"12038655762", site:"https://pepespizzeria.com/",
+        desc:"纽黑文 apizza 传奇鼻祖（1925 年），煤火烤制薄底披萨。必点 White Clam Pie 白蛤蜊披萨——被反复评为全美最佳之一。",
+        kind:"std", hrs:{0:[[11,22]],1:[[11,22]],2:[[11,22]],3:[[11,22]],4:[[11,22]],5:[[11,22]],6:[[11,22]]},
+        hrsNote:"每天 11:00–22:00 全周无休。周末午晚餐高峰排队可达 40–60 分钟，工作日 11:00 一开门进去几乎不用等。",
+        pros:["百年老店，白蛤蜊披萨是来纽黑文必须吃的一口","不接受预约但翻台快，人均 $18 左右吃得很饱","店门口有免费停车位，开车来也方便"],
+        cons:["周末排队长，且不叫号只能站着等","距离绿地 1 km，是 DAY 1 里唯一稍微要走一段的点","小份也偏大，一个人点整张吃不完"],
+        scores:[["值得看",4.8],["性价比",4.3],["省心度",3.4],["出片指数",4.0]], total:4.2, rank:5,
+        verdict:"<b>把它安排在 11:30 之前到，能省下半小时排队。</b>白蛤蜊披萨是这趟行程的味觉记忆点，值得为它多走这 13 分钟。" },
+
+      { time:"14:00", duration:"1.5h", name:"耶鲁皮博迪自然历史博物馆", nameEn:"Yale Peabody Museum", cat:"culture", catLabel:"文化", lat:41.3163, lng:-72.9224, cost:"免费",
+        addr:"170 Whitney Ave, New Haven, CT 06511", tel:"12034328987", site:"https://peabody.yale.edu/visit",
+        desc:"世界级自然历史博物馆，大厅陈列完整恐龙骨架。2024 年重装开放后<b>改为永久免费</b>，无需门票、无需预约。",
+        kind:"std", hrs:{0:[[12,17]],1:null,2:[[10,17]],3:[[10,17]],4:[[10,17]],5:[[10,17]],6:[[10,17]]},
+        hrsNote:"周一闭馆。官方已确认永久免费，个人参观不需要预约或分时段票（团体参观仍需预约）。周边施工，2026 年夏季前停车位极其紧张，建议步行或打车前往。", hrsWarn:true,
+        pros:["2024 年翻新后重开，展陈是全新的，且改成了永久免费","恐龙大厅与 David Friend 宝石厅是亲子首选","个人参观不用抢票，随到随进"],
+        cons:["周一闭馆","停车极难（施工中），自驾会很痛苦","从绿地走过来 15 分钟，是 DAY 1 最远的点"],
+        scores:[["值得看",4.8],["性价比",5.0],["省心度",3.9],["出片指数",4.5]], total:4.6, rank:4,
+        verdict:"很多旧攻略还写着 $13 门票——<b>那是过期信息，现在完全免费。</b>带孩子的话这里可以从 1.5 小时延长到 3 小时。" },
+
+      { time:"15:30", duration:"0.5h", name:"纽黑文绿地", nameEn:"New Haven Green", cat:"attraction", catLabel:"景点", lat:41.3082, lng:-72.9265, cost:"免费",
+        addr:"250 Temple St, New Haven, CT 06511", tel:"", site:"https://www.newhavenct.gov/",
+        desc:"城市心脏地带的国家历史地标，1638 年清教徒定居地。三座历史教堂环绕，草坪是本地人日常休憩之处。",
+        kind:"always", hrsText:"户外公共空间 · 全天开放",
+        hrsNote:"白天人气很旺，夏季常有免费音乐会与市集。夜间人流稀少，独自一人不建议久留。",
+        pros:["全城的地理与心理中心，所有距离都以它为原点","完全免费，随时可进","夏天常有免费演出，运气好能撞上"],
+        cons:["本身没有「景点」，就是一片草坪加三座教堂","夜里比较空旷","半小时足矣，不必久留"],
+        scores:[["值得看",3.6],["性价比",5.0],["省心度",5.0],["出片指数",3.8]], total:4.2, rank:6,
+        verdict:"<b>它更像中场休息，不是目的地。</b>逛完皮博迪走回来，在长椅上坐 20 分钟缓一缓，再去下一站刚刚好。" },
+
+      { time:"16:30", duration:"1h", name:"哥伦布骑士博物馆", nameEn:"Knights of Columbus Museum", cat:"culture", catLabel:"文化", lat:41.3055, lng:-72.9230, cost:"免费",
+        addr:"1 State St, New Haven, CT 06511", tel:"12038650400", site:"https://www.kofcmuseum.org/",
+        desc:"天主教兄弟会总部博物馆，展示骑士会历史与宗教艺术。冬季的圣诞马槽（Nativity）特展相当精美。",
+        kind:"std", hrs:{0:[[10,16]],1:null,2:null,3:[[10,16]],4:[[10,16]],5:[[10,16]],6:[[10,16]]},
+        hrsNote:"该馆近年已并入 Blessed Michael McGivney Pilgrimage Center，不同渠道给出的时间不一致（有的写每日 10:00–17:00，有的写周三至周日 10:00–16:00）。这里按较保守的口径显示，<b>出发前请务必打 (203) 865-0400 确认。</b>", hrsWarn:true,
+        pros:["完全免费，地下停车也免费","室内、有空调，夏天午后避暑很合适","冬季圣诞主题特展在本地口碑很好"],
+        cons:["题材偏宗教，兴趣不对口会觉得沉闷","改组后开放时间口径混乱，需电话确认","展厅不大，1 小时绰绰有余"],
+        scores:[["值得看",3.4],["性价比",4.6],["省心度",3.0],["出片指数",3.2]], total:3.5, rank:8,
+        verdict:"<b>行程里的弹性项。</b>时间紧张就直接跳过它去吃晚饭；对宗教艺术有兴趣、或者正好赶上圣诞季，再进去看看。" },
+
+      { time:"18:00", duration:"1h", name:"Louis' Lunch", nameEn:"Louis' Lunch (汉堡发源地)", cat:"food", catLabel:"美食", lat:41.3060, lng:-72.9295, cost:"~$15",
+        addr:"261-263 Crown St, New Haven, CT 06511", tel:"12035625507", site:"https://louislunch.com/",
+        desc:"1895 年创立，被美国国会图书馆认定为汉堡三明治的发源地。竖式铸铁烤架，肉饼夹在白吐司里，只配奶酪、番茄和洋葱。",
+        kind:"std", hrs:{0:null,1:null,2:[[12,20]],3:[[12,20]],4:[[12,24]],5:[[12,24]],6:[[12,24]]},
+        hrsNote:"<b>周日、周一全天不营业。</b>另外每年<b>整个 8 月</b>与元旦后一周固定歇业（店家称之为 Counting of Spoons）。安排在这两个窗口来纽黑文的话，这一站要直接换掉。", hrsWarn:true,
+        pros:["美式汉堡的历史原点，1898 年的立式烤炉还在用","人均 $15 以内，是 DAY 1 最便宜的一顿正餐","就在剧院隔壁，吃完 4 分钟走到舒伯特"],
+        cons:["周日周一不开，8 月整月歇业——踩空概率不低","没有番茄酱，别问，问就是不给","店面极小，高峰要站着排"],
+        scores:[["值得看",4.5],["性价比",4.7],["省心度",2.6],["出片指数",4.0]], total:4.0, rank:7,
+        verdict:"<b>去之前先确认今天开不开门。</b>开着就一定要吃——它是这条线上历史密度最高的一口。踩空了就走 5 分钟去 BAR 吃披萨。" },
+
+      { time:"20:00", duration:"2h", name:"舒伯特剧院", nameEn:"Shubert Theatre", cat:"culture", catLabel:"夜生活", lat:41.3069, lng:-72.9288, cost:"~$50 起",
+        addr:"247 College St, New Haven, CT 06510", tel:"12035625666", site:"https://shubert.com/",
+        desc:"百老汇的试演摇篮，《南太平洋》《窈窕淑女》等经典在这里首演。至今仍是重磅剧目的预演舞台。",
+        kind:"varies", hrsText:"以当晚演出场次为准 · 售票处约 12:00–17:00",
+        hrsNote:"没有演出的日子晚上是关门的。<b>这一站必须先上官网查当月排期并提前订票</b>，不能当天碰运气。", hrsWarn:true,
+        pros:["有演出时是纽黑文夜晚最好的去处，没有之一","场地历史感强，比很多外百老汇剧院更值","离 Louis' Lunch 只有 4 分钟步行"],
+        cons:["没排期就等于没有这一站，随机性最大","票价 $50 起，是 DAY 1 唯一的大额支出","热门剧目要提前几周订"],
+        scores:[["值得看",4.6],["性价比",3.5],["省心度",2.2],["出片指数",3.6]], total:3.6, rank:9,
+        verdict:"<b>先查排期，再决定要不要保留这一站。</b>有戏就订票，没戏就把这两小时挪给 Chapel Street 或者早点休息。" }
     ]
   },
   2: {
     title: "DAY 2 · 自然风光与海滨休闲日",
+    move: "上午必须有车",
+    moveNote: "东岩公园距绿地 3.6 km（步行 45 分钟）、灯塔角 8.8 km（步行近 2 小时），<b>上午这两站靠走是不现实的</b>——请自驾、打车或租车。中午回到市区之后，从 Modern Apizza 往后基本都在步行范围内。",
     pois: [
-      { time:"09:00", duration:"2h", name:"东岩公园", nameEn:"East Rock Park", cat:"attraction", catLabel:"景点", lat:41.3275, lng:-72.9158, cost:"免费",
-        desc:"沿步道登顶东岩，俯瞰纽黑文全景与长岛海峡。山顶 Soldiers & Sailors 纪念碑矗立，秋日红叶格外壮美。" },
-      { time:"11:00", duration:"1.5h", name:"灯塔角公园", nameEn:"Lighthouse Point Park", cat:"attraction", catLabel:"景点", lat:41.2485, lng:-72.9054, cost:"$10",
-        desc:"长岛海峡岸边的沙滩公园，百年灯塔守望着海岸线。夏季可乘坐1928年古董旋转木马，海滩拾贝惬意非常。" },
-      { time:"12:30", duration:"1h", name:"Modern Apizza", nameEn:"Modern Apizza", cat:"food", catLabel:"美食", lat:41.3209, lng:-72.9475, cost:"~$18",
-        desc:"与 Frank Pepe 齐名的 apizza 双雄之一，本地人最爱。招牌 Italian Bomb 意大利炸弹披萨，料足味浓。" },
-      { time:"14:00", duration:"1h", name:"长码头海滨步道", nameEn:"Long Wharf Waterfront", cat:"attraction", catLabel:"景点", lat:41.2860, lng:-72.9180, cost:"免费",
-        desc:"纽黑文港滨海步道，可远眺灯塔角与长岛。路边著名的 Long Wharf Food Truck 美食车群是午后小食好去处。" },
-      { time:"15:30", duration:"1h", name:"纽黑文博物馆", nameEn:"New Haven Museum", cat:"culture", catLabel:"文化", lat:41.3152, lng:-72.9290, cost:"$5",
-        desc:"城市历史缩影，从原住民 Quinnipiac 部族到近代工业。Amistad 运奴船起义事件展览是必看亮点。" },
-      { time:"16:30", duration:"1.5h", name:"Chapel Street 购物街", nameEn:"Chapel Street Shopping", cat:"shopping", catLabel:"购物", lat:41.3065, lng:-72.9265, cost:"视消费",
-        desc:"纽黑文主商业街，独立书店、精品画廊、手作饰品店林立。耶鲁周边商品店和 Book Trader Cafe 值得一逛。" },
-      { time:"18:30", duration:"1.5h", name:"Union League Cafe", nameEn:"Union League Cafe", cat:"food", catLabel:"美食", lat:41.3067, lng:-72.9266, cost:"~$65",
-        desc:"法式高级餐厅，纽黑文 fine dining 首选。鹅肝、牛排、海鲜料理精致，氛围典雅，适合旅程收官大餐。" },
-      { time:"20:30", duration:"2h", name:"BAR 酒吧", nameEn:"BAR New Haven", cat:"nightlife", catLabel:"夜生活", lat:41.3070, lng:-72.9260, cost:"~$25",
-        desc:"耶鲁学生与本地人最爱的夜生活据点。自酿精酿啤酒、砖炉披萨、现场音乐，周末气氛热烈至深夜。" }
+      { time:"09:00", duration:"2h", name:"东岩公园", nameEn:"East Rock Park", cat:"attraction", catLabel:"景点", lat:41.3272, lng:-72.9047, cost:"免费",
+        addr:"41 Cold Spring St, New Haven, CT 06511", tel:"12039466086", site:"https://www.newhavenct.gov/",
+        desc:"沿步道登顶东岩，俯瞰纽黑文全城与长岛海峡。山顶 Soldiers & Sailors 纪念碑矗立，秋日红叶尤其壮观。",
+        kind:"daylight", hrsText:"日出至日落 · 全年开放 · 免费",
+        hrsNote:"公园本身全年免费开放。通往山顶的 Summit Road 车行道有季节性与时段性关闭，遇到路障就把车停在山下步行上去（约 25 分钟）。",
+        pros:["纽黑文最好的全城视野，而且完全免费","山顶可以开车上去（路开着的时候），体力不好也能看到景","秋天红叶期是全城最出片的地方"],
+        cons:["距市区 3.6 km，步行 45 分钟，实际必须有车","车行道会季节性关闭，可能要爬上去","日落后关闭，不能看夜景"],
+        scores:[["值得看",4.8],["性价比",5.0],["省心度",3.2],["出片指数",5.0]], total:4.6, rank:1,
+        verdict:"<b>DAY 2 的最高性价比项目：视野最好、花费为零。</b>清晨光线柔和人也少，9:00 到刚刚好。" },
+
+      { time:"11:00", duration:"1.5h", name:"灯塔角公园", nameEn:"Lighthouse Point Park", cat:"attraction", catLabel:"景点", lat:41.2490, lng:-72.9037, cost:"入园免费 · 停车另计",
+        addr:"2 Lighthouse Rd, New Haven, CT 06512", tel:"12039466960", site:"https://www.newhavenct.gov/",
+        desc:"长岛海峡岸边的 82 英亩海滨公园，1847 年的老灯塔守着海口。1911 年古董旋转木马仍在运转，沙滩宜漫步宜拾贝。",
+        kind:"std", hrs:{0:[[7,20]],1:[[7,20]],2:[[7,20]],3:[[7,20]],4:[[7,20]],5:[[7,20]],6:[[7,20]]},
+        hrsNote:"大门 07:00 开，日落关（此处按日落 20:00 估算，冬季会提前）。<b>入园免费，但 4/1–11/1 旺季外地车要收停车费：非纽黑文注册车 $25/天，外州车 $30/天。</b>旋转木马只在周六周日 12:00–16:00 运行。", hrsWarn:true,
+        pros:["纽黑文唯一像样的海滨公园，沙滩、灯塔、野餐区都有","入园本身不要钱，本地车停车也免费","位于大西洋候鸟迁徙路线上，观鸟极佳"],
+        cons:["外州车停车 $30/天，是 DAY 2 隐藏的最大开销","距市区 8.8 km，没有车基本到不了","旋转木马只有周末下午开"],
+        scores:[["值得看",4.3],["性价比",3.5],["省心度",2.8],["出片指数",4.6]], total:3.9, rank:4,
+        verdict:"<b>如果你开的是外州牌照，先算上那 $30 停车费再决定。</b>周末去还能坐上百年旋转木马，工作日就只是一片安静的海滩。" },
+
+      { time:"12:30", duration:"1h", name:"Modern Apizza", nameEn:"Modern Apizza", cat:"food", catLabel:"美食", lat:41.3196, lng:-72.9143, cost:"~$18",
+        addr:"874 State St, New Haven, CT 06511", tel:"12037765306", site:"https://modernapizza.com/",
+        desc:"与 Frank Pepe 齐名的 apizza 双雄之一，本地人心中的第一名。招牌 Italian Bomb 料足味浓。",
+        kind:"std", hrs:{0:[[15,22]],1:null,2:[[10.5,22]],3:[[10.5,22]],4:[[10.5,22]],5:[[10.5,22]],6:[[10.5,22]]},
+        hrsNote:"<b>周一整天不营业，周日下午 15:00 才开门</b>——中午 12:30 到店会扑空，周日请把这一站往后挪。", hrsWarn:true,
+        pros:["排队远比 Frank Pepe 短，出品公认不输","连续入选 OAD 全美平价美食榜","本地人比游客多，气氛更真实"],
+        cons:["周一不开、周日 15:00 才开，两天要避坑","离市中心 2 km，步行 26 分钟","停车位不多"],
+        scores:[["值得看",4.6],["性价比",4.8],["省心度",3.8],["出片指数",3.9]], total:4.4, rank:2,
+        verdict:"<b>如果 DAY 1 已经吃过 Frank Pepe，这一顿依然值得吃。</b>两家风格不同，Modern 更厚更咸香，而且不用排长队。周一/周日请改时间。" },
+
+      { time:"14:00", duration:"1h", name:"长码头海滨步道", nameEn:"Long Wharf Waterfront", cat:"attraction", catLabel:"景点", lat:41.2905, lng:-72.9105, cost:"免费",
+        addr:"Long Wharf Dr, New Haven, CT 06511", tel:"", site:"https://www.newhavenct.gov/",
+        desc:"纽黑文港的滨海步道，可远眺灯塔角与长岛。路边的 Long Wharf 美食车群是本地知名的午后小食据点。",
+        kind:"daylight", hrsText:"户外步道 · 白天自由进出",
+        hrsNote:"美食车通常工作日中午到下午出摊，时间不固定，周末与恶劣天气可能不来。",
+        pros:["免费、开阔、有海风，适合饭后消食","美食车群的洪都拉斯与墨西哥小吃很有特色","停车方便，不收费"],
+        cons:["紧邻 I-95 高速，车噪比较明显","美食车出摊时间不稳定，可能白跑","景观一般，属于「路过顺看」级别"],
+        scores:[["值得看",3.3],["性价比",4.6],["省心度",4.0],["出片指数",3.4]], total:3.7, rank:6,
+        verdict:"<b>顺路才去，不必专程。</b>从灯塔角回市区正好路过，停下来吹 20 分钟海风就够了。" },
+
+      { time:"15:30", duration:"1h", name:"纽黑文博物馆", nameEn:"New Haven Museum", cat:"culture", catLabel:"文化", lat:41.3120, lng:-72.9257, cost:"$5",
+        addr:"114 Whitney Ave, New Haven, CT 06510", tel:"12035624183", site:"https://newhavenmuseum.org/",
+        desc:"城市史的缩影，从原住民 Quinnipiac 部族一路讲到近代工业。Amistad 运奴船起义的展览是重头戏。",
+        kind:"std", hrs:{0:null,1:null,2:null,3:[[10,17]],4:[[10,17]],5:[[10,17]],6:[[12,17]]},
+        hrsNote:"<b>周日、周一、周二三天闭馆</b>，只有周三至周五 10:00–17:00、周六 12:00–17:00 开放。周末来纽黑文的话只有周六能进。", hrsWarn:true,
+        pros:["$5 的门票在同类博物馆里非常便宜","Amistad 事件的展陈在别处看不到","离绿地只有 7 分钟步行"],
+        cons:["一周关三天，是全行程最容易扑空的一站","体量小，1 小时足够","展陈偏文献，视觉冲击一般"],
+        scores:[["值得看",3.8],["性价比",4.4],["省心度",2.4],["出片指数",3.0]], total:3.4, rank:8,
+        verdict:"<b>周日到周二直接跳过它。</b>能进的话，冲着 Amistad 那一块看就值回 $5。" },
+
+      { time:"16:30", duration:"1.5h", name:"Chapel Street 购物街", nameEn:"Chapel Street Shopping", cat:"shopping", catLabel:"购物", lat:41.3070, lng:-72.9300, cost:"视消费",
+        addr:"Chapel St（York St 至 Church St 一段）, New Haven, CT 06510", tel:"", site:"https://www.infonewhaven.com/",
+        desc:"纽黑文的主商业街，独立书店、精品画廊、手作饰品店林立。耶鲁纪念品店与 Book Trader Cafe 都在这条线上。",
+        kind:"varies", hrsText:"各店不一 · 多数 11:00–18:00（周日缩短）",
+        hrsNote:"沿街店铺各自为政，餐饮营业到更晚，零售通常 18:00 前后打烊，周日不少店干脆不开。",
+        pros:["就在绿地边上，怎么走都顺路","下雨天也能逛，商铺连成一片","不买东西也可以纯逛，零成本"],
+        cons:["各店时间不统一，周日容易吃闭门羹","不是折扣区，价格并不便宜","没有明确「必去」的单店"],
+        scores:[["值得看",3.6],["性价比",4.0],["省心度",4.2],["出片指数",3.5]], total:3.8, rank:5,
+        verdict:"<b>行程里的缓冲带。</b>前面哪一站扑空了或者提前结束，就把时间挪到这里，绝不会浪费。" },
+
+      { time:"18:30", duration:"1.5h", name:"Union League Cafe", nameEn:"Union League Cafe", cat:"food", catLabel:"美食", lat:41.3078, lng:-72.9302, cost:"~$65",
+        addr:"1032 Chapel St, New Haven, CT 06510", tel:"12035624299", site:"https://www.unionleaguecafe.com/",
+        desc:"巴黎小酒馆风格的法餐，纽黑文 fine dining 的头牌。鹅肝、鸭腿、海鲜都稳，空间典雅，适合作收官大餐。",
+        kind:"std", hrs:{0:null,1:null,2:[[17,21]],3:[[17,21]],4:[[17,21]],5:[[11.5,14],[17,21.5]],6:[[11.5,14],[17,21.5]]},
+        hrsNote:"<b>周日、周一全天休息。</b>周二至周四只做晚市 17:00–21:00；周五、周六加开午市 11:30–14:00。<b>务必提前订位</b>，尤其毕业季与周末。", hrsWarn:true,
+        pros:["纽黑文公认最好的正餐之一，Tripadvisor 长期排进前五","位置就在 Chapel Street 上，逛完直接进店","午市（周五六）比晚市便宜不少"],
+        cons:["周日周一不开，是行程最大的时间限制","人均 $65 起，是两天里最贵的一顿","不订位基本坐不到"],
+        scores:[["值得看",4.7],["性价比",3.4],["省心度",2.6],["出片指数",4.2]], total:3.9, rank:3,
+        verdict:"<b>想吃就现在打电话订位（203-562-4299）。</b>周日周一来纽黑文的话，这一站直接换成 Frank Pepe 或 BAR。" },
+
+      { time:"20:30", duration:"2h", name:"BAR 酒吧", nameEn:"BAR New Haven", cat:"nightlife", catLabel:"夜生活", lat:41.3062, lng:-72.9294, cost:"~$25",
+        addr:"254 Crown St, New Haven, CT 06511", tel:"12034951111", site:"https://www.barnightclub.com/",
+        desc:"康涅狄格最老的自酿啤酒馆，也是耶鲁学生的夜生活据点。砖炉披萨 + 现酿啤酒，周末后半夜变身舞池。",
+        kind:"std", hrs:{0:[[12,24]],1:[[16.5,23]],2:[[16.5,23]],3:[[16.5,24]],4:[[16.5,24]],5:[[12,26]],6:[[12,26]]},
+        hrsNote:"各渠道时间略有出入，此处取多方一致的口径。周五、周六营业至凌晨 2:00，夜店区通常 21:00 后开放。招牌是土豆泥培根披萨。",
+        pros:["两天里唯一开到深夜的选项，周五周六到凌晨 2 点","自酿啤酒 + 砖炉披萨，人均 $25 就很尽兴","离 Union League 只有 5 分钟步行"],
+        cons:["周一周二 23:00 就打烊","周末夜里非常吵，不适合安静聊天","不接受大桌预约，人多要等"],
+        scores:[["值得看",4.2],["性价比",4.6],["省心度",4.0],["出片指数",3.6]], total:4.1, rank:7,
+        verdict:"<b>Louis' Lunch 或 Union League 扑空时，这里是最好的备胎。</b>也是唯一能撑到深夜的收尾选项。" }
     ]
   }
 };
@@ -445,29 +774,259 @@ const catIcons = {
   nightlife:  '🌙'
 };
 
+/* ===== 距离计算（Haversine × 1.28 路网系数） ===== */
+function haversine(a1, g1, a2, g2) {
+  const R = 6371, t = x => x * Math.PI / 180;
+  const dl = t(a2 - a1), dg = t(g2 - g1);
+  const x = Math.sin(dl / 2) ** 2 + Math.cos(t(a1)) * Math.cos(t(a2)) * Math.sin(dg / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(x));
+}
+function calcDist(poi) {
+  const km = haversine(REF.lat, REF.lng, poi.lat, poi.lng) * 1.28;
+  return {
+    km: km,
+    kmTxt: km < 0.1 ? '0' : km.toFixed(2),
+    walkMin: Math.round(km / 4.8 * 60),          // 步行 4.8 km/h
+    driveMin: Math.max(3, Math.round(km / 28 * 60) + 3) // 市区 28 km/h + 停车 3 分钟
+  };
+}
+function distChip(poi) {
+  const d = calcDist(poi);
+  if (d.km < 0.1) return '<span class="dist-chip walk">📍 本站即参照点 · 纽黑文绿地</span>';
+  if (d.walkMin <= 20)
+    return `<span class="dist-chip walk">🚶 距绿地 ${d.kmTxt} km · 步行约 ${d.walkMin} 分钟</span>`;
+  return `<span class="dist-chip">🚗 距绿地 ${d.kmTxt} km · 驾车约 ${d.driveMin} 分钟（步行需 ${d.walkMin} 分钟）</span>`;
+}
+
+/* ===== 营业状态（按纽黑文当地时间 America/New_York 计算） ===== */
+function nowInNewHaven() {
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+}
+function fmtH(h) {
+  const over = h >= 24;
+  const hh = Math.floor(h % 24), mm = Math.round((h % 1) * 60);
+  return (over ? '次日 ' : '') + String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
+}
+function openState(poi) {
+  if (poi.kind === 'always')   return { on: true,  text: '全天开放' };
+  if (poi.kind === 'daylight') {
+    const h = nowInNewHaven().getHours();
+    return (h >= 7 && h < 19)
+      ? { on: true,  text: '日出至日落开放 · 现在可去' }
+      : { on: false, text: '日落后关闭 · 明早再来' };
+  }
+  if (poi.kind === 'varies')   return { on: false, text: '时间不固定 · 建议先查证' };
+
+  const now = nowInNewHaven(), d = now.getDay();
+  const cur = now.getHours() + now.getMinutes() / 60;
+  const today = poi.hrs[d];
+  if (today) {
+    for (const seg of today) {
+      if (cur >= seg[0] && cur < seg[1]) return { on: true, text: `营业中 · 今天开到 ${fmtH(seg[1])}` };
+    }
+    // 跨午夜：看昨天是否还在延续
+    const y = poi.hrs[(d + 6) % 7];
+    if (y) for (const seg of y) {
+      if (seg[1] > 24 && cur < seg[1] - 24) return { on: true, text: `营业中 · 开到 ${fmtH(seg[1])}` };
+    }
+    const next = today.find(seg => cur < seg[0]);
+    if (next) return { on: false, text: `今天 ${fmtH(next[0])} 开门` };
+  }
+  const prefix = today ? '今日已打烊' : '今日不营业';
+  for (let i = 1; i <= 7; i++) {
+    const nd = (d + i) % 7;
+    if (poi.hrs[nd]) return { on: false, text: `${prefix} · ${DAY_CN[nd]} ${fmtH(poi.hrs[nd][0][0])} 开门` };
+  }
+  return { on: false, text: '营业时间请电话确认' };
+}
+function paintOpenPills() {
+  document.querySelectorAll('.open-pill[data-open]').forEach(el => {
+    const [day, idx] = el.dataset.open.split('-');
+    const s = openState(itinerary[day].pois[+idx]);
+    el.classList.remove('on', 'off');
+    el.classList.add(s.on ? 'on' : 'off');
+    el.innerHTML = `<span class="od"></span>${s.text}`;
+  });
+}
+
 /* ===== Build Timeline Cards ===== */
 function buildTimeline(day) {
   const container = document.getElementById('timeline-' + day);
-  const pois = itinerary[day].pois;
-  container.innerHTML = pois.map((poi, i) => `
-    <div class="poi-card" data-day="${day}" data-idx="${i}" onclick="flyToPoi(${day}, ${i})">
+  const data = itinerary[day];
+  container.innerHTML = data.pois.map((poi, i) => `
+    <div class="poi-card" data-day="${day}" data-idx="${i}" onclick="openPoi(${day}, ${i})">
       <div class="poi-time">${poi.time}<span class="duration">${poi.duration}</span></div>
       <div class="poi-dot" style="background:${catColors[poi.cat]}">${i + 1}</div>
       <div class="poi-body">
         <div class="poi-name">${poi.name}</div>
         <div class="poi-name-en">${poi.nameEn}</div>
         <div class="poi-desc">${poi.desc}</div>
+        <div class="dist-row">
+          ${distChip(poi)}
+          <span class="open-pill" data-open="${day}-${i}"><span class="od"></span>查询中…</span>
+        </div>
         <div class="poi-tags">
           <span class="poi-tag cat" style="background:${catColors[poi.cat]}">${catIcons[poi.cat]} ${poi.catLabel}</span>
           <span class="poi-tag cost">💰 ${poi.cost}</span>
+          <span class="poi-tag" style="background:#f2f1ff;color:#4f46d6">⚖️ 性价比 ${poi.total.toFixed(1)} · 当日第 ${poi.rank} 名</span>
         </div>
+        <div class="card-cta">点击查看营业时间 · 优势 · 性价比详情 →</div>
       </div>
       <div class="poi-arrow">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
       </div>
     </div>
-  `).join('');
+  `).join('') + buildCompare(day);
+  paintOpenPills();
 }
+
+/* ===== 当日横向对比 ===== */
+function buildCompare(day) {
+  const data = itinerary[day];
+  const ranked = data.pois.map((p, i) => ({ p, i })).sort((a, b) => a.p.rank - b.p.rank);
+  const top3 = ranked.slice(0, 3);
+  const rows = ranked.map(({ p, i }) => {
+    const d = calcDist(p);
+    const rc = p.rank <= 3 ? ' r' + p.rank : '';
+    return `<tr onclick="openPoi(${day},${i})" style="cursor:pointer">
+      <td><span class="cmp-rank${rc}">${p.rank}</span>${p.name}</td>
+      <td>${p.cost}</td>
+      <td>${d.km < 0.1 ? '起点' : (d.walkMin <= 20 ? '步行 ' + d.walkMin + ' 分' : '驾车 ' + d.driveMin + ' 分')}</td>
+      <td>${p.duration}</td>
+      <td class="cmp-total">${p.total.toFixed(1)}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+  <div class="compare-box">
+    <h3>⚖️ DAY ${day} 站点横向对比</h3>
+    <p class="compare-note">
+      评分维度：值得看 35% · 性价比 25% · 省心度（是否容易扑空/排队）25% · 出片指数 15%。距离以纽黑文绿地为原点，步行按 4.8 km/h 估算。
+      <b>时间不够时，优先保住前三名。</b>
+    </p>
+    <div class="pick-strip">
+      ${top3.map((x, k) => `
+        <div class="pick-item" onclick="openPoi(${day},${x.i})" style="cursor:pointer">
+          <span class="pi-tag" style="background:${['#635bff', '#8b84ff', '#b3aeff'][k]}">当日第 ${k + 1} 名</span>
+          <div class="pi-name">${x.p.name}</div>
+          <div class="pi-why">${x.p.cost} · ${x.p.duration} · 综合 ${x.p.total.toFixed(1)} 分</div>
+        </div>`).join('')}
+    </div>
+    <div class="cmp-scroll">
+      <table class="cmp-table">
+        <thead><tr><th>站点</th><th>花费</th><th>从绿地过去</th><th>建议时长</th><th>综合分</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <div class="hours-note ${day === 2 ? 'warn' : ''}" style="margin-top:14px">
+      <b>交通提示 · ${data.move}：</b>${data.moveNote}
+    </div>
+  </div>`;
+}
+
+/* ===== 详情弹窗 ===== */
+function openPoi(day, idx) {
+  const p = itinerary[day].pois[idx];
+  const st = openState(p);
+  const d = calcDist(p);
+  const nowD = nowInNewHaven().getDay();
+  const color = catColors[p.cat];
+
+  document.getElementById('pm-head').innerHTML = `
+    <span class="modal-eyebrow" style="background:${color}">
+      ${catIcons[p.cat]} DAY ${day} · 第 ${idx + 1} 站 · ${p.time} · 性价比第 ${p.rank} 名
+    </span>
+    <h3>${p.name}</h3>
+    <div class="m-en">${p.nameEn}</div>`;
+
+  // 营业时间
+  let hoursHtml;
+  if (p.kind === 'std') {
+    let rows = '';
+    for (let i = 1; i <= 7; i++) {
+      const wd = i % 7, h = p.hrs[wd];
+      const txt = h ? h.map(s => fmtH(s[0]) + ' – ' + fmtH(s[1])).join('　/　') : '休息';
+      rows += `<tr class="${wd === nowD ? 'today' : ''}">
+        <td>${DAY_CN[wd]}${wd === nowD ? '（今天）' : ''}</td>
+        <td class="${h ? '' : 'closed'}">${txt}</td></tr>`;
+    }
+    hoursHtml = `<table class="hours-tbl">${rows}</table>`;
+  } else {
+    hoursHtml = `<div class="m-addr" style="font-weight:600">${p.hrsText}</div>`;
+  }
+
+  const scoreRows = p.scores.map(s => `
+    <div class="score-row">
+      <span class="sr-label">${s[0]}</span>
+      <span class="score-bar"><i style="width:${s[1] / 5 * 100}%"></i></span>
+      <span class="sr-num">${s[1].toFixed(1)}</span>
+    </div>`).join('');
+  const stars = '★'.repeat(Math.round(p.total)) + '☆'.repeat(5 - Math.round(p.total));
+
+  document.getElementById('pm-body').innerHTML = `
+    <div class="dist-row" style="margin-top:0;margin-bottom:16px">
+      ${distChip(p)}
+      <span class="open-pill ${st.on ? 'on' : 'off'}"><span class="od"></span>${st.text}</span>
+      <span class="dist-chip">💰 ${p.cost}</span>
+      <span class="dist-chip">⏱ 建议 ${p.duration}</span>
+    </div>
+
+    <div class="m-sec">
+      <h4>📍 地址</h4>
+      <div class="m-addr">
+        ${p.addr}<br>
+        <a href="https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}" target="_blank" rel="noopener">在 Google 地图打开 ↗</a>
+      </div>
+    </div>
+
+    <div class="m-sec">
+      <h4>🕒 营业时间<span style="font-size:11.5px;font-weight:600;color:#8a8a95;text-transform:none;letter-spacing:0"> （纽黑文当地时间）</span></h4>
+      ${hoursHtml}
+      <div class="hours-note ${p.hrsWarn ? 'warn' : ''}">${p.hrsWarn ? '⚠️ ' : ''}${p.hrsNote}</div>
+    </div>
+
+    <div class="m-sec">
+      <h4>✨ 优势</h4>
+      <ul class="pc-list pros">${p.pros.map(x => `<li><span>${x}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="m-sec">
+      <h4>⚠️ 需要留意</h4>
+      <ul class="pc-list cons">${p.cons.map(x => `<li><span>${x}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="m-sec">
+      <h4>⚖️ 性价比评分</h4>
+      ${scoreRows}
+      <div class="total-score">
+        <span class="ts-num">${p.total.toFixed(1)}</span>
+        <span class="ts-meta">
+          <span class="ts-stars">${stars}</span>
+          <div class="ts-cap">
+            DAY ${day} 共 ${itinerary[day].pois.length} 站，横向对比<b style="color:#635bff"> 第 ${p.rank} 名</b>（满分 5.0）<br>
+            权重：值得看 35% · 性价比 25% · 省心度 25% · 出片指数 15%
+          </div>
+        </span>
+      </div>
+      <div class="verdict-box">🎯 ${p.verdict}</div>
+    </div>`;
+
+  document.getElementById('pm-foot').innerHTML = `
+    <a class="mf-btn primary" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&travelmode=${d.walkMin <= 20 ? 'walking' : 'driving'}" target="_blank" rel="noopener">
+      ${d.walkMin <= 20 ? '🚶 步行导航' : '🚗 驾车导航'}
+    </a>
+    ${p.tel ? `<a class="mf-btn" href="tel:${p.tel}">📞 打电话确认</a>` : ''}
+    ${p.site ? `<a class="mf-btn" href="${p.site}" target="_blank" rel="noopener">🔗 官网</a>` : ''}
+    <button class="mf-btn" onclick="closePoi();flyToPoi(${day},${idx});">🗺️ 在地图上看</button>`;
+
+  document.getElementById('poiModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closePoi() {
+  document.getElementById('poiModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePoi(); });
 
 /* ===== Map Init ===== */
 const map = L.map('map', {
@@ -508,12 +1067,25 @@ function renderDayOnMap(day) {
       popupAnchor: [0, -28]
     });
 
+    const st = openState(poi);
+    const dd = calcDist(poi);
     const marker = L.marker(latlng, { icon: icon }).addTo(map);
     marker.bindPopup(`
       <div class="pop-name">${poi.name}</div>
       <div class="pop-en">${poi.nameEn}</div>
+      <div style="margin:6px 0 4px;font-size:12px;font-weight:700;color:${st.on ? '#0f7038' : '#96707a'}">
+        ● ${st.text}
+      </div>
+      <div style="font-size:12px;color:#4d566b">
+        ${dd.km < 0.1 ? '本站即参照点' : (dd.walkMin <= 20 ? '🚶 距绿地步行 ' + dd.walkMin + ' 分钟' : '🚗 距绿地驾车约 ' + dd.driveMin + ' 分钟')}
+        ｜ 💰 ${poi.cost}
+      </div>
       <div class="pop-desc">${poi.desc}</div>
-    `);
+      <button onclick="map.closePopup();openPoi(${day},${i})"
+        style="margin-top:8px;width:100%;padding:7px 10px;border:none;border-radius:8px;background:#635bff;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer">
+        查看详情 · 营业时间 · 性价比 →
+      </button>
+    `, { maxWidth: 280 });
     currentMarkers.push(marker);
   });
 
@@ -566,6 +1138,9 @@ function switchDay(day) {
 buildTimeline(1);
 buildTimeline(2);
 renderDayOnMap(1);
+paintOpenPills();
+// 每分钟刷新一次营业状态，跨过整点时不会显示过期信息
+setInterval(paintOpenPills, 60000);
 </script>
 </body>
 </html>
