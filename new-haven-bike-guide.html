@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>纽黑文代步自行车攻略 · 免费/低价淘车与防盗（AI辅助整理） | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="刚来到纽黑文没有车代步不方便？这篇攻略用 AI 辅助整理耶鲁/纽黑文地区免费或低价自行车的获取渠道：公益车店、Facebook Marketplace、Craigslist、跳蚤市场，附地址、营业时间、验车要点和防盗提醒。">
+<meta name="keywords" content="纽黑文自行车,New Haven bike,耶鲁自行车,Yale bicycle,二手自行车,免费自行车,Bradley Street Bicycle Co-op,Facebook Marketplace,Craigslist,纽黑文跳蚤市场,自行车防盗,Ivy Manor,留学生代步">
+<meta property="og:title" content="纽黑文代步自行车攻略 · 免费/低价淘车与防盗">
+<meta property="og:description" content="耶鲁/纽黑文免费或低价自行车获取渠道汇总：公益车店、线上二手平台、跳蚤市场，附验车与防盗建议。AI辅助整理。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/new-haven-bike-guide.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  background:#f8f7f4;color:#2b2b33;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #e6e4ef;
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;padding:0 24px;
+  display:flex;justify-content:space-between;align-items:center;height:60px;
+}
+.nav-logo{
+  font-size:16px;font-weight:800;color:#534AB7;text-decoration:none;letter-spacing:.2px;
+}
+.nav-links{display:flex;list-style:none;gap:26px;}
+.nav-links a{
+  font-size:14px;color:#4a4a55;text-decoration:none;font-weight:500;
+  transition:color .2s;
+}
+.nav-links a:hover{color:#534AB7;}
+.nav-toggle{display:none;background:none;border:none;font-size:22px;color:#534AB7;cursor:pointer;}
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:60px;left:0;right:0;background:#fff;border-bottom:1px solid #e6e4ef;flex-direction:column;padding:12px 24px;gap:12px;}
+  .nav-links.show{display:flex;}
+  .nav-toggle{display:block;}
+}
+
+/* ===== Banner ===== */
+.banner{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#534AB7 0%,#5A52C5 35%,#3C3489 100%);
+  padding:56px 24px 48px;text-align:center;color:#fff;
+}
+.banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 0%,rgba(255,255,255,.18) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 100%,rgba(255,255,255,.1) 0%,transparent 50%);
+  pointer-events:none;
+}
+.banner::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:70px;
+  background:linear-gradient(to bottom,transparent,#f8f7f4);
+  pointer-events:none;
+}
+.banner-inner{position:relative;z-index:1;max-width:900px;margin:0 auto}
+.banner-eyebrow{
+  font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.8);margin-bottom:10px;
+}
+.banner h1{font-size:38px;font-weight:800;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em}
+.banner-sub{font-size:17px;color:rgba(255,255,255,.9);font-weight:400;margin-bottom:26px}
+.badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);
+  border-radius:100px;padding:8px 17px;font-size:13px;font-weight:600;
+}
+
+/* ===== Main Layout ===== */
+.main{
+  max-width:1200px;margin:0 auto;padding:0 24px 60px;
+  display:grid;grid-template-columns:1fr 460px;gap:28px;
+}
+
+/* ===== Left: Content ===== */
+.content-side{padding-top:28px}
+
+/* Summary card */
+.summary-card{
+  background:#fff;border:1px solid #e6e4ef;border-radius:16px;
+  padding:22px 24px;margin-bottom:26px;
+  box-shadow:0 4px 18px rgba(83,74,183,.08);
+}
+.summary-card h2{
+  font-size:17px;color:#3C3489;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.summary-card ul{margin:0;padding-left:20px;color:#4a4a55;font-size:14.5px;}
+.summary-card li{margin:7px 0;}
+.summary-card .highlight{color:#534AB7;font-weight:700;}
+
+/* Tabs */
+.tabs{
+  display:flex;gap:8px;flex-wrap:wrap;
+  border-bottom:2px solid #e6e4ef;margin-bottom:22px;
+}
+.tab{
+  border:none;background:transparent;cursor:pointer;
+  padding:12px 18px;font-size:14px;font-weight:600;color:#6b6b76;
+  border-bottom:3px solid transparent;margin-bottom:-2px;
+  transition:all .2s;border-radius:8px 8px 0 0;
+}
+.tab:hover{color:#534AB7;background:rgba(83,74,183,.04);}
+.tab.active{color:#534AB7;border-bottom-color:#534AB7;background:rgba(83,74,183,.06);}
+.tab-content{display:none;}
+.tab-content.active{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Shop cards */
+.shop-card{
+  background:#fff;border:1px solid #e6e4ef;border-radius:14px;
+  padding:18px 20px;margin-bottom:14px;cursor:pointer;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.shop-card:hover{
+  border-color:#534AB7;box-shadow:0 6px 22px rgba(83,74,183,.12);
+  transform:translateX(4px);
+}
+.shop-card.active{
+  border-color:#534AB7;background:linear-gradient(135deg,#f5f4ff,#eeecfc);
+  box-shadow:0 6px 22px rgba(83,74,183,.14);
+}
+.shop-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.shop-num{
+  flex-shrink:0;width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#fff;
+  background:#534AB7;box-shadow:0 2px 6px rgba(83,74,183,.3);
+}
+.shop-title{flex:1;min-width:0}
+.shop-title h3{font-size:16px;font-weight:800;color:#2b2b33;margin-bottom:2px;}
+.shop-title .en{font-size:12px;color:#8a8a95;font-weight:500;}
+.shop-card .tag{
+  display:inline-block;font-size:11px;font-weight:700;
+  padding:4px 11px;border-radius:20px;margin-left:auto;flex-shrink:0;
+}
+.tag-green{background:#e6f7ef;color:#1a8a4a;}
+.tag-blue{background:#eceaf9;color:#534AB7;}
+.tag-orange{background:#fff7ec;color:#a86a00;}
+.shop-card p{font-size:14px;color:#4a4a55;margin:6px 0;line-height:1.7;}
+.shop-meta{
+  font-size:13px;color:#6b6b76;margin-top:10px;padding-top:10px;
+  border-top:1px dashed #e6e4ef;display:flex;flex-wrap:wrap;gap:10px 16px;
+}
+.shop-meta a{color:#534AB7;font-weight:600;text-decoration:none;}
+.shop-meta a:hover{text-decoration:underline;}
+.shop-arrow{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  color:#c8cdd8;transition:all .2s;
+}
+.shop-card:hover .shop-arrow{color:#534AB7;transform:translate(2px,-50%);}
+@media(max-width:640px){.shop-arrow{display:none;}}
+
+/* General cards in other tabs */
+.card{
+  background:#fff;border:1px solid #e6e4ef;border-radius:14px;
+  padding:18px 20px;margin-bottom:14px;
+}
+.card h3{
+  font-size:16px;color:#2b2b33;margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;
+}
+.card .tag{
+  display:inline-block;font-size:11px;font-weight:700;
+  padding:4px 11px;border-radius:20px;margin-left:auto;
+}
+.card p{font-size:14px;color:#4a4a55;margin:6px 0;line-height:1.7;}
+.card a{color:#534AB7;font-weight:600;text-decoration:none;}
+.card a:hover{text-decoration:underline;}
+.card .meta{font-size:13px;color:#6b6b76;margin-top:10px;padding-top:10px;border-top:1px dashed #e6e4ef;}
+
+/* Section title */
+.section-title{
+  font-size:17px;font-weight:800;color:#3C3489;margin:26px 0 12px;
+}
+
+/* Tips box */
+.tip-box{
+  background:#fff7ec;border:1px solid #f3dca6;border-radius:14px;
+  padding:18px 20px;margin-top:16px;
+}
+.tip-box h4{color:#a86a00;font-size:15px;margin-bottom:10px;}
+.tip-box ul{margin:0;padding-left:20px;font-size:14px;color:#4a4a55;}
+.tip-box li{margin:6px 0;}
+
+/* ===== Right: Map ===== */
+.map-side{position:sticky;top:20px;height:calc(100vh - 100px);min-height:560px;padding-top:28px}
+.map-wrap{
+  height:100%;border-radius:16px;overflow:hidden;
+  border:1px solid #e6e4ef;box-shadow:0 4px 24px rgba(83,74,183,.1);
+  position:relative;background:#eaf0f4;
+}
+#map{width:100%;height:100%;z-index:1}
+.map-overlay-label{
+  position:absolute;top:14px;left:14px;z-index:500;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+  border:1px solid rgba(227,232,238,.8);border-radius:10px;
+  padding:8px 14px;font-size:13px;font-weight:700;color:#2b2b33;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  display:flex;align-items:center;gap:8px;
+}
+.map-overlay-label .dot{width:8px;height:8px;border-radius:50%;background:#534AB7}
+.map-legend{
+  position:absolute;bottom:14px;left:14px;z-index:500;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+  border:1px solid rgba(227,232,238,.8);border-radius:10px;
+  padding:10px 14px;font-size:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.map-legend .legend-title{font-weight:800;color:#2b2b33;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.map-legend .legend-item{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.map-legend .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.map-legend .legend-text{color:#6b6b76;}
+
+/* Custom markers */
+.custom-marker{background:transparent;border:none}
+.custom-marker-inner{
+  width:34px;height:34px;border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  border:2px solid #fff;
+}
+.custom-marker-inner span{transform:rotate(45deg)}
+
+.home-marker{background:transparent;border:none}
+.home-marker-inner{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  background:linear-gradient(135deg,#ff6b6b,#ee5a6f);
+  box-shadow:0 3px 12px rgba(238,90,111,.4);
+  border:3px solid #fff;
+  animation:pulse-home 2s ease-in-out infinite;
+}
+@keyframes pulse-home{
+  0%,100%{box-shadow:0 3px 12px rgba(238,90,111,.4),0 0 0 0 rgba(238,90,111,.3)}
+  50%{box-shadow:0 3px 12px rgba(238,90,111,.4),0 0 0 10px rgba(238,90,111,0)}
+}
+
+/* Leaflet overrides */
+.leaflet-container{font-family:inherit}
+.leaflet-popup-content-wrapper{
+  border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1);
+  border:1px solid #e6e4ef;
+}
+.leaflet-popup-content{margin:14px 16px;font-size:13px;min-width:200px}
+.leaflet-popup-content .pop-name{font-weight:800;color:#2b2b33;font-size:15px;margin-bottom:3px}
+.leaflet-popup-content .pop-addr{color:#6b6b76;font-size:12px;margin-bottom:8px;line-height:1.5}
+.leaflet-popup-content .pop-desc{color:#4a4a55;line-height:1.55;margin-bottom:6px}
+.leaflet-popup-content .pop-link{display:inline-block;margin-top:8px;color:#534AB7;font-weight:700;text-decoration:none}
+.leaflet-popup-content .pop-link:hover{text-decoration:underline}
+
+/* Back bar */
+.back-bar{
+  margin-top:36px;padding-top:22px;border-top:1px solid #e6e4ef;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+}
+.back-bar a{color:#534AB7;font-weight:700;font-size:14px;text-decoration:none;}
+.back-bar a:hover{text-decoration:underline;}
+
+/* AI CTA */
+.ai-cta{
+  background:linear-gradient(135deg,#534AB7 0%,#6b5fd4 55%,#7d72e0 100%);color:#fff;text-align:center;padding:56px 24px;
+}
+.ai-cta-inner{max-width:880px;margin:0 auto}
+.ai-cta-badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:5px 16px;font-size:12.5px;font-weight:600;margin-bottom:16px}
+.ai-cta h2{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:12px}
+.ai-cta p{font-size:15px;line-height:1.85;color:rgba(255,255,255,.9);margin-bottom:26px}
+.ai-cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ai-cta .btn-primary{background:#fff;color:#534AB7;padding:12px 26px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s}
+.ai-cta .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.2)}
+.ai-cta .btn-ghost{background:rgba(255,255,255,.14);color:#fff;padding:12px 26px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.45);transition:all .2s}
+.ai-cta .btn-ghost:hover{background:rgba(255,255,255,.24)}
+
+/* Footer */
+.page-footer{
+  text-align:center;font-size:12.5px;color:#8a8a95;
+  padding:28px 24px;border-top:1px solid #e6e4ef;background:#fff;
+}
+
+/* ===== Responsive ===== */
+@media(max-width:980px){
+  .main{grid-template-columns:1fr;border-radius:0 0 12px 12px}
+  .map-side{position:relative;height:420px;min-height:420px;order:-1;padding-top:0}
+  .banner{padding:44px 20px 38px}
+  .banner h1{font-size:30px}
+  .tabs{padding:0}
+}
+@media(max-width:560px){
+  .banner h1{font-size:25px}
+  .badges{gap:8px}
+  .badge{padding:6px 14px;font-size:12px}
+  .tab{padding:10px 14px;font-size:13px}
+  .shop-card{padding:16px;}
+  .shop-meta{flex-direction:column;gap:6px;}
+  .ai-cta{padding:44px 20px}
+  .ai-cta h2{font-size:22px}
+}
+
+@media print{
+  .navbar,.tabs{display:none;}
+  .tab-content{display:block !important;}
+  .map-side{display:none}
+  .main{grid-template-columns:1fr}
+  body{background:#fff;}
+  main{padding:0;}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li><a href="ai-project-management.html">AI项目管理</a></li>
+      <li><a href="weekly-list.html">教师周报</a></li>
+      <li><a href="ai-tools.html">AI工具箱</a></li>
+      <li><a href="resources.html">AI实践资源</a></li>
+      <li><a href="about.html#contact">联系</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Banner -->
+<header class="banner">
+  <div class="banner-inner">
+    <div class="banner-eyebrow">New Haven / Yale · AI辅助整理</div>
+    <h1>纽黑文代步自行车攻略</h1>
+    <p class="banner-sub">免费或低价淘一辆能骑的自行车，替代买车和步行的折中方案</p>
+    <div class="badges">
+      <span class="badge">🆓 免费/低价渠道</span>
+      <span class="badge">🗺️ 线下车店地图</span>
+      <span class="badge">🛠️ 含验车防盗</span>
+      <span class="badge">🤖 AI辅助整理</span>
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Left: Content -->
+  <div class="content-side">
+
+    <!-- 首屏结论 -->
+    <section class="summary-card">
+      <h2>🎯 三句话结论</h2>
+      <ul>
+        <li><span class="highlight">最稳妥</span>：先去 <strong>Bradley Street Bicycle Co-op</strong>（非营利公益车店，车已检修，$150–350，离 Ivy Manor 约 10 分钟车程）。</li>
+        <li><span class="highlight">最便宜</span>：蹲 <strong>Facebook Marketplace</strong> 和 <strong>Yale Free & For Sale</strong> 群，8 月中下旬学生离校/回国时大量抛售。</li>
+        <li><span class="highlight">最重要</span>：买车同时配一把 <strong>U 型防盗锁</strong>，纽黑文自行车盗窃不少；日常代步选 <strong>hybrid / commuter bike</strong>，不要专业公路车。</li>
+      </ul>
+    </section>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+      <button class="tab active" onclick="switchTab(0)">🏬 线下车店（首推）</button>
+      <button class="tab" onclick="switchTab(1)">💻 线上二手</button>
+      <button class="tab" onclick="switchTab(2)">🛒 跳蚤市场</button>
+      <button class="tab" onclick="switchTab(3)">🔧 验车与防盗</button>
+    </nav>
+
+    <!-- Tab 1: 线下车店 -->
+    <div class="tab-content active" id="tab-0">
+      <div class="shop-card active" data-idx="0" onclick="flyToShop(0)">
+        <div class="shop-header">
+          <div class="shop-num">1</div>
+          <div class="shop-title">
+            <h3>Bradley Street Bicycle Co-op</h3>
+            <div class="en">非营利社区公益车行 · 车辆已翻新检修</div>
+          </div>
+          <span class="tag tag-green">首选</span>
+        </div>
+        <p>风险最低，明码标价，可现场试骑。适合不想自己修车的新手，也适合线上淘车后做检修。</p>
+        <div class="shop-meta">
+          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=138+Bradley+St,+New+Haven,+CT+06511" target="_blank">138 Bradley St, New Haven, CT 06511</a></span>
+          <span>🕒 周二、周四 16:00–20:00</span>
+          <span>💵 $150–350</span>
+        </div>
+        <div class="shop-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
+
+      <div class="shop-card" data-idx="1" onclick="flyToShop(1)">
+        <div class="shop-header">
+          <div class="shop-num">2</div>
+          <div class="shop-title">
+            <h3>Devil's Gear Bike Shop</h3>
+            <div class="en">耶鲁校园附近老牌车店 · 卖车也修车</div>
+          </div>
+          <span class="tag tag-blue">老牌</span>
+        </div>
+        <p>位置在市中心 Chapel St，交通方便。二手通勤车选择较多，但价格通常比合作社略高。</p>
+        <div class="shop-meta">
+          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=845+Chapel+St,+New+Haven,+CT" target="_blank">845 Chapel St, New Haven, CT</a></span>
+          <span>🕒 周二~周六营业（周一休息）</span>
+        </div>
+        <div class="shop-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
+
+      <div class="shop-card" data-idx="2" onclick="flyToShop(2)">
+        <div class="shop-header">
+          <div class="shop-num">3</div>
+          <div class="shop-title">
+            <h3>College Street Cycles</h3>
+            <div class="en">新车为主 · 少量二手代步车</div>
+          </div>
+          <span class="tag tag-orange">新车为主</span>
+        </div>
+        <p>如果前两家没找到合适的车，可以顺路来看看。也提供维修服务。</p>
+        <div class="shop-meta">
+          <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=252+College+St,+New+Haven,+CT" target="_blank">252 College St, New Haven, CT</a></span>
+        </div>
+        <div class="shop-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: 线上二手 -->
+    <div class="tab-content" id="tab-1">
+      <div class="card">
+        <h3>Facebook Marketplace <span class="tag tag-green">最推荐</span></h3>
+        <p>定位设到 New Haven，搜索 <code>used commuter bike</code> 或 <code>used bike New Haven</code>。耶鲁学生离校时（尤其 5 月、8 月中下旬）车源最多，价格可谈。</p>
+        <div class="meta">
+          🔗 <a href="https://www.facebook.com/marketplace/" target="_blank">打开 Facebook Marketplace</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Yale Free & For Sale <span class="tag tag-blue">学生群</span></h3>
+        <p>耶鲁学生二手交易群，常有人毕业免费或低价出自行车。加入后搜索 "bike" 或 "bicycle"。</p>
+        <div class="meta">
+          🔗 在 Facebook 搜索 <strong>Yale Free & For Sale</strong> 申请加入
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Craigslist <span class="tag tag-orange">老牌本地</span></h3>
+        <p>老牌分类信息网站，筛选 New Haven 区域。价格可很低，但务必选公共场所白天见面交易。</p>
+        <div class="meta">
+          🔗 <a href="https://newhaven.craigslist.org/search/bia" target="_blank">New Haven Craigslist - Bikes</a>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <h4>⚠️ 线上交易提醒</h4>
+        <ul>
+          <li>优先现金交易，见面地点选车店门口、学校、商场等人多明亮处</li>
+          <li>务必<strong>现场试骑</strong>，重点检查刹车、轮胎、变速、链条</li>
+          <li>如果卖家说"只是小毛病"， Bradley 合作社也是靠谱的检修去处</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tab 3: 跳蚤市场 -->
+    <div class="tab-content" id="tab-2">
+      <div class="card">
+        <h3>Boulevard Flea Market</h3>
+        <p>周末跳蚤市场，偶尔有二手单车摊位。货源不稳定，价格低但车况看运气。适合顺路逛逛，不建议专门跑。</p>
+        <div class="meta">
+          📍 <a href="https://www.google.com/maps/search/?api=1&query=500+Ella+T+Grasso+Blvd,+New+Haven,+CT" target="_blank">500 Ella T Grasso Blvd, New Haven, CT</a> ·
+          🕒 周六、周日 8:00–16:00
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: 验车与防盗 -->
+    <div class="tab-content" id="tab-3">
+      <h3 class="section-title">买车前检查清单</h3>
+      <div class="card">
+        <ul>
+          <li><strong>轮胎</strong>：胎纹是否磨平、有无裂纹、能否正常打气</li>
+          <li><strong>刹车</strong>：前后刹车捏紧后车轮能停住，刹车皮位置正确</li>
+          <li><strong>变速</strong>：换挡是否顺畅，链子不掉链</li>
+          <li><strong>车架</strong>：无明显变形、裂痕、严重锈蚀</li>
+          <li><strong>龙头与座杆</strong>：拧紧后无松动，座杆能调节高度</li>
+          <li><strong>骑一圈</strong>：听有无异响，感受是否顺滑</li>
+        </ul>
+      </div>
+
+      <h3 class="section-title">防盗提醒（纽黑文必看）</h3>
+      <div class="tip-box">
+        <ul>
+          <li>务必买一把 <strong>U 型锁（U-lock）</strong>， cable 锁/钢丝锁容易被剪</li>
+          <li>停车时锁车架+前轮，最好再锁到固定物上</li>
+          <li>晚上不要把车留在户外，尽量放进室内、车库或有监控的位置</li>
+          <li>太新的车反而显眼，代步用旧一点、外观普通的通勤车更安全</li>
+        </ul>
+      </div>
+
+      <h3 class="section-title">车型建议</h3>
+      <div class="card">
+        <p>日常通勤选 <strong>hybrid bike / commuter bike（平把通勤车）</strong> 最合适：路况适应性强、骑行姿势舒服、价格亲民、配件好找。</p>
+        <p>不建议选专业公路车（易被盗、维护贵、对路况要求高）。</p>
+      </div>
+    </div>
+
+    <div class="back-bar">
+      <a href="resources.html">← 返回 AI 实践资源</a>
+      <span style="font-size:13px;color:#8a8a95;">最后更新：2026-08-03</span>
+    </div>
+
+  </div>
+
+  <!-- Right: Map -->
+  <div class="map-side">
+    <div class="map-wrap">
+      <div class="map-overlay-label"><span class="dot"></span><span>线下车店分布 · 从 Ivy Manor 出发</span></div>
+      <div class="map-legend">
+        <div class="legend-title">图例</div>
+        <div class="legend-item"><span class="legend-dot" style="background:linear-gradient(135deg,#ff6b6b,#ee5a6f)"></span><span class="legend-text">🏠 Ivy Manor（住所）</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a8a4a"></span><span class="legend-text">⭐ 首选公益车行</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#534AB7"></span><span class="legend-text">🏬 老牌车店</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#a86a00"></span><span class="legend-text">🔧 新车/维修</span></div>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- AI CTA -->
+<section class="ai-cta">
+  <div class="ai-cta-inner">
+    <div class="ai-cta-badge">🤖 AI 实践案例</div>
+    <h2>这份攻略，也是用 AI 辅助整理的</h2>
+    <p>从多源信息聚合、地址地理编码，到「卡片 + 地图」的可视化呈现，全程由 AI 辅助完成。同样的「AI + 结构化数据 + 可视化」方法，也能用在<strong>供应商地理分布调研</strong>、<strong>项目现场资源摸排</strong>、<strong>团队外勤路线规划</strong>等企业场景——这正是 AI 赋能项目管理的日常。</p>
+    <div class="ai-cta-actions">
+      <a href="ai-project-management.html" class="btn-primary">了解 AI 赋能项目管理课程 →</a>
+      <a href="resources.html" class="btn-ghost">查看全部 AI 实践资源</a>
+      <a href="new-haven-yale-shopping.html" class="btn-ghost">🛒 耶鲁周边购物地图</a>
+    </div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  本页为 AI 辅助整理的生活信息，价格和营业时间可能变动，出行前建议电话或官网确认 · 刘俊平 · AI赋能项目管理
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ===== Data ===== */
+const homeLocation = { name:"Ivy Manor", addr:"567 Prospect St, New Haven, CT 06511", lat:41.3274, lng:-72.9215 };
+
+const shops = [
+  {
+    idx: 0, name: "Bradley Street Bicycle Co-op",
+    addr: "138 Bradley St, New Haven, CT 06511",
+    tag: "首选公益车行", tagClass: "tag-green", color: "#1a8a4a",
+    lat: 41.3069, lng: -72.9196,
+    desc: "非营利社区公益车行，车辆全部翻新检修过，明码标价，可现场试骑。",
+    hours: "周二、周四 16:00–20:00", price: "$150–350",
+    gmaps: "https://www.google.com/maps/search/?api=1&query=138+Bradley+St,+New+Haven,+CT+06511"
+  },
+  {
+    idx: 1, name: "Devil's Gear Bike Shop",
+    addr: "845 Chapel St, New Haven, CT",
+    tag: "老牌车店", tagClass: "tag-blue", color: "#534AB7",
+    lat: 41.3078, lng: -72.9296,
+    desc: "耶鲁校园附近老牌车店，卖二手通勤车也做维修。市中心位置方便。",
+    hours: "周二~周六营业（周一休息）", price: "价格略高于合作社",
+    gmaps: "https://www.google.com/maps/search/?api=1&query=845+Chapel+St,+New+Haven,+CT"
+  },
+  {
+    idx: 2, name: "College Street Cycles",
+    addr: "252 College St, New Haven, CT",
+    tag: "新车/维修", tagClass: "tag-orange", color: "#a86a00",
+    lat: 41.3068, lng: -72.9289,
+    desc: "主营新车，偶尔有少量二手代步车，也提供维修服务。",
+    hours: "建议电话确认", price: "新车为主",
+    gmaps: "https://www.google.com/maps/search/?api=1&query=252+College+St,+New+Haven,+CT"
+  }
+];
+
+/* ===== Tabs ===== */
+function switchTab(idx){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab-content').forEach((c,i)=>c.classList.toggle('active',i===idx));
+}
+
+/* ===== Map Init ===== */
+const map = L.map('map', {
+  zoomControl: true,
+  scrollWheelZoom: true,
+  attributionControl: false
+}).setView([41.3150, -72.9250], 13);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  maxZoom: 19,
+  subdomains: 'abcd'
+}).addTo(map);
+
+let shopMarkers = [];
+let homeMarker = null;
+let homeLines = [];
+
+function addHomeMarker() {
+  const homeIcon = L.divIcon({
+    className: 'home-marker',
+    html: '<div class="home-marker-inner">🏠</div>',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -22]
+  });
+  homeMarker = L.marker([homeLocation.lat, homeLocation.lng], { icon: homeIcon, zIndexOffset: 1000 }).addTo(map);
+  homeMarker.bindPopup(`
+    <div class="pop-name">🏠 ${homeLocation.name}</div>
+    <div class="pop-addr">${homeLocation.addr}</div>
+    <div class="pop-desc">您的住所 · 所有距离以此为起点计算</div>
+  `);
+}
+
+function renderShopsOnMap() {
+  // Clear existing
+  shopMarkers.forEach(m => map.removeLayer(m));
+  shopMarkers = [];
+  homeLines.forEach(l => map.removeLayer(l));
+  homeLines = [];
+  if (!homeMarker) addHomeMarker();
+
+  const latlngs = [];
+
+  shops.forEach((shop, i) => {
+    const latlng = [shop.lat, shop.lng];
+    latlngs.push(latlng);
+
+    const icon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div class="custom-marker-inner" style="background:${shop.color}"><span>${i + 1}</span></div>`,
+      iconSize: [34, 34],
+      iconAnchor: [17, 34],
+      popupAnchor: [0, -30]
+    });
+
+    const marker = L.marker(latlng, { icon: icon }).addTo(map);
+    marker.bindPopup(`
+      <div class="pop-name">${i + 1}. ${shop.name}</div>
+      <div class="pop-addr">${shop.addr}</div>
+      <div class="pop-desc">${shop.desc}</div>
+      <div class="pop-desc">🕒 ${shop.hours} · ${shop.price}</div>
+      <a class="pop-link" href="${shop.gmaps}" target="_blank" rel="noopener">在 Google Maps 中打开 →</a>
+    `);
+    shopMarkers.push(marker);
+  });
+
+  // Fit all points including home
+  const allPoints = [[homeLocation.lat, homeLocation.lng], ...latlngs];
+  const bounds = L.latLngBounds(allPoints);
+  map.flyToBounds(bounds, { padding: [70, 70], maxZoom: 14, duration: 0.8 });
+}
+
+function flyToShop(idx) {
+  const shop = shops[idx];
+  const marker = shopMarkers[idx];
+  if (!marker) return;
+
+  // Highlight card
+  document.querySelectorAll('.shop-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`.shop-card[data-idx="${idx}"]`);
+  if (card) card.classList.add('active');
+
+  // Clear previous home lines
+  homeLines.forEach(l => map.removeLayer(l));
+  homeLines = [];
+
+  // Draw line from home to shop
+  const line = L.polyline(
+    [[homeLocation.lat, homeLocation.lng], [shop.lat, shop.lng]],
+    { color: shop.color, weight: 3, opacity: 0.7, dashArray: '6 6', lineCap: 'round' }
+  ).addTo(map);
+  homeLines.push(line);
+
+  // Fly to bounds
+  const bounds = L.latLngBounds([[homeLocation.lat, homeLocation.lng], [shop.lat, shop.lng]]);
+  map.flyToBounds(bounds, { padding: [90, 90], maxZoom: 15, duration: 0.8 });
+
+  setTimeout(() => marker.openPopup(), 850);
+}
+
+// Initialize
+renderShopsOnMap();
+</script>
+
+</body>
+</html>
