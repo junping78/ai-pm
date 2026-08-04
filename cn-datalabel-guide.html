@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="对标 OpenTrain / DataAnnotation.tech 的国内真实可用个人数据标注接单渠道：腾讯搜活帮、百度众测、京东众智等，含公会模式、单价与避坑。回国后 / 在国内的副业接单攻略。">
+<meta property="og:title" content="国内个人数据标注接单攻略">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/cn-datalabel-guide.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<link rel="canonical" href="https://junping78.github.io/ai-pm/cn-datalabel-guide.html">
+<title>国内个人数据标注接单攻略（2026年7月核实版）</title>
+<style>
+  :root{
+    --ink:#2b2b2b; --accent:#1a5fb4; --soft:#eef4fb; --line:#d8dee6;
+    --good:#1a7f37; --warn:#b35900; --bad:#b3261e;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:var(--ink);
+       background:#f5f6f8;margin:0;line-height:1.75;font-size:15px;}
+  .page{max-width:860px;margin:0 auto;background:#fff;padding:48px 56px;
+        box-shadow:0 2px 12px rgba(0,0,0,.06);}
+  h1{font-size:26px;color:var(--accent);border-bottom:3px solid var(--accent);
+     padding-bottom:12px;margin:0 0 6px;}
+  .sub{color:#666;font-size:13px;margin-bottom:28px;}
+  h2{font-size:19px;color:var(--accent);margin:36px 0 12px;padding-left:10px;
+     border-left:5px solid var(--accent);}
+  h3{font-size:16px;margin:22px 0 8px;}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;}
+  th{background:var(--soft);color:var(--accent);text-align:left;}
+  th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;font-weight:bold;}
+  .t-good{background:#e3f2e6;color:var(--good);}
+  .t-warn{background:#fdf0e0;color:var(--warn);}
+  .t-bad{background:#fbe4e2;color:var(--bad);}
+  .box{background:var(--soft);border-left:4px solid var(--accent);
+       padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+  .box.warn{background:#fdf6ec;border-left-color:var(--warn);}
+  .box.good{background:#eef8f0;border-left-color:var(--good);}
+  ul,ol{padding-left:22px;margin:8px 0;}
+  li{margin:4px 0;}
+  .small{font-size:12.5px;color:#777;}
+  strong{color:#111;}
+  .kw{color:var(--accent);font-weight:bold;}
+
+  /* ===== TAB 导航 ===== */
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:30px 0 0;
+        border-bottom:2px solid var(--line);}
+  .tab-btn{font-family:inherit;font-size:14px;font-weight:bold;cursor:pointer;
+        border:1px solid var(--line);border-bottom:none;background:#eef1f5;
+        color:#555;padding:11px 16px;margin-bottom:-2px;
+        border-radius:9px 9px 0 0;transition:all .15s;}
+  .tab-btn:hover{background:var(--soft);color:var(--accent);}
+  .tab-btn.active{background:#fff;color:var(--accent);
+        border-color:var(--accent);border-bottom:2px solid #fff;
+        position:relative;top:1px;}
+  .tab-panel{display:none;padding-top:6px;}
+  .tab-panel.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+  .tab-hint{font-size:12.5px;color:#666;background:#f7f9fc;border:1px dashed var(--line);
+        border-radius:6px;padding:9px 13px;margin:14px 0 4px;}
+
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;padding:20px 10px;max-width:100%;}
+    h2{page-break-after:avoid;}
+    table,.box{page-break-inside:avoid;}
+    .tabs{display:none;}
+    .tab-panel{display:block !important;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>国内个人数据标注接单攻略</h1>
+<div class="sub">对标 OpenTrain / DataAnnotation.tech 的国内真实可用渠道 ｜ 信息核实日期：2026年7月29日 ｜ 供刘老师参考</div>
+
+<div class="box" style="border-left-color:#1a5fb4;">
+  📎 本篇是「数据标注 · 副业与收入」系列的<strong>国内篇</strong>：回国后 / 在国内的接单渠道。对应的<strong>美国篇（在美期间可做的副业与数据标注）</strong>见
+  <a href="us-side-income-guide.html" style="color:#1a5fb4;font-weight:bold;">美国副业收入总手册（公开示例版）</a>。
+</div>
+
+<h2>一、一句话结论</h2>
+<div class="box good">
+<strong>国内确实有面向个人的数据标注接单平台，而且是真实、免费、大厂背书的</strong>——但和 OpenTrain / DataAnnotation 的玩法不一样：<strong>海外平台是"高单价、高门槛、按项目分包"，国内平台是"低单价、低门槛、按件众包 + 公会（团队）分包"</strong>。个人单打赚零花钱可以；想做出规模，关键在"公会模式"（详见第五节，这一点对您特别有价值）。
+</div>
+
+<!-- ===== TAB 导航条 ===== -->
+<div class="tabs" id="tabnav">
+  <button class="tab-btn active" onclick="showTab('tab1',this)">① 国内平台</button>
+  <button class="tab-btn" onclick="showTab('tab2',this)">② 避坑与行动</button>
+  <button class="tab-btn" onclick="showTab('tab3',this)">③ 为我定制</button>
+  <button class="tab-btn" onclick="showTab('tab4',this)">④ 公会方案</button>
+  <button class="tab-btn" onclick="showTab('tab5',this)">⑤ 海外评估</button>
+</div>
+
+<!-- ===== Tab 1：国内平台 ===== -->
+<div class="tab-panel active" id="tab1">
+
+<h2>二、国内真实可用的平台（本次逐一联网核实）</h2>
+<table>
+<tr><th style="width:16%">平台</th><th style="width:13%">背景</th><th style="width:22%">入口（官方）</th><th style="width:27%">怎么开始</th><th style="width:22%">真实收入水平</th></tr>
+<tr>
+<td><strong>腾讯搜活帮</strong><br><span class="tag t-good">正常运营</span></td>
+<td>腾讯官方</td>
+<td>soho.qq.com；App Store / 应用宝搜"腾讯搜活帮"；公众号"腾讯搜活帮SOHO"</td>
+<td>微信登录→实名认证→通过"搜活学院"考试解锁任务。大模型标注、语音转写、图像框选、内容审核。满10元微信提现</td>
+<td>官方口径时薪20–50元；<strong>实测有任务稀少期</strong>，需要抢任务、养账号。完善"学业能力/语言专长/行业职业"资料可提高大模型任务匹配率</td>
+</tr>
+<tr>
+<td><strong>京东众智</strong><br><span class="tag t-good">正常运营</span></td>
+<td>京东数科</td>
+<td>biao.jd.com（个人任务端 zhongzhi.jd.com / 京东众智App）</td>
+<td>京东账号直接登录→新手测评→看教学视频→标注规范考试（85分合格）→接单。<strong>支持个人 + 公会两种模式</strong></td>
+<td>任务偏专业（拉框、语义分割、语音转录），部分高价任务需加入公会才能领取。公会邀请码是免费的</td>
+</tr>
+<tr>
+<td><strong>数加加</strong><br><span class="tag t-good">正常运营</span></td>
+<td>数据堂旗下（新三板数据服务商）</td>
+<td>shujiajia.com</td>
+<td>注册→培训学院学习→考试拿资质→领任务。走"培训→考试→资质→任务"的阶梯路线</td>
+<td>有资质者可领专属价格任务；<strong>公会成员结算加成1%–25%</strong>。任务量在国内平台里相对充足</td>
+</tr>
+<tr>
+<td><strong>百度众测</strong><br><span class="tag t-warn">运营中·任务偏少</span></td>
+<td>百度官方</td>
+<td>zhongce.baidu.com</td>
+<td>百度账号登录，图像标注、App测试、搜索评估类任务</td>
+<td>平台真实，但近年任务量下滑明显，适合作补充，不适合作主力</td>
+</tr>
+<tr>
+<td><strong>龙猫众包</strong><br><span class="tag t-warn">运营中·需验证任务量</span></td>
+<td>龙猫数据（专业标注商）</td>
+<td>应用商店搜"龙猫众包"</td>
+<td>注册→技能培训→接单，覆盖拉框到3D点云</td>
+<td>高难度任务单价较高（复杂分割类30–50元/时），但对新手门槛也高</td>
+</tr>
+<tr>
+<td><strong>澳鹏 Appen 中国</strong><br><span class="tag t-good">正常运营</span></td>
+<td>全球老牌，中国区连续3年市占率第一</td>
+<td>crowdgen.com（众包端）/ appendata.com（中国官网）</td>
+<td>注册填写教育/语言/技能背景→资质审核（周期可能1–2个月）→分配项目。<strong>有大量中文任务，英语不好也能做</strong></td>
+<td>时薪折合约8–14美元区间的项目主要在海外端；中国区中文项目按项目计价，属于"半海外"性价比之选</td>
+</tr>
+<tr>
+<td><strong>共聘猫</strong><br><span class="tag t-warn">新兴·区域性</span></td>
+<td>山东企业（2021年成立），媒体报道已带动10万人次就业</td>
+<td>搜"共聘猫"官方渠道</td>
+<td>先培训→考核→上岗接单，主打零基础群体（宝妈、退役军人、残疾人等）</td>
+<td>按单结算（如方言转写0.8元/条），单价低走量，胜在任务对接3000余家标注企业</td>
+</tr>
+</table>
+<p class="small">注：以上均为2026年7月29日通过官网/官方文档/近期新闻交叉核实。收入区间来自官方口径与媒体实测的综合，实际因任务量和熟练度浮动较大。</p>
+
+<h2>三、这些渠道已停运或高风险，别再花时间</h2>
+<table>
+<tr><th style="width:22%">名称</th><th style="width:20%">状态</th><th>说明</th></tr>
+<tr><td>字节众包（竹节）</td><td><span class="tag t-bad">已停运</span></td><td>App下架、官网失效，网上引流文案仍在传播，勿信</td></tr>
+<tr><td>讯飞听见众包</td><td><span class="tag t-bad">已停运</span></td><td>官方渠道已无招募信息</td></tr>
+<tr><td>阿里众包</td><td><span class="tag t-bad">已转型</span></td><td>App下架，业务并入蜂鸟众包（外卖骑手），与线上标注无关</td></tr>
+<tr><td>有道众包</td><td><span class="tag t-bad">基本失效</span></td><td>官网经常打不开，且以专业翻译为主、审核周期数周</td></tr>
+<tr><td>京东微工</td><td><span class="tag t-bad">假入口横行</span></td><td>京东App内无官方入口，网传链接多为第三方钓鱼页。京东正牌是"京东众智"</td></tr>
+</table>
+
+<h2>四、和海外平台（OpenTrain / DataAnnotation 这一类）的真实对比</h2>
+<table>
+<tr><th style="width:18%">维度</th><th>国内平台</th><th>海外平台（Outlier / DataAnnotation / Appen海外端等）</th></tr>
+<tr><td>单价</td><td>低，0.1–1元/条常见，时薪20–50元需熟练</td><td>高，基础任务时薪7–20美元，RLHF/代码评估类20–50美元</td></tr>
+<tr><td>门槛</td><td>低：实名+考试即可，中文操作</td><td>高：流利英语几乎是硬门槛，高价任务还要专业背景（编程/医学/法律）</td></tr>
+<tr><td>对中国大陆友好度</td><td>完全无障碍</td><td>分平台：<strong>DataAnnotation.tech 主要面向美英等国，大陆申请通过率很低</strong>；Outlier、Appen 大陆可做，收款走 Payoneer</td></tr>
+<tr><td>结算</td><td>微信/支付宝/银行卡，满10元即提</td><td>Payoneer / PayPal，需自行处理外汇入账</td></tr>
+<tr><td>任务稳定性</td><td>波动大，需多平台并行</td><td>同样波动大，新账号有1–2个月养号期</td></tr>
+</table>
+<div class="box">
+<strong>给您的判断参考</strong>：海外高单价任务的红利属于"英语流利 + 有专业背景"的人（这正是项目1里 OpenTrain 要求 Fluent 英语的原因）。国内平台单干收益有限，但<strong>组织协作的空间比海外大得多</strong>——这就引出下一节。
+</div>
+
+<h2>五、对刘老师真正值钱的一点：公会模式 = 现成的"标注资源池"搭建路径</h2>
+<div class="box good">
+<p>咱们之前分析项目1时的最大缺口是"手上无真标注资源"。这次调研发现了一条<strong>零成本补上这块短板</strong>的路：</p>
+<ol>
+<li><strong>京东众智、数加加都开放"公会"注册</strong>——个人可以免费创建公会，招募标注员，承接平台任务，公会有结算加成（数加加1%–25%）和高价任务优先权；</li>
+<li>这意味着：不必先养一支标注团队再去接项目，而是<strong>先在成熟平台上建公会、跑通"招人→培训→质检→结算"流程</strong>，团队和履历就长出来了；</li>
+<li>等有了公会作业记录，再回头接 OpenTrain 这类海外项目或企业直客单，"我有一支在京东众智跑过N个项目的标注公会"就是实打实的资质，比空口报价有说服力得多；</li>
+<li>更妙的是，这条路和您的培训师身份天然契合——公会本质上就是"培训+组织+质检"，正是您20年的看家本领换个赛道用。</li>
+</ol>
+</div>
+
+</div><!-- /tab1 -->
+
+<!-- ===== Tab 2：避坑与行动 ===== -->
+<div class="tab-panel" id="tab2">
+
+<h2>六、避坑守则（一票否决制，5条）</h2>
+<ol>
+<li><strong>凡是先收钱的，一律是骗局。</strong>押金、培训费、会费、"解锁高价任务费"——正规平台注册和培训全部免费，包括腾讯、京东官方明确声明过这一点。</li>
+<li><strong>"数据标注师证书"培训班九成是割韭菜。</strong>收费几千到上万教的内容，平台免费教程都有。人社部的"人工智能训练师"是职业名称，不存在花钱包过的官方证书渠道。</li>
+<li><strong>只走官方入口。</strong>认准本文表格里的官网域名和带企业认证的小程序/App；从群聊、短视频评论区拿到的链接一律不点。</li>
+<li><strong>警惕"日入几百、月入过万"话术。</strong>真实情况：新手前1–2个月是养号期，任务少、单价低；国内平台认真做的合理预期是每天2小时、月增收1000–2500元。</li>
+<li><strong>质量优先于速度。</strong>所有平台都有质检抽查，正确率低于85%–90%会降信誉甚至封号，账号信誉就是这行的全部资产。</li>
+</ol>
+
+<h2>七、行动建议（如果要试水，这周三步就够）</h2>
+<ol>
+<li><strong>第1步（30分钟）</strong>：注册腾讯搜活帮（soho.qq.com）+ 京东众智（京东账号直接登录），完成实名和新手考试——这两家是大厂背书、入口最稳的。</li>
+<li><strong>第2步（1小时）</strong>：把个人资料里的学历、行业经验填满（尤其项目管理背景），大模型评估类的高价任务是按资料匹配的。</li>
+<li><strong>第3步（观察1–2周）</strong>：不急着做量，先摸清两个平台的任务节奏、单价和质检标准；同时看一眼京东众智的公会运营规则（opendoc.jd.com 有公开文档），评估建公会的可行性——这一步我可以陪您一起做拆解。</li>
+</ol>
+
+<div class="box warn">
+<strong>提醒一句（不是泼冷水，是帮您省时间）</strong>：个人计件标注是"做一单赚一单"的零工，没有积累性；但<strong>公会/组织者角色是有积累性的</strong>——沉淀的是团队、SOP和平台信誉。以您的定位，值得投入的是后者，前者只需体验到"知道水温"即可。
+</div>
+
+</div><!-- /tab2 -->
+
+<!-- ===== Tab 3：为我定制 ===== -->
+<div class="tab-panel" id="tab3">
+
+<h2>八、按刘老师背景定制的接单与注册攻略（首推顺序）</h2>
+<div class="box good">
+<p><strong>先说一句让您安心的话：您不是"从零开始的小白标注员"，而是平台最想要的那类人。</strong>读完您的简历——CS 科班、20 年项目管理、双语（EN/ZH）、技术文档评估与质量审计底子、还自带培训组织能力——结论是：您的需求画像直接对应平台里<strong>单价最高、最缺人</strong>的"大模型评估 / 双语标注 / 质量审核"类任务，而不是底层的计件勾选。</p>
+<p>下面按"先开哪三个、为什么、注册入口、怎么用最顺"给您排好序，全部入口均为 2026-7-29 核实可打开。</p>
+</div>
+
+<table>
+<tr><th style="width:9%">优先级</th><th style="width:15%">平台</th><th style="width:25%">注册官网（已核实）</th><th style="width:51%">为什么最对您的胃口 + 上手要点</th></tr>
+<tr>
+<td><span class="tag t-good">第一</span></td>
+<td><strong>腾讯搜活帮</strong></td>
+<td>soho.qq.com<br>（或微信搜"腾讯搜活帮"官方小程序）</td>
+<td>门槛最低、微信登录+实名+考试即可。内有<strong>"大模型标注 / 内容审核 / 文字校对"</strong>任务，正好对应您简历里的"事实准确性核查、逻辑一致性校验、内容质量打分"。<br><span class="small">上手要点：注册后去「我的→个人主页」完善"语言专长 / 行业和职业"，填清双语能力与技术背景，能显著提高技术类、英文类任务的匹配率。</span></td>
+</tr>
+<tr>
+<td><span class="tag t-good">第一</span></td>
+<td><strong>澳鹏 Appen 中国</strong></td>
+<td>appendata.com<br>（右上角"用户登录"→注册；或应用商店下"澳鹏任务"APP）</td>
+<td>和您简历"AI Content Evaluation &amp; Bilingual Data Annotation"几乎一字不差对口。澳鹏是全球 RLHF 数据巨头，有中文也有英文任务；您英文读写强 + 偏好排序 / 质量打分能力，直接吃<strong>"大模型偏好排序 / 英文语料评估"</strong>这类高价任务。报酬走微信，合规安全。<br><span class="small">上手要点：申请时主动强调双语(EN/ZH) + 技术文档/代码评估经验；只认 appendata.com 与官方"澳鹏任务"APP，谨防仿冒。</span></td>
+</tr>
+<tr>
+<td><span class="tag t-good">第二</span></td>
+<td><strong>京东众智</strong></td>
+<td>biao.jd.com<br>（京东账号登录 + 85 分考试）</td>
+<td>任务更专业、技术含量高，契合您 CS + 技术文档背景。更关键：<strong>它开放"公会"</strong>，是您从"个人接单"升级到"带队接单"的跳板（详见「④ 公会方案」标签，即原第九节）。<br><span class="small">上手要点：先以个人身份考过 85 分拿任务，攒 2–3 个项目样例后，直接申请开公会。</span></td>
+</tr>
+</table>
+<p class="small">备选（晚一点再开，单价更低、偏基础）：数加加 shujiajia.com（数据堂旗下，同样有公会）、百度众测 zhongce.baidu.com、龙猫众包。建议上面三个跑顺了再补。</p>
+
+<div class="box warn">
+<strong>一条红线</strong>：凡是让先交钱（押金 / 培训费 / 激活费）的，100% 是骗局。搜活帮、澳鹏、京东众智全部<strong>免费注册、报酬直提微信</strong>。澳鹏官方已发防诈骗声明，只认 appendata.com 和官方应用商店的"澳鹏任务"APP。
+</div>
+
+</div><!-- /tab3 -->
+
+<!-- ===== Tab 4：公会方案 ===== -->
+<div class="tab-panel" id="tab4">
+
+<div class="tab-hint">本节承接「① 国内平台」标签末尾提到的<strong>公会价值</strong>，给出可落地的<strong>启动 SOP</strong>（原第九节）。从"为什么值钱"到"怎么干"，一页看完。</div>
+
+<h2>九、公会启动方案（京东众智 / 数加加 公会落地 SOP）</h2>
+<div class="box">
+<p><strong>公会</strong>是您从"个人零工"升级到"有积累性的组织角色"的杠杆，也是补齐"手上无真标注资源"短板的<strong>零成本路径</strong>。京东众智、数加加都开放免费公会注册，公会享受结算加成（数加加 1%–25%）和高价任务优先权。下面是一份可直接执行的启动方案。</p>
+</div>
+
+<h3>9.1 启动前准备（个人资质，约 1–2 周）</h3>
+<ul>
+<li>在搜活帮 / 京东众智 / 澳鹏以<strong>个人身份</strong>跑通"注册→考试→接单→提交→审核→提现"全流程；</li>
+<li>在京东众智、数加加各攒 <strong>2–3 个高质量项目样例</strong>（作为公会展示用的交付记录）；</li>
+<li>把个人资料里的学历、行业经验、双语能力填全——公会主的背景就是公会的信用背书。</li>
+</ul>
+
+<h3>9.2 申请公会（免费）</h3>
+<ul>
+<li><strong>京东众智</strong>：登录 biao.jd.com → 查找"公会 / 团队"入口（运营规则见 opendoc.jd.com 公开文档）→ 创建公会、生成免费邀请码；</li>
+<li><strong>数加加</strong>：登录 shujiajia.com → 培训学院考取资质 → 申请公会，成员结算加成 1%–25%；</li>
+<li>两个平台<strong>可同时开</strong>，任务类型互补（京东偏专业标注，数加加偏垂直行业数据）。</li>
+</ul>
+<p class="small">注：公会具体申请路径以平台最新页面为准，注册前请在官网"帮助中心 / 公开文档"确认。</p>
+
+<h3>9.3 招募标注员（从哪找人）</h3>
+<ul>
+<li><strong>武汉本地</strong>：高校勤工俭学群、宝妈社群、退役军人就业群——您的人脉与培训口碑是天然入口；</li>
+<li><strong>线上渠道</strong>：共聘猫（已对接 3000 余家标注企业）、标注交流群、同城兼职板块；</li>
+<li><strong>首选人群</strong>：细心、稳定、有固定空闲时间的人（宝妈、在校生、退休技术人员），比"想赚快钱"的兼职族更可靠。</li>
+</ul>
+
+<h3>9.4 培训体系（用您的培训能力，这是别人没有的壁垒）</h3>
+<p>公会主的真正价值不是自己标注，而是<strong>把人培训到位、把质量稳住</strong>。建议一套极简上岗培训：</p>
+<table>
+<tr><th style="width:12%">模块</th><th style="width:30%">内容</th><th style="width:58%">您要交付的东西</th></tr>
+<tr><td>规范</td><td>标注规范 / 平台规则 / 质检红线</td><td>1 页《标注员守则》（正确率 &lt;85% 即淘汰）</td></tr>
+<tr><td>工具</td><td>Label Studio / CVAT / 平台内工具 实操</td><td>一段 10 分钟录屏 + 跟练任务</td></tr>
+<tr><td>试标</td><td>小批量试标 + 您亲自抽检讲评</td><td>退回样张 + 一对一反馈话术</td></tr>
+<tr><td>进阶</td><td>技术 / 英文类高价任务专项</td><td>针对您擅长的"双语 / 代码 / 业务流程"任务的专项指引</td></tr>
+</table>
+
+<h3>9.5 质检 SOP（您的 QC 强项，写成可复制流程）</h3>
+<ul>
+<li><strong>抽检比例</strong>：新手首周 100% 全检，稳定后降到 20%–30% 抽检；</li>
+<li><strong>退回机制</strong>：错误类型分类（理解错 / 粗心 / 规范不清），针对性辅导而非一刀切淘汰；</li>
+<li><strong>信用维护</strong>：公会整体正确率保持在 90%+，这是接高价任务和外部单的通行证。</li>
+</ul>
+
+<h3>9.6 结算与收益结构</h3>
+<ul>
+<li>平台按件结算到公会账户，公会主再分给标注员，<strong>差价 + 公会加成</strong>即您的组织收益；</li>
+<li>初期建议：标注员拿平台标准价，您靠<strong>公会结算加成（数加加 1%–25%）+ 管理溢价</strong>获利，不靠压价；</li>
+<li>合规要点：薪酬通过平台官方通道结算，不私下走账。</li>
+</ul>
+
+<h3>9.7 接外部单（公会履历变现）</h3>
+<ul>
+<li>有了公会作业记录后，回头接 <strong>OpenTrain 这类海外项目</strong>或企业直客单，"我有一支在京东众智 / 数加加跑过 N 个项目的标注公会"就是实打实的资质；</li>
+<li>您负责对接、培训、质检与交付，标注员执行——这正好把"九型人格 × AI × 项目管理"的方法论用在真实交付里。</li>
+</ul>
+
+<h3>9.8 时间线（4–6 周跑通）</h3>
+<table>
+<tr><th style="width:16%">周次</th><th>动作</th></tr>
+<tr><td>第 1–2 周</td><td>个人三平台注册、考试、攒样例；吃透任务节奏与质检标准</td></tr>
+<tr><td>第 3 周</td><td>申请京东众智 + 数加加公会，搭好培训文档与质检 SOP</td></tr>
+<tr><td>第 4 周</td><td>招第一批 3–5 人，完成培训 + 试标</td></tr>
+<tr><td>第 5–6 周</td><td>小批量正式任务，您做质检与结算，跑通闭环；评估扩招</td></tr>
+</table>
+
+<h3>9.9 风险与应对</h3>
+<ul>
+<li><strong>任务量波动</strong>：多平台 + 多公会并行，不为单一平台吃单；</li>
+<li><strong>标注员流失</strong>：用培训做成"成长感"而非纯计件，保留 2–3 名核心骨干；</li>
+<li><strong>质量事故</strong>：100% 首检 + 信用红线，宁可少接也不砸公会信誉；</li>
+<li><strong>合规</strong>：只走平台官方结算，不碰"先交钱"的任何外部"项目方"。</li>
+</ul>
+
+<div class="box good">
+<strong>一句话定位</strong>：您不必和大学生抢 0.3 元/条的勾选单——用公会把自己的"培训 + 组织 + 质检"能力产品化，才是和您 20 年资历匹配的打法。这一节可作为下一步落地清单，需要我把它拆成带负责人和节点的执行表，随时说。
+</div>
+
+</div><!-- /tab4 -->
+
+<!-- ===== Tab 5：海外评估 ===== -->
+<div class="tab-panel" id="tab5">
+
+<h2>十、海外平台匹配度评估（基于刘老师现状的逐个分析）</h2>
+<p class="small">以下 5 个平台均为刘老师提供的截图信息，本节逐一核实其对中国大陆用户的准入情况、与您简历画像的匹配度、以及实际可操作性。</p>
+
+<table>
+<tr><th style="width:14%">平台</th><th style="width:13%">时薪参考</th><th style="width:16%">中国大陆能做吗？</th><th style="width:47%">与您的现状匹配度 + 建议</th></tr>
+<tr>
+<td>
+<strong>OpenTrain AI</strong><br>
+<span class="tag t-good">可注册</span>
+</td>
+<td>$15–45/hr<br><span class="small">中文QA Lead类 $15/hr；高级专家岗更高</span></td>
+<td><span class="t-good">✅ 可以</span><br><span class="small">有中国区专属招聘页 opentrain.ai/jobs/country/china，当前在招 Chinese AI Quality Analyst 等岗位</span></td>
+<td>
+<strong>匹配度：⭐⭐⭐⭐ 高度对口</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>当前在招 <strong>"Chinese AI Quality Analyst"</strong>——核心工作：设计多轮对话 prompt、对比两个模型输出并排序、写结构化理由。这和您简历里的"事实准确性核查 / 逻辑一致性校验 / 偏好排序 / 内容质量打分"几乎一字不差。</li>
+<li>要求：中文读写流利 + 强判断力 + 能写清晰的结构化理由。<strong>您的 CS 背景 + 20 年技术文档评估经验完全满足。</strong></li>
+<li>英语要求：该岗位主要用中文工作，但平台整体偏英文界面，您的英文读写能力够用。</li>
+<li>注册方式：opentrain.ai/register 免费注册 → 上传简历 → 填写技能/语言/领域 → 浏览可用项目并申请。</li>
+<li><strong>建议行动：本周内注册并投递 Chinese AI Quality Analyst 岗位，这是目前海外平台上对您最友好的入口。</strong></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<strong>DataAnnotation.tech</strong><br>
+<span class="tag t-warn">极难</span>
+</td>
+<td>$20–50+/hr<br><span class="small">基础写作$20，STEM/代码$40-50，专家项目$50+</span></td>
+<td><span class="t-warn">⚠️ 大陆通过率极低</span><br><span class="small">官网明确只接受 US/CA/UK/Ireland/AU/NZ；其他国家"欢迎注册但等通知"。中国大陆申请人多数石沉大海</span></td>
+<td>
+<strong>匹配度：⭐⭐⭐⭐⭐ 完美对口（但卡在国家限制）</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>它的"Bilingual AI Training / Content Evaluation"岗位描述和您简历里的 "AI Content Evaluation &amp; Bilingual Data Annotation" 几乎是同一句话。</li>
+<li>如果通过 Starter Assessment（1.5–2.5 小时的英文写作+推理测试），您拿到的任务大概率是双语评估 / 技术文档审核类高价单。</li>
+<li><strong>但现实是：</strong>DataAnnotation 对中国大陆申请人几乎不发 offer。这不是能力问题，是平台的地域策略。</li>
+<li><strong>建议：</strong>可以花 2 小时试一下注册 + Assessment（免费），万一过了就是意外之喜；但不作为主力投入方向。同时关注它是否未来开放更多国家。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<strong>xAI (SpaceXAI)</strong><br>
+<span class="tag t-warn">有门槛</span>
+</td>
+<td>$35–45/hr（美国）<br><span class="small">国际候选人薪酬面试中商议</span></td>
+<td><span class="t-good">✅ 全球远程招聘</span><br><span class="small">通过 Greenhouse 招聘平台发布，支持全职/兼职/合同制，全程远程</span></td>
+<td>
+<strong>匹配度：⭐⭐ 中等偏低（岗位类型不对口）</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>xAI 招的是 <strong>"AI Tutor - Chinese"</strong>（中文 AI 导师），核心工作是：<strong>语音标注</strong>——给中文音频标注语调/节奏/重音/情感、录制高质量发音样本、整理方言音频数据。</li>
+<li>要求：中文母语 + 熟悉各地方言 + 英语 B2 + 口齿清晰适合录音。<strong>优先语言学/认知科学背景或配音/播客从业者。</strong></li>
+<li><strong>您的强项在文本评估和技术文档审核，不在语音/方言/录音。</strong>这个岗位更偏向语言学家和配音工作者，不是您的赛道。</li>
+<li>但如果您对语音方向有兴趣、或者想拓展技能边界，可以尝试申请——毕竟时薪诱人且支持远程。</li>
+<li><strong>建议：</strong>暂不优先。如果您后续想拓展到语音标注领域，再考虑。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<strong>Scale AI / Remotasks</strong><br>
+<span class="tag t-bad">基本不可行</span>
+</td>
+<td>按任务计酬<br><span class="small">基础标注$3-8/hr，3D点云$15-25/hr；RLHF已迁至Outlier</span></td>
+<td><span class="t-bad">❌ 中国大陆IP被拒</span><br><span class="small">2026年5月实测：中国IP打不开官网；香港IP直接拒绝；美国IP提交后弹窗"不接受您所在地区"</span></td>
+<td>
+<strong>匹配度：⭐ 不适用（进不去）</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>Remotasks 是 Scale AI 的众包平台，背后客户包括 OpenAI/Google/Meta，品牌过硬。</li>
+<li><strong>但对中国大陆用户基本封死：</strong>不是英语问题也不是技能问题，是 IP 风控 + 身份验证双重拦截。即使用代理注册成功，也有随时被封号、已做任务清零的风险。</li>
+<li>而且 Remotasks 的高价 RLHF 任务已在 2024 年初迁移到 Outlier 平台，Outlier 对中国用户审核比 Remotasks 更严。</li>
+<li><strong>建议：不要在这上面浪费时间。</strong> 如果未来 Scale AI 开放中国区，再重新评估。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<strong>Outlier.ai</strong><br>
+<span class="tag t-bad">极难</span>
+</td>
+<td>$15–50/hr<br><span class="small">取决于专业背景和任务类型</span></td>
+<td><span class="t-bad">❌ 极难</span><br><span class="small">需本科以上学历 + 专业背景审核 + 美国身份验证，中国大陆用户几乎无法通过</span></td>
+<td>
+<strong>匹配度：⭐⭐⭐⭐ 能力对口但进不去</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>Outlier 是 Scale AI 从 Remotasks 拆出来的高端平台，专门做 RLHF / 代码评估 / 专业领域审核，单价高。</li>
+<li>您的双语能力 + 技术文档评估背景如果在能力层面完全对口。</li>
+<li><strong>现实障碍：</strong>Outlier 注册时要验证学历和专业背景，且对中国 IP/身份审核极严。中国大陆用户绝大多数卡在身份验证。</li>
+<li><strong>建议：同 Remotasks，暂不投入精力。</strong></li>
+</ul>
+</td>
+</tr>
+</table>
+
+<h3>10.1 综合排序（基于您现状的行动优先级）</h3>
+<ol>
+<li><strong>🥇 OpenTrain AI</strong> — 可注册、有中文岗位、和您能力高度对口。本周就动手。</li>
+<li><strong>🥈 DataAnnotation.tech</strong> — 能力完美对口但大陆通过率低。花 2 小时试一下，不过度期待。</li>
+<li><strong>🥉 国内三平台（搜活帮 / 澳鹏中国 / 京东众智）</strong> — 见第八节，稳定可靠、零门槛起步。</li>
+<li><strong>xAI 中文AI导师</strong> — 能进但岗位偏语音/方言，不是您的核心赛道。观望即可。</li>
+<li><strong>Scale AI / Remotasks / Outlier</strong> — 进不去，不要浪费时间。</li>
+</ol>
+
+<h3>10.2 补充修正（2026-07-29 更新：美国实地访问 + 口语受限现状）</h3>
+<div class="box warn">
+<p><strong>前提变更：</strong>刘老师反馈当前<strong>人已在美国</strong>、VPN 可用、且<strong>英语能读能写但口语有限（开口说的能力弱）</strong>。这直接推翻了第十节初版"中国大陆 IP 受限"的假设，需重新评估如下。</p>
+</div>
+
+<table>
+<tr><th style="width:14%">平台</th><th style="width:13%">美国IP下能做吗</th><th style="width:47%">修正后的匹配度与建议（美国实地 + 读写英文、口语弱）</th></tr>
+<tr>
+<td><strong>DataAnnotation.tech</strong><br><span class="tag t-good">首选</span></td>
+<td>✅ 已解锁</td>
+<td>
+<strong>匹配度：⭐⭐⭐⭐⭐ 完美对口</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>美国 IP 直接满足其"仅接受 US/CA/UK 等"的地域限制，初版"大陆通过率极低"结论<strong>已不适用</strong>；</li>
+<li>Starter Assessment 是<strong>纯书面</strong>测试（英文写作 + 逻辑推理，1.5–2.5 小时），<strong>全程打字、不考口语</strong>——完美契合您"能读能写、口语弱"的现状；</li>
+<li>所有任务均为文本评估 / 排序 / 写作类，无语音要求，$20–50+/hr；</li>
+<li><strong>建议：第一优先，本周注册并完成 Starter Assessment。</strong></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td><strong>OpenTrain AI</strong><br><span class="tag t-good">可做</span></td>
+<td>✅ 可注册</td>
+<td>
+<strong>匹配度：⭐⭐⭐⭐ 高度对口（口语弱不影响）</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li><strong>重要澄清：</strong>您担心的"每个项目都要面试、口语是极大挑战"——经查 OpenTrain 官方文档，其 "AI Interview" 是<strong>文字聊天界面，您打字回答、不是开口说</strong>（原文 "Sie geben Ihre Antworten als Klartext ein"）。口语弱完全不影响；</li>
+<li>个别客户项目后续可能要求真人视频面试，但标准筛选是 AI 文字聊天；</li>
+<li>Chinese AI Quality Analyst 岗位（多轮 prompt 设计 + 模型输出对比排序 + 写结构化理由）与您简历高度对口，$15/hr 起；</li>
+<li><strong>建议：第二优先，与 DataAnnotation 同步推进。</strong></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td><strong>Remotasks / Outlier</strong><br><span class="tag t-good">可注册</span></td>
+<td>✅ 美国IP可进</td>
+<td>
+<strong>匹配度：⭐⭐⭐ 可做但不优先</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>初版"中国 IP 被拒"结论因美国实地访问<strong>已不适用</strong>；</li>
+<li>任务均为<strong>文字标注</strong>，无口语要求；</li>
+<li>Remotasks 基础标注单价低（$3–8/hr），高价 RLHF 已迁至 Outlier；</li>
+<li>Outlier 需本科+专业背景审核——您 CS 本科 + 20 年经验<strong>够格</strong>，但审核严、中国大陆身份仍可能卡，美国实地更有利；</li>
+<li><strong>建议：作为补充渠道，不必主力投入。</strong></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td><strong>xAI 中文AI导师</strong><br><span class="tag t-warn">不优先</span></td>
+<td>✅ 招全球远程</td>
+<td>
+<strong>匹配度：⭐⭐ 仍不匹配</strong><br>
+<ul style="margin:4px 0;padding-left:18px;font-size:13px;">
+<li>岗位核心为<strong>语音标注 + 录音</strong>，明确要求 B2 口语、清晰发音、适合录音；</li>
+<li>这正是您"口语弱"的短板，<strong>不因在美国而改变</strong>；</li>
+<li><strong>建议：继续观望，不优先投入。</strong></li>
+</ul>
+</td>
+</tr>
+</table>
+
+<div class="box good">
+<strong>修正后的最终行动排序（美国实地 + 口语弱）</strong>：<br>
+🥇 <strong>DataAnnotation.tech</strong>（纯书面、美国IP解锁、完美对口）→ 🥈 <strong>OpenTrain AI</strong>（面试是打字、Chinese QA岗对口）→ 🥉 <strong>Remotasks / Outlier</strong>（美国IP可进，作补充）→ <strong>xAI</strong> 继续观望。<br>
+<strong>一句话：</strong>您的"口语弱"只挡住了 xAI 这类语音岗；DataAnnotation 和 OpenTrain 都是<strong>纯文字</strong>工作，反而成了您最顺的赛道。
+</div>
+
+<div class="box warn">
+<strong>美国实地访问的额外提醒</strong>：
+<ul style="margin:6px 0 0;padding-left:18px;">
+<li><strong>税务</strong>：美国平台通常要求填税表。您作为中国公民临时在美，一般填 <strong>W-8BEN（外国人士）</strong>而非 W-9；具体以平台指引和停留身份为准，收入达到一定额度建议咨询税务处理；</li>
+<li><strong>收款</strong>：美国期间开 PayPal / 美国银行卡或 Payoneer 更顺畅，注意平台支持的提现方式；</li>
+<li><strong>离美后的风险</strong>：若未来离开美国，部分平台可能按登录 IP 重新限制；建议在美国期间把账号养稳、积累项目记录与口碑，后续即便回国也有历史信用支撑。</li>
+</ul>
+</div>
+
+<div class="box warn">
+<strong>海外平台的共同注意事项</strong>：
+<ul style="margin:6px 0 0;padding-left:18px;">
+<li>收款：几乎所有海外平台走 PayPal 或 Payoneer，中国大陆用户需提前准备好 Payoneer 账户（支持提现到国内银行卡）；</li>
+<li>税务：海外平台收入涉及个人所得税申报，建议月收入超过一定额度后咨询税务处理方式；</li>
+<li>养号期：新账号通常有 1–2 个月的任务稀少期，这是正常现象，不是被屏蔽；</li>
+<li>账号安全：不要用 AI 工具代做任务（平台会检测），不要多人共用一个账号，否则面临封号 + 收入清零风险。</li>
+</ul>
+</div>
+
+<div class="box good">
+<strong>给您的最终建议（一句话版）</strong>：
+<strong>OpenTrain AI 先冲</strong>（最友好入口）→ <strong>国内三平台同步铺底</strong>（搜活帮+澳鹏+京东众智，见第八节）→ <strong>DataAnnotation 试一把碰运气</strong> → xAI 和 Scale 系列暂时不管。
+先把 OpenTrain 的 Chinese AI Quality Analyst 申请递上去，这个岗位和您简历的匹配度是我今天看到的所有选项里最高的。
+</div>
+
+</div><!-- /tab5 -->
+
+<p class="small" style="margin-top:32px;border-top:1px solid var(--line);padding-top:12px;">
+信息来源：OpenTrain AI 官网及中国区招聘页（opentrain.ai / opentrain.ai/jobs/country/china）、DataAnnotation.tech 官网及多方评测（dataannotationtech.com / spechulative.blog / sidehustlepick.top）、xAI Greenhouse 招聘页及腾讯新闻/IT之家/搜狐报道（2026-06）、Remotasks 实测报告（liezhe.com 2026-05 四IP测试）、Scale AI / Outlier 平台政策。所有平台状态以2026年7月29日核实为准，注册前请再次确认官方入口。
+</p>
+
+</div>
+
+<script>
+function showTab(id, btn){
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  var panel = document.getElementById(id);
+  if(panel){ panel.classList.add('active'); }
+  if(btn){ btn.classList.add('active'); }
+  var nav = document.getElementById('tabnav');
+  if(nav){ nav.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+</script>
+
+<div style="margin-top:28px;padding:14px 18px;background:#eef4fb;border-left:4px solid #1a5fb4;border-radius:0 6px 6px 0;font-size:13.5px;color:#444;">
+  📎 本篇是「数据标注 · 副业与收入」系列的<strong>国内篇</strong>。对应的<strong>美国篇</strong>见：
+  <a href="us-side-income-guide.html" style="color:#1a5fb4;font-weight:bold;">美国副业收入总手册 · 在美副业与数据标注（公开示例版）</a>。
+  返回：<a href="resources.html" style="color:#1a5fb4;font-weight:bold;">AI 实践资源</a>。
+</div>
+
+</body>
+</html>

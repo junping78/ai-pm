@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在美可操作的副业与数据标注渠道全梳理：问卷返利、本地零工、OpenTrain / dataannotation 工程图标注、17 项全球线上渠道（Prolific、Outlier、Upwork、UserTesting 等），附注册风控、账号隔离与兑换提现策略。公开示例版，已脱敏。">
+<meta property="og:title" content="美国副业收入总手册 · 在美副业与数据标注">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/us-side-income-guide.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<link rel="canonical" href="https://junping78.github.io/ai-pm/us-side-income-guide.html">
+
+<title>美国副业收入总手册 · 在美副业与数据标注（公开示例版）</title>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+<script>document.addEventListener("DOMContentLoaded", function(){ if(window.mermaid) mermaid.initialize({startOnLoad:true}); });</script>
+
+<style>
+
+  :root{
+
+    --ink:#1f2937; --sub:#4b5563; --line:#e5e7eb; --bg:#ffffff;
+
+    --brand:#1d4ed8; --brand-bg:#eff6ff; --warn:#b45309; --warn-bg:#fffbeb;
+
+    --ok:#047857; --ok-bg:#ecfdf5; --red:#b91c1c; --red-bg:#fef2f2;
+
+    --chip:#f3f4f6;
+
+  }
+
+  *{box-sizing:border-box;}
+
+  body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+
+    color:var(--ink); background:#f8fafc; line-height:1.7; margin:0; padding:24px;}
+
+  .wrap{max-width:1000px; margin:0 auto; background:#fff; border:1px solid var(--line);
+
+    border-radius:12px; overflow:hidden;}
+
+  header{padding:22px 28px 16px; background:linear-gradient(180deg,#eff6ff,#ffffff);
+
+    border-bottom:1px solid var(--line);}
+
+  header h1{margin:0 0 4px; font-size:22px; color:var(--brand);}
+
+  header .meta{color:var(--sub); font-size:13px;}
+
+  .tabs{display:flex; flex-wrap:wrap; gap:4px; padding:10px 18px 0; background:#fff;
+
+    border-bottom:2px solid var(--line); position:sticky; top:0; z-index:10;}
+
+  .tab-btn{border:none; background:var(--chip); color:#374151; padding:9px 14px;
+
+    border-radius:8px 8px 0 0; cursor:pointer; font-size:13.5px; font-weight:600;
+
+    border:1px solid var(--line); border-bottom:none;}
+
+  .tab-btn:hover{background:#e5e7eb;}
+
+  .tab-btn.active{background:var(--brand); color:#fff; border-color:var(--brand);}
+
+  .panel{display:none; padding:22px 28px 30px;}
+
+  .panel.active{display:block;}
+
+  h2{font-size:18px; margin:6px 0 12px; padding-left:10px; border-left:4px solid var(--brand);}
+
+  h3{font-size:15px; margin:20px 0 8px; color:var(--sub);}
+
+  h4{font-size:14px; margin:14px 0 6px; color:var(--brand);}
+
+  table{width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:13.5px;}
+
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top;}
+
+  th{background:var(--brand-bg); color:var(--brand); font-weight:600;}
+
+  ul{margin:6px 0 14px; padding-left:22px;} li{margin:4px 0;}
+
+  a{color:var(--brand); word-break:break-all;}
+
+  .tag{display:inline-block; background:var(--chip); color:#374151; padding:1px 8px;
+
+    border-radius:6px; font-size:12px; margin:2px 4px 2px 0;}
+
+  .tag.r{background:var(--red-bg); color:var(--red);}
+
+  .tag.y{background:var(--warn-bg); color:var(--warn);}
+
+  .tag.g{background:var(--ok-bg); color:var(--ok);}
+
+  code{background:#f3f4f6; padding:1px 6px; border-radius:5px; font-size:12.5px;}
+
+  .card{border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin:14px 0;
+
+    background:#fcfcfd;}
+
+  .card h4{margin-top:0;}
+
+  .box{background:var(--brand-bg); border:1px solid #bfdbfe; padding:12px 14px; border-radius:8px; font-size:13.5px; margin:12px 0;}
+
+  .note{padding:12px 14px; border-radius:8px; font-size:13.5px; margin:12px 0;}
+
+  .ok{background:var(--ok-bg); border:1px solid #a7f3d0;}
+
+  .warn{background:var(--warn-bg); border:1px solid #fde68a;}
+
+  .danger{background:var(--red-bg); border:1px solid #fecaca;}
+
+  .info{background:var(--brand-bg); border:1px solid #cfe2f5;}
+
+  .gold{background:var(--warn-bg); border:1px solid #f0e0b0;}
+
+  .good{background:var(--ok-bg); border-left:4px solid var(--ok); padding:11px 15px; border-radius:6px; margin:12px 0; font-size:14px;}
+
+  .red{background:var(--red-bg); border-left:4px solid var(--red); padding:11px 15px; border-radius:6px; margin:12px 0; font-size:14px;}
+
+  .bad{color:var(--red); font-weight:600;}
+
+  .principle{background:var(--ok-bg); border-left:4px solid var(--ok); padding:13px 18px; border-radius:6px; margin:0 0 20px; font-size:14px;}
+
+  .principle b{color:var(--ok);}
+
+  .conflict{background:var(--red-bg); border:2px solid var(--red); border-radius:8px; padding:12px 16px; margin:12px 0; font-size:14px;}
+
+  .conflict b{color:var(--red);}
+
+  .kv{background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:12px 16px; margin:10px 0; font-size:14px;}
+
+  .kv b{display:inline-block; min-width:96px; color:var(--sub);}
+
+  .url{background:#fff; border:1px dashed var(--brand); border-radius:8px; padding:10px 14px; margin:10px 0; font-size:14px;}
+
+  .url code{background:var(--brand-bg); color:var(--brand); padding:2px 7px; border-radius:5px; font-size:13.5px;}
+
+  .mermaid{background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:10px; margin:12px 0;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+
+  @media(max-width:680px){.grid2{grid-template-columns:1fr;}}
+
+  .toc{background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px 22px; margin:22px 0;}
+
+  .toc h3{margin:0 0 10px; font-size:15px; color:var(--brand);}
+
+  .toc a{color:var(--ink); text-decoration:none; display:block; padding:4px 0; font-size:14px;}
+
+  .toc a:hover{color:var(--brand);}
+
+  .toc .n{color:var(--brand); font-weight:700; margin-right:8px;}
+
+  .lab{font-weight:700;}
+
+  pre{background:#0f172a; color:#e2e8f0; border-radius:8px; padding:16px 18px; overflow:auto; font-size:13px; line-height:1.6; white-space:pre-wrap; word-wrap:break-word; font-family:Consolas,monospace;}
+
+  .copy-hint{font-size:12px; color:var(--sub); margin:4px 0 0;}
+
+  section{background:#fff; border:1px solid var(--line); border-radius:10px; padding:22px 26px; margin:18px 0;}
+
+  .qs{background:#0f172a; color:#e2e8f0; border-radius:10px; padding:14px 16px; margin:16px 0; font-size:12.5px;}
+
+  .qs-title{font-weight:700; color:#93c5fd; margin-bottom:8px; font-size:13px;}
+
+  .qs-body{white-space:pre-wrap; font-family:Consolas,monospace; line-height:1.6;}
+
+  .foot{margin-top:24px; padding-top:12px; border-top:1px solid var(--line);
+
+    color:#9ca3af; font-size:12px;}
+
+  @media print{ body{background:#fff; padding:0;}
+
+    .wrap{border:none;} .tabs{position:static;}
+
+    .tab-btn{display:none;}
+
+    .panel{display:block!important; page-break-inside:avoid;} }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrap">
+
+<header>
+
+  <h1>美国副业收入总手册 · 在美副业与数据标注（公开示例版）</h1>
+
+  <div class="meta">整合日期 2026-08-04 ｜ 对象：在美访学 / 陪读 / IT 背景人群（以下为示例画像，请替换为你自己的信息）｜ 分类：问卷返利 / 本地招聘零工 / 数据标注 / 全球线上渠道 / 自由职业 ｜ 由 4 份原文档合并而成（美国收入渠道总览 + Swagbucks 问卷手册 + 手机速查 + Upwork 启动包）</div>
+
+</header>
+
+<div style="background:#eff6ff;border:1px solid #1d4ed8;border-left:4px solid #1d4ed8;border-radius:8px;padding:12px 16px;margin:16px 0;font-size:13.5px;color:#1e3a8a;line-height:1.7;">
+  <strong>📌 公开示例版 · 已脱敏：</strong>本页由个人运营笔记整理为公开版，文中所有<strong>邮箱、住址、平台账号、收款姓名均为占位示例</strong>，请替换为你自己的信息，且务必与证件保持一致。涉及「借用他人 SIM 完成平台验证」的做法存在账号与合规风险，请优先办理本人实体 SIM 卡。
+</div>
+
+
+
+<div class="tabs">
+
+  <button class="tab-btn active" onclick="switchTab(0)">📑 总览索引</button>
+
+  <button class="tab-btn" onclick="switchTab(1)">💸 问卷返利（Swagbucks+InboxDollars）</button>
+
+  <button class="tab-btn" onclick="switchTab(2)">🛠 本地招聘零工</button>
+
+  <button class="tab-btn" onclick="switchTab(3)">🏷 数据标注（OpenTrain / dataannotation）</button>
+
+  <button class="tab-btn" onclick="switchTab(4)">🌍 全球线上渠道（17 项）</button>
+
+  <button class="tab-btn" onclick="switchTab(5)">📝 平台注册实操</button>
+
+  <button class="tab-btn" onclick="switchTab(6)">💼 Upwork 启动包</button>
+
+</div>
+
+
+
+<div class="panel active">
+
+<h2>一、总览索引（一眼定位所有渠道）</h2>
+
+  <div class="box">
+
+    <strong>核心定位：</strong>你在美国纽黑文可操作的「副业 / 零散收入」渠道，按 <strong>四类</strong> 归纳。答题类与招聘类<strong>互相独立</strong>，但都共用同一套「统一身份画像」与「康涅狄格固定网络」底线（见下方锚点框）。
+
+  </div>
+
+
+
+  <table>
+
+    <tr><th style="width:14%">类别</th><th style="width:20%">渠道</th><th>主要收入方式</th><th style="width:10%">投入</th><th style="width:12%">风险</th><th>详情</th></tr>
+
+    <tr><td rowspan="2">问卷返利</td><td>Swagbucks（主力）</td><td>调查问卷 / Daily Poll / 购物返利</td><td>低</td><td><span class="tag y">中·风控</span></td><td>→ Tab 2</td></tr>
+
+    <tr><td>InboxDollars（佛系备用）</td><td>调查问卷 / 付费邮件</td><td>低</td><td><span class="tag y">中·风控</span></td><td>→ Tab 2</td></tr>
+
+    <tr><td rowspan="3">本地招聘零工</td><td>Craigslist · New Haven</td><td>本地零工 / 焦点小组 / 远程调研</td><td>中</td><td><span class="tag r">中·骗局多</span></td><td>→ Tab 3</td></tr>
+
+    <tr><td>Gigowl · Hamden</td><td>居家客服 / 数据录入 / 物流协调</td><td>中</td><td><span class="tag r">中高·引流多</span></td><td>→ Tab 3</td></tr>
+
+    <tr><td>Jobs2Careers · Hamden</td><td>本地全职 / 兼职（仓库·护工·配送·零售·客服）</td><td>中高</td><td><span class="tag g">低–中</span></td><td>→ Tab 3</td></tr>
+
+    <tr><td rowspan="2">数据标注</td><td>OpenTrain.ai（项目1）</td><td>工程图图谱标注 $499 固定</td><td>高</td><td><span class="tag r">高·门槛</span></td><td>→ Tab 4</td></tr>
+
+    <tr><td>dataannotation.tech</td><td>通用数据标注众包（你已完成入门测评）</td><td>中</td><td><span class="tag y">中</span></td><td>→ Tab 4</td></tr>
+
+  </table>
+
+
+
+  <h3>统一身份锚点（所有「账号类」渠道强制共用）</h3>
+
+  <div class="note warn">
+
+    <strong>地址（两平台通用）：</strong><code>你的美国住址（须与证件完全一致）</code><br>
+
+    <strong>邮箱：</strong>Swagbucks = <code>你的 Outlook 邮箱（示例：you@example.com）</code>；InboxDollars = 新建独立 Outlook（不与主力重复）<br>
+
+    <strong>手机号：</strong>Swagbucks = 一张专用于该账号的美国实体 SIM 卡；InboxDollars = 先留白<br>
+
+    <strong>画像：</strong>CT 居住 ｜ 45–52 岁 ｜ Asian 非西班牙裔 ｜ IT Consulting / Project Management ｜ ✅有家庭消费决策权、日常网购 ｜ ❌否认市场调研/广告/营销从业、近3月频繁参与调研
+
+  </div>
+
+
+
+  <h3>三条贯穿底线</h3>
+
+  <ul>
+
+    <li><strong>网络固定：</strong>全程康涅狄格稳定线路，杜绝 VPN/代理/频繁切城市（Prodege 与招聘站都识别代理特征）。</li>
+
+    <li><strong>账号隔离：</strong>问卷双平台用两个独立浏览器；招聘站各自登录，不与问卷账号混用同一浏览器。</li>
+
+    <li><strong>不虚构冲突信息：</strong>姓名/地址须与证件一致；一旦触发 KYC，信息对不上=余额冻结或申请驳回。</li>
+
+  </ul>
+
+
+
+  <div class="box" style="border-color:#bfdbfe;">
+
+    <strong>📝 四平台注册实操：</strong>Appen / Outlier / Upwork / Fiverr 的逐步注册、推荐用户名、邮箱与支付绑定、避坑，已汇总到新增 <strong>Tab 6「📝 全球平台注册实操」</strong>。其中 <strong>Appen 用户名已定 <code>你的 Appen 用户名</code></strong>（后台平台与邮箱统一、不可修改）；Upwork / Fiverr 公开显示名用 <code>你的 Upwork / Fiverr 公开显示名</code>。
+
+  </div>
+
+
+
+  <h3>🌍 全球线上扩充渠道（本次新增 17 项·详见 Tab 5）</h3>
+
+  <table>
+
+    <tr><th style="width:14%">类别</th><th style="width:22%">渠道</th><th>主要收入方式</th><th style="width:14%">你的适合度</th><th>详情</th></tr>
+
+    <tr><td rowspan="3">问卷/调研</td><td>Prolific</td><td>学术问卷 $6–15/hr</td><td><span class="tag g">★★★★★</span></td><td>→ Tab 5·A</td></tr>
+
+    <tr><td>Respondent.io</td><td>深度研究 $50–300/项</td><td><span class="tag g">★★★★</span></td><td>→ Tab 5·A</td></tr>
+
+    <tr><td>YouGov</td><td>国际民调</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·A</td></tr>
+
+    <tr><td rowspan="4">AI 数据/微任务</td><td>Appen</td><td>AI 数据项目</td><td><span class="tag g">★★★★</span></td><td>→ Tab 5·B</td></tr>
+
+    <tr><td>Clickworker / UHRS</td><td>微任务 $3–9/hr</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·B</td></tr>
+
+    <tr><td>Outlier.ai</td><td>AI 训练 $15–30/hr</td><td><span class="tag g">★★★★★</span></td><td>→ Tab 5·B</td></tr>
+
+    <tr><td>Scale AI / Remotasks</td><td>AI 标注</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·B</td></tr>
+
+    <tr><td rowspan="3">用户/QA 测试</td><td>UserTesting</td><td>UX 测试 $5–30/项</td><td><span class="tag g">★★★★★</span></td><td>→ Tab 5·C</td></tr>
+
+    <tr><td>TryMyUI</td><td>用户测试</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·C</td></tr>
+
+    <tr><td>uTest (Applause)</td><td>QA 测试 $50–500/周期</td><td><span class="tag g">★★★★★</span></td><td>→ Tab 5·C</td></tr>
+
+    <tr><td rowspan="2">转录/字幕</td><td>Rev</td><td>转录/字幕</td><td><span class="tag g">★★★★</span></td><td>→ Tab 5·D</td></tr>
+
+    <tr><td>TranscribeMe</td><td>通用转录</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·D</td></tr>
+
+    <tr><td rowspan="2">ESL 教学</td><td>Cambly</td><td>口语陪练 $10/hr</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·E</td></tr>
+
+    <tr><td>Preply / italki</td><td>ESL 视频课程</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·E</td></tr>
+
+    <tr><td rowspan="2">自由职业</td><td>Upwork</td><td>项目/时薪 IT/PM 服务</td><td><span class="tag g">★★★★★</span></td><td>→ Tab 5·F</td></tr>
+
+    <tr><td>Fiverr</td><td>服务商品 gigs</td><td><span class="tag g">★★★★</span></td><td>→ Tab 5·F</td></tr>
+
+    <tr><td>远程客服</td><td>ModSquad</td><td>内容审核/客服 $10–15/hr</td><td><span class="tag y">★★★</span></td><td>→ Tab 5·G</td></tr>
+
+  </table>
+
+</div>
+
+<div class="panel">
+
+<div class="box qs"><div class="qs-title">📱 手机速查卡（出门 / 手机版，先背这页）</div><div class="qs-body">══════════════════════
+
+Swagbucks 问卷答题速查（手机版）
+
+画像：纽黑文CT · 45-52岁 · IT项目管理
+
+══════════════════════
+
+
+
+【铁律】答案前后统一 / 不干市场调研 / 有家庭采购决策权
+
+
+
+一、固定身份（全程不变）
+
+· 年龄 45-52
+
+· 州 Connecticut(CT)
+
+· 种族 Asian
+
+· 西班牙裔 No
+
+· 设备 安卓手机+电脑
+
+· 家庭 2人
+
+· 住房 自有/长租（二选一定死）
+
+
+
+二、职业收入（淘汰重灾区）
+
+· 行业 Information Technology / IT Consulting
+
+· ❌禁选：市场调研/广告/媒体/营销/民调
+
+· 近3月参与市场调研？No
+
+· 有家庭采购决策权？Yes
+
+· 家庭年收入 中档（别选最高最低）
+
+
+
+三、关键淘汰题
+
+· 家人是否在广告/市调/消费品制造/媒体工作？全选 No
+
+· 半年内买车/电子/保险？按需 Yes（更好匹配）
+
+· 经常网购？Yes，用亚马逊+沃尔玛
+
+
+
+四、消费习惯
+
+· 咖啡常买 / 偶尔外食
+
+· 用 Netflix 等流媒体
+
+· 有信用卡、有理财
+
+· 吸烟健康类 如实填，不冲突
+
+
+
+五、校验题
+
+⚠️遇&quot;请选第三项&quot;&quot;请勾偶尔&quot;类题目，先看清再勾，乱填会被限流
+
+
+
+六、答题节奏
+
+· 3分钟题≥停留90秒；10分钟题别5分钟做完
+
+· 连废3份后隔10-15分钟再试
+
+· 每天分散做，别集中狂刷2小时
+
+
+
+七、双平台（Swagbucks + InboxDollars）
+
+· SB：100SB≈$1，最低兑1500SB($15)
+
+· InboxDollars：直显美元，最低$15；多&quot;读付费邮件&quot;任务
+
+· 共用集团风控：两平台分开浏览器/无痕，别同设备同登
+
+· 画像(年龄/职业/收入/住址)两平台必须完全一致
+
+· 满$15再提，别小额高频兑
+
+· 时薪低，当碎片副业顺手做
+
+
+
+【方案】主耕 Swagbucks 攒额度，空闲顺带 InboxDollars，控节奏防判刷量
+
+══════════════════════
+
+专项(吸烟/医疗/汽车)问卷另配稳定口径
+
+══════════════════════</div></div>
+
+<b>核心原则</b>：答案前后统一、不从事市场调研行业、拥有家庭消费决策权；两平台共用 Prodege 集团风控数据库，<b>个人画像必须完全一致</b>，分开浏览器操作，用真实信息最稳妥；<b>手机号须本人美国实体 SIM，一条号只能绑 1 个 Prodege 账号</b>。
+
+<b>⚠️ 邮箱分配变更提醒（请确认）</b><br>
+
+    本版按你最新安排：<b>Swagbucks（主力）= 你的 Outlook 邮箱（示例：you@example.com）</b>，<b>InboxDollars（备用）= 新建全新 Outlook 邮箱</b>。<br>
+
+    但此前记录显示 InboxDollars 已用 <b>你的 Outlook 邮箱（示例：you@example.com）</b> 注册并产生问卷记录。Prodege 一个邮箱只能绑一个账号，二者不能共用——若旧 InboxDollars 账号仍有余额 / 记录，请确认是否<b>弃用旧号</b>，改以全新邮箱重开备用账号，避免混淆与风控。
+
+<div class="note">📌 以下画像为两平台<b>强制共用</b>信息，任一平台填写冲突都会触发交叉风控审核。选定后全程不变。<b>务必使用真实信息</b>——首次兑换一旦要求证件核验，信息对不上 = 无法提现、余额冻结。</div>
+
+    <h2>固定身份类</h2>
+
+    <table>
+
+      <tr><th>字段</th><th>统一口径</th></tr>
+
+      <tr><td>年龄</td><td class="ans">45～52 岁</td></tr>
+
+      <tr><td>居住州 / 城市</td><td class="ans">Connecticut（CT）· 纽黑文 New Haven</td></tr>
+
+      <tr><td>街道地址</td><td class="ans">你的美国住址（须与证件完全一致）</td></tr>
+
+      <tr><td>种族</td><td class="ans">Asian（非西班牙裔）</td></tr>
+
+      <tr><td>西班牙裔 / 拉丁裔</td><td class="ans">No</td></tr>
+
+      <tr><td>设备</td><td class="ans">安卓手机 + 电脑</td></tr>
+
+      <tr><td>家庭人数</td><td class="ans">2 人</td></tr>
+
+      <tr><td>住房</td><td class="ans">自有住房 / 长期租房（二选一，定死）</td></tr>
+
+    </table>
+
+    <h2>职业 &amp; 消费类</h2>
+
+    <table>
+
+      <tr><th>字段</th><th>统一口径</th></tr>
+
+      <tr><td>职业</td><td class="ans">IT Consulting / Project Management</td></tr>
+
+      <tr><td>近 3 月参与市场调研</td><td class="ans">No（否认频繁参与调研）</td></tr>
+
+      <tr><td>家庭采购决策权</td><td class="ans">Yes（确认拥有）</td></tr>
+
+      <tr><td>家庭年收入</td><td class="ans">中档区间（不选最高 / 最低）</td></tr>
+
+      <tr><td>网购习惯</td><td class="ans">日常线上购物；亚马逊 + 沃尔玛</td></tr>
+
+      <tr><td>饮品 / 就餐</td><td class="ans">咖啡常买；偶尔外食</td></tr>
+
+      <tr><td>流媒体</td><td class="ans">使用 Netflix 等</td></tr>
+
+      <tr><td>金融</td><td class="ans">持信用卡，有理财习惯</td></tr>
+
+      <tr><td>吸烟 / 健康</td><td class="ans">如实填，不前后冲突</td></tr>
+
+    </table>
+
+    <h2>通用答题隐形红线</h2>
+
+    <div class="red">
+
+      ❌ <b>否认</b>从事市场调研、广告、营销行业从业；<b>否认</b>近 3 个月频繁参与调研<br>
+
+      ✅ <b>确认</b>拥有家庭消费决策权、日常线上购物<br>
+
+      ❌ 答题速度不要太快，预留合理阅读时间；留意问卷内<b>校验陷阱题</b><br>
+
+      ✅ 两平台均严禁勾选：市场调研 / 广告 / 媒体 / 营销 / 民意调查
+
+    </div>
+
+<h2>一、必要网站地址</h2>
+
+    <div class="url">
+
+      🔗 Swagbucks（主力）：<code>https://www.swagbucks.com</code><br>
+
+      🔗 InboxDollars（备用）：<code>https://www.inboxdollars.com</code><br>
+
+      <span style="color:var(--sub);font-size:13px">两站同属 Prodege 集团，风控数据库互通。</span>
+
+    </div>
+
+
+
+    <h2>二、两平台需填写的相同信息（已为你预填）</h2>
+
+    <div class="good">✅ 直接照此模板填写，两平台保持逐字一致；姓名 / 地址务必与你的护照证件一致（KYC 会用）。</div>
+
+    <table>
+
+      <tr><th>字段</th><th>填写值</th><th>备注</th></tr>
+
+      <tr><td>姓名</td><td class="ans">（真实姓名，与护照一致）</td><td>KYC 核验基准</td></tr>
+
+      <tr><td>年龄</td><td class="ans">45–52</td><td></td></tr>
+
+      <tr><td>居住州 / 城市</td><td class="ans">CT / New Haven</td><td></td></tr>
+
+      <tr><td>街道地址</td><td class="ans">你的美国住址（须与证件完全一致）</td><td>与证件一致</td></tr>
+
+      <tr><td>种族</td><td class="ans">Asian（非西班牙裔）</td><td></td></tr>
+
+      <tr><td>设备</td><td class="ans">安卓手机 + 电脑</td><td></td></tr>
+
+      <tr><td>家庭人数</td><td class="ans">2</td><td></td></tr>
+
+      <tr><td>住房</td><td class="ans">自有 / 长租</td><td>二选一定死</td></tr>
+
+      <tr><td>职业</td><td class="ans">IT Consulting / Project Management</td><td>禁选市调/广告/媒体</td></tr>
+
+      <tr><td>近3月参与调研</td><td class="ans">No</td><td>否认频繁参与</td></tr>
+
+      <tr><td>家庭采购决策权</td><td class="ans">Yes</td><td>确认拥有</td></tr>
+
+      <tr><td>家庭年收入</td><td class="ans">中档</td><td>不选最高/最低</td></tr>
+
+      <tr><td>网购</td><td class="ans">Yes（亚马逊+沃尔玛）</td><td>日常线上购物</td></tr>
+
+      <tr><td>饮品/就餐</td><td class="ans">咖啡常买 / 偶尔外食</td><td></td></tr>
+
+      <tr><td>流媒体</td><td class="ans">Netflix 等</td><td></td></tr>
+
+      <tr><td>金融</td><td class="ans">信用卡 + 理财</td><td></td></tr>
+
+      <tr><td>邮箱</td><td class="ans">Swagbucks：你的 Outlook 邮箱（示例：you@example.com）<br>InboxDollars：新建全新 Outlook 邮箱</td><td>分开，不共用</td></tr>
+
+      <tr><td>手机号</td><td class="ans">Swagbucks：专属美号（专用）<br>InboxDollars：先留白</td><td>本人实号；格式 +1区号+号码</td></tr>
+
+    </table>
+
+
+
+    <h2>三、手机号绑定核心规则</h2>
+
+    <div class="warn">
+
+      ⚠️ <b>官方条款</b>：绑定的美国手机号必须属于账号持有人本人，不允许长期使用他人号码；短期应急借用存在显著封号风险。<br>
+
+      ⚠️ 一条手机号<b>只能绑定 1 个 Prodege 旗下账号</b>（Swagbucks / InboxDollars 共用数据库），<b>不要同一个他人号码绑两个平台</b>。<br>
+
+      📞 填写格式：<code>+1区域码+号码</code>，无横线、无括号、无空格（例：+12035551234）。<br>
+
+      💡 <b>备选思路</b>：注册阶段尽量不触发手机验证；多数填问卷不强制要手机号，<b>等平台弹窗强制要求时再安排</b>。
+
+    </div>
+
+
+
+    <h2>四、手机号使用场景与风险</h2>
+
+    <h3>场景 1：临时借用他人实体 SIM（真人亲友，可随时收短信）</h3>
+
+    <div class="warn">✅ 短期应急可完成验证，但有 3 个硬风险：
+
+      <ol>
+
+        <li><b>信息不匹配</b>：KYC 护照核验时账号姓名（你）≠ 手机号实名（他人）→ 提现驳回、永久冻结。</li>
+
+        <li><b>控制权不在手</b>：对方可收验证码重置密码、侵占积分。</li>
+
+        <li><b>二次验证麻烦</b>：平台不定期再推短信核验，联系不上对方则账号受限。</li>
+
+      </ol>
+
+    </div>
+
+    <h3>场景 2：线上购买虚拟号 / Google Voice / 接码平台</h3>
+
+    <div class="red">❌ <b>强烈不推荐，几乎必翻车</b>：系统能识别 VOIP / 虚拟线路，这类号码大量在黑名单；侥幸注册成功，首次兑换触发复核时 100% 封号、余额清零。</div>
+
+
+
+    <h2>五、实操分级建议</h2>
+
+    <table>
+
+      <tr><th>方案</th><th>做法</th></tr>
+
+      <tr><td>✅ 最优（长期稳定）</td><td>尽快办<b>本人美国实体 SIM</b>（T-Mobile / AT&amp;T 预付卡），实名与护照姓名统一，彻底规避身份冲突</td></tr>
+
+      <tr><td>⚠️ 折中（暂借亲友实体 SIM）</td><td>①账号姓名/地址严格与护照一致，约定亲友短信第一时间转发 ②降低风控：不快攒门槛立刻兑、拉长养号、优先亚马逊 GC ③做好心理预期：若调取号实名比对失败损失自担</td></tr>
+
+      <tr><td>❌ 绝对不要</td><td>线上接码平台、免费虚拟号、Google Voice 注册任一平台</td></tr>
+
+    </table>
+
+
+
+    <h2>六、最终执行方案（主次分工）</h2>
+
+    <div class="good">
+
+      <b>核心策略</b>：主力深耕 Swagbucks；InboxDollars 作为次要备用，暂时不主动填手机号。
+
+      <ol>
+
+        <li><b>主力 · Swagbucks</b>：邮箱 <b>你的 Outlook 邮箱（示例：you@example.com）</b>；弹窗强制短信核验时用<b>专用于该账号的美国实体手机号</b>（仅给这个账号专用，绝不复用给 InboxDollars）。</li>
+
+        <li><b>备用 · InboxDollars</b>：<b>新建一个全新 Outlook 邮箱</b>（不与主力重复）；注册时手机号一栏<b>先空白，不填任何号码</b>。</li>
+
+      </ol>
+
+    </div>
+
+    <div class="warn">⚠️ 关键风险预判：若未来 InboxDollars 弹强制手机验证，你手里仅剩亲友 A 号且已被 Swagbucks 占用，无法再用。<br>
+
+      <b>预案</b>：以后该平台要求短信验证，需<b>亲友 B 的独立美号</b>；找不到第二个号码就<b>搁置这个账号</b>，集中精力运营 Swagbucks。</div>
+
+
+
+    <h2>七、风控隔离硬性规则（两账号务必遵守）</h2>
+
+    <div class="red">
+
+      1. <b>浏览器分开</b>：Swagbucks、InboxDollars 用两个独立浏览器，禁同一浏览器来回切换登录；<br>
+
+      2. <b>操作时段错开</b>：间隔至少 1 小时；<br>
+
+      3. <b>网络固定</b>：全程康涅狄格稳定线路，杜绝频繁切换 IP；<br>
+
+      4. <b>重心分配</b>：Swagbucks 优先完成问卷、每日目标；InboxDollars 仅碎片时间少量操作，<b>不猛冲余额</b>。
+
+    </div>
+
+
+
+    <h2>八、兑换策略 &amp; 长期路线</h2>
+
+    <ul>
+
+      <li><b>Swagbucks 兑换</b>：积分达标后<b>不要立刻提现</b>，稳定运营一段时间，优先兑换<b>亚马逊电子礼品卡</b>，降低重度 KYC 审核概率。</li>
+
+      <li>若拿到第二个美号：<b>号 A → Swagbucks，号 B → InboxDollars</b>，双线稳定解除抢占隐患；若只有 1 个美号，做好长期只深耕一个平台的准备。</li>
+
+      <li>后续拥有本人美号，可在账号设置内<b>更换绑定号码</b>，越早换风险越低。</li>
+
+    </ul>
+
+<h2>① 注册信息</h2>
+
+    <div class="kv">
+
+      <div><b>平台</b>Swagbucks（Prodege 集团）· <b>主力账号</b></div>
+
+      <div><b>官网</b>https://www.swagbucks.com</div>
+
+      <div><b>注册邮箱</b>你的 Outlook 邮箱（示例：you@example.com）</div>
+
+      <div><b>计价</b>SB 积分，100SB ≈ 1 美元</div>
+
+      <div><b>最低兑换</b>1500SB = 15 美元</div>
+
+      <div><b>手机号</b>弹窗强制时再用<b>专属美号</b>（仅限本平台，不复用给 ID）</div>
+
+      <div><b>登录环境</b>独立浏览器，不与 InboxDollars 同时在线</div>
+
+    </div>
+
+
+
+    <h2>② 使用（增长渠道 &amp; 答题）</h2>
+
+    <div class="good">📌 定位：问卷数量多、推送频繁 → <b>双线主耕平台</b>，优先积累额度。</div>
+
+    <h3>积分增长性价比排序<span class="tag">100SB = $1</span></h3>
+
+    <table>
+
+      <tr><th>层级</th><th>渠道</th><th>说明</th></tr>
+
+      <tr><td>✅ 首选</td><td>调查问卷 Survey</td><td>单位时间收益最高</td></tr>
+
+      <tr><td>✅ 稳定白嫖</td><td>Daily Poll + Daily Goal</td><td>每日 1SB（30 秒）+ 完成每日目标额外奖励</td></tr>
+
+      <tr><td>✅ 次选</td><td>购物返利 Shop</td><td>线上采购走 Swagbucks 链接下单拿返现</td></tr>
+
+      <tr><td>⚠️ 谨慎</td><td>试用 Offer</td><td>多需付费订阅才拿全额 SB，忘记取消持续扣费</td></tr>
+
+      <tr><td>❌ 不推荐</td><td>长看视频 / 游戏任务</td><td>时薪极低</td></tr>
+
+    </table>
+
+    <h3>问卷筛选题口径<span class="tag">沿用统一画像</span></h3>
+
+    <ul>
+
+      <li>职业选 IT Consulting / Project Management；家庭采购决策权 <b>Yes</b>；收入中档。</li>
+
+      <li>关键淘汰题：家人是否从事广告 / 市调 / 消费品制造 / 媒体 → <b>全选 No</b>。</li>
+
+      <li>未来半年购汽车 / 电子 / 保险 → 按需选 <b>Yes</b>；日常线上购物 → <b>Yes</b>（亚马逊 + 沃尔玛）。</li>
+
+    </ul>
+
+    <h3>答题节奏 &amp; 校验</h3>
+
+    <ul>
+
+      <li>3 分钟问卷至少停留 90 秒；10 分钟问卷别 5 分钟做完。</li>
+
+      <li>连续 3 份被筛出后，间隔 10–15 分钟再试；每日分散操作，勿集中狂刷 2 小时。</li>
+
+      <li>遇「请选第三项」「请勾偶尔」类校验题，先看清再勾，乱选会限流。</li>
+
+    </ul>
+
+
+
+    <h2>③ 提取（Cash Out）</h2>
+
+    <table>
+
+      <tr><th>项</th><th>规则</th></tr>
+
+      <tr><td>最低门槛</td><td class="ans">1500SB = 15 美元</td></tr>
+
+      <tr><td>兑换选项</td><td>优先<b>亚马逊电子礼品卡</b>（审核宽松、降重度 KYC 概率）；PayPal 需姓名完全匹配</td></tr>
+
+      <tr><td>避坑</td><td>避开虚拟预付万事达卡；<b>达标后稳运营一段时间再提</b>，不立刻提现</td></tr>
+
+    </table>
+
+<h2>① 注册信息</h2>
+
+    <div class="kv">
+
+      <div><b>平台</b>InboxDollars（Prodege 集团，与 Swagbucks <b>共用风控数据库</b>）· <b>佛系备用</b></div>
+
+      <div><b>官网</b>https://www.inboxdollars.com</div>
+
+      <div><b>注册邮箱</b>新建全新 Outlook 邮箱（不与主力 Swagbucks 重复）</div>
+
+      <div><b>手机号</b>现阶段<b>留白</b>，不主动录入；未来若强制验证需第二个独立美号，否则搁置</div>
+
+      <div><b>登录环境</b>与 Swagbucks <b>分开浏览器 / 无痕窗口</b>，不同时在线</div>
+
+      <div><b>网络环境</b>纽黑文本地稳定网络，<b>禁止 VPN / 代理</b></div>
+
+      <div><b>画像</b>严格沿用 Swagbucks 同一套口径</div>
+
+    </div>
+
+    <div class="conflict">
+
+      <b>⚠️ 与旧记录冲突</b>：此前记录 InboxDollars 已用 <b>你的 Outlook 邮箱（示例：you@example.com）</b> 注册并有问卷记录；本版改为「新建全新 Outlook 邮箱」。若旧号仍有余额/记录，请确认是否弃用，改以新邮箱重开备用账号。
+
+    </div>
+
+
+
+    <h2>② 使用（增长渠道 &amp; 任务）</h2>
+
+    <table>
+
+      <tr><th>层级</th><th>任务</th><th>说明</th></tr>
+
+      <tr><td>✅ 首选</td><td>调查问卷 Survey</td><td>单份现金单价普遍高于 Swagbucks</td></tr>
+
+      <tr><td>✅ 特色</td><td>Paid Email 付费邮件</td><td>点开浏览即可小额入账，零门槛</td></tr>
+
+      <tr><td>⚠️ 注意</td><td>$5 注册奖金</td><td>非立刻发放，需达成任务条件才解锁</td></tr>
+
+      <tr><td>⚠️ 谨慎</td><td>视频任务 / 注册试用 Offer</td><td>视频收益极差；Offer 多需付费才得奖励</td></tr>
+
+      <tr><td>❌ 不推荐</td><td>游戏任务</td><td>投入产出比很差</td></tr>
+
+    </table>
+
+    <h3>问卷通用技巧<span class="tag">与 Swagbucks 通用</span></h3>
+
+    <ul>
+
+      <li>筛选题统一：绝不勾市调 / 广告 / 营销从业者；统一选「有家庭采购决策权、偶尔网购、不频繁参与调研」。</li>
+
+      <li>节奏：5 分钟问卷最少预留 70 秒；连续 2–3 份被筛出，暂停 10 分钟再继续。</li>
+
+      <li>警惕内置陷阱校验题，快速乱选会降低后续推送量。</li>
+
+    </ul>
+
+
+
+    <h2>③ 提取（Cash Out）</h2>
+
+    <table>
+
+      <tr><th>项</th><th>规则</th></tr>
+
+      <tr><td>门槛</td><td class="ans">首次最低 15 美元；后续最低 10 美元</td></tr>
+
+      <tr><td>兑换优先</td><td>亚马逊电子礼品卡（审核快）→ 沃尔玛 GC → PayPal（周期长、姓名须完全匹配，谨慎）</td></tr>
+
+      <tr><td>时效</td><td>电子 GC 一般 2–5 个工作日；高峰期人工审核最长 10 天</td></tr>
+
+      <tr><td>实操建议</td><td>达标后<b>不要立刻提现</b>，稳运营 1–2 周再申请；避开虚拟预付万事达卡</td></tr>
+
+    </table>
+
+
+
+    <h2>④ 红线避坑清单（触碰极易封号清零）</h2>
+
+    <div class="red">
+
+      ❌ 禁止脚本 / 插件自动答题（检测即永久封号、余额清零）<br>
+
+      ❌ 禁止同一地址、同一设备注册多个 InboxDollars 账号<br>
+
+      ❌ 不要编造前后矛盾的个人信息<br>
+
+      ❌ 不要集中数小时连续刷任务（模拟普通人碎片化使用）<br>
+
+      ❌ 不要共享账号、出借账号<br>
+
+      ❌ 不要同一他人手机号绑定两个平台（判多账号作弊直接封禁）<br>
+
+      ⏱️ <b>活跃度</b>：超过 10 天不操作有休眠风险，建议每周至少登录一次简单操作<br>
+
+      💰 <b>勿冲高余额</b>：接近门槛易触发多重核验，无备用号前提下勿冲刺提现
+
+    </div>
+
+<h2>共用风控要点（两家平台风控互通）</h2>
+
+    <div class="warn">
+
+      <b>① 网络固定</b>：固定美国康涅狄格线路，杜绝频繁切换城市节点；平台能识别代理 / VPN 特征，<b>禁止 VPN / 代理</b>。<br>
+
+      <b>② 分开浏览器</b>：建议用<b>两个独立浏览器</b>分别登录；不要无痕窗口同时登录两账号；不短时间来回切换。<br>
+
+      <b>③ 画像完全一致</b>：年龄 / 职业 / 收入 / 住址严格统一。<br>
+
+      <b>④ 禁脚本</b>：自动点击插件一经检测永久封号、余额清零。<br>
+
+      <b>⑤ 收益性质</b>：均属碎片化副业，时薪偏低，空闲顺手做。
+
+    </div>
+
+
+
+    <h2>双线通用技巧</h2>
+
+    <ul>
+
+      <li>不要同一时间段来回切换两个平台；<b>错开至少 1 小时</b>操作，降低风控标记。</li>
+
+      <li>问卷筛选口径两套平台<b>完全统一</b>（年龄、居住地、职业、消费习惯）。</li>
+
+      <li>被问卷连续筛选出局 2–3 次，立刻暂停 10–15 分钟，不要持续硬刷。</li>
+
+    </ul>
+
+
+
+    <h2>极简每日执行方案</h2>
+
+    <table>
+
+      <tr><th>步骤</th><th>操作</th></tr>
+
+      <tr><td>1</td><td class="ans">上午：Swagbucks → 问卷 + Daily Poll</td></tr>
+
+      <tr><td>2</td><td>休息 1 小时以上</td></tr>
+
+      <tr><td>3</td><td class="ans">下午有空：InboxDollars → 少量问卷 + 浏览付费邮件；没空可放弃不登录</td></tr>
+
+      <tr><td>4</td><td>空闲购物时，走平台返利入口下单（Swagbucks Shop 等）</td></tr>
+
+    </table>
+
+
+
+    <h2>双线运营策略图</h2>
+
+    <div class="mermaid">
+
+flowchart LR
+
+    A[上午 Swagbucks 问卷+Daily Poll] --> C[两个独立浏览器 不同时在线]
+
+    B[下午+1h InboxDollars 问卷+付费邮件] --> C
+
+    C --> D[康州本地网络 禁VPN]
+
+    D --> E[画像完全一致 防交叉风控]
+
+    E --> F[稳运营后再提现 优先亚马逊GC]
+
+    </div>
+
+<h2>一、第一次兑换是否需真实身份</h2>
+
+    <div class="note">✅ <b>注册、日常做任务：不需要上传证件。</b><br>
+
+    ⚠️ <b>首次兑换是风控高点</b>：平台有权随机触发 KYC 身份核验（非 100% 必弹）。</div>
+
+    <table>
+
+      <tr><th>核验级别</th><th>要求</th></tr>
+
+      <tr><td>轻度</td><td>美国手机号短信验证（须本人实号）</td></tr>
+
+      <tr><td>重度</td><td>上传<b>护照 / 驾照</b> + 人脸自拍</td></tr>
+
+    </table>
+
+    <div class="warn">⚠️ 表单内填写的<b>姓名、地址必须和证件完全一致</b>；前后问卷画像不能冲突。一旦要求证件核验，信息对不上 = 无法提现，余额永久冻结。<br>
+
+    手机号实名（若借用他人）≠ 账号姓名，亦会触发身份冲突。</div>
+
+    <div class="good">📌 <b>你目前人在美国纽黑文，使用自身真实信息是最稳妥方案</b>，不要虚构一套不存在的身份。</div>
+
+
+
+    <h2>二、礼品卡 vs PayPal 提现</h2>
+
+    <table>
+
+      <tr><th>方式</th><th>风险 / 建议</th></tr>
+
+      <tr><td>亚马逊电子礼品卡</td><td class="ans">触发严格证件审核概率更低 → 优先推荐</td></tr>
+
+      <tr><td>PayPal 提现</td><td>平台核对姓名一致性，名字不符直接驳回提现</td></tr>
+
+      <tr><td>虚拟预付万事达卡</td><td class="bad">审核周期更长，建议避开</td></tr>
+
+    </table>
+
+
+
+    <h2>三、提现实操策略</h2>
+
+    <ul>
+
+      <li><b>门槛</b>：Swagbucks 最低 1500SB（$15）；InboxDollars 首次 $15（后续 $10）。</li>
+
+      <li><b>不要余额刚达标立刻提现！</b>稳定运营 1–2 周再申请；短期快速攒分 + 立刻提现极易触发人工审核。</li>
+
+      <li>优先兑换亚马逊电子礼品卡；避开虚拟预付万事达卡。</li>
+
+    </ul>
+
+
+
+    <h2>四、任务 Offer 留存凭证</h2>
+
+    <div class="note">📸 不管问卷、试用任务，<b>截图保存完成页面</b>。<br>
+
+    奖励迟迟不到账，<b>7 天内</b>提交工单申诉，超时无法维权。</div>
+
+
+
+    <h2>五、账号活跃度规则</h2>
+
+    <table>
+
+      <tr><th>平台</th><th>规则</th></tr>
+
+      <tr><td>InboxDollars</td><td>超过 10 天不操作有<b>休眠风险</b>；建议每周至少登录一次简单操作</td></tr>
+
+      <tr><td>Swagbucks</td><td>长期闲置不直接封号，但问卷推送量明显下降</td></tr>
+
+    </table>
+
+
+
+    <h2>六、遇到 KYC 身份核验 · 提交材料注意事项清单</h2>
+
+    <div class="note">📋 若被要求证件核验，按此准备：
+
+      <ol>
+
+        <li>护照 / 驾照拍<b>清晰正反面</b>，四角入镜、无反光。</li>
+
+        <li>人脸自拍：光线充足、无遮挡、与证件照片为同一人。</li>
+
+        <li>表单姓名 / 地址与证件<b>逐字一致</b>（拼写、缩写、街道格式）。</li>
+
+        <li>确保美国手机号能收短信（轻度核验用，须本人实号）。</li>
+
+        <li>提交后耐心等待，<b>不要重复提交</b>以免被判定异常。</li>
+
+        <li>若被驳回：先核对姓名拼写 / 地址格式再重提，不要换填虚假信息。</li>
+
+      </ol>
+
+    </div>
+
+</div>
+
+<div class="panel">
+
+<h2>三、本地招聘零工类</h2>
+
+  <p>三类站点定位不同：Craigslist 偏<strong>本地免费零工</strong>、Gigowl 偏<strong>居家引流岗</strong>、Jobs2Careers 偏<strong>真实本地招聘聚合</strong>。下方每个站点附「是什么 / 观察到的帖子 / 怎么用 / 避坑」。</p>
+
+
+
+  <div class="card">
+
+    <h4>① Craigslist · New Haven（craigslist.org）</h4>
+
+    <p><strong>网址：</strong><a href="https://www.craigslist.org/search/area/newhaven?cat=evg">craigslist.org/search/area/newhaven</a>（选 New Haven, CT 分区，gigs / 活动集市分类）</p>
+
+    <p><strong>是什么：</strong>本地免费分类信息站，零工（gigs）与远程调研/焦点小组混杂。你截取的 New Haven 板块可见 15 条帖子。</p>
+
+    <h4>观察到的帖子示例</h4>
+
+    <ul>
+
+      <li>Remote Paid Research Participant — 周赚最高 $750（New Haven 远程）</li>
+
+      <li>Focus Group Participant - Work From Home（出现 4 次，居家焦点小组）</li>
+
+      <li>Driving Professionals Needed（纽黑文驾驶零工）</li>
+
+      <li>Guilford 搬运协助、Cheshire 活动服务员、婚礼拍摄等 CT 周边</li>
+
+    </ul>
+
+    <h4>怎么用</h4>
+
+    <ul>
+
+      <li>选 <code>new haven</code> 地区 → <code>gigs</code> 分类；远程调研/焦点小组与「问卷返利」收入<strong>重叠</strong>，可并入答题类时间管理。</li>
+
+      <li>本地体力零工（搬运/驾驶/活动用工）适合有空时实地做，时薪通常高于问卷。</li>
+
+    </ul>
+
+    <div class="note danger"><strong>避坑：</strong>① 绝不为工作先付费（押金/培训费/软件费都是骗局）；② "高薪居家数据录入/周赚$750"多为引流，先视频面聊再给个人信息；③ 面交类优先公共场所。</div>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>② Gigowl · Hamden（gigowl.com）</h4>
+
+    <p><strong>网址：</strong><a href="https://gigowl.com/browse-jobs.html?keywords=jobs&location=Hamden,%20CT">gigowl.com/browse-jobs.html?location=Hamden,CT</a></p>
+
+    <p><strong>是什么：</strong>职位聚合站，Hamden, CT 区域多为<strong>居家客服 / 数据录入 / 物流协调 / 焦点小组</strong>。点 Apply 会跳外链。</p>
+
+    <h4>观察到的职位</h4>
+
+    <ul>
+
+      <li>Amazon 居家客服 $16–$24/hr（Hamden, CT）</li>
+
+      <li>Remote Data Entry $1400/周 ｜ $250/天（Remote Jobs Solutions）</li>
+
+      <li>Logistics Coordinator 居家 $1800–$3500/周（American Logistics Authority）</li>
+
+      <li>Patient Access Scheduler / Hospital Call Center（Remote，医疗调度）</li>
+
+      <li>焦点小组 / 临床试用 $750/周（Apex Focus Group）</li>
+
+    </ul>
+
+    <h4>怎么用</h4>
+
+    <ul>
+
+      <li>筛选 <code>Hamden, CT</code>；优先看有具体雇主名（Amazon、Fairview Health、LifePoint Health）的岗。</li>
+
+      <li>医疗调度/客服类若要求英语沟通，与你的 IT 项目管理背景有衔接，可重点看。</li>
+
+    </ul>
+
+    <div class="note danger"><strong>避坑：</strong>"数据录入 $250/天""物流 $3500/周"多为<strong>引流/MLM 风格</strong>，核实雇主官网再投；别在 Gigowl 中间页填银行卡/社安号，申请一律走雇主官方站。</div>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>③ Jobs2Careers · Hamden（jobs2careers.com）</h4>
+
+    <p><strong>网址：</strong><a href="https://www.jobs2careers.com/search/results?q=&l=Hamden%2C%20CT">jobs2careers.com/search?l=Hamden,CT</a>（聚合引擎，Powered by Talroo）</p>
+
+    <p><strong>是什么：</strong>招聘聚合站，Hamden, CT 及周边约 <strong>299 个岗位</strong>，覆盖仓库/护工/配送/零售/行政/客服/远程。</p>
+
+    <h4>主要职位类别</h4>
+
+    <div>
+
+      <span class="tag">Warehouse 仓库</span><span class="tag">Caregiver 护工</span><span class="tag">Delivery Driver 配送</span>
+
+      <span class="tag">Customer Service 客服</span><span class="tag">Retail 零售</span><span class="tag">Administrative 行政</span>
+
+      <span class="tag">Work From Home 远程</span><span class="tag">Machine Operator</span><span class="tag">Fitness / 酒店 / 餐厅</span>
+
+    </div>
+
+    <h4>筛选与申请</h4>
+
+    <ul>
+
+      <li><strong>筛选：</strong>通勤时间（Commute Time，卡片显示 "~16 min Onsite"）、Work From Home、薪资、发布日期、福利。</li>
+
+      <li><strong>申请：</strong>Apply Directly（跳外链）/ Easy Apply（平台内快投）/ Chat Now（在线聊）。可登录管理简历、收藏职位。</li>
+
+    </ul>
+
+    <h4>怎么用</h4>
+
+    <ul>
+
+      <li>用来找<strong>真实本地岗</strong>：仓库理货、护工、配送司机、零售陈列、远程客服——比问卷收入稳定、单位时间更高。</li>
+
+      <li>用 <code>Commute Time</code> 锁纽黑文周边通勤圈，避免海投无关联岗位。</li>
+
+    </ul>
+
+    <div class="note warn"><strong>注意：</strong>聚合站链接会经 <code>click.php</code> 跳转，务必确认最终落地是雇主官网或正规 ATS（如 Workday/Greenhouse），再提交申请。</div>
+
+  </div>
+
+
+
+  <h3>三类站点横向对比</h3>
+
+  <table>
+
+    <tr><th>维度</th><th>Craigslist</th><th>Gigowl</th><th>Jobs2Careers</th></tr>
+
+    <tr><th>性质</th><td>本地免费分类</td><td>居家岗聚合</td><td>招聘聚合(Talroo)</td></tr>
+
+    <tr><th>真实岗比例</th><td>中（混杂调研）</td><td>偏低（引流多）</td><td>高</td></tr>
+
+    <tr><th>最适合</th><td>本地零工/焦点小组</td><td>居家客服试水</td><td>稳定本地兼职/全职</td></tr>
+
+    <tr><th>首要风险</th><td>面交骗局</td><td>高薪引流/MLM</td><td>跳转落地不实</td></tr>
+
+  </table>
+
+</div>
+
+<div class="panel">
+
+<h2>四、数据标注类（OpenTrain / dataannotation）</h2>
+
+
+
+  <div class="card">
+
+    <h4>① OpenTrain.ai — 工程图图谱标注（项目1 已分析）</h4>
+
+    <p><strong>项目：</strong>Engineering Diagram Graph Annotation（工程图 → 图谱标注）</p>
+
+    <table>
+
+      <tr><th style="width:30%">发布平台</th><td>opentrain.ai 海外众包市场（发布 2026-06-30）</td></tr>
+
+      <tr><th>标注工具</th><td>Label Studio（主）/ CVAT（备选），均开源免费</td></tr>
+
+      <tr><th>任务</th><td>≤60 张工程图，约 540 个 label；Bounding Box + 关系标注（solid/non-solid）</td></tr>
+
+      <tr><th>报酬</th><td>Fixed Price <strong>$499</strong>（先 pilot 后全量）</td></tr>
+
+      <tr><th>硬性要求</th><td>1–3 年标注经验 ｜ Fluent 英语 ｜ 能读工程图 ｜ 熟 Label Studio/CVAT</td></tr>
+
+    </table>
+
+    <div class="note warn"><strong>我们的结论（2026-07-29）：</strong>以个人标注员身份<strong>直接承接不太建议</strong>——硬门槛与现状不匹配，且约 $8/张偏低。更稳三选一：① 优雅婉拒；② 仅做 pilot 练手（学 Label Studio）；③ 以机构(Agency)身份接、转包给真实标注团队，你做协调与质量把关。</div>
+
+    <p>完整项目承接分析为内部资料，本公开版从略。</p>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>② dataannotation.tech — 通用数据标注众包（你的账号）</h4>
+
+    <p><strong>你的账号状态：</strong><a href="https://app.dataannotation.tech/workers/starter_assessment_complete">starter_assessment_complete</a>（入门测评已完成，可接任务）</p>
+
+    <p><strong>是什么：</strong>知名数据标注众包平台，任务涵盖文本/图像/分类/推理等多种类型，按任务计酬，时间灵活。</p>
+
+    <h4>与问卷/招聘的关系</h4>
+
+    <ul>
+
+      <li>属于「技能型零散收入」，比问卷时薪高、比本地招聘灵活，适合作为问卷之外的补充线。</li>
+
+      <li>同样遵守：康涅狄格固定网络、不与问卷账号混用浏览器、个人信息前后一致。</li>
+
+      <li>若平台要求身份核验，姓名/地址须与证件一致（同问卷 KYC 原则）。</li>
+
+    </ul>
+
+    <div class="note ok"><strong>建议：</strong>把 dataannotation 当作「问卷疲劳时的技能型替代」——英语+IT 背景对文本/推理类任务有优势；先从小任务熟悉平台计价与验收标准，再决定是否投入更多时间。</div>
+
+  </div>
+
+
+
+  <h3>标注类 vs 问卷类 vs 招聘类 定位</h3>
+
+  <table>
+
+    <tr><th>渠道</th><th>单位时间收益</th><th>灵活性</th><th>能力门槛</th><th>适合场景</th></tr>
+
+    <tr><td>问卷返利</td><td>低</td><td>最高</td><td>低</td><td>碎片时间随手做</td></tr>
+
+    <tr><td>数据标注</td><td>中</td><td>高</td><td>中</td><td>有整块时间、想做技能型</td></tr>
+
+    <tr><td>本地招聘</td><td>中–高</td><td>低（有排班）</td><td>视岗</td><td>想要稳定现金流</td></tr>
+
+  </table>
+
+</div>
+
+<div class="panel">
+
+<h2>五、全球线上渠道扩充（17 项靠谱来源）</h2>
+
+  <div class="box">
+
+    <strong>筛选原则：</strong>完全线上 + 全球可注册 + 真实公司或成熟平台 + 与你的 IT/PM/英语背景匹配。每一项标注<strong>适合度</strong>（★ 数，5★=极佳）和注意事项，方便按优先级注册。下表所列平台均为已用 WebFetch 验证存在和定位的可靠来源。
+
+  </div>
+
+
+
+  <h3>A. 问卷/调研类</h3>
+
+
+
+  <div class="card">
+
+    <h4>① Prolific — <a href="https://www.prolific.com">prolific.com</a> ⭐ 学术问卷首选</h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>学术问卷平台（牛津大学研究人员创办，信誉在问卷类中最高）</li>
+
+      <li><strong>收入：</strong>约 $6–15/小时；研究方按公平报酬预设，比 SB/ID 慷慨</li>
+
+      <li><strong>门槛：</strong>注册免费 + 简短资格问卷；接受 40+ 国家，<strong>与美国问卷生态不互通</strong></li>
+
+      <li><strong>适合度：★★★★★</strong>（你的 IT/PM 背景对 IT/产品类学术研究有精准匹配）</li>
+
+      <li><strong>注意：</strong>与 SB/ID 不冲突可并行；适合在 SB 短问卷被刷出后填补</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>② Respondent.io — <a href="https://respondent.io">respondent.io</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>深度用户研究（一对一访谈、产品试用、问卷）</li>
+
+      <li><strong>收入：</strong>$50–300/项（30–60 分钟）</li>
+
+      <li><strong>门槛：</strong>完善 Profile，被研究者邀请后参加；全球</li>
+
+      <li><strong>适合度：★★★★</strong>（IT/PM 是 SaaS、金融科技公司高频访谈对象）</li>
+
+      <li><strong>注意：</strong>每项研究邀请稀缺，建议早注册、勤刷 Profile 关键词</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>③ YouGov — <a href="https://today.yougov.com">today.yougov.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>国际民调（英国公司，覆盖 50+ 国家）</li>
+
+      <li><strong>收入：</strong>$1–3/问卷（10–15 分钟）；累计积分可换礼卡</li>
+
+      <li><strong>门槛：</strong>邮箱注册即可；与 Prodege 完全独立</li>
+
+      <li><strong>适合度：★★★</strong>（收入低但稳定，<strong>无风控焦虑</strong>）</li>
+
+      <li><strong>注意：</strong>与 SB/ID 不同平台，可作底层流量补充</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>B. AI 数据与众包微任务</h3>
+
+
+
+  <div class="card">
+
+    <h4>④ Appen — <a href="https://appen.com">appen.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>AI 数据采集与标注项目（曾纽交所上市，真实公司）</li>
+
+      <li><strong>收入：</strong>项目制 $3–9/hr；长期项目有签约奖励</li>
+
+      <li><strong>门槛：</strong>注册 + 资格测试；项目池需主动申请；全球</li>
+
+      <li><strong>适合度：★★★★</strong></li>
+
+      <li><strong>注意：</strong>项目变动频繁，与 SB/ID 错峰操作；做完后及时评价，留 record</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑤ Clickworker / UHRS — <a href="https://www.clickworker.com">clickworker.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>微任务（搜索评估、文本判断、图像分类）</li>
+
+      <li><strong>收入：</strong>$3–9/hr</li>
+
+      <li><strong>门槛：</strong>注册 + UHRS 资格测试；任务按地区释放</li>
+
+      <li><strong>适合度：★★★</strong></li>
+
+      <li><strong>注意：</strong>每天可用任务量有限，需多次登录刷；不要指望稳定收入</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑥ Outlier.ai — <a href="https://outlier.ai">outlier.ai</a> ⭐ Scale AI 旗下·时薪最高</h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>AI 模型训练（写作评估、代码审查、数学推理；由 Scale AI 运营）</li>
+
+      <li><strong>收入：</strong>$15–30/hr（高水平任务可上探到 $50+）；每周支付</li>
+
+      <li><strong>门槛：</strong>本科学历以上 + 资格测试；需有效身份证件与本国手机号；50+ 国家</li>
+
+      <li><strong>适合度：★★★★★</strong>（IT/PM/英语背景<strong>最契合</strong>；简历+LinkedIn 是核心资产）</li>
+
+      <li><strong>注意：</strong>审核较严但时薪最高；身份核验同 SB KYC 原则；建议先注册</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑦ Scale AI / Remotasks — <a href="https://scale.com">scale.com</a> · <a href="https://remotasks.com">remotasks.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>AI 标注（图像、文本、3D、代码）</li>
+
+      <li><strong>收入：</strong>$5–20/hr 视任务</li>
+
+      <li><strong>门槛：</strong>资格测试；项目变动大</li>
+
+      <li><strong>适合度：★★★</strong></li>
+
+      <li><strong>注意：</strong>2023 后 Remotasks 大量并入 Scale AI；质量要求高、政策变动较多，建议作 Outlier 备胎</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>C. 用户与 QA 测试</h3>
+
+
+
+  <div class="card">
+
+    <h4>⑧ UserTesting — <a href="https://www.usertesting.com">usertesting.com</a> ⭐ UX 测试龙头</h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>网站/App/原型/AI 功能的 UX 测试（出声思考测试为主）</li>
+
+      <li><strong>收入：</strong>$5–30/项（10–20 分钟）</li>
+
+      <li><strong>门槛：</strong>通过样例测试 + 麦克风；覆盖 34 国、700 万+ 认证参与者</li>
+
+      <li><strong>适合度：★★★★★</strong>（IT/PM 对产品 UX 有天然判断，财富 100 强 75 家使用）</li>
+
+      <li><strong>注意：</strong>邀请制，新人前 1–2 周邀请较少；坚持每周登录、Profile 完整会加速解锁</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑨ TryMyUI — <a href="https://www.trymyui.com">trymyui.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>用户测试（同 UserTesting 模式）</li>
+
+      <li><strong>收入：</strong>$5–10/项</li>
+
+      <li><strong>门槛：</strong>通过样例测试</li>
+
+      <li><strong>适合度：★★★</strong></li>
+
+      <li><strong>注意：</strong>测试量较少，作 UserTesting 的补充</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑩ uTest (Applause) — <a href="https://www.utest.com">utest.com</a> ⭐ QA 测试首选</h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>QA 软件测试（Functional / UX / AI / Accessibility / Payment）</li>
+
+      <li><strong>收入：</strong>$50–500/测试周期（1–4 周），视项目复杂度</li>
+
+      <li><strong>门槛：</strong>通过样例测试 + 加入项目；全球社区</li>
+
+      <li><strong>适合度：★★★★★</strong>（IT/PM 背景对软件质量有感觉，可成为 Tester Lead）</li>
+
+      <li><strong>注意：</strong>项目制而非按件，适合整块时间投入；按时反馈 bug 攒 reputation</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>D. 转录与字幕</h3>
+
+
+
+  <div class="card">
+
+    <h4>⑪ Rev — <a href="https://www.rev.com">rev.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>音频转录、视频字幕、翻译</li>
+
+      <li><strong>收入：</strong>转录 $0.30–1.10/音频分钟；字幕 $0.54–1.10/视频分钟</li>
+
+      <li><strong>门槛：</strong>通过 Rev 技能测试（中等难度）；全球</li>
+
+      <li><strong>适合度：★★★★</strong>（英语流利 + 60+ WPM 打字为佳）</li>
+
+      <li><strong>注意：</strong>活儿需抢，竞争激烈；先通过入门测试再开始</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑫ TranscribeMe — <a href="https://transcribeme.com">transcribeme.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>通用转录（医疗、法律、商务优先）</li>
+
+      <li><strong>收入：</strong>约 $15–20/音频小时</li>
+
+      <li><strong>门槛：</strong>基础测试（门槛低于 Rev）</li>
+
+      <li><strong>适合度：★★★</strong></li>
+
+      <li><strong>注意：</strong>收入偏低，作入门练习；通过后有机会升级到高单价团队</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>E. ESL 在线教学/聊天</h3>
+
+
+
+  <div class="card">
+
+    <h4>⑬ Cambly — <a href="https://www.cambly.com">cambly.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>英语口语陪练（与 native speaker 视频对话）</li>
+
+      <li><strong>收入：</strong>$0.17/分钟（约 $10.20/hr）</li>
+
+      <li><strong>门槛：</strong>无学位要求；英语发音清晰；全球</li>
+
+      <li><strong>适合度：★★★</strong></li>
+
+      <li><strong>注意：</strong>随时上线/下线，但需要稳定时间窗口（学生预约依赖规律性）</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑭ Preply / italki — <a href="https://preply.com">preply.com</a> · <a href="https://italki.com">italki.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>ESL 视频课程（1 对 1 或小组）</li>
+
+      <li><strong>收入：</strong>$10–40/hr（自定价格）</li>
+
+      <li><strong>门槛：</strong>建议 TEFL/TESOL 证书；注册成为 tutor 即可</li>
+
+      <li><strong>适合度：★★★</strong></li>
+
+      <li><strong>注意：</strong>平台自带流量；需持续运营个人页面、积累评价</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>F. 自由职业平台</h3>
+
+
+
+  <div class="card">
+
+    <h4>⑮ Upwork — <a href="https://www.upwork.com">upwork.com</a> ⭐ 你的最佳变现渠道</h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>全球最大自由职业市场</li>
+
+      <li><strong>收入：</strong>项目/小时制；IT/PM/培训咨询类服务时薪 $30–100+</li>
+
+      <li><strong>门槛：</strong>注册 + 完善 Profile + 身份验证（KYC 同 SB 原则）</li>
+
+      <li><strong>适合度：★★★★★</strong>（项目管理 + AI + 九型人格可直接挂服务）</li>
+
+      <li><strong>注意：</strong>新账号有「Rising Talent」期，需主动投标建 reputation；建议挂 3 类 gigs：AI 项目管理咨询、企业培训设计、AI 落地辅导</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h4>⑯ Fiverr — <a href="https://www.fiverr.com">fiverr.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>服务商品化（gigs 起价 $5，可上探）</li>
+
+      <li><strong>收入：</strong>视服务定价；IT/PM 咨询 $50–500/gig</li>
+
+      <li><strong>门槛：</strong>注册 + 创建 gig</li>
+
+      <li><strong>适合度：★★★★</strong></li>
+
+      <li><strong>注意：</strong>买家主动找，Fiverr 收 20% 佣金；强在被动曝光，需 SEO 优化 gig 标题</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>G. 远程客服与内容审核</h3>
+
+
+
+  <div class="card">
+
+    <h4>⑰ ModSquad — <a href="https://modsquad.com">modsquad.com</a></h4>
+
+    <ul>
+
+      <li><strong>类型：</strong>内容审核、社区管理、客服</li>
+
+      <li><strong>收入：</strong>$10–15/hr</li>
+
+      <li><strong>门槛：</strong>申请 + 培训 + 项目匹配；全球</li>
+
+      <li><strong>适合度：★★★</strong>（需稳定时间窗口）</li>
+
+      <li><strong>注意：</strong>合同制，比 SB/ID 稳定但灵活度低；适合做长期现金流</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>📌 上手优先级建议（基于你的 IT/PM/英语背景）</h3>
+
+  <div class="note ok">
+
+    <strong>第一梯队（强烈推荐·与你背景最契合）：</strong><br>
+
+    ① <strong>Upwork</strong>（IT/PM 优势可立刻变现）→ ② <strong>Outlier.ai</strong>（时薪高、门槛可达）→ ③ <strong>UserTesting</strong>（短期收益快）→ ④ <strong>Prolific</strong>（学术问卷信誉最高、与 SB/ID 互补）→ ⑤ <strong>uTest</strong>（项目制深度收入）<br>
+
+    <strong>第二梯队（值得注册作为补充）：</strong><br>
+
+    Appen · Clickworker · Rev · Respondent.io · Scale AI / Remotasks · Fiverr<br>
+
+    <strong>第三梯队（按时间精力逐步探索）：</strong><br>
+
+    Cambly · Preply/italki · ModSquad · YouGov · TranscribeMe · TryMyUI
+
+  </div>
+
+
+
+  <h3>🔗 与已有渠道的搭配矩阵</h3>
+
+  <table>
+
+    <tr><th>使用场景</th><th>时段</th><th>推荐组合</th></tr>
+
+    <tr><td>碎片 5–15 分钟</td><td>任何时段</td><td>Swagbucks / InboxDollars / Prolific / YouGov</td></tr>
+
+    <tr><td>整块 30–60 分钟</td><td>上午 / 下午</td><td>UserTesting / Outlier / Rev / Appen</td></tr>
+
+    <tr><td>整块 1–4 周（项目制）</td><td>周末</td><td>uTest 周期 / Upwork 项目 / Appen 长期项目</td></tr>
+
+    <tr><td>固定时段</td><td>晚间固定窗口</td><td>ModSquad / Cambly</td></tr>
+
+    <tr><td>变现 IT/PM 专业</td><td>整块工作日</td><td>Upwork / Fiverr gigs</td></tr>
+
+  </table>
+
+
+
+  <div class="note warn">
+
+    <strong>新渠道注册的统一安全原则（与已有底线一致）：</strong><br>
+
+    ① 网络固定康涅狄格；② 不混用浏览器（按平台分独立浏览器/无痕）；③ 姓名/地址与证件一致；④ 优先兑换 PayPal/Wise，避免虚拟卡陷阱；⑤ 任何要求你先付费才能接单的平台<strong>直接放弃</strong>。
+
+  </div>
+
+</div>
+
+<div class="panel">
+
+<h2>六、全球平台注册实操（Appen / Outlier / Upwork / Fiverr）</h2>
+
+  <div class="box">
+
+    <strong>范围：</strong>聚焦你「第一梯队」的四个全球线上平台，给出<strong>逐步注册、推荐用户名、邮箱与支付绑定、避坑</strong>。通用底线同总览：固定康涅狄格网络、账号不与问卷平台混用浏览器、姓名/地址与证件一致。
+
+  </div>
+
+
+
+  <h3>统一注册策略（先读这一节）</h3>
+
+  <table>
+
+    <tr><th>项目</th><th>后台型平台（Appen / Outlier）</th><th>前台型平台（Upwork / Fiverr）</th></tr>
+
+    <tr><td>推荐邮箱</td><td><code>你的 Outlook 邮箱（示例：you@example.com）</code></td><td><code>你的 Outlook 邮箱（示例：you@example.com）</code>（同邮箱便于管理）</td></tr>
+
+    <tr><td>用户名 / 显示名</td><td><code>你的 Appen 用户名</code>（与邮箱统一、不可改）</td><td><code>你的 Upwork / Fiverr 公开显示名</code> 或 <code>你的护照姓名（拼音）</code>（公开品牌 / IP）</td></tr>
+
+    <tr><td>收款</td><td colspan="2">统一绑 <strong>PayPal</strong>（姓名须与证件完全一致）；备选 Wise / Payoneer</td></tr>
+
+    <tr><td>网络</td><td colspan="2">固定康涅狄格线路，禁 VPN / 代理</td></tr>
+
+  </table>
+
+
+
+  <div class="note warn">
+
+    <strong>Appen 用户名决策（你的 Appen 用户名 vs 你的 Upwork / Fiverr 公开显示名）：</strong>Appen / EliteAI 是<strong>后台标注平台</strong>，用户名只做内部识别、不公开、且填后<strong>不可修改</strong>。→ <strong>推荐 <code>你的 Appen 用户名</code></strong>：跟你主力邮箱前缀统一、记忆成本最低、不提前绑定"Lab"品牌（以后想换方向不受限）。<code>你的 Upwork / Fiverr 公开显示名</code>（你的微信品牌）更适合用在 <strong>Upwork / Fiverr 这种公开接单平台</strong>的显示名——那是给客户看的门面，才需要品牌感。一句话：<strong>后台用 你的 Appen 用户名，前台用 你的 Upwork / Fiverr 公开显示名 / 真实名</strong>。
+
+  </div>
+
+
+
+  <h3>1. Appen（EliteAI 承包商门户）</h3>
+
+  <div class="card">
+
+    <h4>定位</h4>
+
+    <p>AI 训练数据众包，项目制，普通项目时薪约 $3–9，高难 / 专业项目更高；你截图所见的"设置用户名"页即其 EliteAI 注册流程。</p>
+
+    <h4>注册步骤</h4>
+
+    <ol>
+
+      <li>访问 Appen 官网 → 进入承包商 / EliteAI 注册入口；</li>
+
+      <li>邮箱注册：用 <code>你的 Outlook 邮箱（示例：you@example.com）</code>；</li>
+
+      <li><strong>设置用户名 → 填 <code>你的 Appen 用户名</code></strong>（规则：4–16 位、仅小写字母 + 数字、不得含 eliteai / admin / appen、非纯数字、<strong>填后不可改</strong>）；</li>
+
+      <li>填个人资料：国家 = United States，语言 = 中文（母语）/ English（流利），技能 = IT / Project Management / 数据标注；</li>
+
+      <li>完成入门测评 / 培训项目，攒平台信誉；</li>
+
+      <li>绑定 PayPal 收款（姓名与证件一致）。</li>
+
+    </ol>
+
+    <h4>避坑</h4>
+
+    <ul>
+
+      <li>用户名不可改，确认大小写拼写再提交；</li>
+
+      <li>部分项目签 NDA，注意数据保密、不得外传任务内容；</li>
+
+      <li>先做小额入门项目建立评分，再接高价项目。</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>2. Outlier.ai（Scale AI 旗下）</h3>
+
+  <div class="card">
+
+    <h4>定位</h4>
+
+    <p>AI 模型训练 / RLHF（人类反馈强化学习），时薪约 $15–30，覆盖 50+ 国家，<strong>每周付款</strong>，适合有英语写作 / 推理 / STEM 背景的人。</p>
+
+    <h4>注册步骤</h4>
+
+    <ol>
+
+      <li>访问 outlier.ai → 邮箱注册（建议 <code>你的 Outlook 邮箱（示例：you@example.com）</code>）；</li>
+
+      <li>填写教育与专业背景；</li>
+
+      <li>通过技能筛选（如写作 / 编程 / 学科测试）；</li>
+
+      <li>接任务，按周结算。</li>
+
+    </ol>
+
+    <h4>用户名建议</h4>
+
+    <p>用 <code>你的 Appen 用户名</code> 或 <code>liujunping</code>，与 Appen 统一、降低记忆负担（后台平台无需品牌化）。</p>
+
+    <h4>避坑</h4>
+
+    <ul>
+
+      <li>警惕仿冒站，只认 outlier.ai 官方域名；</li>
+
+      <li>项目量波动大，勿当成稳定工资；</li>
+
+      <li>英语表达与逻辑是核心门槛，写作弱项慎入。</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>3. Upwork（自由职业 · 公开接单）</h3>
+
+  <div class="card">
+
+    <h4>定位</h4>
+
+    <p>项目制 IT / PM 服务，时薪约 $30–100+，是你<strong>专业变现的主战场</strong>（AI 项目管理咨询 / 企业培训设计 / AI 落地辅导）。</p>
+
+    <h4>注册步骤</h4>
+
+    <ol>
+
+      <li>访问 upwork.com → 邮箱注册（<code>你的 Outlook 邮箱（示例：you@example.com）</code>）；</li>
+
+      <li>设置 <strong>Profile 显示名 → <code>你的 Upwork / Fiverr 公开显示名</code></strong>（品牌）或 <code>你的护照姓名（拼音）</code>（真实，更显专业可信）；</li>
+
+      <li>写 Title，例如 <code>AI Project Management Consultant | PMP-certified</code>；</li>
+
+      <li>填技能、时薪、工作经历（突出 20 年培训 + IT / PM）；</li>
+
+      <li>完成身份 ID 验证（须与证件一致）；</li>
+
+      <li>用 Connects 投提案接单。</li>
+
+    </ol>
+
+    <h4>避坑</h4>
+
+    <ul>
+
+      <li>先小额接单攒 5★ 好评，再涨薪；</li>
+
+      <li>Connects 谨慎花，别广撒网；</li>
+
+      <li>任何"站外付款 / 预付定金"都是诈骗，只走 Upwork 托管。</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>4. Fiverr（服务商品 gigs）</h3>
+
+  <div class="card">
+
+    <h4>定位</h4>
+
+    <p>卖"服务包"（Gig），$50–500/gig，被动接单模式，适合把你的培训 / 咨询能力做成标准化产品。</p>
+
+    <h4>注册步骤</h4>
+
+    <ol>
+
+      <li>访问 fiverr.com → 邮箱 / Google 注册；</li>
+
+      <li>设用户名（显示名）→ <code>你的 Upwork / Fiverr 公开显示名</code>（与 Upwork 统一品牌）；</li>
+
+      <li>建 Gig，例如 <code>I will design your AI training project plan</code>，写明交付物与定价；</li>
+
+      <li>绑收款：PayPal / Payoneer。</li>
+
+    </ol>
+
+    <h4>避坑</h4>
+
+    <ul>
+
+      <li>Gig 描述清晰、分级定价，避免无限改稿；</li>
+
+      <li>提现需 Payoneer / PayPal，注意到账周期；</li>
+
+      <li>警惕仿冒邮件，只从官网登录操作。</li>
+
+    </ul>
+
+  </div>
+
+
+
+  <h3>用户名总决策表</h3>
+
+  <table>
+
+    <tr><th>平台</th><th>类型</th><th>推荐用户名 / 显示名</th><th>理由</th></tr>
+
+    <tr><td>Appen</td><td>后台</td><td><code>你的 Appen 用户名</code></td><td>与邮箱统一、不可改、非品牌</td></tr>
+
+    <tr><td>Outlier</td><td>后台</td><td><code>你的 Appen 用户名</code></td><td>与 Appen 统一，降低记忆负担</td></tr>
+
+    <tr><td>Upwork</td><td>前台</td><td><code>你的 Upwork / Fiverr 公开显示名</code> 或 <code>你的护照姓名（拼音）</code></td><td>公开品牌 / 真实专业感</td></tr>
+
+    <tr><td>Fiverr</td><td>前台</td><td><code>你的 Upwork / Fiverr 公开显示名</code></td><td>与 Upwork 统一品牌</td></tr>
+
+  </table>
+
+
+
+  <div class="note ok">
+
+    <strong>统一支付与风控：</strong>四个平台收款<strong>优先绑 PayPal</strong>（账户姓名须与证件完全一致，否则驳回）；全程固定康涅狄格网络；注册资料真实、与证件一致；不与问卷平台（Swagbucks / InboxDollars）混用同一浏览器。
+
+  </div>
+
+</div>
+
+<div class="panel">
+
+<h3>目录（点击直达）</h3>
+
+    <a href="#s1"><span class="n">一</span>开工前 3 件必做</a>
+
+    <a href="#s2"><span class="n">二</span>Profile 文案（直接复制填）</a>
+
+    <a href="#s3"><span class="n">三</span>3 类服务套餐（Gig）模板</a>
+
+    <a href="#s4"><span class="n">四</span>首条投标话术（Cover Letter）</a>
+
+    <a href="#s5"><span class="n">五</span>新人避雷 & 首月节奏</a>
+
+<section id="s1">
+
+    <h2>一、开工前 3 件必做</h2>
+
+    <table>
+
+      <tr><th style="width:30%">事项</th><th>要点</th></tr>
+
+      <tr><td><span class="lab">① 注册与身份</span></td><td>
+
+        邮箱用 <code>你的 Outlook 邮箱（示例：you@example.com）</code>（与 Appen 后台身份统一记忆）；<br>
+
+        显示名见下节（推荐 <b>你的护照姓名（拼音）</b>）；<br>
+
+        完成 <b>ID 验证（护照）</b>——姓名须与收款账户完全一致，否则提现驳回。
+
+      </td></tr>
+
+      <tr><td><span class="lab">② 绑定收款</span></td><td>
+
+        优先 <b>PayPal</b>（审核快），其次 Payoneer；<br>
+
+        <span class="warn">账户姓名 = 护照姓名（你的护照姓名拼音），绝不填昵称或品牌名。</span>
+
+      </td></tr>
+
+      <tr><td><span class="lab">③ 网络环境</span></td><td>
+
+        全程固定 <b>康涅狄格（CT）</b>稳定线路，与 Swagbucks/InboxDollars 一致；<br>
+
+        禁用 VPN/代理——Upwork 与 Prodege 同样识别代理特征，易触发风控。
+
+      </td></tr>
+
+    </table>
+
+    <div class="box ok">✅ 这 3 件 30 分钟内能搞定。完成后账号即处于「可接单」状态，下面文案直接填。</div>
+
+  </section>
+
+<section id="s2">
+
+    <h2>二、Profile 文案（直接复制填）</h2>
+
+
+
+    <h3>2.1 显示名决策</h3>
+
+    <table>
+
+      <tr><th>选项</th><th>写法</th><th>建议</th></tr>
+
+      <tr><td><b>你的护照姓名（拼音）</b></td><td>真实姓名</td><td>🥇 <b>推荐</b>——企业客户更信任真实名，且护照/PayPal 一致</td></tr>
+
+      <tr><td><b>JP AI Lab</b></td><td>品牌名</td><td>新号缺背书时略虚，建议作为「公司/团队」字段填，不当显示名</td></tr>
+
+    </table>
+
+    <p>URL 用户名（profile slug）建议填：<code>你的 Upwork / Fiverr 公开显示名</code> &nbsp;|&nbsp; 时区填：<code>EST (US Eastern)</code></p>
+
+
+
+    <h3>2.2 标题 Title（限 70 字符，三选一）</h3>
+
+    <pre>AI Project Management Consultant | 20 Yrs Enterprise Training
+
+Project Management & AI Adoption Coach for Enterprises
+
+Corporate AI Training Designer | PMP-Level Instruction</pre>
+
+    <p class="copy-hint">↑ 复制其中一行，粘贴到 Title 框。</p>
+
+
+
+    <h3>2.3 Profile Overview（英文，直接复制全文）</h3>
+
+    <pre>With 20 years of project management training and consulting across state-owned enterprises, banks, manufacturing, and IT — plus hands-on AI adoption practice — I help teams turn AI from buzzword into shipped outcomes.
+
+
+
+What I do:
+
+1) AI Project Management — scoping, risk control, and delivery frameworks for enterprises adopting LLMs and AI tools.
+
+2) Corporate Training Design — turning complex PM + AI topics into practical, role-based courses and facilitator guides.
+
+3) AI Tool Coaching — guiding teams to use ChatGPT, ElevenLabs, and HeyGen for real deliverables, including bilingual EN/ZH subtitling and voiceover.
+
+
+
+Background: Computer Science degree (Wuhan University), 20 years in PM training and consulting. Fluent in written English; native Mandarin. I bring a practitioner's rigor and a coach's clarity — let's make your AI initiative actually land.</pre>
+
+    <p class="copy-hint">↑ 整段复制到 Profile Overview。如需突出某方向，可删掉不相关的一两条。</p>
+
+
+
+    <h3>2.4 技能标签 Skills（点击添加以下标签）</h3>
+
+    <p>
+
+      <span class="tag">Project Management</span><span class="tag">AI Consulting</span><span class="tag">Corporate Training</span>
+
+      <span class="tag">LLM Adoption</span><span class="tag">Course Design</span><span class="tag">Prompt Engineering</span>
+
+      <span class="tag">Data Annotation</span><span class="tag">Subtitling</span><span class="tag">Agile</span>
+
+      <span class="tag">Risk Management</span><span class="tag">HeyGen</span><span class="tag">ElevenLabs</span>
+
+    </p>
+
+
+
+    <h3>2.5 时薪建议（新人起步价）</h3>
+
+    <div class="box gold">💡 建议起步 <b>$35–50 / 小时</b>。理由：你有 20 年真经验，但 Upwork 新号无评价、英语口语有限，前期用「中低价 + 高质量交付」换前 5 个 5 星好评；好评攒起来后逐步提到 $60–90。</div>
+
+  </section>
+
+<section id="s3">
+
+    <h2>三、3 类服务套餐（Gig）模板</h2>
+
+    <p>Upwork 的 Gig（现称「Project Catalog / Service」）是客户直接下单的套餐。每个 Gig 设三档：Basic / Standard / Premium。下面价格按新人起步价给，好评后可上调。</p>
+
+
+
+    <h3>Gig 1 · AI 项目管理咨询（AI Project Management Consulting）</h3>
+
+    <table>
+
+      <tr><th>档位</th><th>价格</th><th>交付物</th></tr>
+
+      <tr><td>Basic</td><td><b>$50</b></td><td>30 分钟厘清电话 + 书面《范围与风险清单》1 页</td></tr>
+
+      <tr><td>Standard</td><td><b>$180</b></td><td>完整《项目范围说明书》+《风险登记册》，1 周交付</td></tr>
+
+      <tr><td>Premium</td><td><b>$450</b></td><td>2 周顾问式陪跑：每周 1 次同步 + 交付框架 + 里程碑评审</td></tr>
+
+    </table>
+
+    <p class="copy-hint">Gig 描述可复用 2.3 的 Overview 第一段，结尾加："Perfect for teams adopting LLMs who need PM discipline, not just tools."</p>
+
+
+
+    <h3>Gig 2 · 企业 AI 培训课程设计（Corporate AI Training Design）</h3>
+
+    <table>
+
+      <tr><th>档位</th><th>价格</th><th>交付物</th></tr>
+
+      <tr><td>Basic</td><td><b>$120</b></td><td>单主题模块大纲（1 个知识点，含学习目标）</td></tr>
+
+      <tr><td>Standard</td><td><b>$350</b></td><td>完整 2 小时课程 PPT + 讲师手册 + 练习</td></tr>
+
+      <tr><td>Premium</td><td><b>$800</b></td><td>3 模块培训项目 + 测验题 + 学员手册 + 1 次试讲反馈</td></tr>
+
+    </table>
+
+
+
+    <h3>Gig 3 · AI 工具辅导 & 双语字幕视频（AI Tool Coaching & Bilingual Video）</h3>
+
+    <table>
+
+      <tr><th>档位</th><th>价格</th><th>交付物</th></tr>
+
+      <tr><td>Basic</td><td><b>$40</b></td><td>5 分钟 AI 配音短视频（EN 或 ZH 任选）</td></tr>
+
+      <tr><td>Standard</td><td><b>$150</b></td><td>15 分钟培训短片 + EN/ZH 双语字幕 + 脚本</td></tr>
+
+      <tr><td>Premium</td><td><b>$400</b></td><td>3×10 分钟课程视频系列（含脚本、配音、字幕、封面）</td></tr>
+
+    </table>
+
+    <div class="box info">ℹ️ 这三类都基于你真实能力（PM 培训 + AI 落地 + 字幕/配音流程），不虚标。第 4 类可选：中英双语数据标注/转录（接 Appen/Rev 类活时的补充），价格按字数/分钟另议。</div>
+
+  </section>
+
+<section id="s4">
+
+    <h2>四、首条投标话术（Cover Letter 模板）</h2>
+
+    <p>针对「AI project manager / PM consulting」类招聘 Job。三段式：开场对上需求 → 给一个具体相关点 → 低门槛试探成交。</p>
+
+    <pre>Hi [Client Name],
+
+
+
+I read your post about [their specific need] and it maps closely to work I've done for 20 years — helping enterprises scope and deliver project-management initiatives, now extended to AI adoption.
+
+
+
+What I'd bring: [one concrete point from their job — e.g. "a risk register tuned for LLM pilots"]. I recently guided a team through [brief proof / your approach] and it cut their rework by [result if any].
+
+
+
+I'm new to Upwork but not to the craft. Happy to do a small paid trial (Basic gig) so you can judge fit before any bigger commitment. Available EST business hours.
+
+
+
+Looking forward,
+
+你的护照姓名（拼音）</pre>
+
+    <p class="copy-hint">↑ 把 [方括号] 换成客户帖子里的真实信息，每段都改、绝不群发原文。</p>
+
+    <div class="box warn">⚠️ 投标 3 不：不抄模板原文不改名；不谎称英语母语（写 "fluent in written English" 即可）；不接要求「先付费给你」或「代写学术/代考」的 job——100% 骗局。</div>
+
+  </section>
+
+<section id="s5">
+
+    <h2>五、新人避雷 & 首月节奏</h2>
+
+    <div class="mermaid">
+
+graph TD
+
+  A[第1周：完善Profile+发3个Gig+投10单] --> B[第2-3周：首单交付·换5星好评]
+
+  B --> C[第4周起：时薪$35→$50·减少低质投递]
+
+  C --> D[第2个月：好评≥5后提到$60-90·只接匹配单]
+
+    </div>
+
+    <h3>新手必记 5 条</h3>
+
+    <ul>
+
+      <li><b>Connects 是资源</b>：新人每投约耗 8–12 个 Connects，前 10 单只投「高度匹配 + 预算合理」的 job，别广撒网。</li>
+
+      <li><b>前 5 单压价换好评</b>：宁可接受 Basic 档低价，也要把交付质量拉满，好评是涨价的门票。</li>
+
+      <li><b>英语靠写不靠说</b>：Upwork 以文字沟通为主，你读写够用；视频会议如需要，可提前准备提纲。</li>
+
+      <li><b>每周登录 ≥ 3 次</b>：保持「Available」状态，算法才会推你的 Profile。</li>
+
+      <li><b>任何「先给你打钱/先付费/代写」一律拉黑举报</b>：正规客户不会这么操作。</li>
+
+    </ul>
+
+    <div class="box ok">✅ 一句话路线：先上架（Profile+3 Gig）→ 低价拿 5 星 → 涨价接匹配单。你 20 年 PM 底子，在 Upwork 上比问卷返利时薪高一个量级，值得优先投入。</div>
+
+  </section>
+
+</div>
+
+
+
+<div class="foot">本手册由 WorkBuddy 合并整理，整合自：美国收入渠道总览、Swagbucks+InboxDollars 问卷操作手册、Swagbucks 手机速查、Upwork 启动包。数据标注类结论详见同目录《国内数据标注接单与公会方案（备选）》与《内部资料》；招聘站点职位随时间变动，以官网实时为准。</div>
+
+</div>
+
+
+
+<script>
+
+function switchTab(i){
+
+  var btns=document.querySelectorAll('.tab-btn');
+
+  var pans=document.querySelectorAll('.panel');
+
+  btns.forEach(function(b){b.classList.remove('active');});
+
+  pans.forEach(function(p){p.classList.remove('active');});
+
+  btns[i].classList.add('active');
+
+  pans[i].classList.add('active');
+
+}
+
+</script>
+
+<div style="margin-top:28px;padding:14px 18px;background:#eff6ff;border-left:4px solid #1d4ed8;border-radius:8px;font-size:13.5px;color:#1e3a8a;">
+  📎 本篇是「数据标注 · 副业与收入」系列的<strong>美国篇</strong>。对应的<strong>国内篇（回国后 / 在国内的数据标注接单渠道）</strong>见：
+  <a href="cn-datalabel-guide.html" style="color:#1d4ed8;font-weight:bold;">国内个人数据标注接单攻略</a>。
+  返回：<a href="resources.html" style="color:#1d4ed8;font-weight:bold;">AI 实践资源</a>。
+</div>
+
+</body>
+
+</html>
+

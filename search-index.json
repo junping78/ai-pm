@@ -655,5 +655,19 @@
     "keywords": "软考 信息系统 项目管理师 备考 真题 模拟题 知识点 免费",
     "access": "free",
     "category": "读书笔记与参考"
+  },
+  {
+    "type": "page",
+    "title": "美国副业收入总手册 · 在美副业与数据标注",
+    "url": "us-side-income-guide.html",
+    "desc": "在美可操作的副业与数据标注渠道全梳理：问卷返利、本地零工、OpenTrain/dataannotation 工程图标注、17 项全球线上渠道（Prolific、Outlier、Upwork、UserTesting 等），附注册风控、账号隔离与兑换提现策略。脱敏公开版。",
+    "keywords": "美国副业 收入 数据标注 问卷 Swagbucks InboxDollars Craigslist Gigowl OpenTrain dataannotation Prolific Respondent Outlier Appen Upwork Fiverr UserTesting 纽黑文 副业 兼职 众包 自由职业 脱敏"
+  },
+  {
+    "type": "page",
+    "title": "国内个人数据标注接单攻略",
+    "url": "cn-datalabel-guide.html",
+    "desc": "对标 OpenTrain / DataAnnotation 的国内真实可用个人数据标注接单渠道：腾讯搜活帮、百度众测、京东众智等，含单价、公会（团队分包）模式与避坑。回国后 / 在国内做标注副业的接单指南。",
+    "keywords": "国内 数据标注 接单 腾讯搜活帮 百度众测 京东众智 标贝 众包 公会 副业 兼职 回国 标注平台 AI案例"
   }
 ]
