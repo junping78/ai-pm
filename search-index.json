@@ -64,6 +64,41 @@
   },
   {
     "type": "page",
+    "title": "先有信号 · 纽黑文手机卡与套餐攻略",
+    "url": "new-haven-phone-guide.html",
+    "desc": "落地美国第一件事是有信号。3道题对号入座出方案，7家运营商按价格/信号/上手/中美友好4维打分对比，五步照做清单、双卡分工图、国内保号套餐话术模板、8个真实的坑。无返利无合作。",
+    "keywords": "先有信号 纽黑文 手机卡 电话卡 美国手机卡 套餐 US Mobile Tello Mint Mobile Visible Lycamobile Ultra Mobile T-Mobile Verizon AT&T eSIM 双卡 双待 停机保号 保号套餐 最低套餐 国内号 验证码 短信 数据漫游 无SSN 预付费 prepaid 访学 留学生 陪读 耶鲁 Yale New Haven 中美双号"
+  },
+  {
+    "type": "page",
+    "title": "耶鲁大学附近购物攻略 · 纽黑文商超地图",
+    "url": "new-haven-yale-shopping.html",
+    "desc": "耶鲁大学纽黑文周边12家商超，按仓储会员/综合商超/家居电子/折扣名品4类着色，交互地图串联路线与距离，逐店给出营业时间、价格定位与性价比评分。",
+    "keywords": "耶鲁 纽黑文 购物 攻略 商超 超市 地图 Yale New Haven shopping Costco BJ's Trader Joe's Stop Shop Whole Foods Target Walmart IKEA 留学生 访学 陪读 采购 性价比 AI案例"
+  },
+  {
+    "type": "page",
+    "title": "纽黑文 2 日游行程 · 耶鲁周边游玩地图",
+    "url": "new-haven-yale-itinerary.html",
+    "desc": "耶鲁大学纽黑文2日行程，17个景点按景点/美食/文化/购物/夜生活5类着色，交互地图串联路线。DAY1耶鲁人文，DAY2自然海滨，逐点附距离、开放时间与推荐指数。",
+    "keywords": "耶鲁 纽黑文 2日游 行程 攻略 旅游 地图 Yale New Haven itinerary 访学 看校 陪读 探亲 博物馆 美术馆 图书馆 美食 海滨 灯塔 East Rock 夜生活 AI案例"
+  },
+  {
+    "type": "page",
+    "title": "纽黑文代步自行车攻略 · 免费/低价淘车与防盗",
+    "url": "new-haven-bike-guide.html",
+    "desc": "耶鲁/纽黑文地区免费或低价自行车的获取渠道：公益车店、Facebook Marketplace、Yale Free & For Sale、Craigslist、跳蚤市场，附地址、营业时间、车型建议、验车清单和防盗提醒。",
+    "keywords": "纽黑文 自行车 二手 免费自行车 代步 Yale New Haven bike Bradley Street Bicycle Co-op Facebook Marketplace Craigslist 跳蚤市场 防盗 U型锁 验车 学生 耶鲁 访学 陪读 AI案例"
+  },
+  {
+    "type": "page",
+    "title": "AI 项目现场资源调研 · 耶鲁停车场建设项目",
+    "url": "yale-parking-project-survey.html",
+    "desc": "用AI把项目现场资源调研做成一张地图：以耶鲁神学院停车场建设项目为例，摸排周边住宿/餐饮/交通/材料市场4维度24个资源点，逐点给出距离车程与项目决策建议。",
+    "keywords": "AI项目管理 项目现场调研 施工现场 项目选址 供应商调研 建材市场 材料采购 后勤规划 地图可视化 耶鲁 纽黑文 停车场 Yale New Haven 项目管理案例 资源摸排"
+  },
+  {
+    "type": "page",
     "title": "动点·就近推荐 — AI 路径优化 Demo",
     "url": "dongdian-route-demo.html",
     "desc": "一个可复用的路径优化引擎Demo：从旅游出行到快递投递，同一个算法内核解决'先去哪、后去哪'。最近邻+TSP全局最优双策略，步行/自行车/驾车三模式，境内外自动切换数据源。",
