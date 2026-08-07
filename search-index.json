@@ -63,6 +63,13 @@
     "keywords": "亮晶晶 AI心得 工作台 知识管理 收件箱 卡片库 抽卡复习 经验沉淀 效率 方法论 可运行工具"
   },
   {
+    "type": "article",
+    "title": "可视化四层框架：一张图应该活在哪一层",
+    "url": "note-visual-layer-framework.html",
+    "desc": "和 AI 协作画图时，按交付重量分层：Mermaid 快速画结构、SVG 聊天直观大图、表格兜底速查、HTML 文件归档打印。图形三阶 + 文字一层 = 四种呈现，含四句取舍口诀与实战对照表。",
+    "keywords": "亮晶晶 可视化 四层框架 Mermaid SVG 表格 HTML 交付 图形 效率方法 可视化分层 选型口诀 AI手记"
+  },
+  {
     "type": "page",
     "title": "好穿不贵 · 全球高性价比运动服选品研究",
     "url": "sportswear-guide.html",

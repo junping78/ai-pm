@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可视化四层框架：一张图应该活在哪一层 | 亮晶晶 · AI 实践手记</title>
+<meta name="description" content="做图前先想清楚"这张图应该活在哪一层"：Mermaid 快速画结构、SVG 聊天直观大图、表格兜底速查、HTML 文件归档打印。四句口诀告别选型纠结。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="可视化四层框架：一张图应该活在哪一层 | 亮晶晶 · AI 实践手记">
+<meta property="og:description" content="Mermaid→SVG→表格→HTML 文件，按交付重量给图选一层。四句口诀：快速画结构用 Mermaid，聊天里要直观大图用 SVG，速查兜底用表格，归档打印用 HTML。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/note-visual-layer-framework.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  .notes-hero {
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 100%);
+    color: #fff;
+    padding: 52px 20px 44px;
+    text-align: center;
+  }
+  .notes-hero .container-narrow { max-width: 760px; margin: 0 auto; }
+  .notes-hero h1 {
+    font-size: 31px; font-weight: 700;
+    margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.4;
+  }
+  .notes-hero .subtitle {
+    font-size: 16px; opacity: 0.92; max-width: 620px;
+    margin: 0 auto; line-height: 1.7;
+  }
+  .notes-hero .back-link {
+    display: inline-block; margin-bottom: 18px;
+    font-size: 14px; color: rgba(255,255,255,0.92); text-decoration: none;
+  }
+  .notes-hero .back-link:hover { color: #fff; text-decoration: underline; }
+
+  .note-detail { padding: 36px 0 48px; }
+  .note-detail .container-narrow { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+  .note-meta-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 18px;
+  }
+  .note-meta-bar .tag { font-size: 12px; padding: 3px 11px; border-radius: 12px; font-weight: 500; }
+  .tag-shine { background: #FFF8E1; color: #B8860B; }
+  .tag-scene { background: var(--c-primary-bg); color: var(--c-primary-dark); }
+  .tag-tool { background: var(--c-accent-bg); color: var(--c-accent); }
+  .note-meta-bar .date { font-size: 13px; color: var(--c-text-muted); margin-left: auto; }
+
+  .lede {
+    background: var(--c-primary-bg); border-left: 4px solid var(--c-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px; font-size: 15.5px; line-height: 1.85;
+    color: var(--c-primary-dark); margin-bottom: 30px;
+  }
+  .lede strong { color: var(--c-primary); }
+
+  .note-body { font-size: 15px; line-height: 1.85; color: var(--c-text); }
+  .note-body h3 {
+    font-size: 18px; font-weight: 700; color: var(--c-primary-dark);
+    margin: 34px 0 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .note-body p { margin-bottom: 12px; }
+  .note-body ol, .note-body ul { padding-left: 1.6em; margin-bottom: 14px; }
+  .note-body li { margin-bottom: 6px; }
+  .note-body .highlight { background: #FFF8E1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+
+  /* 四层对照表 */
+  .layer-table { width: 100%; border-collapse: collapse; margin: 18px 0 28px; }
+  .layer-table th,
+  .layer-table td {
+    border: 1px solid var(--c-border); padding: 12px 14px; text-align: left; vertical-align: top;
+  }
+  .layer-table th {
+    background: var(--c-primary-bg); color: var(--c-primary-dark); font-weight: 600; font-size: 14px;
+  }
+  .layer-table td { background: #fff; font-size: 14px; line-height: 1.7; }
+  .layer-table .layer-name { font-weight: 700; color: var(--c-primary); }
+  .layer-table .weak { color: #9a6b6b; }
+
+  /* 口诀卡 */
+  .mnemonic {
+    background: #fff; border: 1px solid var(--c-border); border-radius: var(--radius);
+    padding: 20px 24px; margin: 18px 0 28px;
+  }
+  .mnemonic h4 { margin: 0 0 12px; font-size: 15px; color: var(--c-primary-dark); }
+  .mnemonic ul { margin: 0; padding-left: 1.5em; }
+  .mnemonic li { margin-bottom: 8px; }
+  .mnemonic code {
+    background: var(--c-primary-bg); color: var(--c-primary-dark);
+    padding: 1px 6px; border-radius: 4px; font-family: SF Mono, Consolas, monospace;
+    font-size: 13px;
+  }
+
+  /* 截图 */
+  .note-figure {
+    margin: 18px 0 28px;
+  }
+  .note-figure img {
+    max-width: 100%; width: 100%; border-radius: 8px; border: 1px solid var(--c-border);
+  }
+  .note-figure figcaption {
+    font-size: 13px; color: var(--c-text-muted); margin-top: 8px; line-height: 1.6;
+  }
+
+  .prereq {
+    background: #FFF8E1; border: 1px solid #F0D98C;
+    border-radius: var(--radius-sm); padding: 14px 18px;
+    font-size: 14px; color: #8a6d1a; line-height: 1.7; margin: 24px 0 8px;
+  }
+  .prereq strong { color: #B8860B; }
+
+  @media (max-width: 640px) {
+    .notes-hero h1 { font-size: 25px; }
+    .layer-table th, .layer-table td { padding: 10px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="notes-hero">
+    <div class="container-narrow">
+        <a href="resources.html" class="back-link">&larr; 返回 AI实践资源</a>
+        <h1>✨ 可视化四层框架</h1>
+        <p class="subtitle">
+            一张图应该活在哪一层？<br>
+            <strong style="color:#fff;">图形三阶 + 文字一层 = 四种呈现</strong>，按交付重量选，选型不再纠结。
+        </p>
+    </div>
+</header>
+
+<main class="note-detail">
+    <div class="container-narrow">
+
+        <div class="note-meta-bar">
+            <span class="tag tag-shine">亮晶晶</span>
+            <span class="tag tag-scene">效率方法</span>
+            <span class="tag tag-tool">可视化</span>
+            <span class="date">2026-08-07</span>
+        </div>
+
+        <div class="lede">
+            <strong>一句话结论：</strong>可视化不是"越fancy越好"，而是<strong>按交付重量分层</strong>。聊天里快速对齐用轻图，要归档打印用重图；文字兜底永远留一条后路。四句口诀：<strong>快速画结构→Mermaid，聊天要直观大图→SVG，速查兜底→表格，归档打印→HTML 文件</strong>。
+        </div>
+
+        <div class="note-body">
+
+            <h3>🗺️ 四层全景</h3>
+            <p>严格说是<strong>图形三阶 + 文字一层 = 四种呈现</strong>。图形化的三级是 Mermaid → SVG → HTML 文件，表格则独立于图形，作为"文字兜底层"。</p>
+
+            <table class="layer-table">
+                <thead>
+                    <tr>
+                        <th>层</th>
+                        <th>类别</th>
+                        <th>呈现位置</th>
+                        <th>最适合</th>
+                        <th>劣势</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="layer-name">① Mermaid</span></td>
+                        <td>图形·轻</td>
+                        <td>聊天内即时渲染</td>
+                        <td>快速画结构 / 流程</td>
+                        <td class="weak">字号小、嵌套 subgraph 挤，在聊天里不够直观</td>
+                    </tr>
+                    <tr>
+                        <td><span class="layer-name">② SVG 图层</span></td>
+                        <td>图形·中</td>
+                        <td>聊天内 inline widget</td>
+                        <td>聊天里要直观大图</td>
+                        <td class="weak">不可打印、不便单独存档</td>
+                    </tr>
+                    <tr>
+                        <td><span class="layer-name">③ 表格层</span></td>
+                        <td>文字兜底</td>
+                        <td>聊天 / 文档皆可</td>
+                        <td>速查、任何环境稳看</td>
+                        <td class="weak">不够"图"，信息密度高但不够直观</td>
+                    </tr>
+                    <tr>
+                        <td><span class="layer-name">④ HTML 文件</span></td>
+                        <td>图形·重</td>
+                        <td>独立交付物</td>
+                        <td>归档 / 打印 / 长期保存</td>
+                        <td class="weak">最重，需生成文件</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 取舍口诀（照这个选）</h3>
+            <div class="mnemonic">
+                <h4>先问自己：这张图要活在哪里？</h4>
+                <ul>
+                    <li><strong>快速画结构</strong> → 用 <code>Mermaid</code>（但聊天里字号小，复杂时慎选）</li>
+                    <li><strong>聊天里要直观大图</strong> → 用 <code>SVG widget</code></li>
+                    <li><strong>要速查兜底</strong> → 用 <code>表格</code></li>
+                    <li><strong>要归档 / 打印 / 长期</strong> → 用 <code>HTML 文件</code></li>
+                </ul>
+            </div>
+
+            <h3>🔍 实战印证：我们这几轮走的路</h3>
+            <p>这个框架不是拍脑袋，是从真实协作里长出来的：</p>
+            <ul>
+                <li>先用 <strong>Mermaid</strong> 画结构 → 发现聊天里字小、嵌套一多就不直观；</li>
+                <li>换成 <strong>SVG 大图 + 表格兜底</strong> → 聊天里能看清，文字版也能快速查；</li>
+                <li>最后独立成 <strong>HTML 文件</strong> → 可归档、可打印、长期可用。</li>
+            </ul>
+            <p>这条路径，正好就是四层框架的现场演示。</p>
+
+            <figure class="note-figure">
+                <img src="visual-layer-framework-1.png" alt="可视化四层框架：取舍口诀与实战印证">
+                <figcaption>图 1：四层框架的取舍口诀与实战印证——从 Mermaid 到 SVG + 表格，再到独立 HTML 文件。</figcaption>
+            </figure>
+
+            <figure class="note-figure">
+                <img src="visual-layer-framework-2.png" alt="可视化四层框架校准版对照表">
+                <figcaption>图 2：校准版四层对照表——"图形三阶 + 文字一层"，每一层都有明确的呈现位置、最适合场景和劣势。</figcaption>
+            </figure>
+
+            <h3>🔗 连接全局规则</h3>
+            <p>这套框架和全站 delivery 规则完全自洽：</p>
+            <ul>
+                <li><strong>聊天里结构化内容</strong> → 默认 <span class="highlight">Mermaid</span>（字号体验一般，紧要时上 SVG）</li>
+                <li><strong>HTML 交付物里</strong> → 用 <span class="highlight">原生 CSS / SVG</span>，绝不塞 Mermaid CDN</li>
+            </ul>
+
+            <div class="prereq">
+                <strong>💡 使用建议：</strong>每次想画图前，先花 10 秒判断"这张图要活在哪一层"。选轻不选重能省时间；该重的时候不省力气，才能归档复用。四个选项不是互斥的，<strong>同一主题可以从 Mermaid 草稿 → SVG 大图 → 表格兜底 → HTML 交付物逐级升级</strong>。
+            </div>
+
+        </div>
+
+        <!-- 延伸阅读 -->
+        <div class="related-bar" style="background:var(--c-primary-bg);border-radius:var(--radius);padding:18px 22px;margin:34px 0 8px;">
+            <strong style="color:var(--c-primary-dark);">延伸阅读：</strong>
+            <a href="ai-notes.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">亮晶晶手记合集</a>
+            <a href="ai-tips-workbench.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">AI 心得工作台</a>
+            <a href="resources.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">AI实践资源</a>
+            <a href="ai-tools.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;">AI工具箱</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="resources.html">AI实践资源</a>
+                <a href="ai-tools.html">AI工具箱</a>
+                <a href="weekly-list.html">教师周报</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+</body>
+</html>
