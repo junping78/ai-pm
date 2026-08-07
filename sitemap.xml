@@ -36,6 +36,11 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://junping78.github.io/ai-pm/ai-tips-workbench.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://junping78.github.io/ai-pm/teacher-ai-weekly.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>

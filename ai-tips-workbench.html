@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI 心得工作台 | 亮晶晶 · AI 实践手记 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="把随手丢进 inbox 的 AI 使用心得变成可检索、可复习的卡片库：收件箱 → 卡片化 → 每日抽卡复习。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+/* 工作台专属样式（复用站点 CSS 变量，带 fallback） */
+.wb-wrap{max-width:760px;margin:0 auto;}
+.wb-backup{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.wb-banner{display:none;background:var(--c-primary-bg,#EEEDFE);border-left:4px solid var(--c-primary,#534AB7);border-radius:0 var(--radius-sm,8px) var(--radius-sm,8px) 0;padding:12px 16px;margin-bottom:16px;font-size:14px;color:var(--c-primary-dark,#3C3489);line-height:1.6;}
+
+.wb-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 16px;border-radius:var(--radius-sm,8px);font-size:14px;font-weight:500;border:none;cursor:pointer;transition:.15s;background:var(--c-primary,#534AB7);color:#fff;}
+.wb-btn:hover{background:var(--c-primary-dark,#3C3489);}
+.wb-btn.ghost{background:#fff;color:var(--c-primary,#534AB7);border:1.5px solid var(--c-primary-border,#CECBF6);}
+.wb-btn.ghost:hover{background:var(--c-primary-bg,#EEEDFE);}
+.wb-btn.warn{background:#fff;color:var(--c-danger,#A32D2D);border:1.5px solid #f3c2c2;}
+.wb-btn.warn:hover{background:var(--c-danger-bg,#FCEBEB);}
+.wb-btn.mini{height:40px;padding:0 13px;font-size:13px;}
+.wb-btn svg{width:16px;height:16px;flex:none;}
+
+.wb-tabs{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);border-top:1px solid var(--c-border,#e8e8e8);display:flex;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -2px 10px rgba(0,0,0,0.04);}
+.wb-tabs button{flex:1;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--c-text-light,#666);font-size:12px;background:none;border:none;cursor:pointer;font-family:inherit;}
+.wb-tabs button svg{width:22px;height:22px;}
+.wb-tabs button.on{color:var(--c-primary,#534AB7);font-weight:600;}
+
+.wb-view{display:none;}
+.wb-view.on{display:block;}
+
+.wb-sec-title{font-size:14px;font-weight:600;color:var(--c-text-light,#666);margin:24px 0 10px;display:flex;align-items:center;gap:7px;}
+.wb-sec-title svg{width:18px;height:18px;color:var(--c-primary,#534AB7);flex:none;}
+
+/* 今日卡片 */
+.wb-card{background:#fff;border:1px solid var(--c-border,#e8e8e8);border-radius:var(--radius,14px);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow-sm,0 2px 4px rgba(0,0,0,0.04));}
+.wb-card.over{background:var(--c-danger-bg,#FCEBEB);border-color:#f3c2c2;}
+.wb-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.wb-card-title{font-weight:600;font-size:15px;color:var(--c-text,#2c2c2a);line-height:1.4;}
+.wb-card-meta{font-size:12px;color:var(--c-text-light,#666);margin-top:4px;}
+.wb-badge{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--c-primary-bg,#EEEDFE);color:var(--c-primary-dark,#3C3489);font-weight:500;}
+.wb-badge.over{background:#fff;color:var(--c-danger,#A32D2D);border:1px solid #f3c2c2;}
+.wb-card-body{font-size:14px;color:var(--c-text,#2c2c2a);margin:10px 0 12px;line-height:1.7;white-space:pre-wrap;}
+.wb-card-actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* 复习盒 */
+.wb-review{background:var(--c-primary-bg,#EEEDFE);border:1px solid var(--c-primary-border,#CECBF6);border-radius:var(--radius,14px);padding:16px;margin-bottom:14px;}
+.wb-review h4{margin:0 0 4px;font-size:15px;color:var(--c-primary-dark,#3C3489);}
+.wb-review p{margin:6px 0 12px;color:var(--c-text,#2c2c2a);font-size:14px;line-height:1.6;}
+.wb-empty{text-align:center;color:var(--c-text-light,#666);padding:34px 16px;font-size:14px;}
+
+/* 筛选与卡片库 */
+.wb-filters{background:#fff;border:1px solid var(--c-border,#e8e8e8);border-radius:var(--radius,14px);padding:14px;margin-bottom:14px;box-shadow:var(--shadow-sm,0 2px 4px rgba(0,0,0,0.04));}
+.wb-frow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.wb-frow:last-child{margin-bottom:0;}
+.wb-chip{display:inline-flex;align-items:center;height:40px;padding:0 14px;border-radius:20px;background:#fff;border:1.5px solid var(--c-border,#e8e8e8);font-size:13px;color:var(--c-text-light,#666);cursor:pointer;font-family:inherit;transition:.15s;}
+.wb-chip.on{background:var(--c-primary,#534AB7);color:#fff;border-color:var(--c-primary,#534AB7);}
+.wb-search{flex:1;min-width:180px;position:relative;}
+.wb-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--c-text-light,#666);}
+.wb-search input{width:100%;padding:10px 12px 10px 36px;font-size:16px;border:1.5px solid var(--c-border,#e8e8e8);border-radius:var(--radius-sm,8px);font-family:inherit;color:var(--c-text,#2c2c2a);}
+.wb-search input:focus{outline:none;border-color:var(--c-primary,#534AB7);box-shadow:0 0 0 3px rgba(83,74,183,0.1);}
+
+.wb-topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;}
+.wb-count{font-size:13px;color:var(--c-text-light,#666);}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+
+.wb-libcard{background:#fff;border:1px solid var(--c-border,#e8e8e8);border-radius:var(--radius,14px);padding:16px;box-shadow:var(--shadow-sm,0 2px 4px rgba(0,0,0,0.04));display:flex;flex-direction:column;transition:.2s;}
+.wb-libcard:hover{border-color:var(--c-primary-border,#CECBF6);box-shadow:var(--shadow-md,0 4px 12px rgba(0,0,0,0.08));}
+.wb-libcard .ct{font-weight:600;font-size:15px;line-height:1.4;color:var(--c-text,#2c2c2a);}
+.wb-libcard .tool{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--c-primary,#534AB7);background:var(--c-primary-bg,#EEEDFE);padding:3px 10px;border-radius:20px;margin:9px 0 6px;width:fit-content;}
+.wb-libcard .tool svg{width:13px;height:13px;}
+.wb-libcard .scene{font-size:12px;color:var(--c-text-light,#666);margin-bottom:6px;}
+.wb-libcard .body{font-size:14px;color:var(--c-text,#2c2c2a);white-space:pre-wrap;flex:1;line-height:1.6;}
+.wb-libcard .tags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 6px;}
+.wb-libcard .tags span{font-size:11px;background:#f1f5f9;color:#475569;padding:3px 8px;border-radius:6px;}
+.wb-libcard .stars{color:#ef9f27;font-size:14px;letter-spacing:1px;display:flex;align-items:center;gap:2px;}
+.wb-libcard .stars svg{width:14px;height:14px;}
+.wb-libcard-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--c-border,#e8e8e8);gap:8px;flex-wrap:wrap;}
+.wb-muted{font-size:11px;color:var(--c-text-light,#666);}
+.wb-iconbtn{width:44px;height:44px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;background:#f8fafc;border:1.5px solid var(--c-border,#e8e8e8);cursor:pointer;transition:.15s;}
+.wb-iconbtn:hover{background:var(--c-primary-bg,#EEEDFE);border-color:var(--c-primary-border,#CECBF6);}
+.wb-iconbtn svg{width:17px;height:17px;color:#475569;}
+.wb-iconbtn.danger:hover{background:var(--c-danger-bg,#FCEBEB);border-color:#f3c2c2;}
+.wb-iconbtn.danger svg{color:var(--c-danger,#A32D2D);}
+
+/* 统计 */
+.wb-statcard{background:#fff;border:1px solid var(--c-border,#e8e8e8);border-radius:var(--radius,14px);padding:18px;margin-bottom:14px;box-shadow:var(--shadow-sm,0 2px 4px rgba(0,0,0,0.04));}
+.wb-statcard h4{margin:0 0 14px;font-size:14px;color:var(--c-text-light,#666);font-weight:600;}
+.wb-donut-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.wb-legend{font-size:13px;color:var(--c-text,#2c2c2a);}
+.wb-legend div{display:flex;align-items:center;gap:7px;margin:5px 0;}
+.wb-dot{width:11px;height:11px;border-radius:3px;flex:none;}
+.wb-bar-row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:13px;}
+.wb-bar-row .name{width:90px;flex:none;color:var(--c-text,#2c2c2a);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wb-bar-track{flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden;}
+.wb-bar-fill{height:100%;background:var(--c-primary,#534AB7);border-radius:6px;}
+.wb-bar-row .num{width:28px;text-align:right;color:var(--c-text-light,#666);flex:none;}
+
+/* 弹层（新增/编辑） */
+.wb-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:80;display:none;align-items:flex-end;justify-content:center;}
+.wb-mask.on{display:flex;}
+.wb-sheet{background:#fff;width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto;}
+.wb-sheet h3{margin:0 0 16px;font-size:17px;color:var(--c-text,#2c2c2a);}
+.wb-field{margin-bottom:14px;}
+.wb-field label{display:block;font-size:13px;color:var(--c-text-light,#666);margin-bottom:5px;font-weight:500;}
+.wb-field input,.wb-field textarea,.wb-field select{width:100%;padding:11px 13px;font-size:16px;border:1.5px solid var(--c-border,#e8e8e8);border-radius:var(--radius-sm,8px);font-family:inherit;color:var(--c-text,#2c2c2a);background:#fff;}
+.wb-field input:focus,.wb-field textarea:focus,.wb-field select:focus{outline:none;border-color:var(--c-primary,#534AB7);box-shadow:0 0 0 3px rgba(83,74,183,0.1);}
+.wb-field textarea{resize:vertical;min-height:90px;}
+.wb-field .hint{font-size:11px;color:var(--c-text-muted,#999);margin-top:4px;}
+.wb-star-pick{display:flex;gap:6px;}
+.wb-star-pick svg{width:30px;height:30px;color:#d1d5db;cursor:pointer;}
+.wb-star-pick svg.on{color:#ef9f27;}
+.wb-seg{display:flex;gap:8px;}
+.wb-seg button{flex:1;height:42px;border:1.5px solid var(--c-border,#e8e8e8);border-radius:var(--radius-sm,8px);font-size:14px;color:var(--c-text-light,#666);background:#fff;cursor:pointer;font-family:inherit;}
+.wb-seg button.on{background:var(--c-primary,#534AB7);color:#fff;border-color:var(--c-primary,#534AB7);font-weight:500;}
+.wb-sheet-actions{display:flex;gap:10px;margin-top:6px;}
+.wb-sheet-actions .wb-btn{flex:1;}
+
+/* 二次确认 */
+.wb-dialog-mask{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:90;display:none;align-items:center;justify-content:center;padding:20px;}
+.wb-dialog-mask.on{display:flex;}
+.wb-dialog{background:#fff;border-radius:var(--radius,14px);padding:20px;max-width:380px;width:100%;box-shadow:var(--shadow-lg,0 8px 24px rgba(0,0,0,0.1));}
+.wb-dialog h4{margin:0 0 8px;font-size:16px;color:var(--c-text,#2c2c2a);}
+.wb-dialog p{margin:0 0 16px;font-size:14px;color:var(--c-text-light,#666);line-height:1.6;}
+.wb-dialog .row{display:flex;gap:10px;}
+.wb-dialog .row .wb-btn{flex:1;}
+
+/* 适配 */
+main.page-content{padding-bottom:calc(82px + env(safe-area-inset-bottom));}
+@media(min-width:769px){
+  .wb-tabs{position:static;border-top:none;border:1px solid var(--c-border,#e8e8e8);border-radius:var(--radius-sm,8px);margin-bottom:20px;background:#fff;box-shadow:none;}
+  .wb-tabs button{flex-direction:row;height:48px;gap:6px;font-size:14px;border-radius:var(--radius-sm,8px);}
+  main.page-content{padding-bottom:48px;}
+}
+@media(max-width:768px){
+  .wb-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li><a href="ai-project-management.html">AI项目管理</a></li>
+      <li><a href="weekly-list.html">教师周报</a></li>
+      <li><a href="ai-tools.html">AI工具箱</a></li>
+      <li><a href="resources.html" class="active">AI实践资源</a></li>
+      <li><a href="about.html#contact">联系</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container-narrow">
+    <h1>AI 心得工作台</h1>
+    <p class="page-subtitle">亮晶晶 · AI 实践手记 —— 把随手丢进 inbox 的 AI 使用心得变成可检索、可复习的卡片库</p>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="container-narrow wb-wrap">
+
+    <div class="wb-backup">
+      <button class="wb-btn ghost mini" id="btnExport">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>导出 JSON
+      </button>
+      <button class="wb-btn ghost mini" id="btnImport">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>导入 JSON
+      </button>
+      <input type="file" id="fileInput" accept="application/json" style="display:none">
+      <button class="wb-btn ghost mini warn" id="btnClearDemo">清空示例</button>
+    </div>
+
+    <div class="wb-banner" id="banner">数据保存在你的浏览器本地，换设备前建议点上方「导出 JSON」做一份备份，防止意外丢失。</div>
+
+    <div class="wb-tabs">
+      <button class="on" data-tab="today">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+        今日
+      </button>
+      <button data-tab="lib">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>
+        卡片库
+      </button>
+      <button data-tab="data">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 3v6h6"/></svg>
+        数据
+      </button>
+    </div>
+
+    <!-- 今日 -->
+    <section class="wb-view on" id="view-today">
+      <div class="wb-sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+        今天要处理
+      </div>
+      <div id="todayList"></div>
+
+      <div class="wb-sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v4h-4"/></svg>
+        每日抽卡复习
+      </div>
+      <div class="wb-review" id="reviewBox">
+        <h4>随机抽取，对抗遗忘</h4>
+        <p style="margin:0 0 12px">点「抽一张」随机翻出 1–3 条心得；看完点「我复习了」记录今天。</p>
+        <button class="wb-btn mini" id="btnDraw">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v4h-4"/></svg>
+          抽一张
+        </button>
+      </div>
+      <div id="reviewCards"></div>
+    </section>
+
+    <!-- 卡片库 -->
+    <section class="wb-view" id="view-lib">
+      <div class="wb-topbar">
+        <div class="wb-count" id="libCount"></div>
+        <button class="wb-btn mini" id="btnAdd">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+          新增心得
+        </button>
+      </div>
+      <div class="wb-filters">
+        <div class="wb-frow">
+          <div class="wb-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+            <input type="text" id="q" placeholder="搜索标题 / 内容 / 工具 / 标签">
+          </div>
+        </div>
+        <div class="wb-frow" id="statusChips">
+          <button class="wb-chip on" data-status="all">全部</button>
+          <button class="wb-chip" data-status="收件箱">收件箱</button>
+          <button class="wb-chip" data-status="已归类">已归类</button>
+        </div>
+        <div class="wb-frow" id="starChips">
+          <button class="wb-chip on" data-star="0">任意星</button>
+          <button class="wb-chip" data-star="5">★★★★★</button>
+          <button class="wb-chip" data-star="4">★★★★+</button>
+          <button class="wb-chip" data-star="3">★★★+</button>
+        </div>
+        <div class="wb-frow" id="tagChips" style="margin-top:2px"></div>
+      </div>
+      <div class="wb-grid" id="libGrid"></div>
+    </section>
+
+    <!-- 数据 -->
+    <section class="wb-view" id="view-data">
+      <div class="wb-statcard">
+        <h4>状态分布</h4>
+        <div class="wb-donut-wrap">
+          <svg id="donut" width="140" height="140" viewBox="0 0 140 140"></svg>
+          <div class="wb-legend" id="donutLegend"></div>
+        </div>
+      </div>
+      <div class="wb-statcard">
+        <h4>标签 TOP（按条数）</h4>
+        <div id="tagBars"></div>
+      </div>
+      <div class="wb-statcard">
+        <h4>数据管理</h4>
+        <p class="wb-muted" id="totalLine" style="margin:0 0 14px;line-height:1.6"></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="wb-btn ghost" id="btnExport2">导出 JSON 备份</button>
+          <button class="wb-btn warn" id="btnClearAll">清空全部数据</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+      <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+      <div class="footer-links">
+        <a href="teacher-ai-weekly.html">周报介绍</a>
+        <a href="tags.html">标签</a>
+        <a href="search.html">搜索</a>
+      </div>
+    </div>
+    <div class="footer-contact">
+      微信：JPAILab<br>
+      <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+  </div>
+</footer>
+
+<!-- 新增/编辑 弹层 -->
+<div class="wb-mask" id="mask">
+  <div class="wb-sheet">
+    <h3 id="sheetTitle">新增心得</h3>
+    <div class="wb-field">
+      <label>标题</label>
+      <input type="text" id="f_title" placeholder="一句话概括这条经验">
+    </div>
+    <div class="wb-field">
+      <label>工具 / 来源</label>
+      <input type="text" id="f_tool" placeholder="如：稿定设计 / WorkBuddy / LinkedIn">
+    </div>
+    <div class="wb-field">
+      <label>场景</label>
+      <input type="text" id="f_scene" placeholder="这条经验在什么情况下产生？">
+    </div>
+    <div class="wb-field">
+      <label>具体内容 / 做法</label>
+      <textarea id="f_content" rows="4" placeholder="步骤、注意事项、链接…"></textarea>
+    </div>
+    <div class="wb-field">
+      <label>效果 / 价值（可选）</label>
+      <input type="text" id="f_effect" placeholder="用完之后有什么好处？">
+    </div>
+    <div class="wb-field">
+      <label>标签</label>
+      <input type="text" id="f_tags" placeholder="逗号分隔，如：稿定设计, 设计, 效率">
+      <div class="hint">多个标签用中文或英文逗号分开</div>
+    </div>
+    <div class="wb-field">
+      <label>星级</label>
+      <div class="wb-star-pick" id="f_stars"></div>
+    </div>
+    <div class="wb-field">
+      <label>状态</label>
+      <div class="wb-seg" id="f_status">
+        <button type="button" data-st="收件箱" class="on">收件箱（待整理）</button>
+        <button type="button" data-st="已归类">已归类</button>
+      </div>
+    </div>
+    <div class="wb-sheet-actions">
+      <button class="wb-btn ghost" id="btnCancel">取消</button>
+      <button class="wb-btn" id="btnSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 二次确认 弹窗 -->
+<div class="wb-dialog-mask" id="dlg">
+  <div class="wb-dialog">
+    <h4 id="dlgTitle">确认操作</h4>
+    <p id="dlgText"></p>
+    <div class="row">
+      <button class="wb-btn ghost" id="dlgCancel">取消</button>
+      <button class="wb-btn" id="dlgOk">确认</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const KEY="wb_aitips_data";
+const TODAY=new Date().toISOString().slice(0,10);
+let tips=[];
+let editingId=null;
+let filters={status:"all",star:0,tag:"",q:""};
+
+function starSvg(filled){
+  return '<svg viewBox="0 0 24 24" fill="'+(filled?"currentColor":"none")+'" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8L6.6 19.6l1-6L3.3 9.4l6-.9z"/></svg>';
+}
+function toolSvg(){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l3 3"/><path d="M5 19l8.5-8.5a2.1 2.1 0 0 1 3 3L8 22"/><path d="M3 21h6"/></svg>';
+}
+
+const SEED=[
+  {id:"s1",seed:true,title:"稿定设计「图文分层」可自动分离背景与文字",tool:"稿定设计",scene:"在美图设计室/稿定设计里改图、换字，需单独改文字而不破坏背景",
+   content:"稿定设计的「图文分层」功能，点击后系统自动把背景与文字分离，方便单独改文字，不用重新抠图补背景。",effect:"改字效率大幅提升，原图背景零损坏。",
+   tags:["稿定设计","设计","图文分层","效率"],stars:4,status:"已归类",created:"2026-08-06",reviewed:[]},
+  {id:"s2",seed:true,title:"可视化四层框架（Mermaid→SVG→表格→HTML）",tool:"可视化",scene:"在 AI 对话、文档、网页等不同交付场景下，如何选图形化呈现方式",
+   content:"待补充完整内容。配图参考 visual-layer-framework-1.png / -2.png（已在网站根目录）。核心取舍：对话内流程/步骤默认 SVG；文档交付用 Mermaid；同类项对比用表格；完整交付物用 HTML 文件。",
+   tags:["可视化","方法论","图形化"],stars:3,status:"收件箱",created:"2026-08-06",reviewed:[]},
+
+  {id:"m1",seed:true,title:"单文件工作台 = 逻辑+存储+界面，可替代本地单人 C/S 应用",tool:"WorkBuddy",scene:"做一个只给自己/家人用的小工具",
+   content:"一个 HTML 文件把逻辑(本地存储)、存储、界面全内联，离线可用、不依赖服务器，正好平替「本地、单人、数据自存」类的 C/S 应用。",effect:"零部署、零运维，发给谁都能用。",
+   tags:["工作台","架构","本地存储","方法论"],stars:5,status:"已归类",created:"2026-08-06",reviewed:[]},
+  {id:"m2",seed:true,title:"工作台搭建四步流程",tool:"WorkBuddy",scene:"从零搭一个专属工作台",
+   content:"① 需求确认（≤2 轮，定 3 个核心模块）\n② 搭建（八大铁律保障质量）\n③ 交付部署（导出导入备份 + 部署链接 + 手机加桌面当 APP）\n④ 迭代（每次只加 1 模块，数据向后兼容）",
+   tags:["工作台","流程","方法论"],stars:5,status:"已归类",created:"2026-08-06",reviewed:[]},
+  {id:"m3",seed:true,title:"随机笔记三段流：收件箱 → 卡片库 → 复习",tool:"知识管理",scene:"有一堆随手丢的零散经验，又不想立刻整理",
+   content:"不强迫马上分类：先丢进「收件箱」，有空打标签进「卡片库」，再用「每日抽卡」滚动复习对抗遗忘。记了不复习 = 白记。",
+   tags:["工作台","知识管理","方法"],stars:4,status:"已归类",created:"2026-08-06",reviewed:[]},
+  {id:"m4",seed:true,title:"外部平台发文的两个边界（以 LinkedIn/Facebook 为例）",tool:"社媒",scene:"想把内容自动定时发到外部平台",
+   content:"边界一：单文件读不了本地目录，导入需我帮忙读或手动粘贴。\n边界二：定时发外部平台需要「桥接」——浏览器 OAuth 直发（半自动）或云函数/定时任务带 token（真无人值守）。\n红线：LinkedIn 个人档自动发受限，用公司页；Facebook 用公共主页(Page)。",
+   tags:["工作台","边界","社媒","LinkedIn"],stars:4,status:"已归类",created:"2026-08-06",reviewed:[]},
+  {id:"m5",seed:true,title:"SVG 优先于 Mermaid 用于对话内流程图/步骤",tool:"可视化规范",scene:"在对话里展示流程、步骤、过程",
+   content:"自 2026-08-06 起：对话内「流程图/步骤显示/过程可视化」默认用 SVG（Visualizer 内联渲染）；要粘进 Typora/Obsidian/GitHub 的 .md 仍用 Mermaid。两者各管一段，不冲突。",
+   tags:["可视化","规范","SVG","Mermaid"],stars:4,status:"已归类",created:"2026-08-06",reviewed:[]},
+  {id:"m6",seed:true,title:"工作台八大铁律",tool:"工作台",scene:"做任何个人工作台都要守住的底线",
+   content:"① 本地存储存数据 ② 首屏导出/导入备份、清空二次确认 ③ 全内联零外链 ④ 移动适配(按钮≥44px) ⑤ 今天要处理置顶(逾期标红) ⑥ 预置示例数据 ⑦ 最多 3–4 模块防过载 ⑧ 国内习惯(¥/红支绿收/YYYY-MM-DD)",
+   tags:["工作台","铁律","规范"],stars:5,status:"已归类",created:"2026-08-06",reviewed:[]}
+];
+
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(raw){ tips=JSON.parse(raw); return; }
+  }catch(e){}
+  tips=JSON.parse(JSON.stringify(SEED));
+  save();
+}
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(tips));
+  document.getElementById("banner").style.display = tips.length>=30 ? "block":"none";
+}
+
+function daysBetween(a,b){
+  const da=new Date(a), db=new Date(b);
+  return Math.round((db-da)/86400000);
+}
+function isOverdue(t){
+  if(t.status!=="收件箱") return false;
+  return daysBetween(t.created,TODAY)>7;
+}
+function uid(){ return "u"+Date.now()+Math.floor(Math.random()*1000); }
+function esc(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
+function starStr(n){ let s=""; for(let i=1;i<=5;i++) s+= i<=n?"★":"☆"; return s; }
+
+function renderToday(){
+  const box=document.getElementById("todayList");
+  const inbox=tips.filter(t=>t.status==="收件箱");
+  if(inbox.length===0){
+    box.innerHTML='<div class="wb-empty">收件箱是空的，随手记一条心得丢进来吧。</div>';
+  }else{
+    box.innerHTML=inbox.map(t=>{
+      const over=isOverdue(t);
+      return `<div class="wb-card ${over?'over':''}">
+        <div class="wb-card-head">
+          <div class="wb-card-title">${esc(t.title)}</div>
+          <span class="wb-badge ${over?'over':''}">${over?'逾期未整理':'待整理'}</span>
+        </div>
+        <div class="wb-card-meta">${esc(t.tool||'未命名')} · 创建于 ${t.created}</div>
+        <div class="wb-card-body">${esc(t.content)}</div>
+        <div class="wb-card-actions">
+          <button class="wb-btn mini" onclick="classify('${t.id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            一键归类
+          </button>
+          <button class="wb-btn ghost mini" onclick="openEdit('${t.id}')">编辑</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+}
+function classify(id){
+  const t=tips.find(x=>x.id===id); if(!t) return;
+  t.status="已归类"; save(); renderAll();
+}
+
+let reviewPool=[];
+function drawReview(){
+  const pool=tips.slice();
+  pool.sort((a,b)=> (a.reviewed.length-b.reviewed.length));
+  const count=Math.min(3,pool.length);
+  reviewPool=[];
+  const used=new Set();
+  while(reviewPool.length<count && used.size<pool.length){
+    const i=Math.floor(Math.random()*pool.length);
+    if(used.has(i)) continue; used.add(i); reviewPool.push(pool[i]);
+  }
+  renderReview();
+}
+function renderReview(){
+  const box=document.getElementById("reviewCards");
+  if(reviewPool.length===0){ box.innerHTML='<div class="wb-empty">点上面「抽一张」开始今日复习</div>'; return; }
+  box.innerHTML=reviewPool.map(t=>`
+    <div class="wb-card">
+      <div class="wb-card-head">
+        <div class="wb-card-title">${esc(t.title)}</div>
+        <span class="wb-badge">${esc(t.tool||'')}</span>
+      </div>
+      <div class="wb-card-body">${esc(t.content)}</div>
+      <div class="wb-card-actions">
+        <button class="wb-btn mini" onclick="markReview('${t.id}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          我复习了
+        </button>
+        <button class="wb-btn ghost mini" onclick="openEdit('${t.id}')">编辑</button>
+      </div>
+    </div>`).join("");
+}
+function markReview(id){
+  const t=tips.find(x=>x.id===id); if(!t) return;
+  if(!t.reviewed.includes(TODAY)) t.reviewed.push(TODAY);
+  save(); renderReview();
+  document.getElementById("reviewBox").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function allTags(){
+  const m={};
+  tips.forEach(t=>(t.tags||[]).forEach(g=>m[g]=(m[g]||0)+1));
+  return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,12).map(e=>e[0]);
+}
+function renderTagChips(){
+  const box=document.getElementById("tagChips");
+  const tags=allTags();
+  box.innerHTML='<button class="wb-chip '+(filters.tag===""?"on":"")+'" data-tag="">全部标签</button>'+
+    tags.map(g=>`<button class="wb-chip ${filters.tag===g?'on':''}" data-tag="${esc(g)}">${esc(g)}</button>`).join("");
+}
+function renderLib(){
+  document.getElementById("libCount").innerHTML="共 <b>"+tips.length+"</b> 条心得";
+  let list=tips.filter(t=>{
+    if(filters.status!=="all" && t.status!==filters.status) return false;
+    if(filters.star>0 && (t.stars||0)<filters.star) return false;
+    if(filters.tag && !(t.tags||[]).includes(filters.tag)) return false;
+    if(filters.q){
+      const q=filters.q.toLowerCase();
+      const hay=(t.title+" "+(t.content||"")+" "+(t.tool||"")+" "+(t.tags||[]).join(" ")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  list.sort((a,b)=> (b.reviewed.length-a.reviewed.length) || (a.created<b.created?1:-1));
+  const grid=document.getElementById("libGrid");
+  if(list.length===0){ grid.innerHTML='<div class="wb-empty">没有匹配的心得，换个筛选条件或新增一条。</div>'; return; }
+  grid.innerHTML=list.map(t=>`
+    <div class="wb-libcard">
+      <div class="ct">${esc(t.title)}</div>
+      <div class="tool">${toolSvg()}${esc(t.tool||'未命名')}</div>
+      <div class="scene">场景：${esc(t.scene||'—')}</div>
+      <div class="body">${esc(t.content)}</div>
+      <div class="tags">${(t.tags||[]).map(g=>`<span>${esc(g)}</span>`).join("")||'<span>无标签</span>'}</div>
+      <div class="wb-libcard-foot">
+        <div>
+          <div class="stars">${[1,2,3,4,5].map(i=>starSvg(i<=t.stars)).join("")}</div>
+          <div class="wb-muted">${t.status==="收件箱"?"收件箱 · ":""}${t.created} · 复习${t.reviewed.length}次</div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="wb-iconbtn" title="编辑" onclick="openEdit('${t.id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+          </button>
+          <button class="wb-iconbtn danger" title="删除" onclick="delTip('${t.id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`).join("");
+}
+
+function renderData(){
+  const inbox=tips.filter(t=>t.status==="收件箱").length;
+  const done=tips.length-inbox;
+  const c1="var(--c-primary,#534AB7)", c2="var(--c-accent,#0F6E56)";
+  const total=inbox+done||1;
+  const r=54, cx=70, cy=70, c=2*Math.PI*r;
+  const len1=c*(inbox/total), len2=c*(done/total);
+  document.getElementById("donut").innerHTML=`
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#eef2f7" stroke-width="16"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#534AB7" stroke-width="16"
+      stroke-dasharray="${len1} ${c}" stroke-dashoffset="0" transform="rotate(-90 ${cx} ${cy})"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#0F6E56" stroke-width="16"
+      stroke-dasharray="${len2} ${c}" stroke-dashoffset="${-len1}" transform="rotate(-90 ${cx} ${cy})"/>
+    <text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="22" font-weight="600" fill="#2c2c2a">${tips.length}</text>
+    <text x="${cx}" y="${cy+16}" text-anchor="middle" font-size="11" fill="#666">条心得</text>`;
+  document.getElementById("donutLegend").innerHTML=
+    `<div><span class="wb-dot" style="background:#534AB7"></span>收件箱 ${inbox}</div>
+     <div><span class="wb-dot" style="background:#0F6E56"></span>已归类 ${done}</div>`;
+
+  const m={};
+  tips.forEach(t=>(t.tags||[]).forEach(g=>m[g]=(m[g]||0)+1));
+  const top=Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const max=top.length?top[0][1]:1;
+  document.getElementById("tagBars").innerHTML = top.length? top.map(([g,n])=>`
+    <div class="wb-bar-row">
+      <div class="name">${esc(g)}</div>
+      <div class="wb-bar-track"><div class="wb-bar-fill" style="width:${Math.max(8,n/max*100)}%"></div></div>
+      <div class="num">${n}</div>
+    </div>`).join("") : '<div class="wb-muted">还没有标签</div>';
+
+  document.getElementById("totalLine").textContent="当前共 "+tips.length+" 条心得，全部保存在本机浏览器，换设备前请先导出备份。";
+}
+
+let pickStars=3, pickStatus="收件箱";
+function buildStarPick(){
+  const box=document.getElementById("f_stars");
+  box.innerHTML=[1,2,3,4,5].map(i=>`<span data-v="${i}">${starSvg(i<=pickStars)}</span>`).join("");
+  box.querySelectorAll("span").forEach(s=>s.onclick=()=>{
+    pickStars=+s.dataset.v; buildStarPick();
+  });
+}
+function openAdd(){
+  editingId=null;
+  document.getElementById("sheetTitle").textContent="新增心得";
+  document.getElementById("f_title").value="";
+  document.getElementById("f_tool").value="";
+  document.getElementById("f_scene").value="";
+  document.getElementById("f_content").value="";
+  document.getElementById("f_effect").value="";
+  document.getElementById("f_tags").value="";
+  pickStars=3; pickStatus="收件箱";
+  buildStarPick(); syncStatusSeg();
+  document.getElementById("mask").classList.add("on");
+}
+function openEdit(id){
+  const t=tips.find(x=>x.id===id); if(!t) return;
+  editingId=id;
+  document.getElementById("sheetTitle").textContent="编辑心得";
+  document.getElementById("f_title").value=t.title||"";
+  document.getElementById("f_tool").value=t.tool||"";
+  document.getElementById("f_scene").value=t.scene||"";
+  document.getElementById("f_content").value=t.content||"";
+  document.getElementById("f_effect").value=t.effect||"";
+  document.getElementById("f_tags").value=(t.tags||[]).join(",");
+  pickStars=t.stars||3; pickStatus=t.status||"收件箱";
+  buildStarPick(); syncStatusSeg();
+  document.getElementById("mask").classList.add("on");
+}
+function syncStatusSeg(){
+  document.querySelectorAll("#f_status button").forEach(b=>b.classList.toggle("on",b.dataset.st===pickStatus));
+}
+function saveTip(){
+  const title=document.getElementById("f_title").value.trim();
+  if(!title){ alert("标题不能为空"); return; }
+  const tags=document.getElementById("f_tags").value.split(/[,，]/).map(s=>s.trim()).filter(Boolean);
+  const data={
+    title, tool:document.getElementById("f_tool").value.trim(),
+    scene:document.getElementById("f_scene").value.trim(),
+    content:document.getElementById("f_content").value.trim(),
+    effect:document.getElementById("f_effect").value.trim(),
+    tags, stars:pickStars, status:pickStatus
+  };
+  if(editingId){
+    const t=tips.find(x=>x.id===editingId);
+    Object.assign(t,data);
+  }else{
+    tips.push(Object.assign({id:uid(),created:TODAY,reviewed:[],seed:false},data));
+  }
+  save(); closeMask(); renderAll();
+}
+function closeMask(){ document.getElementById("mask").classList.remove("on"); }
+function delTip(id){
+  showDlg("删除心得","确定删除这条心得吗？此操作不可撤销。",()=>{
+    tips=tips.filter(x=>x.id!==id); save(); renderAll();
+  });
+}
+
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(tips,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="AI心得备份-"+TODAY+".json";
+  a.click(); URL.revokeObjectURL(a.href);
+}
+function importJSON(file){
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!Array.isArray(data)) throw 0;
+      if(!confirm("导入将覆盖当前全部数据，确定继续？")) return;
+      tips=data; save(); renderAll();
+      alert("导入成功，共 "+tips.length+" 条");
+    }catch(err){ alert("文件格式不正确，请导入本工作台导出的 JSON"); }
+  };
+  reader.readAsText(file);
+}
+
+function clearDemo(){
+  showDlg("清空示例数据","将移除所有带「示例」标记的心得（你之后自己加的会保留），确定？",()=>{
+    tips=tips.filter(t=>!t.seed); save(); renderAll();
+  });
+}
+function clearAll(){
+  showDlg("清空全部数据","将删除全部 "+tips.length+" 条心得，且无法恢复！建议先导出备份。",()=>{
+    tips=[]; save(); renderAll();
+  });
+}
+
+let dlgCb=null;
+function showDlg(title,text,cb){
+  document.getElementById("dlgTitle").textContent=title;
+  document.getElementById("dlgText").textContent=text;
+  dlgCb=cb; document.getElementById("dlg").classList.add("on");
+}
+
+function switchTab(name){
+  document.querySelectorAll(".wb-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===name));
+  document.querySelectorAll(".wb-view").forEach(v=>v.classList.remove("on"));
+  document.getElementById("view-"+name).classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderAll(){
+  renderToday(); renderLib(); renderTagChips(); renderData();
+  document.getElementById("banner").style.display = tips.length>=30 ? "block":"none";
+}
+
+document.querySelectorAll(".wb-tabs button").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+document.getElementById("btnAdd").onclick=openAdd;
+document.getElementById("btnCancel").onclick=closeMask;
+document.getElementById("btnSave").onclick=saveTip;
+document.getElementById("btnDraw").onclick=drawReview;
+document.getElementById("btnExport").onclick=exportJSON;
+document.getElementById("btnExport2").onclick=exportJSON;
+document.getElementById("btnImport").onclick=()=>document.getElementById("fileInput").click();
+document.getElementById("fileInput").onchange=e=>{ if(e.target.files[0]) importJSON(e.target.files[0]); e.target.value=""; };
+document.getElementById("btnClearDemo").onclick=clearDemo;
+document.getElementById("btnClearAll").onclick=clearAll;
+document.getElementById("dlgCancel").onclick=()=>document.getElementById("dlg").classList.remove("on");
+document.getElementById("dlgOk").onclick=()=>{ document.getElementById("dlg").classList.remove("on"); if(dlgCb) dlgCb(); };
+document.querySelectorAll("#statusChips .wb-chip").forEach(c=>c.onclick=()=>{
+  document.querySelectorAll("#statusChips .wb-chip").forEach(x=>x.classList.remove("on"));
+  c.classList.add("on"); filters.status=c.dataset.status; renderLib();
+});
+document.querySelectorAll("#starChips .wb-chip").forEach(c=>c.onclick=()=>{
+  document.querySelectorAll("#starChips .wb-chip").forEach(x=>x.classList.remove("on"));
+  c.classList.add("on"); filters.star=+c.dataset.star; renderLib();
+});
+document.getElementById("tagChips").onclick=e=>{
+  const b=e.target.closest(".wb-chip"); if(!b) return;
+  filters.tag=b.dataset.tag||"";
+  document.querySelectorAll("#tagChips .wb-chip").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); renderLib();
+};
+let qTimer;
+document.getElementById("q").oninput=e=>{
+  clearTimeout(qTimer); qTimer=setTimeout(()=>{ filters.q=e.target.value.trim(); renderLib(); },150);
+};
+document.getElementById("f_status").onclick=e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  pickStatus=b.dataset.st; syncStatusSeg();
+};
+document.getElementById("mask").onclick=e=>{ if(e.target.id==="mask") closeMask(); };
+
+load();
+renderAll();
+drawReview();
+</script>
+</body>
+</html>

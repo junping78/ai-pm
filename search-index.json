@@ -56,6 +56,13 @@
     "keywords": "亮晶晶 AI实践 手记 心得 美图设计室 designkit 改字 图片文字 替换文字 海报 PPT 截图 AI工具 真实体验"
   },
   {
+    "type": "tool",
+    "title": "AI 心得工作台 · 亮晶晶配套工具",
+    "url": "ai-tips-workbench.html",
+    "desc": "把随手丢进收件箱的 AI 使用心得，变成可检索、可复习的卡片库：收件箱 → 卡片库 → 每日抽卡复习。单文件可运行，数据存浏览器本地、可导出 JSON 备份。",
+    "keywords": "亮晶晶 AI心得 工作台 知识管理 收件箱 卡片库 抽卡复习 经验沉淀 效率 方法论 可运行工具"
+  },
+  {
     "type": "page",
     "title": "好穿不贵 · 全球高性价比运动服选品研究",
     "url": "sportswear-guide.html",
