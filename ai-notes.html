@@ -492,6 +492,30 @@
             </div>
         </article>
 
+        <article class="note-item" data-category="image">
+            <div class="note-header">
+                <h2 class="note-title">用 lovart.ai 局部修复图片文字：只改字，不动背景</h2>
+                <span class="note-meta">2026-08-12</span>
+            </div>
+            <div class="note-tags">
+                <span class="tag tag-shine">亮晶晶</span>
+                <span class="tag tag-scene">图片处理</span>
+                <span class="tag tag-tool">lovart.ai</span>
+            </div>
+            <div class="note-body">
+                <p><strong>场景：</strong>lovart.ai 生成的图画面很好，但上面的文字经常模糊、错字，甚至英文乱码。如果直接点「编辑」让 AI 重画，它可能把背景山水、纹理、构图都改掉。</p>
+                <p><strong>一个做法：</strong>用 <strong>Mask 局部修复（inpainting）</strong>。画一张遮罩图：黑色涂掉要改的字，白色保留背景；再调用 <code>edit_image</code>，prompt 写「用周围水墨山水纹理自然填充，保持风格一致」。背景完整，只修字。</p>
+                <p><strong>关键区别：</strong></p>
+                <ul>
+                    <li>无 Mask 的 edit_image → AI 自由发挥，整张图可能都变。</li>
+                    <li>有 Mask 的 inpainting → 只改黑色区域，白色区域完全保留。</li>
+                </ul>
+                <p style="margin-top:16px;">
+                    <a href="note-lovart-inpainting.html" class="tool-link">查看完整手记（含操作步骤与三图对照）&rarr;</a>
+                </p>
+            </div>
+        </article>
+
         <!-- 相关 AI 实践资源 -->
         <div class="related-resources">
             <h3>🧪 相关 AI 实践资源</h3>

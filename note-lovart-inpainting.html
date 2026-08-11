@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用 lovart.ai 局部修复图片文字：只改字，不动背景 | 亮晶晶 · AI 实践手记</title>
+<meta name="description" content="用 lovart.ai 生成图片后文字模糊或错字？别直接点「编辑」，用 Mask 局部修复（inpainting）只去掉指定文字，山水纹理、图案背景完整保留。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="用 lovart.ai 局部修复图片文字：只改字，不动背景 | 亮晶晶 · AI 实践手记">
+<meta property="og:description" content="lovart.ai 出图后文字错字/模糊？用 Mask 局部修复：黑色涂掉要改的字，白色保留背景，prompt 描述用周围纹理自然填充。背景完整，只换文字。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/note-lovart-inpainting.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  .notes-hero {
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 100%);
+    color: #fff;
+    padding: 52px 20px 44px;
+    text-align: center;
+  }
+  .notes-hero .container-narrow { max-width: 760px; margin: 0 auto; }
+  .notes-hero h1 {
+    font-size: 31px; font-weight: 700;
+    margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.4;
+  }
+  .notes-hero .subtitle {
+    font-size: 16px; opacity: 0.92; max-width: 620px;
+    margin: 0 auto; line-height: 1.7;
+  }
+  .notes-hero .back-link {
+    display: inline-block; margin-bottom: 18px;
+    font-size: 14px; color: rgba(255,255,255,0.92); text-decoration: none;
+  }
+  .notes-hero .back-link:hover { color: #fff; text-decoration: underline; }
+
+  .note-detail { padding: 36px 0 48px; }
+  .note-detail .container-narrow { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+  .note-meta-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 18px;
+  }
+  .note-meta-bar .tag { font-size: 12px; padding: 3px 11px; border-radius: 12px; font-weight: 500; }
+  .tag-shine { background: #FFF8E1; color: #B8860B; }
+  .tag-scene { background: var(--c-primary-bg); color: var(--c-primary-dark); }
+  .tag-tool { background: var(--c-accent-bg); color: var(--c-accent); }
+  .note-meta-bar .date { font-size: 13px; color: var(--c-text-muted); margin-left: auto; }
+
+  .lede {
+    background: var(--c-primary-bg); border-left: 4px solid var(--c-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px; font-size: 15.5px; line-height: 1.85;
+    color: var(--c-primary-dark); margin-bottom: 30px;
+  }
+  .lede strong { color: var(--c-primary); }
+
+  .note-body { font-size: 15px; line-height: 1.85; color: var(--c-text); }
+  .note-body h3 {
+    font-size: 18px; font-weight: 700; color: var(--c-primary-dark);
+    margin: 34px 0 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .note-body p { margin-bottom: 12px; }
+  .note-body ol, .note-body ul { padding-left: 1.6em; margin-bottom: 14px; }
+  .note-body li { margin-bottom: 6px; }
+  .note-body .highlight { background: #FFF8E1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+
+  /* 对照表 */
+  .layer-table { width: 100%; border-collapse: collapse; margin: 18px 0 28px; }
+  .layer-table th,
+  .layer-table td {
+    border: 1px solid var(--c-border); padding: 12px 14px; text-align: left; vertical-align: top;
+  }
+  .layer-table th {
+    background: var(--c-primary-bg); color: var(--c-primary-dark); font-weight: 600; font-size: 14px;
+  }
+  .layer-table td { background: #fff; font-size: 14px; line-height: 1.7; }
+  .layer-table .layer-name { font-weight: 700; color: var(--c-primary); }
+  .layer-table .weak { color: #9a6b6b; }
+
+  .note-figure {
+    margin: 18px 0 28px;
+  }
+  .note-figure img {
+    max-width: 100%; width: 100%; border-radius: 8px; border: 1px solid var(--c-border);
+  }
+  .note-figure figcaption {
+    font-size: 13px; color: var(--c-text-muted); margin-top: 8px; line-height: 1.6;
+  }
+
+  .code-block {
+    background: #f8f8f8; border: 1px solid var(--c-border); border-radius: var(--radius-sm);
+    padding: 14px 18px; font-family: SF Mono, Consolas, monospace; font-size: 13px;
+    line-height: 1.6; margin: 16px 0 24px; overflow-x: auto;
+    color: #333;
+  }
+  .code-block strong { color: var(--c-primary-dark); }
+
+  .prereq {
+    background: #FFF8E1; border: 1px solid #F0D98C;
+    border-radius: var(--radius-sm); padding: 14px 18px;
+    font-size: 14px; color: #8a6d1a; line-height: 1.7; margin: 24px 0 8px;
+  }
+  .prereq strong { color: #B8860B; }
+
+  @media (max-width: 640px) {
+    .notes-hero h1 { font-size: 25px; }
+    .layer-table th, .layer-table td { padding: 10px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="notes-hero">
+    <div class="container-narrow">
+        <a href="resources.html" class="back-link">&larr; 返回 AI实践资源</a>
+        <h1>🎨 用 lovart.ai 局部修复图片文字</h1>
+        <p class="subtitle">
+            AI 生图文字常错、常糊，直接「编辑」容易毁掉整张画面。<br>
+            <strong style="color:#fff;">用 Mask 局部修复（inpainting）：只改黑色区域，白色背景完全保留。</strong>
+        </p>
+    </div>
+</header>
+
+<main class="note-detail">
+    <div class="container-narrow">
+
+        <div class="note-meta-bar">
+            <span class="tag tag-shine">亮晶晶</span>
+            <span class="tag tag-scene">图片处理</span>
+            <span class="tag tag-tool">lovart.ai</span>
+            <span class="date">2026-08-12</span>
+        </div>
+
+        <div class="lede">
+            <strong>一句话结论：</strong>lovart.ai 出图后如果文字模糊或错字，<strong>不要直接点「编辑」</strong>——那会让 AI 自由发挥、可能改乱整张图。先画一张 <strong>Mask 遮罩图</strong>：黑色涂掉要改的字，白色保留背景；再调用 <strong>edit_media / task_type: edit_image</strong>，prompt 描述「用周围纹理自然填充」。背景（山水、图案、纹理）完整保留，只修字。
+        </div>
+
+        <div class="note-body">
+
+            <h3>🎯 场景</h3>
+            <p>用 lovart.ai 做图很爽，但成图里的文字经常出问题：英文乱码、中文错字、或者笔画糊成一团。传统做法是点击平台的「编辑」按钮，让 AI 按你的新描述重绘——但这会导致 AI 重新理解整幅画，容易把风格、构图、背景纹理都改掉。</p>
+            <p>如果你只想<span class="highlight">去掉/替换某块文字，同时保留背景的水墨、山水、图案、纹理</span>，要用 <strong>inpainting（局部修复）</strong>。</p>
+
+            <h3>🛠️ 核心做法：Mask 局部修复</h3>
+            <ol>
+                <li><strong>准备原图</strong>：把 lovart.ai 生成的图下载下来。</li>
+                <li><strong>做一张遮罩图（mask image）</strong>：
+                    <ul>
+                        <li><strong>纯黑色</strong> = 要修改/去掉文字的区域</li>
+                        <li><strong>纯白色</strong> = 要完整保留的背景区域</li>
+                    </ul>
+                    可以用 Photoshop、GIMP、稿定设计、美图设计室，甚至 Windows 画图都能做。保存为 PNG 或 JPG。
+                </li>
+                <li><strong>调用修复接口</strong>：
+                    <ul>
+                        <li>入口：<code>edit_media</code></li>
+                        <li>参数：<code>task_type: edit_image</code></li>
+                        <li>传入：<code>source_image_url</code>（原图）+ <code>mask_image_url</code>（遮罩图）</li>
+                        <li><code>prompt</code> 写清楚：黑色区域要怎么修、用什么纹理填充、保持什么风格</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>✍️ 提示词示例</h3>
+            <div class="code-block">
+                edit_media:<br>
+                &nbsp;&nbsp;task_type: edit_image<br>
+                &nbsp;&nbsp;source_image_url: [原图URL]<br>
+                &nbsp;&nbsp;mask_image_url: [遮罩图URL]<br>
+                &nbsp;&nbsp;prompt: 去除黑色区域的文字，用周围的水墨山水纹理自然填充，保持整体风格一致
+            </div>
+            <p>关键是 <strong>prompt 要指向背景纹理</strong>：「用周围的山水纹理自然填充」「保持原图水墨风格」「不要添加新元素」。这样 AI 才知道修完后要和周围融为一体，而不是凭空创作。</p>
+
+            <h3>⚖️ 两种方式对比</h3>
+            <table class="layer-table">
+                <thead>
+                    <tr>
+                        <th>方式</th>
+                        <th>效果</th>
+                        <th>适用场景</th>
+                        <th>风险</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="layer-name">无 Mask 的 edit_image</span></td>
+                        <td>AI 自由发挥，可能重绘整张图</td>
+                        <td>大范围改风格、整体重画</td>
+                        <td class="weak">背景纹理、构图、色调可能全变</td>
+                    </tr>
+                    <tr>
+                        <td><span class="layer-name">有 Mask 的 inpainting</span></td>
+                        <td>只改黑色区域，白色区域完全保留</td>
+                        <td>局部去字、修瑕疵、替换文字</td>
+                        <td class="weak">遮罩边缘要画准，prompt 要写清纹理</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📸 实战对照</h3>
+
+            <figure class="note-figure">
+                <img src="lovart-inpaint-original.jpg" alt="原图：AI 生成的四圣谛之桥，画面中有大量文字需要去除">
+                <figcaption>图 1：原图。lovart.ai 生成的「四圣谛之桥」画面精美，但桥身、两侧和底部有大量文字，部分文字模糊或不适合保留。</figcaption>
+            </figure>
+
+            <figure class="note-figure">
+                <img src="lovart-inpaint-result.jpg" alt="修复后：只保留关键文字，其余区域用 Mask 局部修复，背景完整">
+                <figcaption>图 2：修复后。用 Mask 遮住要去掉的文字，prompt 要求「保留指定文字、其余文字全部去掉、保持图片风格」。水墨山水、桥身结构、莲花纹理完整保留，只把不需要的字自然融掉了。</figcaption>
+            </figure>
+
+            <figure class="note-figure">
+                <img src="lovart-inpaint-prompt.png" alt="本次使用的提示词：保留指定文字，其余全部去掉，保持图片风格">
+                <figcaption>图 3：本次使用的 prompt。关键是「保留下面的文字内容：……，该图片中其他地方的文字全部去掉，保留图片风格」——先指定要留什么，再明确要去什么，最后锁定风格。</figcaption>
+            </figure>
+
+            <h3>💡 使用建议</h3>
+            <ul>
+                <li><strong>先小范围试</strong>：不要一次遮罩太大，先修一块看融合效果，再批量处理。</li>
+                <li><strong>黑色边缘要紧贴文字</strong>：多涂一点问题不大，但少涂会留下字边；可以稍微外扩 2-3 像素。</li>
+                <li><strong>prompt 里写明「保持风格一致」</strong>：比只说「去掉文字」更稳，AI 会参考周围像素填充。</li>
+                <li><strong>保留关键文字时列清单</strong>：像图 3 那样逐条列出要保留的内容，比口头描述更精确。</li>
+            </ul>
+
+            <div class="prereq">
+                <strong>📌 一句话记住：</strong>想整张图重来 → 无 Mask 编辑；只想局部修字、背景不能动 → <strong>Mask 黑色涂字 + inpainting</strong>。修图稳不稳，看遮罩画得准不准、提示词有没有说清纹理。
+            </div>
+
+        </div>
+
+        <!-- 延伸阅读 -->
+        <div class="related-bar" style="background:var(--c-primary-bg);border-radius:var(--radius);padding:18px 22px;margin:34px 0 8px;">
+            <strong style="color:var(--c-primary-dark);">延伸阅读：</strong>
+            <a href="ai-notes.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">亮晶晶手记合集</a>
+            <a href="ai-tips-workbench.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">AI 心得工作台</a>
+            <a href="resources.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">AI实践资源</a>
+            <a href="ai-tools.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;">AI工具箱</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="resources.html">AI实践资源</a>
+                <a href="ai-tools.html">AI工具箱</a>
+                <a href="weekly-list.html">教师周报</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+</body>
+</html>

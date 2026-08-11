@@ -70,6 +70,13 @@
     "keywords": "亮晶晶 可视化 四层框架 Mermaid SVG 表格 HTML 交付 图形 效率方法 可视化分层 选型口诀 AI手记"
   },
   {
+    "type": "article",
+    "title": "用 lovart.ai 局部修复图片文字：只改字，不动背景",
+    "url": "note-lovart-inpainting.html",
+    "desc": "lovart.ai 生图后文字模糊或错字？用 Mask 局部修复（inpainting）：黑色涂掉要改的字，白色保留背景，调用 edit_image 并用周围纹理自然填充。含操作步骤、提示词示例、三图对照与两种方式对比表。",
+    "keywords": "亮晶晶 lovart.ai 局部修复 inpainting Mask 遮罩 图片文字 修图 AI生图 文字乱码 文字模糊 背景保留 图片处理 AI手记"
+  },
+  {
     "type": "page",
     "title": "好穿不贵 · 全球高性价比运动服选品研究",
     "url": "sportswear-guide.html",
