@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>给客户发视频：让他点开链接就能看，你还知道他看了没 | 亮晶晶 · AI 实践手记</title>
+<meta name="description" content="给培训/项目客户发演示视频，客户最在意两点：点链接直接播、不下载不注册；你能知道他看没看。海外用 Loom、国内用分秒帧，免费即可。以客户体验为焦点的完整用法。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="给客户发视频：让他点开链接就能看，你还知道他看了没 | 亮晶晶 · AI 实践手记">
+<meta property="og:description" content="给客户发演示视频，客户最在意两点：点链接直接播、不下载不注册；你能知道他看没看。海外用 Loom、国内用分秒帧，免费即可。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/note-video-share-client.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  .notes-hero {
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 100%);
+    color: #fff;
+    padding: 52px 20px 44px;
+    text-align: center;
+  }
+  .notes-hero .container-narrow { max-width: 760px; margin: 0 auto; }
+  .notes-hero h1 {
+    font-size: 31px; font-weight: 700;
+    margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.4;
+  }
+  .notes-hero .subtitle {
+    font-size: 16px; opacity: 0.92; max-width: 620px;
+    margin: 0 auto; line-height: 1.7;
+  }
+  .notes-hero .back-link {
+    display: inline-block; margin-bottom: 18px;
+    font-size: 14px; color: rgba(255,255,255,0.92); text-decoration: none;
+  }
+  .notes-hero .back-link:hover { color: #fff; text-decoration: underline; }
+
+  .note-detail { padding: 36px 0 48px; }
+  .note-detail .container-narrow { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+  .note-meta-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 18px;
+  }
+  .note-meta-bar .tag { font-size: 12px; padding: 3px 11px; border-radius: 12px; font-weight: 500; }
+  .tag-shine { background: #FFF8E1; color: #B8860B; }
+  .tag-scene { background: var(--c-primary-bg); color: var(--c-primary-dark); }
+  .tag-tool { background: var(--c-accent-bg); color: var(--c-accent); }
+  .note-meta-bar .date { font-size: 13px; color: var(--c-text-muted); margin-left: auto; }
+
+  .lede {
+    background: var(--c-primary-bg); border-left: 4px solid var(--c-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px; font-size: 15.5px; line-height: 1.85;
+    color: var(--c-primary-dark); margin-bottom: 30px;
+  }
+  .lede strong { color: var(--c-primary); }
+
+  .note-body { font-size: 15px; line-height: 1.85; color: var(--c-text); }
+  .note-body h3 {
+    font-size: 18px; font-weight: 700; color: var(--c-primary-dark);
+    margin: 34px 0 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .note-body p { margin-bottom: 12px; }
+  .note-body ol, .note-body ul { padding-left: 1.6em; margin-bottom: 14px; }
+  .note-body li { margin-bottom: 6px; }
+  .note-body .highlight { background: #FFF8E1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+
+  /* 对照表 */
+  .layer-table { width: 100%; border-collapse: collapse; margin: 18px 0 28px; }
+  .layer-table th,
+  .layer-table td {
+    border: 1px solid var(--c-border); padding: 12px 14px; text-align: left; vertical-align: top;
+  }
+  .layer-table th {
+    background: var(--c-primary-bg); color: var(--c-primary-dark); font-weight: 600; font-size: 14px;
+  }
+  .layer-table td { background: #fff; font-size: 14px; line-height: 1.7; }
+  .layer-table .layer-name { font-weight: 700; color: var(--c-primary); }
+  .layer-table .weak { color: #9a6b6b; }
+
+  .code-block {
+    background: #f8f8f8; border: 1px solid var(--c-border); border-radius: var(--radius-sm);
+    padding: 14px 18px; font-family: SF Mono, Consolas, monospace; font-size: 13px;
+    line-height: 1.7; margin: 16px 0 24px; overflow-x: auto;
+    color: #333; white-space: pre-wrap;
+  }
+  .code-block strong { color: var(--c-primary-dark); }
+
+  .prereq {
+    background: #FFF8E1; border: 1px solid #F0D98C;
+    border-radius: var(--radius-sm); padding: 14px 18px;
+    font-size: 14px; color: #8a6d1a; line-height: 1.7; margin: 24px 0 8px;
+  }
+  .prereq strong { color: #B8860B; }
+
+  .redline {
+    background: #FEF2F2; border: 1px solid #FCA5A5; border-left: 4px solid #DC2626;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 16px 20px; font-size: 15px; line-height: 1.8; color: #991B1B;
+    margin: 18px 0 26px;
+  }
+  .redline strong { color: #B91C1C; }
+
+  @media (max-width: 640px) {
+    .notes-hero h1 { font-size: 25px; }
+    .layer-table th, .layer-table td { padding: 10px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="notes-hero">
+    <div class="container-narrow">
+        <a href="resources.html" class="back-link">&larr; 返回 AI实践资源</a>
+        <h1>📤 给客户发视频</h1>
+        <p class="subtitle">
+            让他<strong style="color:#fff;">点开链接就能看</strong>，你还<strong style="color:#fff;">知道他看了没</strong>。<br>
+            海外用 Loom，国内用分秒帧，免费即可。
+        </p>
+    </div>
+</header>
+
+<main class="note-detail">
+    <div class="container-narrow">
+
+        <div class="note-meta-bar">
+            <span class="tag tag-shine">亮晶晶</span>
+            <span class="tag tag-scene">客户沟通</span>
+            <span class="tag tag-tool">Loom · 分秒帧</span>
+            <span class="date">2026-08-15</span>
+        </div>
+
+        <div class="lede">
+            <strong>一句话结论：</strong>给客户发演示视频，客户最在意两件事——① <strong>点链接直接在浏览器播放，不下载、不注册</strong>；② <strong>你能知道他到底看没看</strong>。免费就能做到"点开即播 + 看次数"，但想"不登录就自动认出具体是谁"必须付费。海外客户用 <strong>Loom</strong>，国内客户用 <strong>分秒帧</strong>；<strong>千万别把 Loom 链接发给国内客户</strong>，大概率黑屏打不开。
+        </div>
+
+        <div class="note-body">
+
+            <h3>🎯 先站在客户角度想，别先想工具</h3>
+            <p>我遇到过好几次：项目管理培训的客户说"想看那段小演示视频"，我就得发一个<strong>链接就能看</strong>的网址。把需求拆成两边：</p>
+            <ul>
+                <li><strong>客户真正要的体验</strong>：点开链接，浏览器里直接播，<span class="highlight">不用下载软件、不用注册账号、不折腾</span>。这是底线，做不到客户就流失在第一步。</li>
+                <li><strong>你（发视频的人）要的</strong>：方案最好免费；最好能知道客户点没点；最好能认出"是谁"点的。</li>
+                <li><strong>一条硬现实</strong>：免费工具做不到"客户不登录就自动识别具体是谁"——免费最多看到<strong>访问次数</strong>；想点开链接就强制填邮箱、识别访客，得上付费版。</li>
+            </ul>
+
+            <div class="redline">
+                <strong>🚫 红线（一定要记牢）：</strong>海外工具 Loom 在<strong>中国大陆普通网络下访问很不稳定，客户大概率黑屏打不开</strong>。所以——海外客户才发 Loom 链接，国内客户一律走分秒帧。这条搞反了，客户那边就是一片黑，体验直接崩。
+            </div>
+
+            <h3>⚖️ 一张表看清：客户在哪，用哪个</h3>
+            <table class="layer-table">
+                <thead>
+                    <tr>
+                        <th>客户在哪</th>
+                        <th>用哪个工具</th>
+                        <th>客户的体验</th>
+                        <th>你能看到什么</th>
+                        <th>要注意</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="layer-name">海外（美 / 欧等）</span></td>
+                        <td><strong>Loom</strong><br><code>loom.com</code></td>
+                        <td>浏览器直接播，免注册、免下载</td>
+                        <td>观看次数；客户登录后显示姓名，否则匿名</td>
+                        <td class="weak">国内网络不稳；25 条终身上限；带水印</td>
+                    </tr>
+                    <tr>
+                        <td><span class="layer-name">中国大陆</span></td>
+                        <td><strong>分秒帧</strong><br><code>mediatrack.cn</code></td>
+                        <td>国内流畅，链接 / 密码分享</td>
+                        <td>访问日志、IP</td>
+                        <td class="weak">海外访问慢；免费版不自动识别姓名</td>
+                    </tr>
+                    <tr>
+                        <td><span class="layer-name">海外、不想受额度限制</span></td>
+                        <td><strong>Clipy</strong><br><code>clipy.online</code></td>
+                        <td>浏览器直接用，生成分享链接</td>
+                        <td>统计能力弱，无法识别访客身份</td>
+                        <td class="weak">对标 Loom 的完全免费替代品</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🌍 海外客户：Loom 怎么用（客户体验优先）</h3>
+            <ol>
+                <li><strong>注册</strong>：浏览器打开 loom.com，邮箱注册免费 Starter 账号；只用网页版即可，不必装客户端。</li>
+                <li><strong>上传本地视频</strong>：进后台 Library（资料库）→ Import（导入）选本地 MP4。<br>⚠️ 免费版单条 <strong>不能超过 5 分钟</strong>。上传后改好标题（方便区分不同客户项目），可裁剪多余片段。</li>
+                <li><strong>设分享权限、生成对外链接</strong>：视频页点 Share（分享）→ 通用访问权限设为 <strong>Anyone with the link can view（任何持有链接的人均可查看）</strong>。<br>👉 上方那个邮箱输入框<strong>不要填</strong>——那是指定给某人单独授权，对外公开分享不需要；<code>connect your email account</code> 只是让 Loom 主动发通知邮件，手动发链接也用不着绑。</li>
+                <li><strong>客户收到之后的体验</strong>：浏览器直接播放，<span class="highlight">无需下载任何软件</span>——这就是客户体验的爽点。</li>
+                <li><strong>你能看客户看没看</strong>：视频页点 Views 看数据，播放 ≥5 秒算一次观看（自己播放不计入）；客户登录了 Loom 会显示姓名，没登录全是匿名、只统计次数。</li>
+                <li><strong>小技巧：一客户一链接</strong>：同一视频多次上传生成不同链接，发给不同客户，谁点过你间接就知道（会消耗视频额度）。</li>
+            </ol>
+
+            <div class="prereq">
+                <strong>📌 额度管理（重点）：</strong>25 条是<strong>终身上限，不是每月重置</strong>；满了必须删旧视频才能新增，删了不可恢复，<strong>原始 MP4 务必本地备份</strong>。定期清理已交付完成的旧视频，腾出名额。
+            </div>
+
+            <h3>🇨🇳 国内客户：分秒帧</h3>
+            <ul>
+                <li><strong>客户体验</strong>：中国大陆访问流畅，链接或密码分享都能用。</li>
+                <li><strong>你能看到</strong>：访问日志、IP，比 Loom 匿名更具体一些。</li>
+                <li>稳妥起见，<span class="highlight">邮件里同时附上原 MP4 作为兜底</span>——万一客户那边链接打不开，还有本地文件可看。</li>
+                <li>免费版不能自动识别访客姓名 / 邮箱，想精准认人同样需付费。</li>
+            </ul>
+
+            <h3>✉️ 发给客户的话术（可直接抄）</h3>
+            <p><strong>海外客户（英文友好）：</strong></p>
+            <div class="code-block">Hi, here is the demo video — just click the link to play it in your browser, no download needed.
+{{粘贴 Loom 链接}}
+Let me know if you have any questions after watching.</div>
+            <p><strong>国内客户：</strong></p>
+            <div class="code-block">您好，演示视频已上传，点下方链接即可在浏览器直接观看，无需下载软件：
+{{粘贴分秒帧链接}}
+（如链接不便打开，我也把原视频文件一并附在邮件里。）
+看完有任何疑问随时反馈给我。</div>
+
+            <h3>🔧 常见卡点</h3>
+            <ul>
+                <li><strong>客户打不开链接</strong>：确认权限是 Anyone with the link can view，<span class="highlight">不要设密码</span>；国内客户请走分秒帧，别发 Loom。</li>
+                <li><strong>上传失败</strong>：确认视频 ≤5 分钟、MP4 格式（Loom 免费版限制）。</li>
+                <li><strong>看不到观看记录</strong>：客户浏览器拦截 Cookie 会导致不生成记录，属正常现象，不必纠结。</li>
+            </ul>
+
+            <div class="redline">
+                <strong>🚫 一句话记住红线：</strong>海外 → Loom；国内 → 分秒帧；<strong>Loom 链接绝不发国内普通网络客户</strong>。免费能拿到"点开即播 + 看次数"，"自动认出是谁"得付费。
+            </div>
+
+        </div>
+
+        <!-- 延伸阅读 -->
+        <div class="related-bar" style="background:var(--c-primary-bg);border-radius:var(--radius);padding:18px 22px;margin:34px 0 8px;">
+            <strong style="color:var(--c-primary-dark);">延伸阅读：</strong>
+            <a href="ai-notes.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">亮晶晶手记合集</a>
+            <a href="ai-tips-workbench.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">AI 心得工作台</a>
+            <a href="resources.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">AI实践资源</a>
+            <a href="ai-tools.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;">AI工具箱</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="resources.html">AI实践资源</a>
+                <a href="ai-tools.html">AI工具箱</a>
+                <a href="weekly-list.html">教师周报</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+</body>
+</html>
