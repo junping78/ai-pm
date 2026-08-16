@@ -182,6 +182,13 @@
     "keywords": "周报 第7期 教师 AI工具 免费 DeepSeek API涨价 网页免费 WPS灵犀收费 千问办公版 十五五规划 AI通识课 五大场景 备课 出卷 PPT 英语 科研 对比"
   },
   {
+    "type": "page",
+    "title": "教师AI工具周报第8期",
+    "url": "free/teacher-ai-weekly-report-08.html",
+    "desc": "第8期周报：首屏3条速览，Tab分『拿来就用』与『本周动态』。千问App 8/10正式上线付费服务（办公助理会员19/49/128元/月+视频生成单独计费），成为继豆包后第二家收费头部AI，但基础对话写作仍免费；DeepSeek模型再升级V3.2正式版强化Agent能力、网页/App/API全面上线且C端零成本；Google 8/10向全球K-12及高校开放Gemini in Classroom。按备课/出卷/PPT/英语/科研五大场景精选30+款免费工具，附国产大模型收费对比表与国外工具门槛速查。",
+    "keywords": "周报 第8期 教师 AI工具 免费 千问收费 办公助理 DeepSeek V3.2 Gemini课堂 五大场景 备课 出卷 PPT 英语 科研 对比"
+  },
+  {
     "type": "tool",
     "title": "国家智慧教育平台 2.0 智能版",
     "url": "https://www.smartedu.cn/",
