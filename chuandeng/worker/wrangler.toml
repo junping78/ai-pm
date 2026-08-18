@@ -1,0 +1,10 @@
+name = "chuandeng"
+main = "index.js"
+compatibility_date = "2024-09-23"
+
+# KV 命名空间（首次部署前需创建并填入 id）：
+#   wrangler kv namespace create chuandeng
+# 把返回的 id 填到下面的 id 字段。
+[[kv_namespaces]]
+binding = "CDB"
+id = "ff4bb1369ee84eb3972baec53558a73c"

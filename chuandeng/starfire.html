@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>受的三毒 · 星星之火</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="i18n.js"></script>
+<style>
+  :root{
+    --ink:#2b2620; --ink2:#6b5f50; --paper:#fbf7ef; --line:#e7ddca;
+    --qing:#2f8f83; --amber:#f59e0b; --amber-deep:#d97706;
+    --shadow:0 6px 22px rgba(70,55,30,.12);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--paper)}
+  header{background:linear-gradient(120deg,#2b2620,#3a3228);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header .logo{font-size:24px}
+  header h1{font-size:18px;margin:0;font-weight:700;letter-spacing:1px}
+  header .sub{font-size:12px;opacity:.72;margin-top:2px}
+  .toolbar{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .btn{font-size:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer}
+  .btn:hover{background:rgba(255,255,255,.18)}
+  .btn-amber{background:var(--amber);border-color:var(--amber-deep);color:#3a2606;font-weight:600}
+  main{display:flex;height:calc(100vh - 64px)}
+  #map{flex:1;background:#e9eef0}
+  aside{width:330px;background:var(--paper);border-left:1px solid var(--line);overflow-y:auto;padding:16px}
+  .sum{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .sum .c{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)}
+  .sum .n{font-size:22px;font-weight:800;color:var(--amber-deep)}
+  .sum .l{font-size:11px;color:var(--ink2);margin-top:2px}
+  .sec-t{font-size:13px;font-weight:700;margin:6px 0 8px;color:var(--ink);display:flex;align-items:center;gap:6px}
+  .sec-t .bar{width:4px;height:14px;background:var(--amber);border-radius:2px}
+  .city{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px;box-shadow:var(--shadow)}
+  .city .top{display:flex;justify-content:space-between;align-items:baseline}
+  .city .nm{font-weight:700;font-size:14px}
+  .city .tot{font-size:13px;color:var(--amber-deep);font-weight:700}
+  .city .meta{font-size:11px;color:var(--ink2);margin-top:4px;line-height:1.5}
+  .city .first{color:var(--qing);font-weight:600}
+  .city-loc{cursor:pointer;transition:border-color .15s,box-shadow .15s}
+  .city-loc:hover{border-color:var(--amber)}
+  .city-loc.active{border-color:var(--amber-deep);box-shadow:0 0 0 2px rgba(217,119,6,.3)}
+  .city-unloc{opacity:.72;border-style:dashed}
+  .unloc-note{font-size:11px;color:var(--amber-deep);background:#fff8ea;border:1px solid #f3e2bf;border-radius:8px;padding:6px 9px;margin-bottom:8px;line-height:1.5}
+  .barwrap{height:6px;background:#f0e9da;border-radius:4px;margin-top:7px;overflow:hidden}
+  .barfill{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber-deep));border-radius:4px}
+  .legend{font-size:11px;color:var(--ink2);line-height:1.7;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:6px}
+  .drophint{border:2px dashed var(--line);border-radius:12px;padding:16px;text-align:center;color:var(--ink2);font-size:12px;margin-bottom:12px}
+  .drophint.hot{border-color:var(--amber);background:#fff8ea}
+  .imp-stat{font-size:11px;line-height:1.6;margin:0 0 12px;padding:7px 10px;border-radius:8px;background:#f3f8f4;border:1px solid #dceae3;display:none}
+  .imp-stat.show{display:block}
+  .imp-stat .ok{color:var(--qing);font-weight:700}
+  .imp-stat .warn{color:var(--amber-deep);font-weight:600}
+  .imp-stat .bad{color:#c0392b;font-weight:700}
+  .imp-stat .skip-detail{margin-top:3px;color:var(--ink2);font-size:10px;word-break:break-all}
+  footer{font-size:10px;color:var(--ink2);text-align:center;padding:8px;border-top:1px solid var(--line)}
+  .footnav{text-align:center;padding:6px 8px 14px}
+  .footnav a{color:var(--qing);text-decoration:none;font-size:13px;letter-spacing:.5px}
+  .footnav a:active{opacity:.6}
+  /* 灯笼 marker（点灯人点亮的城市） */
+  .lamp-marker{position:relative}
+  .lantern{position:relative;display:flex;align-items:center;justify-content:center}
+  .lantern .halo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,rgba(245,158,11,.6) 0%,rgba(245,158,11,0) 70%);
+    pointer-events:none;animation:haloPulse 2.6s infinite ease-out}
+  @keyframes haloPulse{0%{transform:translate(-50%,-50%) scale(.55);opacity:.95}70%{transform:translate(-50%,-50%) scale(1.5);opacity:0}100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
+  .lantern .lantern-svg{position:relative;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.28))}
+  .city-first-tag{position:absolute;left:50%;bottom:-2px;transform:translate(-50%,100%);white-space:nowrap;font-size:9px;font-weight:700;color:#fff;background:var(--qing);padding:1px 6px;border-radius:7px;box-shadow:0 1px 3px rgba(0,0,0,.25);pointer-events:none}
+  /* 传灯发散：飘移灯💡 + 灯笼原地晃动 + 目标脉冲 */
+  .drift-lamp{font-size:15px;line-height:1;text-align:center;filter:drop-shadow(0 0 5px rgba(245,158,11,.95));animation:driftGlow 1.4s infinite ease-in-out}
+  @keyframes driftGlow{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.28);opacity:1}}
+  .lantern.shake{animation:lanternShake .6s ease-in-out!important}
+  @keyframes lanternShake{0%,100%{transform:translateX(0)}18%{transform:translateX(-4px)}38%{transform:translateX(4px)}58%{transform:translateX(-3px)}78%{transform:translateX(3px)}90%{transform:translateX(-1px)}}
+  .lantern.pulse-target{animation:targetPulse 1.4s ease-out!important}
+  @keyframes targetPulse{0%{transform:scale(1)}40%{transform:scale(1.35);filter:brightness(1.4)}100%{transform:scale(1)}}
+  .empty{color:var(--ink2);font-size:12px;text-align:center;padding:24px 8px}
+  .leaflet-popup-content{font-size:12px;line-height:1.6}
+  @media(max-width:720px){main{flex-direction:column}aside{width:auto;height:42vh;border-left:none;border-top:1px solid var(--line)}#map{height:58vh}}
+  .btn.btn-active{background:var(--qing);color:#fff;border-color:var(--qing)}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">🏮</span>
+  <div>
+    <h1 data-i18n="h1">受的三毒 · 星星之火</h1>
+    <div class="sub" data-i18n="sub">一盏灯，是一份觉察；一座城第一位点亮的人，是点灯人。灯灯相续，便是星火。</div>
+  </div>
+  <div class="toolbar">
+    <button class="btn" id="demoBtn" data-i18n="demoBtn">载入示例</button>
+    <button class="btn btn-amber" id="importBtn" data-i18n="importBtn">导入学员数据</button>
+    <button class="btn" id="baseBtn" data-i18n="baseTencent">底图：腾讯</button>
+    <button class="btn" id="teacherBtn" data-i18n="teacherView">教师完整视图</button>
+    <input type="file" id="fileIn" class="hidden-file" accept="application/json" multiple style="display:none">
+  </div>
+</header>
+<main>
+  <div id="map"></div>
+  <aside>
+    <div class="sum">
+      <div class="c"><div class="n" id="sLamp">0</div><div class="l" data-i18n="sLamp">点亮总盏数</div></div>
+      <div class="c"><div class="n" id="sCity">0</div><div class="l" data-i18n="sCity">覆盖城市</div></div>
+    </div>
+    <div class="drophint" id="drop" data-i18n="drophint">把学员从 MVP2 导出的 JSON 文件拖到这里，或点「导入学员数据」</div>
+    <div class="imp-stat" id="impStat"></div>
+    <div class="sec-t"><span class="bar"></span><span data-i18n="secTitle">各城灯火 · 点灯人</span></div>
+    <div id="cityList"><div class="empty" data-i18n-html="emptyList">尚未汇入数据。<br>点「载入示例」先看效果。</div></div>
+    <div class="legend">
+      <div data-i18n-html="legend1"><span style="font-size:14px">🏮</span> <b>灯笼</b> = 城市灯火，由该城第一位点亮者（点灯人）点亮；灯笼越大，灯火越旺</div>
+      <div data-i18n-html="legend2"><b style="color:var(--qing)">点灯人</b> 标签 = 该城最先点亮的人</div>
+      <div data-i18n-html="legend3">🏠 家庭也可各自点灯，汇入城市总灯火。</div>
+      <div data-i18n-html="legend4">底图：国内腾讯 / 海外 OpenStreetMap。</div>
+    </div>
+  </aside>
+</main>
+<footer data-i18n="footer">底图 © 腾讯地图（国内）· OpenStreetMap（海外）｜ 本页不绘制任何行政边界，仅以城市光点点亮。</footer>
+<div class="footnav"><a href="index.html" data-i18n="backApp">🏮 回到传灯 App（练习 / 点灯 / 传灯）</a></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ===== 多语言应用 ===== */
+function applyI18n(){
+  try{ document.documentElement.lang = (window.CD_LANG==='en')?'en':'zh-CN'; }catch(e){}
+  if(document.title!==undefined) document.title = t('title');
+  var nodes=document.querySelectorAll('[data-i18n]');
+  nodes.forEach(function(n){ n.textContent = t(n.getAttribute('data-i18n')); });
+  var hnodes=document.querySelectorAll('[data-i18n-html]');
+  hnodes.forEach(function(n){ n.innerHTML = t(n.getAttribute('data-i18n-html')); });
+}
+applyI18n();
+
+/* ===== 配置 ===== */
+// 腾讯位置服务 Key（用户于 2026-08-17 提供，已归一化连字符）
+const TENCENT_KEY = 'P7YVZ-TLA6C-EAB2N-ATVXH-AZOX3-HVFCY';
+
+/* ===== 城市坐标表（WGS-84，城市级精度，偏移在视觉上可忽略） ===== */
+const CITY_COORDS = {
+  '北京':[39.9042,116.4074],'上海':[31.2304,121.4737],'广州':[23.1291,113.2644],
+  '深圳':[22.5431,114.0579],'武汉':[30.5928,114.3055],'成都':[30.5728,104.0668],
+  '杭州':[30.2741,120.1551],'南京':[32.0603,118.7969],'西安':[34.3416,108.9398],
+  '重庆':[29.5630,106.5516],'天津':[39.3434,117.3616],'苏州':[31.2989,120.5853],
+  '长沙':[28.2282,112.9388],'郑州':[34.7466,113.6254],'青岛':[36.0671,120.3826],
+  '厦门':[24.4798,118.0894],'昆明':[24.8801,102.8329],'沈阳':[41.8057,123.4315],
+  '哈尔滨':[45.8038,126.5349],'大连':[38.9140,121.6147],'济南':[36.6512,117.1201],
+  '福州':[26.0745,119.2965],'南宁':[22.8170,108.3665],'兰州':[36.0611,103.8343],
+  '乌鲁木齐':[43.8256,87.6168],'拉萨':[29.6520,91.1721],'呼和浩特':[40.8426,111.7492],
+  '香港':[22.3193,114.1694],'澳门':[22.1987,113.5439],'台北':[25.0330,121.5654],
+  '纽黑文':[41.3083,-72.9279],'纽约':[40.7128,-74.0060],'波士顿':[42.3601,-71.0589],
+  '洛杉矶':[34.0522,-118.2437],'伦敦':[51.5074,-0.1278],'新加坡':[1.3521,103.8198]
+};
+function isDomestic(lat,lng){return lat>=18&&lat<=54&&lng>=73&&lng<=135;}
+
+/* ===== 地图初始化 ===== */
+let map;
+try{
+  map = L.map('map',{center:[34,108],zoom:4,worldCopyJump:true});
+}catch(e){
+  document.getElementById('map').innerHTML='<div class="empty">'+t('mapFail')+'</div>';
+}
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'});
+const tencent = L.tileLayer('https://rt{s}.map.gtimg.com/tile?z={z}&x={x}&y={y}&type=vector&styleid=1&version=121&key='+TENCENT_KEY,{subdomains:'0123',maxZoom:19,attribution:'© 腾讯地图'});
+let baseMode='tencent';
+if(map){ map.addLayer(tencent); }
+
+/* ===== 导入 / 聚合 ===== */
+function labelOf(name){return (name||'未命名').replace(/\.json$/i,'').trim()||'未命名';}
+function normalizeCity(raw){
+  if(!raw) return '';
+  let s=String(raw).trim().replace(/\s+/g,'');
+  s=s.replace(/(壮族|回族|维吾尔|藏族|蒙古族)$/,'');
+  s=s.replace(/(省|市|特别行政区|自治区|自治州|地区|盟|县)$/,'');
+  return s;
+}
+function aggregate(files){
+  const byKey={};
+  files.forEach(function(f){
+    const d=f.data||{}; const st=d.student||{};
+    const id=(st.id)?String(st.id):('__'+labelOf(f.name));
+    const name=(st.name)?String(st.name):labelOf(f.name);
+    const city=normalizeCity(st.city);
+    const family=(st.family)?String(st.family):'';
+    const lamps=d.lamps||{jianchi:0,jinjie:0,juezhao:0};
+    const recs=d.records||[];
+    let firstTs=Infinity;
+    recs.forEach(function(r){const t=Number(r.ts)||0; if(t&&t<firstTs)firstTs=t;});
+    const exported=Number(d.exported)||0;
+    const ts=(firstTs!==Infinity)?firstTs:exported;
+    if(!byKey[id]) byKey[id]={id:id,name:name,city:city,family:family,lamps:{jianchi:0,jinjie:0,juezhao:0},fromId:(st.fromId!=null?st.fromId:null),ts:ts};
+    const cur=byKey[id];
+    if(city) cur.city=city; if(family) cur.family=family; if(st.fromId!=null) cur.fromId=st.fromId;
+    ['jianchi','jinjie','juezhao'].forEach(function(k){cur.lamps[k]=Math.max(cur.lamps[k]||0, lamps[k]||0);});
+    if(ts && (cur.ts===undefined || ts<cur.ts)) cur.ts=ts;
+  });
+  const cities={};
+  Object.values(byKey).forEach(function(s){
+    if(!s.city) return;
+    if(!cities[s.city]) cities[s.city]={city:s.city,total:0,jianchi:0,jinjie:0,juezhao:0,students:[],families:new Set(),first:null};
+    const c=cities[s.city];
+    c.jianchi+=s.lamps.jianchi; c.jinjie+=s.lamps.jinjie; c.juezhao+=s.lamps.juezhao;
+    c.total+=s.lamps.jianchi+s.lamps.jinjie+s.lamps.juezhao;
+    c.students.push(s); if(s.family) c.families.add(s.family);
+    if(!c.first || s.ts<c.first.ts) c.first=s;
+  });
+  return {students:Object.values(byKey),cities:cities};
+}
+
+/* ===== 渲染 ===== */
+let STATE={cities:{},students:[],maxTotal:1,agg:null,teacher:false};
+const MARKERS={}; const CARDS={};
+let SPREAD={}; const DRIFTERS=[]; let RAF=null; const SPREAD_LINES=[];
+function render(agg){
+  STATE.cities=agg.cities; STATE.students=agg.students; STATE.agg=agg;
+  for(const k in CARDS) delete CARDS[k];
+  const all=Object.values(agg.cities).sort(function(a,b){return b.total-a.total;});
+  const located=all.filter(function(c){return !!CITY_COORDS[c.city];});
+  const unlocated=all.filter(function(c){return !CITY_COORDS[c.city];});
+  STATE.maxTotal=Math.max(1,located.length?located[0].total:1);
+  let totalLamp=0; all.forEach(function(c){totalLamp+=c.total;});
+  document.getElementById('sLamp').textContent=totalLamp;
+  document.getElementById('sCity').textContent=all.length;
+  const list=document.getElementById('cityList'); list.innerHTML='';
+  if(!all.length){list.innerHTML='<div class="empty">'+t('noData')+'</div>'; renderMarkers(); return;}
+  const maxT=STATE.maxTotal;
+  located.forEach(function(c){ list.appendChild(cityCard(c,maxT,true)); });
+  if(unlocated.length){
+    const sec=document.createElement('div'); sec.className='sec-t'; sec.style.marginTop='14px';
+    sec.innerHTML='<span class="bar" style="background:var(--amber-deep)"></span>'+t('unlocTitle',{n:unlocated.length});
+    list.appendChild(sec);
+    const note=document.createElement('div'); note.className='unloc-note';
+    note.textContent=t('unlocNote');
+    list.appendChild(note);
+    unlocated.forEach(function(c){ list.appendChild(cityCard(c,maxT,false)); });
+  }
+  renderMarkers();
+  buildSpread();
+}
+function cityCard(c,maxT,located){
+  const firstName=maskName((c.first&&c.first.name)?c.first.name:'—');
+  const fam=c.families.size;
+  const div=document.createElement('div');
+  div.className='city '+(located?'city-loc':'city-unloc');
+  div.innerHTML='<div class="top"><span class="nm">'+esc(c.city)+'</span><span class="tot">'+c.total+' 盏</span></div>'+
+    '<div class="meta">'+t('cardLamps',{a:c.jianchi,b:c.jinjie,c:c.juezhao})+'<br>'+
+    '<span class="first">'+t('cardFirst')+esc(firstName)+'</span>'+(fam?(' ｜ 🏠 '+fam+' 户家庭'):'')+'</div>'+
+    '<div class="barwrap"><div class="barfill" style="width:'+Math.round(c.total/maxT*100)+'%"></div></div>';
+  if(located){ div.title=t('secTitle'); div.onclick=function(){ focusCity(c.city); }; CARDS[c.city]=div; }
+  return div;
+}
+function focusCity(city){
+  const co=CITY_COORDS[city]; if(!co||!map) return;
+  map.flyTo(co, Math.max(map.getZoom(),6), {duration:0.8});
+  const m=MARKERS[city];
+  if(m){ setTimeout(function(){ m.openPopup(); onSpread(city, m); }, 850); }
+  for(const k in CARDS){ if(CARDS[k]) CARDS[k].classList.remove('active'); }
+  if(CARDS[city]) CARDS[city].classList.add('active');
+}
+function lampSize(total){return Math.min(50, 26 + Math.sqrt(total)*4.2);}
+function lanternSVG(w){
+  const h=Math.round(w*1.32); const gid='lg'+(w|0);
+  return '<svg class="lantern-svg" width="'+w+'" height="'+h+'" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">'+
+    '<defs><radialGradient id="'+gid+'" cx="50%" cy="44%" r="56%">'+
+      '<stop offset="0%" stop-color="#fff7e0"/><stop offset="55%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#ea8c0a"/>'+
+    '</radialGradient></defs>'+
+    '<line x1="20" y1="0" x2="20" y2="9" stroke="#2f8f83" stroke-width="1.6"/>'+
+    '<rect x="13.5" y="8" width="13" height="4.5" rx="2" fill="#2f8f83"/>'+
+    '<ellipse cx="20" cy="28" rx="14" ry="16" fill="url(#'+gid+')" stroke="#d97706" stroke-width="1.4"/>'+
+    '<path d="M20 12 C12 18 12 38 20 44" fill="none" stroke="#e08a0a" stroke-width="1" opacity=".55"/>'+
+    '<path d="M20 12 C28 18 28 38 20 44" fill="none" stroke="#e08a0a" stroke-width="1" opacity=".55"/>'+
+    '<line x1="6" y1="28" x2="34" y2="28" stroke="#e08a0a" stroke-width=".8" opacity=".5"/>'+
+    '<rect x="13.5" y="43.5" width="13" height="4.5" rx="2" fill="#2f8f83"/>'+
+    '<line x1="20" y1="48" x2="20" y2="56" stroke="#2f8f83" stroke-width="1.6"/>'+
+  '</svg>';
+}
+function renderMarkers(){
+  if(!map) return;
+  map.eachLayer(function(l){ if(l._isLamp) map.removeLayer(l); });
+  clearSpread();
+  for(const k in MARKERS) delete MARKERS[k];
+  const located=Object.values(STATE.cities).filter(function(c){return !!CITY_COORDS[c.city];});
+  located.forEach(function(c){
+    const co=CITY_COORDS[c.city];
+    const w=Math.round(lampSize(c.total)); const h=Math.round(w*1.32);
+    const halo=Math.round(Math.max(w,h)*0.95);
+    const html='<div class="lantern">'+
+      '<div class="halo" style="width:'+halo+'px;height:'+halo+'px"></div>'+
+      lanternSVG(w)+
+      (c.first?('<div class="city-first-tag">'+t('firstTag')+'</div>'):'')+
+      '</div>';
+    const icon=L.divIcon({className:'lamp-marker',html:html,iconSize:[w,h],iconAnchor:[w/2,h*0.5]});
+    const m=L.marker(co,{icon:icon}); m._isLamp=true;
+    const famTxt=c.families.size?t('popupFamily',{n:c.families.size}):'';
+    m.bindPopup('<b>'+esc(c.city)+'</b><br>'+t('popupLamp',{n:c.total})+'<br>'+t('popupLamps',{a:c.jianchi,b:c.jinjie,c:c.juezhao})+
+      '<br>'+t('popupFirst')+(c.first?esc(maskName(c.first.name)):'—')+famTxt);
+    m.addTo(map); MARKERS[c.city]=m;
+    m.on('click', function(){ onSpread(c.city, m); });
+  });
+  if(located.length){
+    const pts=located.map(function(c){return CITY_COORDS[c.city];});
+    if(pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.3));
+  }
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+/* 姓名脱敏：默认隐藏第二字（刘俊平→刘*平）；教师模式显示全名 */
+function maskName(name){
+  if(STATE.teacher) return name;
+  if(!name) return name;
+  const s=String(name);
+  if(s.length<=1) return s;
+  return s[0]+'*'+s.slice(2);
+}
+
+/* ===== 传灯发散（点击城市灯笼） ===== */
+function buildSpread(){
+  SPREAD={};
+  const byId={};
+  STATE.students.forEach(function(s){ if(s && s.id) byId[s.id]=s; });
+  STATE.students.forEach(function(s){
+    if(!s || !s.fromId) return;
+    const F=byId[s.fromId]; if(!F || !F.city || !s.city) return;
+    const fa=CITY_COORDS[F.city], sa=CITY_COORDS[s.city];
+    if(!fa || !sa) return;          // 两端都需有坐标（待定位城市不连线）
+    if(F.city===s.city) return;      // 同城传灯不跨城画虚线
+    if(!SPREAD[F.city]) SPREAD[F.city]={hasSpread:false, receivers:[]};
+    const hit=SPREAD[F.city].receivers.some(function(r){return r.toCity===s.city;});
+    if(!hit){
+      SPREAD[F.city].receivers.push({toCity:s.city, toName:s.name});
+      SPREAD[F.city].hasSpread=true;
+    }
+  });
+}
+function clearSpread(){
+  if(map){ map.eachLayer(function(l){ if(l._isSpread) map.removeLayer(l); }); }
+  DRIFTERS.forEach(function(d){ try{ d.marker.remove(); }catch(e){} });
+  DRIFTERS.length=0; SPREAD_LINES.length=0;
+  if(RAF){ cancelAnimationFrame(RAF); RAF=null; }
+  document.querySelectorAll('.lantern.shake').forEach(function(el){ el.classList.remove('shake'); });
+  document.querySelectorAll('.lantern.pulse-target').forEach(function(el){ el.classList.remove('pulse-target'); });
+}
+function shakeMarker(m){
+  if(!m || !m.getElement) return;
+  const el=m.getElement(); if(!el) return;
+  const lan=el.querySelector('.lantern'); if(!lan) return;
+  lan.classList.add('shake');
+  setTimeout(function(){ if(lan) lan.classList.remove('shake'); }, 650);
+}
+function onSpread(city, m){
+  clearSpread();
+  const sp=SPREAD[city];
+  const c=STATE.cities[city]; if(!c) return;
+  let extra='';
+  if(sp && sp.hasSpread && sp.receivers.length){
+    const list=sp.receivers.map(function(r){return esc(r.toCity)+'（'+esc(maskName(r.toName||''))+'）';}).join('、');
+    extra='<br>'+t('popupSpread',{list:list});
+    sp.receivers.forEach(function(r){
+      const a=CITY_COORDS[city], b=CITY_COORDS[r.toCity];
+      if(a && b) addSpreadLine(a,b,r.toCity);
+    });
+  } else {
+    extra='<br>'+t('popupNoSpread');
+    shakeMarker(m);
+  }
+  const base='<b>'+esc(city)+'</b><br>'+t('popupLamp',{n:c.total})+'<br>'+t('popupLamps',{a:c.jianchi,b:c.jinjie,c:c.juezhao})+
+    '<br>'+t('popupFirst')+(c.first?esc(maskName(c.first.name)):'—')+(c.families.size?t('popupFamily',{n:c.families.size}):'');
+  if(m) m.setPopupContent(base+extra);
+}
+function addSpreadLine(a,b,toCity){
+  const line=L.polyline([a,b],{color:'#f59e0b',weight:2.4,dashArray:'5 8',opacity:.9});
+  line._isSpread=true; line.addTo(map); SPREAD_LINES.push(line);
+  const tm=MARKERS[toCity];
+  if(tm && tm.getElement){
+    const tel=tm.getElement();
+    if(tel){ const lan=tel.querySelector('.lantern'); if(lan){ lan.classList.add('pulse-target'); setTimeout(function(){ if(lan) lan.classList.remove('pulse-target'); }, 1400); } }
+  }
+  const icon=L.divIcon({className:'drift-wrap', html:'<div class="drift-lamp">💡</div>', iconSize:[18,18], iconAnchor:[9,9]});
+  const dm=L.marker(a,{icon:icon, interactive:false, zIndexOffset:1000}); dm._isSpread=true; dm.addTo(map);
+  DRIFTERS.push({marker:dm, a:a, b:b, t:Math.random(), speed:0.005});
+  if(!RAF) RAF=requestAnimationFrame(tick);
+}
+function tick(){
+  DRIFTERS.forEach(function(d){
+    d.t+=d.speed; if(d.t>1) d.t-=1;
+    const lat=d.a[0]+(d.b[0]-d.a[0])*d.t;
+    const lng=d.a[1]+(d.b[1]-d.a[1])*d.t;
+    d.marker.setLatLng([lat,lng]);
+  });
+  if(DRIFTERS.length) RAF=requestAnimationFrame(tick); else RAF=null;
+}
+
+/* ===== 文件读取 ===== */
+function readFiles(fileList,cb){
+  const files=Array.from(fileList); let done=0; const out=[]; const report={ok:[],skip:[]};
+  if(!files.length){cb(out,report);return;}
+  files.forEach(function(f){
+    const rd=new FileReader();
+    rd.onload=function(){
+      try{
+        const data=JSON.parse(rd.result);
+        const st=data.student||{};
+        const c=normalizeCity(st.city);
+        out.push({name:f.name,data:data});
+        report.ok.push({name:f.name,city:c,hasCity:!!c});
+      }catch(e){ report.skip.push({name:f.name,reason:t('repSkipReason')}); }
+      done++; if(done===files.length)cb(out,report);
+    };
+    rd.onerror=function(){ report.skip.push({name:f.name,reason:t('repReadFail')}); done++; if(done===files.length)cb(out,report); };
+    rd.readAsText(f);
+  });
+}
+function showImportReport(rep){
+  const el=document.getElementById('impStat'); if(!el) return;
+  if(!rep||(!rep.ok.length&&!rep.skip.length)){ el.className='imp-stat'; el.innerHTML=''; return; }
+  const okN=rep.ok.length, skipN=rep.skip.length;
+  const noCity=rep.ok.filter(function(o){return !o.hasCity;}).length;
+  let html='<span class="ok">'+t('repOk',{n:okN})+'</span>';
+  if(noCity) html+=' <span class="warn">'+t('repNoCity',{n:noCity})+'</span>';
+  if(skipN){
+    html+=' <span class="bad">'+t('repSkip',{n:skipN})+'</span>';
+    const reasons=rep.skip.map(function(s){return esc(s.name)+'（'+s.reason+'）';}).join('、');
+    html+='<div class="skip-detail">'+reasons+'</div>';
+  }
+  el.className='imp-stat show'; el.innerHTML=html;
+}
+document.getElementById('importBtn').onclick=function(){document.getElementById('fileIn').click();};
+document.getElementById('fileIn').onchange=function(e){readFiles(e.target.files,function(fs,rep){if(fs.length||rep.skip.length){render(aggregate(fs));showImportReport(rep);}});};
+const drop=document.getElementById('drop');
+['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('hot');});});
+['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('hot');});});
+drop.addEventListener('drop',function(e){if(e.dataTransfer&&e.dataTransfer.files)readFiles(e.dataTransfer.files,function(fs,rep){if(fs.length||rep.skip.length){render(aggregate(fs));showImportReport(rep);}});});
+
+/* 底图切换 */
+document.getElementById('baseBtn').onclick=function(){
+  if(!map) return;
+  if(baseMode==='tencent'){ map.removeLayer(tencent); map.addLayer(osm); baseMode='osm'; this.textContent=t('baseOsm'); }
+  else{ map.removeLayer(osm); map.addLayer(tencent); baseMode='tencent'; this.textContent=t('baseTencent'); }
+};
+document.getElementById('teacherBtn').onclick=function(){
+  STATE.teacher=!STATE.teacher;
+  this.textContent=STATE.teacher?t('publicView'):t('teacherView');
+  this.classList.toggle('btn-active',STATE.teacher);
+  if(STATE.agg) render(STATE.agg);
+};
+
+/* ===== 示例数据 ===== */
+function mk(id,name,city,family,j,c,jz,daysAgo,fromId){
+  return {student:{id:id,name:name,city:city,family:family,fromId:(fromId!=null?fromId:null)},
+    lamps:{jianchi:j,jinjie:c,juezhao:jz},
+    exported:Date.now()-86400000*daysAgo,
+    records:[{ts:Date.now()-86400000*daysAgo}]};
+}
+document.getElementById('demoBtn').onclick=function(){
+  const demo=[
+    mk('SR26-001','张伟','武汉','张门',15,12,8,5,null),
+    mk('SR26-002','李娜','武汉','李家',8,5,1,3,'SR26-001'),
+    mk('SR26-003','王芳','北京','王家',14,10,7,4,'SR26-001'),
+    mk('SR26-004','陈晨','上海','陈宅',9,7,4,2,'SR26-001'),
+    mk('SR26-005','John','纽黑文','Yale',6,4,3,1,'SR26-003')
+  ];
+  render(aggregate(demo.map(function(d){return {name:d.student.id+'.json',data:d};})));
+  showImportReport(null);
+};
+
+/* ===== 云端数据（可选，手动导入兜底） ===== */
+function loadCloud(){
+  fetch('./data.json').then(function(r){ if(!r.ok) throw new Error('no'); return r.json(); })
+    .then(function(d){
+      if(d && Array.isArray(d.students) && d.students.length){
+        const files=d.students.map(function(s){
+          return {name:(s.id||'x')+'.json', data:{
+            student:{id:s.id,name:s.name,city:s.city,family:s.family,fromId:(s.fromId!=null?s.fromId:null)},
+            lamps:s.lamps||{}, records:s.records||[]
+          }};
+        });
+        render(aggregate(files));
+        showImportReport(null);
+      }
+    }).catch(function(){});
+}
+loadCloud();
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "传灯 · 受的三毒觉察",
+  "short_name": "传灯",
+  "description": "静坐前的调心工具：在「受」的转折点松手，并把觉察之灯传给下一个人。",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f3ea",
+  "theme_color": "#3f8f86",
+  "lang": "zh-CN",
+  "categories": ["education", "lifestyle"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

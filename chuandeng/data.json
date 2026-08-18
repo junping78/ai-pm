@@ -1,0 +1,12 @@
+{
+  "app": "chuandeng",
+  "version": 1,
+  "updatedAt": 1755000000000,
+  "students": [
+    {"id":"SR26-001","name":"张伟","city":"武汉","family":"张门","lamps":{"jianchi":15,"jinjie":12,"juezhao":8},"fromId":null,"forwardCount":2,"createdAt":1754900000000,"updatedAt":1754900000000},
+    {"id":"SR26-002","name":"李娜","city":"武汉","family":"李家","lamps":{"jianchi":8,"jinjie":5,"juezhao":1},"fromId":"SR26-001","forwardCount":0,"createdAt":1754910000000,"updatedAt":1754910000000},
+    {"id":"SR26-003","name":"王芳","city":"北京","family":"王家","lamps":{"jianchi":14,"jinjie":10,"juezhao":7},"fromId":"SR26-001","forwardCount":1,"createdAt":1754920000000,"updatedAt":1754920000000},
+    {"id":"SR26-004","name":"陈晨","city":"上海","family":"陈宅","lamps":{"jianchi":9,"jinjie":7,"juezhao":4},"fromId":"SR26-001","forwardCount":0,"createdAt":1754930000000,"updatedAt":1754930000000},
+    {"id":"SR26-005","name":"John","city":"纽黑文","family":"Yale","lamps":{"jianchi":6,"jinjie":4,"juezhao":3},"fromId":"SR26-003","forwardCount":0,"createdAt":1754940000000,"updatedAt":1754940000000}
+  ]
+}
