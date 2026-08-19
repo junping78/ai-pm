@@ -95,6 +95,43 @@
     color: #fff;
     border-color: var(--c-primary);
   }
+  /* 战略分类 subtle 点缀：只在未选中时生效 */
+  .res-filter .filter-btn.tag-free {
+    border-color: #10b981;
+    color: #047857;
+  }
+  .res-filter .filter-btn.tag-free:hover {
+    background: #ecfdf5;
+  }
+  .res-filter .filter-btn.tag-aipractice {
+    border-color: var(--c-primary-light);
+    color: var(--c-primary-dark);
+  }
+  .res-filter .filter-btn.tag-aipractice:hover {
+    background: var(--c-primary-bg);
+  }
+  .res-filter .filter-btn.tag-zen {
+    border-color: #d4c4a8;
+    color: #7c6a44;
+  }
+  .res-filter .filter-btn.tag-zen:hover {
+    background: #faf7f0;
+  }
+  .res-filter .filter-btn.tag-free::before,
+  .res-filter .filter-btn.tag-aipractice::before,
+  .res-filter .filter-btn.tag-zen::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .res-filter .filter-btn.tag-free::before { background: #10b981; }
+  .res-filter .filter-btn.tag-aipractice::before { background: var(--c-primary); }
+  .res-filter .filter-btn.tag-zen::before { background: #c4a35a; }
+  .res-filter .filter-btn.active::before { display: none; }
 
   /* 资源分类区块 */
   .res-section {
@@ -298,14 +335,14 @@
     <div class="container">
         <span class="filter-label">筛选：</span>
         <button class="filter-btn active" onclick="setFilter('all', this)">全部</button>
-        <button class="filter-btn" onclick="setFilter('free', this)">免费资源</button>
-        <button class="filter-btn" onclick="setFilter('member', this)">会员资源</button>
+        <button class="filter-btn tag-free" onclick="setFilter('free', this)">免费资源</button>
+        <button class="filter-btn tag-aipractice" onclick="setFilter('aipractice', this)">AI实践</button>
         <button class="filter-btn" onclick="setFilter('pm', this)">项目管理</button>
         <button class="filter-btn" onclick="setFilter('ai', this)">AI工具</button>
-        <button class="filter-btn" onclick="setFilter('zen', this)">禅修</button>
-        <button class="filter-btn" onclick="setFilter('bid', this)">招标投标</button>
-        <button class="filter-btn" onclick="setFilter('aipractice', this)">AI实践</button>
+        <button class="filter-btn tag-zen" onclick="setFilter('zen', this)">禅修</button>
         <button class="filter-btn" onclick="setFilter('shinystar', this)">亮晶晶</button>
+        <button class="filter-btn" onclick="setFilter('bid', this)">招标投标</button>
+        <button class="filter-btn" onclick="setFilter('member', this)">会员资源</button>
         <div class="res-search">
             <input type="text" id="resSearch" placeholder="搜索资源..." oninput="filterResources()">
         </div>
@@ -663,6 +700,22 @@
                 <div class="res-meta">
                     <span class="res-count">已验证</span>
                     <a href="note-video-share-client.html" class="res-action">查看手记 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="res-card" data-access="free" data-keywords="亮晶晶 WorkBuddy CodeBuddy Codex 自动化 工作流 编排 脚本执行 大模型推理 中转脚本 JSON 上下文 环境变量 密钥管理">
+                <div class="res-card-header">
+                    <h3>WorkBuddy + CodeBuddy + Codex 无缝接入</h3>
+                </div>
+                <div class="res-tags">
+                    <span class="tag tag-free">免费</span>
+                    <span class="tag tag-primary">AI手记</span>
+                    <span class="tag tag-warm">工程自动化</span>
+                </div>
+                <p class="res-desc">把任务编排、脚本执行、大模型推理串成一条自动链路：WorkBuddy 发任务 → CodeBuddy 跑 Python/Shell 中转脚本 → 调用 Codex 做推理 → 结果回写。附避坑清单、测试验证流程与无 Python 环境的 Shell 版本。</p>
+                <div class="res-meta">
+                    <span class="res-count">已验证</span>
+                    <a href="note-workbuddy-codebuddy-codex.html" class="res-action">查看手记 &rarr;</a>
                 </div>
             </div>
         </div>

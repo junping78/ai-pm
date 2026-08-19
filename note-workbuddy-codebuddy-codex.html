@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkBuddy + CodeBuddy + Codex 无缝接入实践手记 | 亮晶晶 · AI 实践手记</title>
+<meta name="description" content="把 WorkBuddy 任务编排、CodeBuddy 脚本执行、Codex 大模型推理串成一条自动链路：统一 JSON 上下文 + 环境变量密钥 + 标准中转脚本，实现跨组件无人工切换的自动流转。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="WorkBuddy + CodeBuddy + Codex 无缝接入实践手记 | 亮晶晶 · AI 实践手记">
+<meta property="og:description" content="任务编排 → 脚本执行 → 模型推理自动闭环，附 Python 中转脚本、避坑清单与测试验证流程。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/note-workbuddy-codebuddy-codex.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  .notes-hero {
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-light) 100%);
+    color: #fff;
+    padding: 52px 20px 44px;
+    text-align: center;
+  }
+  .notes-hero .container-narrow { max-width: 760px; margin: 0 auto; }
+  .notes-hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    line-height: 1.4;
+  }
+  .notes-hero .subtitle {
+    font-size: 16px;
+    opacity: 0.92;
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .notes-hero .back-link {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+  }
+  .notes-hero .back-link:hover { color: #fff; text-decoration: underline; }
+
+  .note-detail { padding: 36px 0 48px; }
+  .note-detail .container-narrow { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+  .note-meta-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 18px;
+  }
+  .note-meta-bar .tag { font-size: 12px; padding: 3px 11px; border-radius: 12px; font-weight: 500; }
+  .tag-shine { background: #FFF8E1; color: #B8860B; }
+  .tag-scene { background: var(--c-primary-bg); color: var(--c-primary-dark); }
+  .tag-tool { background: var(--c-accent-bg); color: var(--c-accent); }
+  .note-meta-bar .date { font-size: 13px; color: var(--c-text-muted); margin-left: auto; }
+
+  .lede {
+    background: var(--c-primary-bg);
+    border-left: 4px solid var(--c-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: var(--c-primary-dark);
+    margin-bottom: 30px;
+  }
+  .lede strong { color: var(--c-primary); }
+
+  .note-body { font-size: 15px; line-height: 1.85; color: var(--c-text); }
+  .note-body h3 {
+    font-size: 18px; font-weight: 700; color: var(--c-primary-dark);
+    margin: 34px 0 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .note-body h4 {
+    font-size: 16px; font-weight: 700; color: var(--c-text);
+    margin: 22px 0 10px;
+  }
+  .note-body p { margin-bottom: 12px; }
+  .note-body ol, .note-body ul { padding-left: 1.6em; margin-bottom: 14px; }
+  .note-body li { margin-bottom: 6px; }
+  .note-body .highlight { background: #FFF8E1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+  .note-body code {
+    font-family: SF Mono, Consolas, Monaco, monospace;
+    background: var(--c-bg-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13.5px;
+  }
+  .note-body pre {
+    background: #1f2937;
+    color: #e5e7eb;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 14px 0 22px;
+  }
+  .note-body pre code {
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+  .note-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 24px;
+    font-size: 14px;
+  }
+  .note-body th, .note-body td {
+    border: 1px solid var(--c-border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .note-body th {
+    background: var(--c-primary-bg);
+    color: var(--c-primary-dark);
+    font-weight: 600;
+  }
+  .note-body tr:nth-child(even) td { background: var(--c-bg-soft); }
+
+  .alert {
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .alert strong { font-weight: 700; }
+  .alert-info {
+    background: var(--c-primary-bg);
+    border: 1px solid var(--c-primary-light);
+    color: var(--c-primary-dark);
+  }
+  .alert-warn {
+    background: #FFF8E1;
+    border: 1px solid #F0D98C;
+    color: #8a6d1a;
+  }
+  .alert-danger {
+    background: #FEF2F2;
+    border: 1px solid #FCA5A5;
+    color: #991B1B;
+    margin: 10px 0;
+  }
+  .alert-danger ul { margin: 6px 0 0; padding-left: 1.4em; }
+  .alert-danger li { margin-bottom: 4px; }
+
+  .step-box {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin: 14px 0 22px;
+  }
+  .step-box ol { margin: 0; padding-left: 1.4em; }
+
+  @media (max-width: 640px) {
+    .notes-hero h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="notes-hero">
+    <div class="container-narrow">
+        <a href="resources.html" class="back-link">&larr; 返回 AI实践资源</a>
+        <h1>✨ WorkBuddy + CodeBuddy + Codex 无缝接入</h1>
+        <p class="subtitle">
+            把<strong style="color:#fff;">任务编排、脚本执行、模型推理</strong>串成一条自动链路，<br>
+            跨组件流转不再需要人工切窗口。
+        </p>
+    </div>
+</header>
+
+<main class="note-detail">
+    <div class="container-narrow">
+
+        <div class="note-meta-bar">
+            <span class="tag tag-shine">亮晶晶</span>
+            <span class="tag tag-scene">工程自动化</span>
+            <span class="tag tag-tool">WorkBuddy · CodeBuddy · Codex</span>
+            <span class="date">2026-06-19</span>
+        </div>
+
+        <div class="lede">
+            <strong>一句话结论：</strong>让 <strong>WorkBuddy 管编排、CodeBuddy 管执行、Codex 管推理</strong>，三者通过<strong>统一 JSON 上下文 + 环境变量密钥 + 标准中转脚本</strong>自动流转。适合批量数据处理、代码生成、文档解析等需要"流程 + 脚本 + 大模型"连续出活的工程场景。
+        </div>
+
+        <div class="note-body">
+
+            <h3>🧩 各组件分工</h3>
+            <table>
+                <tr>
+                    <th>组件</th>
+                    <th>职责</th>
+                </tr>
+                <tr>
+                    <td>WorkBuddy</td>
+                    <td>任务编排、流程调度、参数传递、状态管理，作为整个链路的入口与控制器</td>
+                </tr>
+                <tr>
+                    <td>CodeBuddy</td>
+                    <td>执行自定义 Python / Shell 脚本、文件读写、API 请求、数据预处理、结果回传</td>
+                </tr>
+                <tr>
+                    <td>Codex</td>
+                    <td>代码生成、代码解析、文本推理、结构化输出，承接自然语言转代码、逻辑推演能力</td>
+                </tr>
+            </table>
+
+            <p><strong>流转链路：</strong>WorkBuddy 发起任务 → 传递上下文参数 → CodeBuddy 运行对接脚本 → 调用 Codex 接口 → 结果回写给 CodeBuddy → 回传 WorkBuddy 完成流程闭环。</p>
+
+            <h3>📋 前置准备清单</h3>
+            <div class="step-box">
+                <ol>
+                    <li>开通 WorkBuddy 项目空间，获取项目访问密钥。</li>
+                    <li>CodeBuddy 环境确认：支持网络请求、Python 标准库，可安装 pip 依赖（按需）。</li>
+                    <li>Codex API Key、请求域名、接口版本（model 名称确认）。</li>
+                    <li>统一上下文协议：JSON 格式传递入参、出参，保证三方数据兼容。</li>
+                </ol>
+            </div>
+
+            <h3>🔧 步骤 1：WorkBuddy 流程画布配置</h3>
+            <div class="step-box">
+                <ol>
+                    <li>新建工作流，添加【自定义节点】，节点类型选择「调用外部脚本 / CodeBuddy」。</li>
+                    <li>定义输入变量：<code>prompt</code>、<code>task_id</code>、<code>output_schema</code>、<code>user_params</code>（统一使用 JSON 结构）。</li>
+                    <li>开启参数透传：所有输入变量原样转发给 CodeBuddy，不做格式篡改。</li>
+                    <li>配置回调地址：接收 CodeBuddy 执行完成后的返回 JSON，用于分支判断。</li>
+                    <li>设置超时时间：建议 120s，适配 Codex 长文本推理场景。</li>
+                </ol>
+            </div>
+
+            <h3>🔧 步骤 2：CodeBuddy 接入中转脚本（Python 核心）</h3>
+            <div class="alert alert-warn">
+                <strong>关键点：</strong>脚本职责仅做中转、参数校验、异常捕获，业务推理交给 Codex，保证三层职责解耦。
+            </div>
+<pre><code>"""
+workbuddy_codex_bridge.py
+作用：接收 WorkBuddy 入参 → 请求 Codex 接口 → 标准化返回结果给 WorkBuddy
+"""
+import os
+import json
+import requests
+
+# ========= 配置区（从环境变量读取，禁止硬编码密钥）=========
+CODEX_API_KEY = os.getenv("CODEX_API_KEY")
+CODEX_ENDPOINT = os.getenv("CODEX_ENDPOINT")
+MODEL_NAME = "codex"
+
+def call_codex(prompt: str, schema: dict):
+    headers = {
+        "Authorization": f"Bearer {CODEX_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": MODEL_NAME,
+        "prompt": prompt,
+        "response_format": {"type": "json_object", "schema": schema},
+        "temperature": 0.2
+    }
+    resp = requests.post(
+        f"{CODEX_ENDPOINT}/v1/completions",
+        headers=headers,
+        json=payload,
+        timeout=90
+    )
+    resp.raise_for_status()
+    return resp.json()
+
+def main():
+    # 接收 WorkBuddy 传入的 JSON 参数
+    input_raw = os.getenv("WORKBUDDY_INPUT")
+    input_data = json.loads(input_raw)
+    prompt = input_data.get("prompt", "")
+    output_schema = input_data.get("output_schema", {})
+
+    try:
+        codex_result = call_codex(prompt, output_schema)
+        return_data = {
+            "success": True,
+            "data": codex_result,
+            "msg": "ok"
+        }
+    except Exception as e:
+        return_data = {
+            "success": False,
+            "data": None,
+            "msg": str(e)
+        }
+    # 标准输出 JSON，回传给 WorkBuddy
+    print(json.dumps(return_data, ensure_ascii=False))
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+            <h3>🔧 步骤 3：CodeBuddy 环境部署与权限配置</h3>
+            <div class="step-box">
+                <ol>
+                    <li>上传 bridge 脚本至 CodeBuddy 工作目录。</li>
+                    <li>环境变量注入：<code>CODEX_API_KEY</code>、<code>CODEX_ENDPOINT</code>、<code>WORKBUDDY_INPUT</code>（由 WorkBuddy 运行时注入）。</li>
+                    <li>网络白名单：CodeBuddy 出口 IP 加入 Codex 服务访问白名单。</li>
+                    <li>依赖安装：<code>pip install requests</code>。</li>
+                    <li>测试运行：手动构造 <code>WORKBUDDY_INPUT</code> 环境变量，验证脚本输出合法 JSON。</li>
+                </ol>
+            </div>
+
+            <h3>🔧 步骤 4：链路闭环与分支处理（WorkBuddy）</h3>
+            <div class="step-box">
+                <ol>
+                    <li>CodeBuddy 执行完毕，JSON 结果回传 WorkBuddy。</li>
+                    <li>增加判断分支：<code>success = true</code> / <code>success = false</code>。</li>
+                    <li>成功分支：解析 <code>data</code> 字段，继续下游业务节点（文件生成、通知、入库）。</li>
+                    <li>失败分支：捕获 <code>msg</code> 错误信息，支持重试（可配置重试次数、间隔），超过阈值触发告警。</li>
+                </ol>
+            </div>
+
+            <h3>⚠️ 无缝接入核心避坑清单</h3>
+            <div class="alert alert-danger">
+                <strong>重点 1：密钥管理</strong><br>
+                所有 API Key 不写死脚本，全部通过环境变量注入，防止泄露。
+            </div>
+            <div class="alert alert-danger">
+                <strong>重点 2：数据格式契约</strong><br>
+                全链路统一 JSON，禁止自由文本返回，否则 WorkBuddy 无法解析分支条件。
+            </div>
+            <div class="alert alert-danger">
+                <strong>重点 3：超时与异常隔离</strong><br>
+                CodeBuddy 增加 try / catch，Codex 请求设置 timeout，防止单个节点阻塞整个工作流。
+            </div>
+            <div class="alert alert-danger">
+                <strong>重点 4：职责边界</strong>
+                <ul>
+                    <li>WorkBuddy：只管流程、调度、分支、存储上下文</li>
+                    <li>CodeBuddy：脚本执行、网络转发、文件 IO、数据清洗</li>
+                    <li>Codex：模型推理、代码生成、语义解析</li>
+                </ul>
+            </div>
+            <div class="alert alert-danger">
+                <strong>重点 5：日志留存</strong><br>
+                CodeBuddy 打印完整出入参日志，WorkBuddy 保存节点执行记录，方便排障。
+            </div>
+
+            <h3>🖥 扩展：Shell 版本中转脚本（兼容无 Python 环境）</h3>
+            <p>如果 CodeBuddy 所在环境没有 Python，可用 curl 直接中转：</p>
+<pre><code>#!/bin/bash
+# workbuddy_codex_bridge.sh
+INPUT_DATA=$WORKBUDDY_INPUT
+CODEX_KEY=$CODEX_API_KEY
+CODEX_URL=$CODEX_ENDPOINT
+
+curl -s -X POST "$CODEX_URL/v1/completions" \
+  -H "Authorization: Bearer $CODEX_KEY" \
+  -H "Content-Type: application/json" \
+  -d "$INPUT_DATA"
+</code></pre>
+
+            <h3>✅ 测试验证流程</h3>
+            <div class="step-box">
+                <ol>
+                    <li><strong>单元测试：</strong>CodeBuddy 单独运行脚本，确认可正常调用 Codex 并返回 JSON。</li>
+                    <li><strong>联调测试：</strong>WorkBuddy 启动完整流程，观测参数透传、返回解析、分支流转。</li>
+                    <li><strong>异常测试：</strong>故意填写错误 Codex 密钥，验证失败分支、重试、告警是否生效。</li>
+                    <li><strong>压力测试：</strong>并发多条任务，观测各组件超时、限流情况。</li>
+                </ol>
+            </div>
+
+            <h3>🔍 常见问题排查</h3>
+            <table>
+                <tr>
+                    <th>现象</th>
+                    <th>根因</th>
+                    <th>解决方案</th>
+                </tr>
+                <tr>
+                    <td>WorkBuddy 拿到返回无法解析</td>
+                    <td>脚本输出额外 print 日志，污染 JSON</td>
+                    <td>仅最终结果 print json，中间日志写入文件，不输出 stdout</td>
+                </tr>
+                <tr>
+                    <td>Codex 接口超时</td>
+                    <td>prompt 过长、网络链路慢、timeout 设置过小</td>
+                    <td>调大 timeout，拆分长任务，WorkBuddy 开启异步回调模式</td>
+                </tr>
+                <tr>
+                    <td>密钥鉴权失败</td>
+                    <td>环境变量注入失败、存在换行空格</td>
+                    <td>在 CodeBuddy 脚本打印环境变量调试，去除首尾空白字符</td>
+                </tr>
+            </table>
+
+            <h3>🎯 落地总结</h3>
+            <p>这套无缝接入方案实现了三层能力解耦：业务编排交给 WorkBuddy，脚本执行与中转交给 CodeBuddy，大模型推理交给 Codex。<strong>标准化 JSON 上下文 + 环境变量密钥管理 + 统一中转脚本</strong>，实现跨组件无人工介入自动流转，适合自动化数据处理、批量代码生成、文档解析类工程场景。</p>
+
+        </div>
+
+        <!-- 延伸阅读 -->
+        <div class="related-bar" style="background:var(--c-primary-bg);border-radius:var(--radius);padding:18px 22px;margin:34px 0 8px;">
+            <strong style="color:var(--c-primary-dark);">延伸阅读：</strong>
+            <a href="ai-notes.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">亮晶晶手记合集</a>
+            <a href="resources.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">AI实践资源</a>
+            <a href="note-workbuddy-sessions.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;margin-right:16px;">用 WorkBuddy 管住多框架任务</a>
+            <a href="ai-tips-workbench.html" style="color:var(--c-primary);font-weight:600;text-decoration:none;">AI 心得工作台</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="resources.html">AI实践资源</a>
+                <a href="ai-tools.html">AI工具箱</a>
+                <a href="weekly-list.html">教师周报</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            电话：13277049868<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+</body>
+</html>
