@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>讲师介绍 | 刘俊平 — 项目管理实战讲师 · AI赋能管理效率提升专家</title>
+<meta name="description" content="刘俊平，PMP/IPMP双认证，20年项目管理培训与咨询经验，累计交付500+场，服务国家电网、邮储银行、华为、中兴通讯等500余家企业。">
+<style>
+  :root{
+    --blue:#2E6BE6; --blue-dark:#1D4FBB; --blue-light:#E8F1FF;
+    --text:#1F2329; --text-sub:#4A4F58; --text-muted:#8A8F99;
+    --border:#D0D3D9; --bg:#FAFBFC; --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.65; font-size:15px;
+  }
+  .page{max-width:880px;margin:0 auto;padding:32px 28px 40px;}
+
+  /* 极简顶栏 */
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+  .topbar .site{font-size:13px;color:var(--text-muted);}
+  .topbar .back a{color:var(--blue);text-decoration:none;font-weight:600;font-size:13px;}
+
+  /* 名片区 */
+  .header-card{
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    padding:26px 30px;
+  }
+  .header-top{display:flex;gap:24px;align-items:center;}
+  .avatar{
+    width:86px;height:86px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,#2E6BE6,#6FA0F5);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:32px;font-weight:700;letter-spacing:2px;
+  }
+  .header-info h1{font-size:24px;font-weight:700;margin-bottom:5px;}
+  .header-info .role{font-size:15px;color:var(--blue-dark);font-weight:600;margin-bottom:6px;}
+  .header-info .tagline{font-size:13.5px;color:var(--text-sub);}
+  .header-info .edu{font-size:12.5px;color:var(--text-muted);margin-top:4px;}
+  /* 数据条 */
+  .stats{
+    margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--border);padding-top:16px;gap:8px;
+  }
+  .stat{text-align:center;}
+  .stat .n{font-size:21px;font-weight:700;color:var(--blue-dark);}
+  .stat .l{font-size:12px;color:var(--text-muted);}
+
+  /* 段落通用 */
+  section{margin-top:26px;}
+  .sec-title{
+    display:flex;align-items:center;gap:10px;margin-bottom:13px;
+    font-size:17px;font-weight:700;
+  }
+  .sec-title .num{
+    width:26px;height:26px;border-radius:7px;background:var(--blue-light);
+    color:var(--blue-dark);font-size:13px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+
+  /* 资历卡片 */
+  .cred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .cred-item{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:12px 15px;
+  }
+  .cred-item .t{font-size:13.5px;font-weight:700;margin-bottom:2px;}
+  .cred-item .d{font-size:11.5px;color:var(--text-sub);line-height:1.5;}
+
+  /* 代表客户 */
+  .client-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 24px;
+  }
+  .client-row{display:flex;gap:12px;margin-bottom:9px;align-items:baseline;}
+  .client-row:last-child{margin-bottom:0;}
+  .client-label{
+    flex-shrink:0;width:76px;font-size:12px;font-weight:700;color:var(--blue-dark);
+    background:var(--blue-light);border-radius:6px;text-align:center;padding:2px 0;
+  }
+  .client-names{font-size:13px;color:var(--text-sub);}
+  .client-names b{color:var(--text);font-weight:600;}
+
+  /* 课程与成果 */
+  .biz-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 24px;
+  }
+  .biz-row{display:flex;gap:12px;margin-bottom:10px;align-items:baseline;}
+  .biz-row:last-child{margin-bottom:0;}
+  .biz-label{
+    flex-shrink:0;width:76px;font-size:12px;font-weight:700;color:var(--blue-dark);
+    background:var(--blue-light);border-radius:6px;text-align:center;padding:2px 0;
+  }
+  .biz-content{font-size:13px;color:var(--text-sub);}
+  .biz-content b{color:var(--text);}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px;}
+  .chip{
+    font-size:12px;background:var(--bg);border:1px solid var(--border);
+    border-radius:20px;padding:2px 11px;color:var(--text-sub);
+  }
+  .result-line{
+    margin-top:11px;padding-top:11px;border-top:1px dashed var(--border);
+    font-size:12.5px;color:var(--text-sub);
+  }
+  .result-line b{color:var(--blue-dark);}
+
+  /* 客户评价 */
+  .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .quote{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:13px 15px;font-size:12.5px;color:var(--text-sub);
+  }
+  .quote .mark{color:var(--blue);font-weight:700;}
+  .quote .who{display:block;margin-top:8px;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+
+  /* 联系方式 */
+  .contact-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:16px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px 14px;
+  }
+  .contact-item{display:flex;align-items:center;gap:9px;font-size:13px;}
+  .contact-item .icon{
+    width:28px;height:28px;border-radius:8px;background:var(--blue-light);
+    display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;
+  }
+  .contact-item .k{color:var(--text-muted);font-size:11px;}
+  .contact-item .v{font-weight:600;}
+
+  .footer{
+    margin-top:22px;padding-top:12px;border-top:1px solid var(--border);
+    font-size:12px;color:var(--text-muted);text-align:center;
+  }
+
+  /* 打印样式：A4 单页 */
+  @page{size:A4;margin:9mm;}
+  @media print{
+    body{background:#fff;font-size:11px;}
+    .page{max-width:100%;padding:0;}
+    .topbar{display:none;}
+    section{margin-top:10px;}
+    .sec-title{margin-bottom:7px;font-size:13.5px;}
+    .sec-title .num{width:20px;height:20px;font-size:10.5px;}
+    .header-card{padding:13px 18px;border-radius:10px;}
+    .header-top{gap:15px;}
+    .avatar{width:58px;height:58px;font-size:22px;}
+    .header-info h1{font-size:18px;margin-bottom:2px;}
+    .header-info .role{font-size:12.5px;margin-bottom:2px;}
+    .header-info .tagline{font-size:11px;}
+    .header-info .edu{font-size:10.5px;margin-top:2px;}
+    .stats{margin-top:9px;padding-top:9px;gap:4px;}
+    .stat .n{font-size:16px;}
+    .stat .l{font-size:10px;}
+    .cred-grid{gap:7px;}
+    .cred-item{padding:8px 11px;border-radius:8px;}
+    .cred-item .t{font-size:11.5px;margin-bottom:1px;}
+    .cred-item .d{font-size:10px;}
+    .client-card{padding:11px 16px;border-radius:9px;}
+    .client-row{margin-bottom:5px;gap:9px;}
+    .client-label{width:68px;font-size:10.5px;}
+    .client-names{font-size:11px;}
+    .biz-card{padding:11px 16px;border-radius:9px;}
+    .biz-row{margin-bottom:6px;gap:9px;}
+    .biz-label{width:68px;font-size:10.5px;}
+    .biz-content{font-size:11px;}
+    .chip{font-size:10px;padding:1px 9px;}
+    .result-line{margin-top:7px;padding-top:7px;font-size:10.5px;}
+    .quote-grid{gap:7px;}
+    .quote{padding:9px 11px;font-size:10.5px;border-radius:8px;}
+    .quote .who{margin-top:5px;font-size:9.5px;}
+    .contact-card{padding:9px 16px;gap:6px 10px;border-radius:9px;}
+    .contact-item{font-size:10.5px;gap:7px;}
+    .contact-item .icon{width:22px;height:22px;font-size:11px;border-radius:6px;}
+    .footer{margin-top:9px;padding-top:7px;font-size:9.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 极简顶栏 -->
+  <div class="topbar">
+    <span class="site">junping78.github.io/ai-pm</span>
+    <span class="back"><a href="https://junping78.github.io/ai-pm/ai-project-management.html">← 返回课程详情</a></span>
+  </div>
+
+  <!-- 名片区 -->
+  <div class="header-card">
+    <div class="header-top">
+      <div class="avatar">刘</div>
+      <div class="header-info">
+        <h1>刘俊平</h1>
+        <div class="role">项目管理实战讲师 · AI赋能管理效率提升专家</div>
+        <div class="tagline">深耕项目管理培训与咨询20年，将国际项目管理方法论与AI工具链深度融合，提供「可落地、可量化、可复制」的管理效率提升方案。</div>
+        <div class="edu">武汉大学 · 澳大利亚昆士兰大学深造 · 耶鲁大学访问学者</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">20<span style="font-size:13px;">年</span></div><div class="l">项目管理实战经验</div></div>
+      <div class="stat"><div class="n">500<span style="font-size:13px;">+场</span></div><div class="l">累计交付培训</div></div>
+      <div class="stat"><div class="n">9700<span style="font-size:13px;">+</span></div><div class="l">受训学员</div></div>
+      <div class="stat"><div class="n">95<span style="font-size:13px;">%+</span></div><div class="l">学员满意度</div></div>
+    </div>
+  </div>
+
+  <!-- 资历认证 -->
+  <section>
+    <div class="sec-title"><span class="num">1</span>资历与认证</div>
+    <div class="cred-grid">
+      <div class="cred-item"><div class="t">PMP® / IPMP 双认证</div><div class="d">美国PMI首期会员 · 欧洲IPMP中国区培训师</div></div>
+      <div class="cred-item"><div class="t">高级工程师 · 高级信息系统项目管理师</div><div class="d">国家高级职称 · 信息系统领域</div></div>
+      <div class="cred-item"><div class="t">参编国家软考教材 10 余部</div><div class="d">《系统集成项目管理工程师》等权威教材</div></div>
+      <div class="cred-item"><div class="t">版权课程原创者</div><div class="d">《AI赋能高效管理》《一张图搞定AI项目管理》</div></div>
+      <div class="cred-item"><div class="t">CMMI / ASPICE 中国区首届咨询师</div><div class="d">为20+家软件企业提供过程改进评估咨询</div></div>
+      <div class="cred-item"><div class="t">高校特聘讲师</div><div class="d">武汉大学继教院沙盘特聘 · 晴川学院翻转教学特聘</div></div>
+    </div>
+  </section>
+
+  <!-- 代表客户 -->
+  <section>
+    <div class="sec-title"><span class="num">2</span>代表客户（部分）</div>
+    <div class="client-card">
+      <div class="client-row"><span class="client-label">能源电力</span><div class="client-names"><b>国家电网、南方电网、中国华能、中国大唐、中广核、中海油、华电、国家能源集团</b>（多年复购客户）</div></div>
+      <div class="client-row"><span class="client-label">金融银行</span><div class="client-names"><b>邮储银行、建设银行、工商银行、平安银行</b>（8期管理培训）<b>、浙商银行、恒丰银行</b></div></div>
+      <div class="client-row"><span class="client-label">IT/通信</span><div class="client-names"><b>华为、中兴通讯、新华三、神州数码、同方股份、金蝶软件、中国电信</b></div></div>
+      <div class="client-row"><span class="client-label">制造汽车</span><div class="client-names"><b>东风汽车、奇瑞汽车、振华重工、富士康、安徽叉车、泸州老窖、青岛啤酒</b></div></div>
+      <div class="client-row"><span class="client-label">代表项目</span><div class="client-names">河南电力MIS、湖北移动BOSS、IBM智慧城市等10+大型项目一线交付经历</div></div>
+    </div>
+  </section>
+
+  <!-- 主讲课程与落地成果 -->
+  <section>
+    <div class="sec-title"><span class="num">3</span>主讲课程与落地成果</div>
+    <div class="biz-card">
+      <div class="biz-row">
+        <span class="biz-label">主讲课程</span>
+        <div class="biz-content">
+          <b>《AI赋能项目管理实战》</b>（管理层3天版）· <b>《沙漠掘金项目管理沙盘》</b> · 《AI+SOP驱动创新革命》（2天版权课）· 《工程项目管理AI实训》（电力/能源定制）· 《PMP®认证冲刺营》
+        </div>
+      </div>
+      <div class="biz-row">
+        <span class="biz-label">教学特色</span>
+        <div class="biz-content">
+          <b>实战导向</b>：不讲空洞理论，每节课带工具、带模板、带回能用的方案；<b>AI即战力</b>：提供预配置AI实操环境，课堂学完当天就能用。
+        </div>
+      </div>
+      <div class="result-line">
+        <b>落地成果（可验证）</b>：多期返聘率超60%，国家电网、中国电信等客户连续多年复购；为新华三、中兴通讯设计AI赋能交付体系，平均缩短项目周期20%+；每期培训配套交付项目模板库 + AI提示词库 + 实操评分表。
+      </div>
+    </div>
+  </section>
+
+  <!-- 客户评价 -->
+  <section>
+    <div class="sec-title"><span class="num">4</span>客户评价</div>
+    <div class="quote-grid">
+      <div class="quote"><span class="mark">“</span>工具落地性强，学员带着项目来、带着方案走，训后团队的项目周报和计划效率肉眼可见地提升。<span class="who">—— 国家电网某省公司 · 培训主管</span></div>
+      <div class="quote"><span class="mark">“</span>AI赋能项目管理讲得实在，不吹概念，每个环节都给了能直接上手的提示词和模板，管理层听完就能布置下去。<span class="who">—— 某国有银行 · 部门总经理</span></div>
+      <div class="quote"><span class="mark">“</span>沙盘加AI实操的组合学员反馈一直很好，连续返聘三期，每次都有新工具、新案例。<span class="who">—— 新华三 · 项目管理办公室</span></div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section>
+    <div class="sec-title"><span class="num">5</span>合作联系</div>
+    <div class="contact-card">
+      <div class="contact-item"><span class="icon">💬</span><div><div class="k">微信（首选）</div><div class="v">JPAILab</div></div></div>
+      <div class="contact-item"><span class="icon">📞</span><div><div class="k">电话</div><div class="v">13277049868</div></div></div>
+      <div class="contact-item"><span class="icon">📧</span><div><div class="k">邮箱</div><div class="v">Liujp8@163.com</div></div></div>
+      <div class="contact-item"><span class="icon">🌐</span><div><div class="k">官网</div><div class="v">junping78.github.io/ai-pm</div></div></div>
+    </div>
+  </section>
+
+  <div class="footer">中培伟业、华师经纪、海轩培训等多家机构签约讲师 ｜ 课程详细介绍：junping78.github.io/ai-pm/ai-project-management.html</div>
+</div>
+</body>
+</html>

@@ -16,6 +16,11 @@
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>https://junping78.github.io/ai-pm/trainer.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://junping78.github.io/ai-pm/weekly-list.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>

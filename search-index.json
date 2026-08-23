@@ -760,5 +760,12 @@
     "url": "note-workbuddy-codebuddy-codex.html",
     "desc": "把 WorkBuddy 任务编排、CodeBuddy 脚本执行、Codex 大模型推理串成一条自动链路：统一 JSON 上下文 + 环境变量密钥 + 标准中转脚本，实现跨组件无人工切换的自动流转。",
     "keywords": "亮晶晶 WorkBuddy CodeBuddy Codex 自动化 工作流 编排 脚本执行 大模型推理 中转脚本 JSON 上下文 环境变量 密钥管理"
+  },
+  {
+    "type": "page",
+    "title": "讲师介绍 · 刘俊平",
+    "url": "trainer.html",
+    "desc": "20年项目管理实战讲师，PMP/IPMP双认证，累计交付500+场、服务国家电网、华为、邮储银行等500余家企业。一页看清资历认证、代表客户、主讲课程与可验证落地成果。",
+    "keywords": "讲师介绍 刘俊平 讲师 项目管理实战 PMP IPMP 认证 国家电网 华为 中兴 邮储银行 工商银行 东风汽车 客户 返聘 企业内训 合作联系 微信 JPAILab"
   }
 ]
