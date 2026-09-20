@@ -600,15 +600,6 @@
   },
   {
     "type": "resource",
-    "title": "教师免费AI工具周报（第2期·最新）",
-    "url": "free/teacher-ai-weekly-report-02.html",
-    "desc": "第2期周报：更新工具免费政策，新增九章爱学老师版。40+款工具五大分类，按场景分类、标注使用门槛、给出推荐组合。",
-    "keywords": "教师 AI工具 周报 第2期 最新 免费 场景 门槛 推荐组合 DeepSeek 腾讯元宝 九章爱学",
-    "access": "free",
-    "category": "AI工具与教程"
-  },
-  {
-    "type": "resource",
     "title": "AI工具结构化数据库",
     "url": "free-reports/tools.html",
     "desc": "教师免费AI工具周报的结构化数据在线查看页，38个AI工具支持分类筛选和搜索，可下载YAML源文件。",
