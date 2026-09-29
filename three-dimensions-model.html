@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三度模型 · 18 项 AI×PM 实战技能 | 刘俊平 · AI赋能项目管理</title>
+<meta name="description" content="The Three-Dimensions Model and the 18 AI×PM Skills by Junping Liu — a methodology that embeds AI into the full project management lifecycle through three dimensions (Breadth × Depth × Warmth). For enterprise training and overseas clients. 三度模型与18项AI×PM实战技能：把AI嵌入项目管理全流程的方法论基石。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="三度模型 · 18 项 AI×PM 实战技能 | 刘俊平">
+<meta property="og:description" content="刘俊平提出的三度模型与 18 项 AI×PM 实战技能：广度 × 深度 × 温度，把 AI 嵌入项目管理全流程的方法论基石（英文版）。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://junping78.github.io/ai-pm/three-dimensions-model.html">
+<meta property="og:image" content="https://junping78.github.io/ai-pm/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWYYBYRN3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZWYYBYRN3S');
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 三度模型页专用样式（基于全站设计令牌） */
+  .tdm-back { margin: 28px 0 4px; font-size: 14px; color: var(--c-text-light); }
+  .tdm-back a { color: var(--c-primary); font-weight: 600; }
+  .tdm-h2 {
+    font-size: 24px; font-weight: 700; color: var(--c-primary-dark);
+    margin: 8px 0 4px; display: flex; align-items: center; gap: 10px;
+  }
+  .tdm-lead { color: var(--c-text-light); font-size: 15px; margin: 0 0 22px; line-height: 1.85; }
+
+  .tdm-dims {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px; margin: 8px 0 44px;
+  }
+  .tdm-dim {
+    background: #fff; border: 1px solid var(--c-border); border-radius: var(--radius);
+    padding: 26px 24px; border-top: 4px solid var(--c-primary);
+  }
+  .tdm-dim.d { border-top-color: var(--c-primary-light); }
+  .tdm-dim.w { border-top-color: var(--c-warm); }
+  .tdm-dim .tag {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--c-primary);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; margin-bottom: 14px;
+  }
+  .tdm-dim.d .tag { background: var(--c-primary-light); }
+  .tdm-dim.w .tag { background: var(--c-warm); }
+  .tdm-dim h3 { font-size: 20px; color: var(--c-primary-dark); margin: 0 0 4px; }
+  .tdm-dim .zh { color: var(--c-text-light); font-size: 13px; margin: 0 0 10px; }
+  .tdm-dim p { font-size: 14.5px; color: var(--c-text-light); line-height: 1.8; margin: 0; }
+
+  .tdm-skills {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px; margin-top: 8px;
+  }
+  .tdm-skill {
+    background: #fff; border: 1px solid var(--c-border); border-radius: var(--radius-sm);
+    padding: 16px 18px; transition: all .2s;
+  }
+  .tdm-skill:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); border-color: var(--c-primary-border); }
+  .tdm-skill .no { font-size: 12px; font-weight: 700; color: var(--c-primary-light); letter-spacing: .05em; }
+  .tdm-skill .en { font-weight: 700; font-size: 15px; margin: 2px 0 3px; color: var(--c-text); }
+  .tdm-skill .zh { color: var(--c-text-light); font-size: 12px; margin: 0 0 8px; }
+  .tdm-skill .desc { font-size: 13px; color: var(--c-text-light); line-height: 1.7; margin: 0; }
+
+  .tdm-note {
+    background: var(--c-primary-bg); border-left: 4px solid var(--c-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 16px 20px;
+    font-size: 14.5px; color: var(--c-primary-dark); margin-top: 30px; line-height: 1.85;
+  }
+  .tdm-note em { color: var(--c-primary); font-style: normal; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">刘俊平 · AI赋能项目管理</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="ai-project-management.html" class="active">AI项目管理</a></li>
+            <li><a href="weekly-list.html">教师周报</a></li>
+            <li><a href="ai-tools.html">AI工具箱</a></li>
+            <li><a href="resources.html">AI实践资源</a></li>
+            <li><a href="about.html#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="page-header">
+    <h1>三度模型 · 18 项 AI×PM 实战技能</h1>
+    <p class="page-subtitle">The Three-Dimensions Model &amp; the 18 AI×PM Skills — 把 AI 嵌入项目管理全流程的方法论基石（英文版 / English version）</p>
+</header>
+
+<!-- Content -->
+<div class="page-content">
+    <div class="container">
+
+        <p class="tdm-back"><a href="ai-project-management.html">← 返回 AI项目管理课程</a></p>
+
+        <h2 class="tdm-h2">📐 The Three-Dimensions Model</h2>
+        <p class="tdm-lead">AI 时代的项目成功建立在三个维度之上。大多数项目只在某一个维度上过度投入，却忽略了另外两个——然后得出结论"AI 没用"。问题不在 AI，而在一维模型。三度模型用广度（Breadth）、深度（Depth）、温度（Warmth）把这件事讲清楚。</p>
+        <div class="tdm-dims">
+            <div class="tdm-dim b">
+                <div class="tag">B</div>
+                <h3>Breadth</h3>
+                <p class="zh">广度 · 项目到底有多宽</p>
+                <p>项目触及多少张组织图之外的人——必须接纳它的运营团队、必须批准它的办公室、那个从没被咨询过却现在卡住项目的干系人。在部署之前，先把人的表面积画出来。</p>
+            </div>
+            <div class="tdm-dim d">
+                <div class="tag">D</div>
+                <h3>Depth</h3>
+                <p class="zh">深度 · 你的专业有多深</p>
+                <p>把 AI 产出变成决策的判断力。工具一个周末就能装好；但知道在这个组织里哪个风险才真正重要，需要伤疤。深度，是把自动化与理解区分开的东西。</p>
+            </div>
+            <div class="tdm-dim w">
+                <div class="tag">W</div>
+                <h3>Warmth</h3>
+                <p class="zh">温度 · 没人预算的这一维</p>
+                <p>信任工作：理解当新系统到来时，每个人害怕失去什么。这也是为什么我把 AI 培训与九型人格配对——一个画出"不同的人为什么害怕不同东西"的框架。</p>
+            </div>
+        </div>
+
+        <h2 class="tdm-h2">🛠 The 18 AI×PM Skills</h2>
+        <p class="tdm-lead">十八项基础项目管理技能，每一项都已被 AI 放大。工具改变的是速度；纪律改变的，是结果。</p>
+        <div class="tdm-skills">
+            <div class="tdm-skill"><div class="no">01</div><div class="en">Requirements Elicitation</div><div class="zh">需求获取</div><p class="desc">引出干系人真正需要的，而不只是他们要求要的。</p></div>
+            <div class="tdm-skill"><div class="no">02</div><div class="en">Requirements Prioritization</div><div class="zh">需求优先级评价</div><p class="desc">按价值与约束排序，让团队先做对的事。</p></div>
+            <div class="tdm-skill"><div class="no">03</div><div class="en">Requirements Traceability Matrix</div><div class="zh">需求跟踪矩阵 RTM</div><p class="desc">把每条需求连到来源、任务与测试的一张地图。</p></div>
+            <div class="tdm-skill"><div class="no">04</div><div class="en">Work Breakdown Structure</div><div class="zh">WBS</div><p class="desc">把可交付物拆成可管理、可归属的工作包。</p></div>
+            <div class="tdm-skill"><div class="no">05</div><div class="en">Estimation</div><div class="zh">估算</div><p class="desc">在团队承诺前，测算工作量、成本与工期。</p></div>
+            <div class="tdm-skill"><div class="no">06</div><div class="en">Building the Gantt Chart</div><div class="zh">形成横道图</div><p class="desc">把进度变成每个人都能读的时间条。</p></div>
+            <div class="tdm-skill"><div class="no">07</div><div class="en">Critical Path Method</div><div class="zh">CPM</div><p class="desc">找出决定最早完工的那条任务序列。</p></div>
+            <div class="tdm-skill"><div class="no">08</div><div class="en">Monte Carlo &amp; Schedule Confidence</div><div class="zh">蒙特卡洛 &amp; 工期可信度分析</div><p class="desc">模拟多种情景，用真实概率给出交付日期。</p></div>
+            <div class="tdm-skill"><div class="no">09</div><div class="en">Responsibility Assignment Matrix</div><div class="zh">团队 RAM</div><p class="desc">厘清谁决策、谁执行、谁只需知会。</p></div>
+            <div class="tdm-skill"><div class="no">10</div><div class="en">Project Cost Budgeting</div><div class="zh">项目成本预算</div><p class="desc">把总成本分摊到时间与工作包。</p></div>
+            <div class="tdm-skill"><div class="no">11</div><div class="en">Earned Value Management</div><div class="zh">项目 EVM</div><p class="desc">对照计划，衡量进度与成本的绩效。</p></div>
+            <div class="tdm-skill"><div class="no">12</div><div class="en">Tracking Gantt Chart</div><div class="zh">跟踪甘特图</div><p class="desc">在同一时间轴上比对计划与实际的进展。</p></div>
+            <div class="tdm-skill"><div class="no">13</div><div class="en">Project Reporting</div><div class="zh">项目报告</div><p class="desc">用对的信号而非噪音，让发起人与团队对齐。</p></div>
+            <div class="tdm-skill"><div class="no">14</div><div class="en">Change Control</div><div class="zh">项目变更</div><p class="desc">评估并疏导变更，而非任其渗漏。</p></div>
+            <div class="tdm-skill"><div class="no">15</div><div class="en">Project Closure Dossier</div><div class="zh">项目收尾卷宗</div><p class="desc">收齐移交、验收与完工的证明。</p></div>
+            <div class="tdm-skill"><div class="no">16</div><div class="en">Team Lessons Extraction</div><div class="zh">团队经验萃取</div><p class="desc">把交付出来的工作变成可复用的组织知识。</p></div>
+            <div class="tdm-skill"><div class="no">17</div><div class="en">Project Risk Management</div><div class="zh">项目风险</div><p class="desc">识别可能出错之处，并决定如何应对。</p></div>
+            <div class="tdm-skill"><div class="no">18</div><div class="en">Make-or-Buy Decision</div><div class="zh">自制外购高效决策</div><p class="desc">高效决定哪些自建、哪些外购。</p></div>
+        </div>
+
+        <div class="tdm-note">
+            <strong>模型与技能如何相连：</strong>这 18 项技能就是<em>深度</em>——技术纪律本身。而广度与温度，决定这套纪律能否触达那些必须使用它的人。AI 放大每一项技能，但只有三维度的做法，才能让这种加速真正扎下来。
+        </div>
+
+        <div class="callout" style="margin-top:28px;">
+            这套方法论是 <a href="ai-project-management.html">AI 赋能项目管理课程</a> 的内核；想了解刘俊平本人与适合谁，见 <a href="about.html">关于我</a>。
+        </div>
+
+    </div>
+</div>
+
+<!-- 相关推荐 -->
+<section class="related-section">
+    <div class="container">
+        <div class="related-title">📌 你可能还感兴趣</div>
+        <div class="related-grid">
+            <a href="ai-project-management.html" class="related-card">
+                <div class="related-card-icon">🎯</div>
+                <div class="related-card-title">AI赋能项目管理课程</div>
+                <div class="related-card-desc">把AI工具嵌入项目管理全流程，适合企业内训</div>
+            </a>
+            <a href="about.html" class="related-card">
+                <div class="related-card-icon">👤</div>
+                <div class="related-card-title">关于我</div>
+                <div class="related-card-desc">20年培训经历，项目管理×AI×九型人格</div>
+            </a>
+            <a href="ai-tools.html" class="related-card">
+                <div class="related-card-icon">🤖</div>
+                <div class="related-card-title">AI工具箱</div>
+                <div class="related-card-desc">40+免费AI工具，助力项目管理提效</div>
+            </a>
+            <a href="resources.html" class="related-card">
+                <div class="related-card-icon">📦</div>
+                <div class="related-card-title">资源中心</div>
+                <div class="related-card-desc">方法论、案例、工具包一站式获取</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">刘俊平 · AI赋能项目管理</div>
+            <p class="footer-tagline">给人欢喜，不给人恐惧</p>
+            <div class="footer-links">
+                <a href="teacher-ai-weekly.html">周报介绍</a>
+                <a href="tags.html">标签</a>
+                <a href="search.html">搜索</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            微信：JPAILab<br>
+            邮箱：Liujp8@163.com<br>
+            电话：13277049868<br>
+            <a href="about.html#contact">查看完整联系方式 &rarr;</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 刘俊平 · 武汉 / 美国纽黑文 · 企业AI项目管理培训咨询
+    </div>
+</footer>
+
+</body>
+</html>
